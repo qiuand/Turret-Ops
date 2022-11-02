@@ -184,6 +184,7 @@ public class Turret : MonoBehaviour
                 {
                     storedType = "None";
                 }
+                malfunctioning = false;
             }
             }
         if (malfunctioning==true && barrelHeated==true)
@@ -213,6 +214,11 @@ public class Turret : MonoBehaviour
                         if (storedType != "None")
                         {
                             malfunctionType = storedType;
+                            malfunctioning = true;
+                        }
+                        else
+                        {
+                            malfunctioning = false;
                         }
                         return;
                 }
@@ -228,6 +234,15 @@ public class Turret : MonoBehaviour
                         RunMalfunctions(malfunctionType, barrelColour);
                         released = false;
                         turretSprite.GetComponent<SpriteRenderer>().enabled = true;
+                        if (storedType != "None")
+                        {
+                            malfunctionType = storedType;
+                            malfunctioning = true;
+                        }
+                        else
+                        {
+                            malfunctioning = false;
+                        }
                         return;
                     }
                 }
@@ -327,6 +342,7 @@ public class Turret : MonoBehaviour
                     {
                         storedType = "None";
                     }
+                    malfunctioning = false;
                 }
             }
         }
@@ -341,6 +357,7 @@ public class Turret : MonoBehaviour
             barrelHeated = true;
             if(malfunctionType!="None"&& malfunctionType != "Barrel")
             {
+                malfunctioning = true;
                 storedType = malfunctionType;
             }
             malfunctionType = "Barrel";
