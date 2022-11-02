@@ -86,7 +86,7 @@ public class Turret : MonoBehaviour
     float damageTimer=0f;
     public GameObject barrelIcon;
     public int healthDamage = 5;
-
+    string storedType="None";
     // Start is called before the first frame update
     void Start()
     {
@@ -180,7 +180,11 @@ public class Turret : MonoBehaviour
                 mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Hull Restored";
                 RunMalfunctions(malfunctionType, barrelColour);
                 centralDamaged = false;
+                if (storedType != "None")
+                {
+                    storedType = "None";
                 }
+            }
             }
         if (malfunctioning==true && barrelHeated==true)
         {
@@ -198,7 +202,6 @@ public class Turret : MonoBehaviour
                     if (Input.GetMouseButtonDown(1))
                     {
                         actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Barrel changed";
-                        malfunctioning = false;
                         overheated = false;
                         heat = 0;
                         startingBarrel = 2;
@@ -207,6 +210,10 @@ public class Turret : MonoBehaviour
                         barrelHeated=false;
                         turretSprite.GetComponent<SpriteRenderer>().enabled = true;
                         barrelIcon.GetComponent<SpriteRenderer>().enabled = true;
+                        if (storedType != "None")
+                        {
+                            malfunctionType = storedType;
+                        }
                         return;
                 }
                 }
@@ -316,6 +323,10 @@ public class Turret : MonoBehaviour
                     inputDisplay = "";
                     centralDamaged = false;
                     correctNo = true;
+                    if (storedType != "None")
+                    {
+                        storedType = "None";
+                    }
                 }
             }
         }
@@ -328,6 +339,10 @@ public class Turret : MonoBehaviour
             heat = maxHeat;
             overheated = true;
             barrelHeated = true;
+            if(malfunctionType!="None"&& malfunctionType != "Barrel")
+            {
+                storedType = malfunctionType;
+            }
             malfunctionType = "Barrel";
             malfunctioning = true;
             RunMalfunctions(malfunctionType, Damagedcolour);
