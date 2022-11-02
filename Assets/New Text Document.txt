@@ -105,26 +105,23 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("g"))
-        {
-            HammerSwing();
-        }
+        print(swungAt);
+        processMalfunction();
         if (Input.GetKeyDown("w")){
+            print(1);
             swungAt += 1;
-            print(swungAt);
         }
         if (Input.GetKeyDown("s")){
             swungAt -= 1;
                 }
         if (swungAt > swungMax)
         {
-            swungAt = 0;
+            swungAt = swungMax;
         }
         if (swungAt < 0)
         {
-            swungAt = swungMax;
+            swungAt = 0;
         }
-        processMalfunction();
         if (cameraDamage == true)
         {
             blackout.SetActive(true);
@@ -169,6 +166,11 @@ public class Turret : MonoBehaviour
         if (health < 0)
         {
             health = 0;
+        }
+
+        if (Input.GetKeyDown("g")){
+            print(true);
+            HammerSwing();
         }
         if (damageTaken >= maxDamBeforeMalfunction/* && centralDamaged == false*/)
         {
@@ -429,7 +431,7 @@ public class Turret : MonoBehaviour
         }
         if (overheated)
         {
-            statusText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Critical Overheat — Repairs Needed!";
+            statusText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Critical Overheat â€” Repairs Needed!";
 
         }
         else
@@ -551,13 +553,11 @@ public class Turret : MonoBehaviour
     }
     private void HammerSwing()
     {
-        print("Value: "+swungAt);
-        if (malfunctionArray[swungAt] > 0)
-        {
-        
+        print(malfunctionArray[swungAt]+"1");
+        if (malfunctionArray[swungAt] > 0){
+            print(true);
             malfunctionArray[swungAt] -= 1;
         }
-
     }
     private void rWingMalfunction()
     {

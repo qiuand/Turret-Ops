@@ -12,16 +12,20 @@ PrefabInstance:
       value: PlayerProjectile2 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2948680773308297029, guid: dc95c3dfaa2c7f94dabef38ceeabd676, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6306149117771312969, guid: 38641d6d2944e5641b6052b76f83c280, type: 3}
+    - target: {fileID: 2948680773308297029, guid: dc95c3dfaa2c7f94dabef38ceeabd676, type: 3}
       propertyPath: m_Color.b
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2948680773308297029, guid: dc95c3dfaa2c7f94dabef38ceeabd676, type: 3}
       propertyPath: m_Color.g
-      value: 0.76310074
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2948680773308297029, guid: dc95c3dfaa2c7f94dabef38ceeabd676, type: 3}
       propertyPath: m_Color.r
-      value: 0.45882353
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4723146103631951938, guid: dc95c3dfaa2c7f94dabef38ceeabd676, type: 3}
       propertyPath: m_Color.b
@@ -95,5 +99,9 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7697405967339809951, guid: dc95c3dfaa2c7f94dabef38ceeabd676, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6306149117771312969, guid: 38641d6d2944e5641b6052b76f83c280, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc95c3dfaa2c7f94dabef38ceeabd676, type: 3}
