@@ -85,6 +85,7 @@ public class Turret : MonoBehaviour
     float damageTick=3f;
     float damageTimer=0f;
     public GameObject barrelIcon;
+    public int healthDamage = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -140,7 +141,6 @@ public class Turret : MonoBehaviour
                 detectedMag = true;
             }
         }
-        print(malfunctionType);
 
         if (damageTaken >= maxDamBeforeMalfunction && centralDamaged==false)
         {
@@ -153,7 +153,7 @@ public class Turret : MonoBehaviour
             {
             if (damageTimer <= 0)
             {
-                health-=2;
+                health-=healthDamage*2;
                 damageTimer = damageTick;
             }
             mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Critical Hull Damage!";
@@ -177,7 +177,9 @@ public class Turret : MonoBehaviour
                     repairTimer = 0;
                     malfunctioning = false;
                 hullDamage = false;
+                mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Hull Restored";
                 RunMalfunctions(malfunctionType, barrelColour);
+                centralDamaged = false;
                 }
             }
         if (malfunctioning==true && barrelHeated==true)
@@ -193,7 +195,6 @@ public class Turret : MonoBehaviour
                 barrelIcon.GetComponent<SpriteRenderer>().enabled = false;
                 if (startingBarrel == 1)
                 {
-                    print(1);
                     if (Input.GetMouseButtonDown(1))
                     {
                         actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Barrel changed";
@@ -253,7 +254,7 @@ public class Turret : MonoBehaviour
         {
             if (damageTimer <= 0)
             {
-                health--;
+                health-=healthDamage;
                 damageTimer = damageTick;
             }
             damageTimer -= Time.deltaTime;
@@ -287,14 +288,15 @@ public class Turret : MonoBehaviour
             {
                 for(int i=0; i>maxInput; i++)
                 {
-                    if (playerInput[i] == requiredCode[i])
+                    if (playerInput[i] != requiredCode[i])
                     {
-
+                        print(1);
+                        correctNo = false;
+                        break;
                     }
                     else
                     {
-                        correctNo = false;
-                        break;
+
                     }
                 }
                 if(correctNo==false)
@@ -313,6 +315,7 @@ public class Turret : MonoBehaviour
                     RunMalfunctions(malfunctionType, barrelColour);
                     inputDisplay = "";
                     centralDamaged = false;
+                    correctNo = true;
                 }
             }
         }
