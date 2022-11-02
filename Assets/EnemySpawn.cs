@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public GameObject enemy2;
     public GameObject enemy;
     RectTransform rect;
     float spawnCooldown=0.5f;
@@ -12,6 +13,7 @@ public class EnemySpawn : MonoBehaviour
     float maxXSpeed=-5;
     float minYSpeed=-2;
     float maxYSpeed=2;
+    int random;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +22,19 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(rect.rect.xMin+""+ rect.rect.xMax);
         if (spawnTimer <= 0)
         {
-            GameObject enemyInstance= Instantiate(enemy, new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.identity);
-            enemyInstance.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.Range(minXSpeed, maxXSpeed), Random.Range(minYSpeed, maxYSpeed));
+            random = Random.Range(0, 2);
+            if (random == 0)
+            {
+                GameObject enemyInstance = Instantiate(enemy, new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.identity);
+                enemyInstance.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.Range(minXSpeed, maxXSpeed), Random.Range(minYSpeed, maxYSpeed));
+            }
+            else
+            {
+                GameObject enemyInstance = Instantiate(enemy2, new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.identity);
+                enemyInstance.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.Range(minXSpeed, maxXSpeed), Random.Range(minYSpeed, maxYSpeed));
+            }
             spawnTimer = spawnCooldown;
         }
         spawnTimer -= Time.deltaTime;

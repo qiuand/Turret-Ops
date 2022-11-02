@@ -20,7 +20,8 @@ public class Tank : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Turret.GetComponent<Turret>().health -= 300;
+            Turret.GetComponent<Turret>().health -= 20;
+            Turret.GetComponent<Turret>().damageTaken += 1;
         }
     }
 }

@@ -6,21 +6,24 @@ TagManager:
   tags:
   - Enemy
   - Bounds
+  - Enemy2
+  - Projectile2
+  - Projectile
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Enemy
+  - 
   - Water
   - UI
   - Post
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Mechanic
+  - Minimap
+  - PostTurret
+  - Enemy2
+  - Projectile
+  - Projectile2
+  - Enemy
   - 
   - 
   - 
