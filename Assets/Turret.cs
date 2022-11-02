@@ -286,7 +286,7 @@ public class Turret : MonoBehaviour
             }
             if (playerInput.Count >= maxInput)
             {
-                for(int i=0; i>maxInput; i++)
+                for(int i=0; i<maxInput; i++)
                 {
                     if (playerInput[i] != requiredCode[i])
                     {
@@ -296,7 +296,7 @@ public class Turret : MonoBehaviour
                     }
                     else
                     {
-
+                        correctNo = true;
                     }
                 }
                 if(correctNo==false)
