@@ -828,7 +828,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15.000122, y: -179.99997}
+  m_AnchoredPosition: {x: 15.000061, y: -180}
   m_SizeDelta: {x: 837.772, y: 41.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &508952301
@@ -1233,14 +1233,14 @@ RectTransform:
   m_GameObject: {fileID: 555616339}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.4564223, y: 0.57575, z: 0.94}
+  m_LocalScale: {x: 6.0955586, y: 2.6706872, z: 1.7909135}
   m_Children: []
   m_Father: {fileID: 1459920915}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -128.00006, y: 396.99997}
+  m_AnchoredPosition: {x: -243, y: 396.99997}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &555616341
@@ -1256,14 +1256,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 19334003eb3c646429297213166574fd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1315,7 +1315,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 14.999878, y: -244.00003}
+  m_AnchoredPosition: {x: 14.999817, y: -244}
   m_SizeDelta: {x: 837.772, y: 41.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &643507153
@@ -2259,9 +2259,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.5
+    y: 0
     width: 1
-    height: 0.5
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -2434,7 +2434,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 14.999878, y: -304.00003}
+  m_AnchoredPosition: {x: 14.999817, y: -304}
   m_SizeDelta: {x: 837.772, y: 41.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1076358036
@@ -2644,14 +2644,14 @@ RectTransform:
   m_GameObject: {fileID: 1275328927}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.289342, y: 0.42191675, z: 0.94}
+  m_LocalScale: {x: 6.0998216, y: 2.6005683, z: 0.94}
   m_Children: []
   m_Father: {fileID: 1459920915}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -318, y: 457}
+  m_AnchoredPosition: {x: -245, y: 394}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1275328929
@@ -2674,7 +2674,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d470b94bf84d9e44fa5d2b09cf104b8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01e7323821388e2499088ad4ff954d65, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2801,7 +2801,7 @@ Camera:
     x: 0
     y: 0
     width: 1
-    height: 0.5
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -2830,7 +2830,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288791044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4, y: 0.9, z: -10}
+  m_LocalPosition: {x: -0.55, y: 0.29, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3834,7 +3834,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 14.999878, y: -119}
+  m_AnchoredPosition: {x: 14.999817, y: -119}
   m_SizeDelta: {x: 837.772, y: 41.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1705206219

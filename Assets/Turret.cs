@@ -10,18 +10,18 @@ public class Turret : MonoBehaviour
     public Image overheatBar;
     public Image healthBar;
     Vector3 barrelColour = new Vector3(0.6033731f, 0.8584906f, 0.8451912f);
-    Vector3 Damagedcolour = new Vector3(0.8679245f, 0.4380563f, 0.4554211f);
+    Vector3 damagedColour = new Vector3(0.8679245f, 0.4380563f, 0.4554211f);
     public float heat;
     float heatBuildUp;
     public float maxHeat = 100;
     float heatCoolDown = 100;
     public GameObject barrelEnd;
-    float moveSpeed; 
+    float moveSpeed;
     float rotation;
     public GameObject projectile;
     int projectileSpeed = 30;
     float shootCooldown;
-    float cooldown=0f;
+    float cooldown = 0f;
     bool canRepair = true;
     float repairAmountPerSwing = 20;
     bool overheated = false;
@@ -30,20 +30,20 @@ public class Turret : MonoBehaviour
     public GameObject barrel;
     public float originalShootCooldown = 0.2f;
     public float originalHeatBuildup = 20;
-    public float health=100f;
-    public float maxHealth=100f;
+    public float health = 100f;
+    public float maxHealth = 100f;
     public int damageTaken = 0;
-    int maxDamBeforeMalfunction=1;
+    int maxDamBeforeMalfunction = 1;
     bool malfunctioning = false;
-    string malfunctionType="None";
-    string[] malfunctionList = new string[] { "Cockpit", "Left wing", "Right wing", "Hull"};
+    string malfunctionType = "None";
+    string[] malfunctionList = new string[] { "Cockpit", "Left wing", "Right wing", "Hull" };
     public GameObject hullGUI;
     public GameObject rWingGUI;
     public GameObject lWingGUI;
     public GameObject cameraGUI;
     public GameObject barrelGUI;
-    string inputDisplay="";
-    string codeDisplay="None";
+    string inputDisplay = "";
+    string codeDisplay = "None";
     int hullHits = 0;
     int hullHitsReq = 5;
     bool barrelChanged = false;
@@ -68,10 +68,10 @@ public class Turret : MonoBehaviour
     bool barrelInserted = true;
     bool released = false;
     public GameObject turretSprite;
-    bool detectedBarrel=false;
+    bool detectedBarrel = false;
     bool needReload = false;
     bool magRelease = false;
-    bool detectedMag=false;
+    bool detectedMag = false;
     int startingMag;
     bool lWing = false;
     bool rWing = false;
@@ -82,11 +82,15 @@ public class Turret : MonoBehaviour
     public int insertedChip;
     public GameObject actionStatus;
     public int reducedMoveSpeed = 10;
-    float damageTick=3f;
-    float damageTimer=0f;
+    float damageTick = 3f;
+    float damageTimer = 0f;
     public GameObject barrelIcon;
     public int healthDamage = 5;
-    string storedType="None";
+    string storedType = "None";
+    int[] malfunctionArray;
+    int swungAt=0;
+    int swungMax;
+    int hits = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -94,17 +98,33 @@ public class Turret : MonoBehaviour
         heatBuildUp = originalHeatBuildup;
         shootCooldown = originalShootCooldown;
         moveSpeed = originalMoveSpeed;
+        malfunctionArray = new int[5] { 0, 0, 0, 0, 0 };
+        swungMax = malfunctionArray.Length - 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        processMalfunction();
+        if (Input.GetKeyDown("w")){
+            swungAt += 1;
+        }
+        if (Input.GetKeyDown("s")){
+            swungAt -= 1;
+                }
+        if (swungAt > swungMax)
+        {
+            swungAt = swungMax;
+        }
+        if (swungAt < 0)
+        {
+            swungAt = 0;
+        }
         if (cameraDamage == true)
         {
             blackout.SetActive(true);
             moveSpeed = reducedMoveSpeed;
-           
+
         }
         else
         {
@@ -130,7 +150,7 @@ public class Turret : MonoBehaviour
         }
         if (detectedMag == false)
         {
-            if (Input.GetAxis("Mouse X")>0)
+            if (Input.GetAxis("Mouse X") > 0)
             {
                 startingMag = 1;
                 detectedMag = true;
@@ -141,41 +161,57 @@ public class Turret : MonoBehaviour
                 detectedMag = true;
             }
         }
-
-        if (damageTaken >= maxDamBeforeMalfunction && centralDamaged==false)
+        if (health < 0)
+        {
+            health = 0;
+        }
+        if (Input.GetKeyDown("g"))
+        {
+            print(true);
+            HammerSwing();
+        }
+        if (damageTaken >= maxDamBeforeMalfunction/* && centralDamaged == false*/)
         {
             damageTaken = 0;
-            malfunctioning = true;
-            malfunctionType = malfunctionList[Random.Range(0, malfunctionList.Length)];
-            RunMalfunctions(malfunctionType, Damagedcolour);
-        }
-        if(malfunctioning && hullDamage==true)
+            randomMalfunction();
+/*            malfunctioning = true;
+            if (malfunctionType == "Barrel")
             {
+                storedType = malfunctionList[Random.Range(0, malfunctionList.Length)];
+            }
+            else
+            {
+                malfunctionType = malfunctionList[Random.Range(0, malfunctionList.Length)];
+            }
+            RunMalfunctions(malfunctionType, damagedColour);*/
+        }
+/*        if (malfunctioning && hullDamage == true)
+        {
             if (damageTimer <= 0)
             {
-                health-=healthDamage*2;
+                health -= healthDamage * 2;
                 damageTimer = damageTick;
             }
             mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Critical Hull Damage!";
-                if (Input.GetKeyDown("g") && canRepair)
-                {
-                    hullHits++;
-                    health+=repairAmountPerSwing;
-                    canRepair = false;
-                    repairTimer = repairCooldown;
-                }
-                if (repairTimer > 0)
-                {
-                    repairTimer -= Time.deltaTime;
-                }
-                if (repairTimer <= 0)
-                {
-                    canRepair = true;
-                }
-                if (hullHits>=hullHitsReq)
-                {
-                    repairTimer = 0;
-                    malfunctioning = false;
+            if (Input.GetKeyDown("g") && canRepair)
+            {
+                hullHits++;
+                health += repairAmountPerSwing;
+                canRepair = false;
+                repairTimer = repairCooldown;
+            }
+            if (repairTimer > 0)
+            {
+                repairTimer -= Time.deltaTime;
+            }
+            if (repairTimer <= 0)
+            {
+                canRepair = true;
+            }
+            if (hullHits >= hullHitsReq)
+            {
+                repairTimer = 0;
+                malfunctioning = false;
                 hullDamage = false;
                 mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Hull Restored";
                 RunMalfunctions(malfunctionType, barrelColour);
@@ -186,8 +222,8 @@ public class Turret : MonoBehaviour
                 }
                 malfunctioning = false;
             }
-            }
-        if (malfunctioning==true && barrelHeated==true)
+        }*/
+/*        if (malfunctioning == true && barrelHeated == true)
         {
             if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
             {
@@ -208,7 +244,7 @@ public class Turret : MonoBehaviour
                         startingBarrel = 2;
                         RunMalfunctions(malfunctionType, barrelColour);
                         released = false;
-                        barrelHeated=false;
+                        barrelHeated = false;
                         turretSprite.GetComponent<SpriteRenderer>().enabled = true;
                         barrelIcon.GetComponent<SpriteRenderer>().enabled = true;
                         if (storedType != "None")
@@ -221,7 +257,7 @@ public class Turret : MonoBehaviour
                             malfunctioning = false;
                         }
                         return;
-                }
+                    }
                 }
                 else if (startingBarrel == 2)
                 {
@@ -248,7 +284,7 @@ public class Turret : MonoBehaviour
                 }
             }
 
-        }
+        }*/
         if (Input.GetKeyUp("left") || Input.GetKeyUp("right"))
         {
             actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Magwell empty";
@@ -257,12 +293,12 @@ public class Turret : MonoBehaviour
         if (magRelease == true)
         {
 
-                if (Input.GetKeyDown("right"))
-                {
+            if (Input.GetKeyDown("right"))
+            {
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma mag loaded";
                 startingMag = 2;
-                    magRelease = false;
-                }
+                magRelease = false;
+            }
             {
                 if (Input.GetKeyDown("left"))
                 {
@@ -272,18 +308,18 @@ public class Turret : MonoBehaviour
                 }
             }
         }
-        if (malfunctioning && malfunctionType!="Barrel" && malfunctionType != "Hull")
+/*        if (malfunctioning && malfunctionType != "Barrel" && malfunctionType != "Hull")
         {
             if (damageTimer <= 0)
             {
-                health-=healthDamage;
+                health -= healthDamage;
                 damageTimer = damageTick;
             }
             damageTimer -= Time.deltaTime;
             mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = malfunctionType;
             pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = inputDisplay;
             rCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = requiredCode[0] + requiredCode[1] + requiredCode[2] + requiredCode[3];
-            if ((Input.GetKeyDown("a")|| Input.GetKeyDown("s")|| Input.GetKeyDown("d")|| Input.GetKeyDown("w")) && playerInput.Count<maxInput)
+            if ((Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("w")) && playerInput.Count < maxInput)
             {
                 if (Input.GetKeyDown("a"))
                 {
@@ -308,7 +344,7 @@ public class Turret : MonoBehaviour
             }
             if (playerInput.Count >= maxInput)
             {
-                for(int i=0; i<maxInput; i++)
+                for (int i = 0; i < maxInput; i++)
                 {
                     if (playerInput[i] != requiredCode[i])
                     {
@@ -321,13 +357,13 @@ public class Turret : MonoBehaviour
                         correctNo = true;
                     }
                 }
-                if(correctNo==false)
-                        {
-                            damagePlayer();
-                            playerInput.Clear();
-                            inputDisplay = "";
-                        }
-                if(correctNo)
+                if (correctNo == false)
+                {
+                    damagePlayer();
+                    playerInput.Clear();
+                    inputDisplay = "";
+                }
+                if (correctNo)
                 {
                     mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Code: N/A";
                     pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Input: N/A";
@@ -338,34 +374,31 @@ public class Turret : MonoBehaviour
                     inputDisplay = "";
                     centralDamaged = false;
                     correctNo = true;
-                    if (storedType != "None")
-                    {
-                        storedType = "None";
-                    }
+                    storedType = "None";
                     malfunctioning = false;
                 }
             }
-        }
+        }*/
         overheatBar.fillAmount = heat / maxHeat;
         healthBar.fillAmount = health / maxHealth;
-        barrel.GetComponent<SpriteRenderer>().color=new Color(barrelColour.x+heat/200, barrelColour.y-heat/400,barrelColour.z - heat / 400);
+        barrel.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x + heat / 200, barrelColour.y - heat / 400, barrelColour.z - heat / 400);
         statusText.GetComponent<TMPro.TextMeshProUGUI>().color = barrel.GetComponent<SpriteRenderer>().color;
         if (heat >= maxHeat)
         {
             heat = maxHeat;
             overheated = true;
-            barrelHeated = true;
-            if(malfunctionType!="None"&& malfunctionType != "Barrel")
+/*            barrelHeated = true;
+            if (malfunctionType != "None" && malfunctionType != "Barrel")
             {
                 malfunctioning = true;
                 storedType = malfunctionType;
             }
             malfunctionType = "Barrel";
             malfunctioning = true;
-            RunMalfunctions(malfunctionType, Damagedcolour);
+            RunMalfunctions(malfunctionType, Damagedcolour);*/
         }
 
-        if (Input.GetKey("space") && overheated == false &&  magRelease==false)
+        if (Input.GetKey("space") && overheated == false && magRelease == false)
         {
             if (cooldown <= 0)
             {
@@ -383,7 +416,7 @@ public class Turret : MonoBehaviour
                 heat += heatBuildUp;
             }
         }
-        else if(overheated==false)
+        else if (overheated == false)
         {
             if (heat < 0)
             {
@@ -397,7 +430,7 @@ public class Turret : MonoBehaviour
         if (overheated)
         {
             statusText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Critical Overheat — Repairs Needed!";
-           
+
         }
         else
         {
@@ -416,10 +449,10 @@ public class Turret : MonoBehaviour
         }
         cooldown -= Time.deltaTime;
         rotation = Input.GetAxis("Vertical");
-        transform.Rotate(0,0, rotation * Time.deltaTime*moveSpeed);
+        transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed);
     }
 
-    private void RunMalfunctions(string malfunctionType, Vector3 colour)
+/*    private void RunMalfunctions(string malfunctionType, Vector3 colour)
     {
         centralDamaged = true;
         switch (malfunctionType)
@@ -447,7 +480,7 @@ public class Turret : MonoBehaviour
                 barrelGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
                 break;
         }
-    }
+    }*/
     private void Camera()
     {
         blackout.SetActive(true);
@@ -455,5 +488,94 @@ public class Turret : MonoBehaviour
     private void damagePlayer()
     {
         health--;
+    }
+    private void randomMalfunction()
+    {
+        int random = Random.Range(0, malfunctionArray.Length);
+        malfunctionArray[random] = hits;
+    }
+    private void processMalfunction()
+    {
+        if (malfunctionArray[0]<= 0)
+        {
+            rWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
+            malfunctionArray[0] = 0;
+        }
+        else
+        {
+            rWingMalfunction();
+            rWingGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
+        }
+        if (malfunctionArray[1] == 0)
+        {
+            lWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
+            malfunctionArray[1] = 0;
+        }
+        else
+        {
+            lWingMalfunction();
+            lWingGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
+        }
+        if (malfunctionArray[2] == 0)
+        {
+            malfunctionArray[2] = 0;
+            hullGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
+        }
+        else{
+            hullGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
+            hullMalfunction();
+        }
+        if (malfunctionArray[3] == 0)
+        {
+            malfunctionArray[3] = 0;
+            lWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
+        }
+        else{
+            cameraGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
+            camMalfunction();
+        }
+        if (malfunctionArray[4] == 0)
+        {
+            malfunctionArray[4] = 0;
+            lWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
+        }
+        else
+        {
+            barrelGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
+            barrelMalfunction();
+        }
+    }
+    private void damageColour() {
+    }
+    private void returnColour() {
+    }
+    private void HammerSwing()
+    {
+        if (malfunctionArray[swungAt] > 0)
+        {
+            print(swungAt);
+            print(malfunctionArray[swungAt]);
+            print(true);
+            malfunctionArray[swungAt] -= 1;
+        }
+
+    }
+    private void rWingMalfunction()
+    {
+
+    }
+    private void lWingMalfunction()
+    {
+
+    }
+    private void hullMalfunction()
+    {
+    }
+    private void camMalfunction()
+    {
+
+    }
+    private void barrelMalfunction()
+    {
     }
 }
