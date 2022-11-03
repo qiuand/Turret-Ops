@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
     public int healthGain = 20;
     public Image overheatBar;
     public Image healthBar;
+    public Image overheatBar2;
+    public Image healthBar2;
     Vector3 barrelColour = new Vector3(0.6033731f, 0.8584906f, 0.8451912f);
     Vector3 damagedColour = new Vector3(0.8679245f, 0.4380563f, 0.4554211f);
     public float heat;
@@ -64,7 +67,7 @@ public class Turret : MonoBehaviour
     bool NewbarrelIn;
     int installedBarrel = 1;
     int startingBarrel;
-    int originalMoveSpeed = 20;
+    int originalMoveSpeed = 70;
     bool barrelInserted = true;
     bool released = false;
     public GameObject turretSprite;
@@ -91,14 +94,14 @@ public class Turret : MonoBehaviour
     int swungAt=0;
     int swungMax;
     int hits = 5;
-    float score=0;
+    float score=10;
     public GameObject lWingSelect;
     public GameObject rWingSelect;
     public GameObject barrelSelect;
     public GameObject hullSelect;
     bool leftMotionDamage=false;
     bool rightMotionDamage=false;
-    public float turnPenalty = 0.5f;
+    float turnPenalty = 0.40f;
     public GameObject camText;
     public GameObject lWingText;
     public GameObject rWingText;
@@ -111,6 +114,16 @@ public class Turret : MonoBehaviour
     public GameObject scoreText;
     public GameObject scoreText2;
     public float scoreMultiplier = 10;
+    float autoRepairMax=10;
+    int repairAmount = 5;
+    int decreaseHealthPart = 1;
+    int decreaseHealthTime=1;
+    int decreaseTimer=0;
+    float debuffTimer=3.0f;
+    float debuffTime=3.0f;
+    bool canMalfunction;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -127,19 +140,26 @@ public class Turret : MonoBehaviour
         swungMax = malfunctionArray.Length - 1;
     }
 
-    // Update is called once per frame
+    // Update is called once per framwwwwswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwsse
     void Update()
     {
+        
         print(score);
         int scoreInt = Mathf.FloorToInt(score);
-        score += Time.deltaTime * scoreMultiplier;
-        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text="Score: "+scoreInt;
-        scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Score: " + scoreInt;
+        score -= Time.deltaTime * scoreMultiplier;
+        if (score <= 0)
+        {
+            health += repairAmount;
+            score = 10;
+
+        }
+        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown:  " + score;
+        scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown: " + score;
         if (health < 0)
         {
-            Destroy(gameObject);
+            print(1222);
+            SceneManager.LoadScene("GameOver");
         }
-        print(defaultBarrelColour);
         highLight();
         if (Input.GetKeyDown("g"))
         {
@@ -322,7 +342,6 @@ public class Turret : MonoBehaviour
         }*/
         if (Input.GetKeyUp("left") || Input.GetKeyUp("right"))
         {
-            print("default");
             currentBarrelColour = defaultBarrelColour;
             actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Magwell Empty";
             magRelease = true;
@@ -341,7 +360,6 @@ public class Turret : MonoBehaviour
                 if (Input.GetKeyDown("left"))
                 {
                     currentBarrelColour = greenBarrelColour;
-                    print("2ds");
                     barrel.GetComponent<SpriteRenderer>().color = new Color(0.4009f, 1f, 0.4507f);
                     actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL Mag Loaded";
                     startingMag = 1;
@@ -422,6 +440,8 @@ public class Turret : MonoBehaviour
         }*/
         overheatBar.fillAmount = heat / maxHeat;
         healthBar.fillAmount = health / maxHealth;
+        overheatBar2.fillAmount = heat / maxHeat;
+        healthBar2.fillAmount = health / maxHealth;
         barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x + heat / 200, currentBarrelColour.y - heat / 400, currentBarrelColour.z - heat / 400);
         /*statusText.GetComponent<TMPro.TextMeshProUGUI>().color = barrel.GetComponent<SpriteRenderer>().color;*/
         if (heat >= maxHeat)
@@ -504,8 +524,14 @@ public class Turret : MonoBehaviour
         }
         else
         {
+            print("bugs");
             transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed);
         }
+/*        transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed);*/
+        if (debuffTimer <= 0){
+            canMalfunction = true;
+        }
+        debuffTimer -= Time.deltaTime;
     }
 
 /*    private void RunMalfunctions(string malfunctionType, Vector3 colour)
@@ -552,7 +578,6 @@ public class Turret : MonoBehaviour
     }
     private void processMalfunction()
     {
-        print(malfunctionArray[3]);
         if (malfunctionArray[0]<= 0)
         {
             rightMotionDamage = false;
@@ -579,13 +604,15 @@ public class Turret : MonoBehaviour
         }
         if (malfunctionArray[2] == 0)
         {
-            malfunctionArray[2] = 0;
             blackout.SetActive(false);
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             camText.GetComponent<TMPro.TextMeshProUGUI>().text="Status: Cam Systems Functional";
             hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Systems Normal";
+            camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,1f,1f);
         }
         else{
+            print("jes");
+            camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 0f, 0f);
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
             hullMalfunction();
             camText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Critical Cam System Damage!";
@@ -624,7 +651,10 @@ public class Turret : MonoBehaviour
     {
         if (malfunctionArray[swungAt] > 0)
         {
-        
+            if (malfunctionArray[swungAt] ==1){
+                debuffTimer = 5.0f;
+            }
+
             malfunctionArray[swungAt] -= 1;
         }
 
@@ -671,7 +701,10 @@ public class Turret : MonoBehaviour
     }
     private void hullMalfunction()
     {
+        print("yes");
         hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit integrity compromised: Turret camera unavailabe. Hit " + malfunctionArray[2] + " times";
+        /*        switchColours(hullText, damagedColour);*/
+        hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
         blackout.SetActive(true);
     }
     private void camMalfunction()
@@ -679,11 +712,15 @@ public class Turret : MonoBehaviour
     }
     private void barrelMalfunction()
     {
+        
         barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Melted Barrel: Unable to fire. Hit " + malfunctionArray[3] + " times";
     }
     private void switchColours(GameObject obj, Vector3 change)
     {
-        print(change.x);
         obj.GetComponent<SpriteRenderer>().color = new Color(change.x,change.y,change.z);
+    }
+    private void damageComponent()
+    {
+        health -= decreaseHealthPart;
     }
 }
