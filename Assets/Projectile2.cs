@@ -17,7 +17,7 @@ public class Projectile2 : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
+        print(3);
         if (collision.gameObject.tag == "Enemy2")
         {
             Destroy(collision.gameObject);
