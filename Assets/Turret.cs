@@ -104,10 +104,10 @@ public class Turret : MonoBehaviour
     public GameObject rWingText;
     public GameObject hullText;
     public GameObject barrelText;
-    public Vector3 defaultBarrelColour=new Vector3(1f,1f,1f);
-    public Vector3 currentBarrelColour = new Vector3();
-    public Vector3 blueBarrelColour = new Vector3(0.2783f, 0.5641f, 1f);
-    public Vector3 greenBarrelColour=new Vector3(0.4009f, 1f, 0.4507f);
+    Vector3 defaultBarrelColour=new Vector3(1f,1f,1f);
+    Vector3 currentBarrelColour = new Vector3();
+    Vector3 blueBarrelColour = new Vector3(0.2783f, 0.5641f, 1f);
+    Vector3 greenBarrelColour=new Vector3(0.4009f, 1f, 0.4507f);
     public GameObject scoreText;
     public GameObject scoreText2;
     public float scoreMultiplier = 10;
@@ -195,7 +195,7 @@ public class Turret : MonoBehaviour
                 startingMag = 1;
                 detectedMag = true;
             }
-            else if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1))
             {
                 startingMag = 2;
                 detectedMag = true;
@@ -323,7 +323,7 @@ public class Turret : MonoBehaviour
         if (Input.GetKeyUp("left") || Input.GetKeyUp("right"))
         {
             print("default");
-            barrel.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+            currentBarrelColour = defaultBarrelColour;
             actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Magwell Empty";
             magRelease = true;
         }
@@ -332,8 +332,7 @@ public class Turret : MonoBehaviour
 
             if (Input.GetKeyDown("right"))
             {
-                print("1ds");
-                barrel.GetComponent<SpriteRenderer>().color = new Color(0.2783f, 0.5641f, 1f);
+                currentBarrelColour = blueBarrelColour;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma Mag Loaded";
                 startingMag = 2;
                 magRelease = false;
@@ -341,6 +340,7 @@ public class Turret : MonoBehaviour
             {
                 if (Input.GetKeyDown("left"))
                 {
+                    currentBarrelColour = greenBarrelColour;
                     print("2ds");
                     barrel.GetComponent<SpriteRenderer>().color = new Color(0.4009f, 1f, 0.4507f);
                     actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL Mag Loaded";
@@ -422,7 +422,7 @@ public class Turret : MonoBehaviour
         }*/
         overheatBar.fillAmount = heat / maxHeat;
         healthBar.fillAmount = health / maxHealth;
-/*        barrel.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x + heat / 200, barrelColour.y - heat / 400, barrelColour.z - heat / 400);*/
+        barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x + heat / 200, currentBarrelColour.y - heat / 400, currentBarrelColour.z - heat / 400);
         /*statusText.GetComponent<TMPro.TextMeshProUGUI>().color = barrel.GetComponent<SpriteRenderer>().color;*/
         if (heat >= maxHeat)
         {
