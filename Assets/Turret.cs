@@ -135,10 +135,10 @@ public class Turret : MonoBehaviour
         score += Time.deltaTime * scoreMultiplier;
         scoreText.GetComponent<TMPro.TextMeshProUGUI>().text="Score: "+scoreInt;
         scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Score: " + scoreInt;
-        if (health < 0)
+/*        if (health < 0)
         {
             Destroy(gameObject);
-        }
+        }*/
         print(defaultBarrelColour);
         highLight();
         if (Input.GetKeyDown("g"))
