@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerProjectile : MonoBehaviour
 {
     public float lifetime = 4f;
+    public GameObject tutShip;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +19,11 @@ public class PlayerProjectile : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        if (collision.gameObject.tag == "Enemy")
+/*        if (collision.gameObject.tag == "TutEnemy")
         {
-            Destroy(collision.gameObject);
-        }
+            print("yippee");
+            collision.gameObject.SetActive(false);
+        }*/
         Destroy(gameObject);
     }
 }
