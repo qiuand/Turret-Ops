@@ -13,12 +13,13 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Cursor.visible = false;
         if (Input.GetKeyDown("space"))
         {
             SceneManager.LoadScene("Game");
 
         }
-        if (Input.GetKeyDown("g"))
+        if (Input.GetKeyDown("w"))
         {
             SceneManager.LoadScene("Main");
         }

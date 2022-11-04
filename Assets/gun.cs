@@ -20,6 +20,7 @@ public class gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Cursor.visible = false;
         if (Input.GetKeyDown("space")){
             inTutorial = false;
             SceneManager.LoadScene("Game");

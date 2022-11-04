@@ -35,10 +35,10 @@ public class Tut : MonoBehaviour
         mechTut[1]= "You're the Mechanic! Your partner is the Gunner.";
         mechTut[2] = "You are in charge of maintaining the ship.";
         mechTut[3] = "Your mini map gives you a view of what the Gunner is up to.";
-        mechTut[4] = "Malfunctions occur when the ship is hit! Your ship automatically repairs a bit of damage after some time, but the critical malfunctions can cause all sorts of problems for your friend's turret. Use the button to select the damaged part, and hit the repair pad with the hammer to fix it!";
+        mechTut[4] = "Malfunctions occur when the ship is hit! Your ship automatically repairs a bit of damage after some time, but the critical malfunctions can cause all sorts of problems for your friend's turret. Use the button on the left to select the damaged part, and hit the repair pad with the hammer to fix it!";
         mechTut[5] = "Reckless shooting can cause barrel overheating. Repair the barrel now!";
         mechTut[6] = "The gunner needs blue ammo to damage blue ships, and green ammo for green ships. You can't see enemy colours, so listen closely to what ammo they need!";
-        mechTut[7]= "That's all you need to know to be a certified space mechanic! Good luck, Cosmic Crew!<b> Hit repair plate to continue";
+        mechTut[7]= "Good luck, Cosmic Mechanic!!<b> Use the hammer to continue";
         mechTut[8] = "";
     }
 

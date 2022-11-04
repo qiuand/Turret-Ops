@@ -16,14 +16,15 @@ public class EnemySpawn : MonoBehaviour
     int random;
     bool isEnemy2 = false;
     float waveTimer = 0;
-    float waveTiming = 3.25f;
-    int enemyNum = 3;
+    public float waveTiming = 7f;
+    public int enemyNum = 3;
     float minSpeed = -2;
     float maxSpeed = -5;
-    float minRotate = 3;
-    float maxRotate = -3;
+    public float minRotate = 3;
+    public float maxRotate = -3;
+    float genSpeed;
     public GameObject turret;
-    float enemySpeedMultiplier = 0.1f;
+    public float enemySpeedMultiplier = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,26 +33,30 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        maxSpeed -= Time.deltaTime * enemySpeedMultiplier;
+        if (gun.inTutorial == false)
+        {
+            maxSpeed -= Time.deltaTime * enemySpeedMultiplier;
+        }
         if (turret.GetComponent<Turret>().inTut == false)
         {
             waveTimer -= Time.deltaTime;
             if (waveTimer <= 0)
             {
                 int type = Random.Range(0, 2);
+                genSpeed = Random.Range(minSpeed, maxSpeed);
                 for (int i = 0; i < enemyNum; i++)
                 {
                     if (type == 0)
                     {
                         {
                             GameObject enemyInstance = Instantiate(enemy, new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
-                            enemyInstance.GetComponent<Rigidbody2D>().velocity = transform.right * (Random.Range(minSpeed, maxSpeed));
+                            enemyInstance.GetComponent<Rigidbody2D>().velocity = transform.right * (genSpeed);
                         }
                     }
                     else
                     {
                         GameObject enemyInstance = Instantiate(enemy2, new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.identity);
-                        enemyInstance.GetComponent<Rigidbody2D>().velocity = transform.right * (Random.Range(minSpeed, maxSpeed));
+                        enemyInstance.GetComponent<Rigidbody2D>().velocity = transform.right * (genSpeed);
                     }
                 }
                 waveTimer = waveTiming;

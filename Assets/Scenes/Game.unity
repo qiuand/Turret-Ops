@@ -2912,7 +2912,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy2: {fileID: 3680820831301527401, guid: fe27672c3f84cac4abf5bbf392eefc32, type: 3}
   enemy: {fileID: 5571464584035240969, guid: b6a1d5c9e8da04447885a1d7209d732c, type: 3}
+  waveTiming: 7
+  enemyNum: 6
+  minRotate: 3
+  maxRotate: -3
   turret: {fileID: 804768600}
+  enemySpeedMultiplier: 0.1
 --- !u!1 &832020683
 GameObject:
   m_ObjectHideFlags: 0
@@ -14936,7 +14941,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 49
   m_Sprite: {fileID: 21300000, guid: 4647e76855cd0d9438cdf7aa0a5d07de, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.13333334}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.47058824}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -14954,7 +14959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585886324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 122375839}
