@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Tut : MonoBehaviour
 {
-    Vector3 originalPos = new Vector3(5.98f, 0.75f, -3.59f);
+    Vector3 originalPos = new Vector3(-0.6f, 1.94f, -1.61f);
     public GameObject mechText;
     public GameObject turretText;
     string[] gunTut=new string[9];
@@ -16,6 +16,9 @@ public class Tut : MonoBehaviour
     public bool inTut = false;
     bool locked = false;
     bool malfSet=false;
+    public AudioSource source;
+    public AudioClip malfunction;
+    float waitTime = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -93,6 +96,7 @@ public class Tut : MonoBehaviour
                 {
                     turret.GetComponent<Turret>().malfunctionArray[0] = turret.GetComponent<Turret>().hits;
                     malfSet = true;
+                    source.PlayOneShot(malfunction);
                 }
                 if (turret.GetComponent<Turret>().malfunctionArray[0] == 0)
                 {
@@ -119,9 +123,9 @@ public class Tut : MonoBehaviour
             {
                 if (malfSet == false)
                 {
-                    tutEnemyGreen.transform.position = new Vector3(5.98f, 0.75f, -3.59f);
+                    tutEnemyGreen.transform.position = originalPos;
                     tutEnemyGreen.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                    tutEnemyBlue.transform.position = new Vector3(5.98f, 0.75f, -3.59f);
+                    tutEnemyBlue.transform.position = originalPos;
                     tutEnemyBlue.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                     malfSet = true;
                     if (turret.GetComponent<Turret>().startingMag == 1)
@@ -163,6 +167,12 @@ public class Tut : MonoBehaviour
     }
     private void proceed()
     {
+        selection++;
+        wait();
+    }
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(waitTime);
         selection++;
     }
 }

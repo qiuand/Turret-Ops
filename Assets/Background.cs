@@ -17,10 +17,10 @@ public class Background : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gun.inTutorial != false)
+        if (gun.inTutorial != false && EnemySpawn.beginNextWave==true)
         {
             speed += Time.deltaTime * speedMultiplier;
         }
-        bgRender.material.mainTextureOffset += new Vector2(speed*Time.deltaTime, 0);
+        bgRender.material.mainTextureOffset += new Vector2(0, speed*Time.deltaTime);
     }
 }

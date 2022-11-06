@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public AudioClip select;
+    public AudioClip repair;
+    public AudioClip fix;
+    public AudioClip overheat;
+    public AudioClip deathExplode;
+    public AudioClip malfunction;
     public AudioClip shootPlasma;
     public AudioClip shootGun;
     public AudioClip explode;
@@ -18,7 +24,7 @@ public class Turret : MonoBehaviour
     public Image overheatBar2;
     public Image healthBar2;
     Vector3 barrelColour = new Vector3(0.6033731f, 0.8584906f, 0.8451912f);
-    Vector3 damagedColour = new Vector3(0.8679245f, 0.4380563f, 0.4554211f);
+    Vector3 damagedColour = new Vector3(1f, 0f, 0f);
     public float heat;
     float heatBuildUp;
     public float maxHeat = 100;
@@ -38,10 +44,10 @@ public class Turret : MonoBehaviour
     public GameObject barrel;
     public float originalShootCooldown = 0.2f;
     public float originalHeatBuildup = 20;
-    public float health = 100f;
+    public float health;
     public float maxHealth = 100f;
     public int damageTaken = 0;
-    int maxDamBeforeMalfunction = 1;
+    int maxDamBeforeMalfunction = 2;
     bool malfunctioning = false;
     string malfunctionType = "None";
     string[] malfunctionList = new string[] { "Cockpit", "Left wing", "Right wing", "Barrel" };
@@ -100,6 +106,8 @@ public class Turret : MonoBehaviour
     int swungMax;
     public int hits = 5;
     float score=10;
+    public GameObject yes;
+    public AudioClip magazine;
     public GameObject lWingSelect;
     public GameObject rWingSelect;
     public GameObject barrelSelect;
@@ -114,8 +122,8 @@ public class Turret : MonoBehaviour
     public GameObject barrelText;
     Vector3 defaultBarrelColour=new Vector3(1f,1f,1f);
     Vector3 currentBarrelColour = new Vector3();
-    Vector3 blueBarrelColour = new Vector3(0.2783f, 0.5641f, 1f);
-    Vector3 greenBarrelColour=new Vector3(0.4009f, 1f, 0.4507f);
+    Vector3 blueBarrelColour = new Vector3(0.5f, 0, 0);
+    Vector3 greenBarrelColour=new Vector3(0f, 0.5f, 0f);
     public GameObject scoreText;
     public GameObject scoreText2;
     public float scoreMultiplier = 10;
@@ -138,7 +146,7 @@ public class Turret : MonoBehaviour
     public GameObject gameScoreText2;
     public ParticleSystem lWingFire;
     public ParticleSystem rWingFire;
-    public int thingy;
+    public Animator ship;
     float deathTimer=0.0f;
     float deathDelay = 2.0f;
     bool exploded = false;
@@ -146,6 +154,7 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = maxHealth;
         currentBarrelColour = defaultBarrelColour;
         lWingSelect.SetActive(false);
         rWingSelect.SetActive(false);
@@ -162,11 +171,12 @@ public class Turret : MonoBehaviour
     // Update is called once per framwwwwswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwsse
     void Update()
     {
-
-            Cursor.visible = false;
+        Cursor.visible=true;
+/*
+            Cursor.visible = false;*/
         if (health > maxHealth)
         {
-            health = 100;
+            health = maxHealth;
         }
         deathTimer += Time.deltaTime;
         if (deathTimer >= deathDelay&&exploded==true)
@@ -179,18 +189,41 @@ public class Turret : MonoBehaviour
             print("ducky: " + deathTimer + health);
             if (exploded == false)
             {
+                source.PlayOneShot(deathExplode);
+                lWingFire.enableEmission = true;
                 rWingFire.enableEmission = true;
-                rWingFire.enableEmission = true;
+                heat = 999;
+                overheated = true;
+                malfunctionArray[0] = hits;
+                malfunctionArray[1] = hits;
+                malfunctionArray[2] = hits;
+                malfunctionArray[3] = hits;
+
                 smokeSystem.enableEmission = true;
                 autoRepairMax = 999999;
                 deathTimer = 0;
                 source.PlayOneShot(explode);
                 exploded = true;
                 shipExplode.SetBool("Exploded", true);
+                ship.SetBool("Exploded", true);
             }
 
 
             print(1222);
+        }
+        if (Input.GetKeyDown("left"))
+        {
+            startingMag = 1;
+            source.PlayOneShot(magazine);
+        }
+        if (Input.GetKeyDown("right"))
+        {
+            startingMag = 2;
+            source.PlayOneShot(magazine);
+        }
+        if (Input.GetKeyUp("left") || Input.GetKeyUp("right"))
+        {
+            source.PlayOneShot(magazine);
         }
         if (Input.GetKeyDown("escape"))
         {
@@ -218,7 +251,6 @@ public class Turret : MonoBehaviour
         {
             health += repairAmount;
             score = 10;
-
         }
         scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown:  " + score;
         scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown: " + score;
@@ -228,17 +260,21 @@ public class Turret : MonoBehaviour
             HammerSwing();
         }
         if (Input.GetKeyDown("w")){
+            source.PlayOneShot(select);
             swungAt += 1;
         }
         if (Input.GetKeyDown("s")){
             swungAt -= 1;
-                }
+            source.PlayOneShot(select);
+        }
         if (swungAt > swungMax)
         {
+            source.PlayOneShot(select);
             swungAt = 0;
         }
         if (swungAt < 0)
         {
+            source.PlayOneShot(select);
             swungAt = swungMax;
         }
         processMalfunction();
@@ -291,6 +327,7 @@ public class Turret : MonoBehaviour
         {
             damageTaken = 0;
             randomMalfunction();
+            source.PlayOneShot(malfunction);
 /*            malfunctioning = true;
             if (malfunctionType == "Barrel")
             {
@@ -415,7 +452,8 @@ public class Turret : MonoBehaviour
             {
                 currentBarrelColour = blueBarrelColour;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma Mag Loaded";
-                startingMag = 2;
+            actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
+            startingMag = 2;
                 detectedMag = true;
             }
 
@@ -424,13 +462,15 @@ public class Turret : MonoBehaviour
                     currentBarrelColour = greenBarrelColour;
 /*                    barrel.GetComponent<SpriteRenderer>().color = new Color(0.4009f, 1f, 0.4507f);*/
                     actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL Mag Loaded";
-                    startingMag = 1;
+            actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color=new Color(0,1f,0);
+            startingMag = 1;
                     detectedMag = true;
                 }
         else
         {
             currentBarrelColour = defaultBarrelColour;
             actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Magwell Empty";
+            actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,1f,1f);
             detectedMag = false;
         }
 
@@ -510,13 +550,18 @@ public class Turret : MonoBehaviour
         healthBar.fillAmount = health / maxHealth;
         overheatBar2.fillAmount = heat / maxHeat;
         healthBar2.fillAmount = health / maxHealth;
-        barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x + heat / 200, currentBarrelColour.y - heat / 400, currentBarrelColour.z - heat / 400);
+        barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x + heat / 100, currentBarrelColour.y - heat/400, currentBarrelColour.z);
+        if (currentBarrelColour == defaultBarrelColour)
+        {
+            barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x, currentBarrelColour.y-heat/100, currentBarrelColour.z - heat / 100);
+        }
         /*statusText.GetComponent<TMPro.TextMeshProUGUI>().color = barrel.GetComponent<SpriteRenderer>().color;*/
         if (heat >= maxHeat)
         {
             heat = maxHeat;
             if (overheated == false)
             {
+                source.PlayOneShot(overheat);
                 overheated = true;
                 malfunctionArray[3] = hits;
             }
@@ -734,8 +779,9 @@ public class Turret : MonoBehaviour
         {
             if (malfunctionArray[swungAt] ==1){
                 debuffTimer = 5.0f;
+                source.PlayOneShot(fix);
             }
-
+            source.PlayOneShot(repair);
             malfunctionArray[swungAt] -= 1;
         }
 
@@ -796,7 +842,7 @@ public class Turret : MonoBehaviour
     private void barrelMalfunction()
     {
         smokeSystem.enableEmission = true;
-        smoke.gameObject.transform.eulerAngles = new Vector3(0, 0,0);
+        smoke.gameObject.transform.eulerAngles = new Vector3(0, 0,90);
         barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Melted Barrel: Unable to fire. Hit " + malfunctionArray[3] + " times";
     }
     private void switchColours(GameObject obj, Vector3 change)

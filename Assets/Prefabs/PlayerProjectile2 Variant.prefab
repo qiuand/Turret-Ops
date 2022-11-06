@@ -1303,7 +1303,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.29992962, b: 1, a: 1}
+        key0: {r: 1, g: 0, b: 0.009601116, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -1312,7 +1312,7 @@ ParticleSystem:
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
+        ctime1: 20624
         ctime2: 0
         ctime3: 0
         ctime4: 0
@@ -1320,8 +1320,8 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65535
-        atime2: 0
+        atime1: 20432
+        atime2: 33346
         atime3: 0
         atime4: 0
         atime5: 0
@@ -4898,7 +4898,7 @@ GameObject:
   - component: {fileID: 4125406964065160113}
   - component: {fileID: 751283966857762754}
   - component: {fileID: 1134422234450292941}
-  - component: {fileID: 1905253824059986795}
+  - component: {fileID: 6021617060101416035}
   m_Layer: 12
   m_Name: PlayerProjectile2 Variant
   m_TagString: Projectile2
@@ -4915,7 +4915,7 @@ Transform:
   m_GameObject: {fileID: 3914609088040297855}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.91, y: -0.05, z: 0}
-  m_LocalScale: {x: 1.3274591, y: 1.3274591, z: 1.3274591}
+  m_LocalScale: {x: 1.6925104, y: 0.64713633, z: 1.3274591}
   m_Children:
   - {fileID: 8255325737566468370}
   - {fileID: 1040872220678116354}
@@ -4962,8 +4962,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 6306149117771312969, guid: 38641d6d2944e5641b6052b76f83c280, type: 3}
-  m_Color: {r: 0.8528302, g: 0.89713943, b: 1, a: 1}
+  m_Sprite: {fileID: -5136229350144692350, guid: 38641d6d2944e5641b6052b76f83c280, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5007,8 +5007,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutShip: {fileID: 0}
---- !u!58 &1905253824059986795
-CircleCollider2D:
+--- !u!61 &6021617060101416035
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5021,5 +5021,15 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.31}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.16
+  m_Size: {x: 0.32, y: 0.31}
+  m_EdgeRadius: 0

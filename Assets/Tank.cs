@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tank : MonoBehaviour
 {
+    public AudioSource src;
+    public AudioClip explode;
     public GameObject Turret;
     // Start is called before the first frame update
     void Start()
@@ -16,12 +18,26 @@ public class Tank : MonoBehaviour
     {
 
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Enemy2")
+        print("dagnabbit");
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Enemy2" || collision.gameObject.tag == "Shot" || collision.gameObject.tag == "Shot2")
         {
             Turret.GetComponent<Turret>().health -= 20;
             Turret.GetComponent<Turret>().damageTaken += 1;
         }
     }
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.gameObject.tag == "Shot")
+        {
+            Turret.GetComponent<Turret>().health -= 20;
+            Turret.GetComponent<Turret>().damageTaken += 1;
+            src.PlayOneShot(explode);
+            Destroy(other.gameObject);
+        }
+        print("DML");
+
+    }
+
 }
