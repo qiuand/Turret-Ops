@@ -17,13 +17,16 @@ public class PlayerProjectile : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
 /*        if (collision.gameObject.tag == "TutEnemy")
         {
             print("yippee");
             collision.gameObject.SetActive(false);
         }*/
-        Destroy(gameObject);
+if(collision.gameObject.tag!="Projectile"&& collision.gameObject.tag != "Projectile2")
+        {
+            Destroy(gameObject);
+        }
     }
 }

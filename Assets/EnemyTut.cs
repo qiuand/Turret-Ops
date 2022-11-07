@@ -10,7 +10,7 @@ public class EnemyTut : MonoBehaviour
     AudioSource source;
     public AudioClip explode;
     float activeTimer;
-    float activeTime=0.7f;
+    float activeTime=0.6f;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +32,7 @@ public class EnemyTut : MonoBehaviour
             rb.isKinematic = false;
             fire.enableEmission = false;
             enemyAnim.SetBool("Destroyed", true);
-            StartCoroutine("Wait");
+            StartCoroutine(Wait());
         }
     }
     IEnumerator Wait()

@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemySpawn : MonoBehaviour
 {
     bool endOfTut = false;
-    float waveDuration = 15f;
-    int waveCount = 1;
-    float waveTime;
-    float waveTimeIncrement=5f;
+    public float waveDuration = 5f;
+    public int waveCount = 1;
+    public float waveTime;
+    public float waveTimeIncrement=5f;
     public GameObject enemy2;
     public GameObject enemy;
     RectTransform rect;
@@ -20,7 +20,7 @@ public class EnemySpawn : MonoBehaviour
     float maxYSpeed = 2;
     int random;
     bool isEnemy2 = false;
-    float waveTimer = 0f;
+    public float waveTimer = 0f;
     public float waveTiming = 3f;
     public int enemyNum = 3;
     float minSpeed = -1;
@@ -41,6 +41,7 @@ public class EnemySpawn : MonoBehaviour
     float breakCounter = 3.0f;
     float breakCount=10.0f;
     float gracePeriod = 3.0f;
+    public GameObject upgradeManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,17 +84,26 @@ public class EnemySpawn : MonoBehaviour
 
         if (waveTime < 0)
         {
+            waveTime = 999;
             waveCompleted = true;
             beginNextWave = false;
+
+            Upgrades.upgradesRolled = false;
+            if (Upgrades.upgradesRolled == false)
+            {
+                upgradeManager.GetComponent<Upgrades>().RollUpgrades();
+                Upgrades.upgradesRolled = true;
+            }
+
         }
-        if (/*Input.GetKeyDown("g") &&*/ beginNextWave == false && waveTime<0-gracePeriod)
+/*        if (*//*Input.GetKeyDown("g") &&*//* beginNextWave == false && waveTime<0-gracePeriod)
         {
             waveCount++;
             beginNextWave = true;
             waveDuration += waveTimeIncrement;
             waveTime = waveDuration;
             waveTimer = waveTiming;
-        }
+        }*/
         if (gun.inTutorial == false && beginNextWave == true)
         {
             maxSpeed -= Time.deltaTime * enemySpeedMultiplier;
