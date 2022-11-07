@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
+    AudioSource source;
+    public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 5f;
     public int waveCount = 1;
@@ -45,6 +47,7 @@ public class EnemySpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
         breakCounter = breakCount;
         waveTime = waveDuration;
         positionArray = new GameObject[] { greenWave, blueWave, shootWave, shootWave2 };
@@ -84,6 +87,7 @@ public class EnemySpawn : MonoBehaviour
 
         if (waveTime < 0)
         {
+            source.PlayOneShot(ding);
             waveTime = 999;
             waveCompleted = true;
             beginNextWave = false;

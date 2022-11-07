@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Upgrades : MonoBehaviour
 {
+    AudioSource source;
+    public AudioClip ding;
     public static bool canUpgrade=false;
     string[] upgradeList = new string[] { "Shotgun", "Laser", "Chain Gun" };
     string[] powerupList = new string[] { "Piercing", "Repair" };
@@ -20,6 +22,7 @@ public class Upgrades : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
     }
@@ -92,6 +95,7 @@ public class Upgrades : MonoBehaviour
     }
     public void InstallPowerups()
     {
+        source.PlayOneShot(ding);
         print("yoy");
         print("heya"+powerupList[upgradeIndex]);
         switch (powerupList[upgradeIndex])
@@ -121,6 +125,7 @@ public class Upgrades : MonoBehaviour
     }
     public void InstallUpgrades()
     {
+        source.PlayOneShot(ding);
         switch (upgradeList[upgradeIndex])
         {
             case "Laser":
