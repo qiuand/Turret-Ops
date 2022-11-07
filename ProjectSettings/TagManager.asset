@@ -13,7 +13,6 @@ TagManager:
   - TutEnemy2
   - Shot
   - Shot2
-  - Projectile3
   layers:
   - Default
   - TransparentFX

@@ -22,17 +22,17 @@ public class EnemyBullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bounds" || (collision.gameObject.tag == "Projectile" && gameObject.tag == "Shot") || (collision.gameObject.tag == "Projectile2" && gameObject.tag == "Shot2")|| collision.gameObject.tag=="Projectile3")
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bounds" || (collision.gameObject.tag == "Projectile" && gameObject.tag == "Shot") || (collision.gameObject.tag == "Projectile2" && gameObject.tag == "Shot2"))
         {
-            if (collision.gameObject.tag != "Bounds" && collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2" && collision.gameObject.tag != "Projectile3")
+/*            if (collision.gameObject.tag != "Bounds")
             {
                 source.PlayOneShot(explode);
-            }
+            }*/
             rb.velocity = new Vector2(0, 0);
             rb.isKinematic = false;
             fire.enableEmission = false;
             enemyAnim.SetBool("Destroyed", true);
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject, 0.3f);
         }
 
     }
