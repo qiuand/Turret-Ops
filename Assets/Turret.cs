@@ -7,6 +7,29 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public bool autoRepair = false;
+    public AudioClip overcharge;
+    public AudioClip cooldownSound;
+    public string installedUpgrade = "No";
+    bool recharged = true;
+    float rechargeDuration = 5.0f;
+    float rechargeTime = 5.0f;
+    float pierceDurationCool=3.0f;
+    float pierceCooldownTime=3.0f;
+    float abilityCooldown=0f;
+    public bool pierceUpgrade = false;
+    public GameObject projectile3;
+    public string installedGun;
+    public float chainGunCool = 0.1f;
+    public float chainGunHeat = 15f;
+    public bool chainGun = false;
+    public GameObject greenLaserHB;
+    public bool basicGun = true;
+    public ParticleSystem laser;
+    public bool laserUpgrade = false;
+    public GameObject shotgunPos1;
+    public GameObject shotgunPos2;
+    public bool shotgun = false;
     public AudioClip select;
     public AudioClip repair;
     public AudioClip fix;
@@ -33,10 +56,12 @@ public class Turret : MonoBehaviour
     float moveSpeed;
     float rotation;
     public GameObject projectile;
-    int projectileSpeed = 30;
+    public int projectileSpeed = 30;
     float shootCooldown;
     float cooldown = 0f;
     bool canRepair = true;
+    public GameObject projecile3;
+    public int thing;
     float repairAmountPerSwing = 20;
     public bool overheated = false;
     float repairCooldown = 1f;
@@ -100,9 +125,9 @@ public class Turret : MonoBehaviour
     float damageTimer = 0f;
     public GameObject barrelIcon;
     public int healthDamage = 5;
-    string storedType = "None";
+    string storedType = "No Upgrade";
     public int[] malfunctionArray;
-    int swungAt=0;
+    public int swungAt=0;
     int swungMax;
     public int hits = 5;
     float score=10;
@@ -135,6 +160,7 @@ public class Turret : MonoBehaviour
     float debuffTimer=3.0f;
     float debuffTime=3.0f;
     bool canMalfunction;
+    float shotgunRadius = 45f;
     public Animator muzzle;
     public GameObject smoke;
     public ParticleSystem smokeSystem;
@@ -151,9 +177,25 @@ public class Turret : MonoBehaviour
     float deathDelay = 2.0f;
     bool exploded = false;
     public Animator shipExplode;
+    float laserHeat = 15f;
+    public AudioClip laserBlast;
+    float laserSoundCoolTime=0f;
+    float laserSoundDuration;
+    float shottyHeat = 7f;
+    public GameObject laser2HB;
+    public ParticleSystem laser2;
+    bool pierceActive = false;
+    public GameObject powerupInfo;
+    public GameObject powerupCoolText;
     // Start is called before the first frame update
     void Start()
     {
+        installedGun = "Blaster";
+        laser2.gameObject.SetActive(false);
+        laser2HB.gameObject.SetActive(false);
+        laser.gameObject.SetActive(false);
+        laserSoundDuration = laserBlast.length;
+        laser.enableEmission = false;
         health = maxHealth;
         currentBarrelColour = defaultBarrelColour;
         lWingSelect.SetActive(false);
@@ -166,526 +208,669 @@ public class Turret : MonoBehaviour
         moveSpeed = originalMoveSpeed;
         malfunctionArray = new int[4] { 0, 0, 0, 0};
         swungMax = malfunctionArray.Length - 1;
+        powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "";
     }
 
     // Update is called once per framwwwwswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwsse
     void Update()
     {
-        Cursor.visible=true;
-/*
-            Cursor.visible = false;*/
-        if (health > maxHealth)
-        {
-            health = maxHealth;
+        powerupInfo.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade+" installed";
+        /*        pierceActive = true;
+                pierceUpgrade = true;*/
+        if (Input.GetKeyDown("q")&& recharged==true) {
+            StartCoroutine(PlayOvercharge());
+            /*source.PlayOneShot(overcharge);*/
+            print("dmf");
+            pierceActive = true;
         }
-        deathTimer += Time.deltaTime;
-        if (deathTimer >= deathDelay&&exploded==true)
+        if (pierceActive)
         {
-            SceneManager.LoadScene("GameOver");
+            print("yes");
         }
-        if (health <= 0)
+        if (pierceUpgrade)
         {
-/*            SceneManager.LoadScene("GameOver");*/
-            print("ducky: " + deathTimer + health);
-            if (exploded == false)
+            print("nose");
+        }
+        if (pierceUpgrade && pierceActive == true)
+        {
+            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Active: " + System.Math.Round(pierceCooldownTime, 2) + " seconds remaining";
+            pierceCooldownTime -= Time.deltaTime;
+            if (pierceCooldownTime <= 0)
             {
-                source.PlayOneShot(deathExplode);
-                lWingFire.enableEmission = true;
-                rWingFire.enableEmission = true;
-                heat = 999;
-                overheated = true;
-                malfunctionArray[0] = hits;
-                malfunctionArray[1] = hits;
-                malfunctionArray[2] = hits;
-                malfunctionArray[3] = hits;
-
-                smokeSystem.enableEmission = true;
-                autoRepairMax = 999999;
-                deathTimer = 0;
-                source.PlayOneShot(explode);
-                exploded = true;
-                shipExplode.SetBool("Exploded", true);
-                ship.SetBool("Exploded", true);
+                source.PlayOneShot(cooldownSound) ;
+                pierceActive = false;
+                recharged = false;
+                rechargeTime = rechargeDuration;
+                pierceCooldownTime = pierceDurationCool;
             }
-
-
-            print(1222);
         }
-        if (Input.GetKeyDown("left"))
+        if (recharged == false)
         {
-            startingMag = 1;
-            source.PlayOneShot(magazine);
-        }
-        if (Input.GetKeyDown("right"))
-        {
-            startingMag = 2;
-            source.PlayOneShot(magazine);
-        }
-        if (Input.GetKeyUp("left") || Input.GetKeyUp("right"))
-        {
-            source.PlayOneShot(magazine);
-        }
-        if (Input.GetKeyDown("escape"))
-        {
-            SceneManager.LoadScene("Main");
-        }
-        if (inTut == false)
-        {
-            tutLayer.SetActive(false);
-            tutLayer2.SetActive(false);
-            gameScore += Time.deltaTime * gameScoreMultiplier;
-            int gameScoreInt =Mathf.FloorToInt(gameScore);
-            gameScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Score:  " + gameScoreInt;
-            gameScoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Score:  " + gameScoreInt;
-        }
-        else
-        {
-            tutLayer.SetActive(true);
-            tutLayer2.SetActive(true);
-        }
-        inTut = gun.inTutorial;
-        print(score);
-        int scoreInt = Mathf.FloorToInt(score);
-        score -= Time.deltaTime * scoreMultiplier;
-        if (score <= 0)
-        {
-            health += repairAmount;
-            score = 10;
-        }
-        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown:  " + score;
-        scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown: " + score;
-        highLight();
-        if (Input.GetKeyDown("g"))
-        {
-            HammerSwing();
-        }
-        if (Input.GetKeyDown("w")){
-            source.PlayOneShot(select);
-            swungAt += 1;
-        }
-        if (Input.GetKeyDown("s")){
-            swungAt -= 1;
-            source.PlayOneShot(select);
-        }
-        if (swungAt > swungMax)
-        {
-            source.PlayOneShot(select);
-            swungAt = 0;
-        }
-        if (swungAt < 0)
-        {
-            source.PlayOneShot(select);
-            swungAt = swungMax;
-        }
-        processMalfunction();
-/*        if (cameraDamage == true)
-        {
-            blackout.SetActive(true);
-            moveSpeed = reducedMoveSpeed;
-
-        }
-        else
-        {
-            blackout.SetActive(false);
-            moveSpeed = originalMoveSpeed;
-        }*/
-        if (detectedBarrel == false)
-        {
-            if (Input.GetMouseButton(0))
+            rechargeTime -= Time.deltaTime;
+            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = System.Math.Round(rechargeTime, 2) + " seconds to recharge";
+            rechargeTime -= Time.deltaTime;
+            if (rechargeTime <= 0)
             {
-                startingBarrel = 1;
-                detectedBarrel = true;
+                recharged = true;
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Ability fully recharged";
             }
-            else if (Input.GetMouseButton(1))
+        }
+            if (laserUpgrade == true)
             {
-                startingBarrel = 2;
-                detectedBarrel = true;
+                laser2.gameObject.SetActive(true);
+                laser.gameObject.SetActive(true);
+                basicGun = false;
             }
             else
             {
-                barrelInserted = false;
+                laser.enableEmission = false;
             }
-        }
-/*        if (detectedMag == false)
-        {
-            if (Input.GetAxis("Mouse X") > 0)gg
+            laserSoundCoolTime -= Time.deltaTime;
+            Cursor.visible = true;
+
+            Cursor.visible = false;
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+            deathTimer += Time.deltaTime;
+            if (deathTimer >= deathDelay && exploded == true)
+            {
+                laserUpgrade = false;
+                shotgun = false;
+                basicGun = true;
+                Upgrades.canUpgrade = false;
+                Upgrades.upgradesRolled = true;
+                SceneManager.LoadScene("GameOver");
+            }
+            if (health <= 0)
+            {
+                /*            SceneManager.LoadScene("GameOver");*/
+                print("ducky: " + deathTimer + health);
+                if (exploded == false)
+                {
+                    source.PlayOneShot(deathExplode);
+                    lWingFire.enableEmission = true;
+                    rWingFire.enableEmission = true;
+                    heat = 999;
+                    overheated = true;
+                    malfunctionArray[0] = hits;
+                    malfunctionArray[1] = hits;
+                    malfunctionArray[2] = hits;
+                    malfunctionArray[3] = hits;
+
+                    smokeSystem.enableEmission = true;
+                    autoRepairMax = 999999;
+                    deathTimer = 0;
+                    source.PlayOneShot(explode);
+                    exploded = true;
+                    shipExplode.SetBool("Exploded", true);
+                    ship.SetBool("Exploded", true);
+                }
+
+
+                print(1222);
+            }
+            if (Input.GetKeyDown("left"))
             {
                 startingMag = 1;
-                detectedMag = true;
+                source.PlayOneShot(magazine);
             }
-            if (Input.GetMouseButton(1))
+            if (Input.GetKeyDown("right"))
             {
                 startingMag = 2;
-                detectedMag = true;
+                source.PlayOneShot(magazine);
             }
-        }*/
-        if (health < 0)
-        {
-            health = 0;
-        }
-        if (damageTaken >= maxDamBeforeMalfunction/* && centralDamaged == false*/)
-        {
-            damageTaken = 0;
-            randomMalfunction();
-            source.PlayOneShot(malfunction);
-/*            malfunctioning = true;
-            if (malfunctionType == "Barrel")
+            if (Input.GetKeyUp("left") || Input.GetKeyUp("right"))
             {
-                storedType = malfunctionList[Random.Range(0, malfunctionList.Length)];
+                source.PlayOneShot(magazine);
+            }
+            if (Input.GetKeyDown("escape"))
+            {
+                SceneManager.LoadScene("Main");
+            }
+            if (inTut == false)
+            {
+                tutLayer.SetActive(false);
+                tutLayer2.SetActive(false);
+                gameScore += Time.deltaTime * gameScoreMultiplier;
+                int gameScoreInt = Mathf.FloorToInt(gameScore);
+                gameScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Score:  " + gameScoreInt;
+                gameScoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Score:  " + gameScoreInt;
             }
             else
             {
-                malfunctionType = malfunctionList[Random.Range(0, malfunctionList.Length)];
+                tutLayer.SetActive(true);
+                tutLayer2.SetActive(true);
             }
-            RunMalfunctions(malfunctionType, damagedColour);*/
-        }
-/*        if (malfunctioning && hullDamage == true)
+            inTut = gun.inTutorial;
+            print(score);
+            int scoreInt = Mathf.FloorToInt(score);
+            score -= Time.deltaTime * scoreMultiplier;
+        if (autoRepair == true)
         {
-            if (damageTimer <= 0)
+            if (health >= 100)
             {
-                health -= healthDamage * 2;
-                damageTimer = damageTick;
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair on standby:  " + score;
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair on standby: " + score;
             }
-            mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Critical Hull Damage!";
-            if (Input.GetKeyDown("g") && canRepair)
+            else
             {
-                hullHits++;
-                health += repairAmountPerSwing;
-                canRepair = false;
-                repairTimer = repairCooldown;
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown:  " + score;
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown: " + score;
             }
-            if (repairTimer > 0)
+            if (score <= 0)
             {
-                repairTimer -= Time.deltaTime;
+                health += repairAmount;
+                score = 10;
             }
-            if (repairTimer <= 0)
+        }
+            highLight();
+            if (Input.GetKeyDown("g"))
             {
-                canRepair = true;
+                HammerSwing();
             }
-            if (hullHits >= hullHitsReq)
+            if (Input.GetKeyDown("w")) {
+                source.PlayOneShot(select);
+                swungAt += 1;
+            }
+            if (Input.GetKeyDown("s")) {
+                swungAt -= 1;
+                source.PlayOneShot(select);
+            }
+            if (swungAt > swungMax)
             {
-                repairTimer = 0;
-                malfunctioning = false;
-                hullDamage = false;
-                mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Hull Restored";
-                RunMalfunctions(malfunctionType, barrelColour);
-                centralDamaged = false;
-                if (storedType != "None")
+                source.PlayOneShot(select);
+                swungAt = 0;
+            }
+            if (swungAt < 0)
+            {
+                source.PlayOneShot(select);
+                swungAt = swungMax;
+            }
+            processMalfunction();
+            /*        if (cameraDamage == true)
+                    {
+                        blackout.SetActive(true);
+                        moveSpeed = reducedMoveSpeed;
+
+                    }
+                    else
+                    {
+                        blackout.SetActive(false);
+                        moveSpeed = originalMoveSpeed;
+                    }*/
+            if (detectedBarrel == false)
+            {
+                if (Input.GetMouseButton(0))
                 {
-                    storedType = "None";
+                    startingBarrel = 1;
+                    detectedBarrel = true;
                 }
-                malfunctioning = false;
-            }
-        }*/
-/*        if (malfunctioning == true && barrelHeated == true)
-        {
-            if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
-            {
-                released = true;
-                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Barrel removed";
-            }
-            if (released == true)
-            {
-                turretSprite.GetComponent<SpriteRenderer>().enabled = false;
-                barrelIcon.GetComponent<SpriteRenderer>().enabled = false;
-                if (startingBarrel == 1)
+                else if (Input.GetMouseButton(1))
                 {
-                    if (Input.GetMouseButtonDown(1))
-                    {
-                        actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Barrel changed";
-                        overheated = false;
-                        heat = 0;
-                        startingBarrel = 2;
-                        RunMalfunctions(malfunctionType, barrelColour);
-                        released = false;
-                        barrelHeated = false;
-                        turretSprite.GetComponent<SpriteRenderer>().enabled = true;
-                        barrelIcon.GetComponent<SpriteRenderer>().enabled = true;
-                        if (storedType != "None")
-                        {
-                            malfunctionType = storedType;
-                            malfunctioning = true;
-                        }
-                        else
-                        {
-                            malfunctioning = false;
-                        }
-                        return;
-                    }
-                }
-                else if (startingBarrel == 2)
-                {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        malfunctioning = false;
-                        overheated = false;
-                        heat = 0;
-                        startingBarrel = 1;
-                        RunMalfunctions(malfunctionType, barrelColour);
-                        released = false;
-                        turretSprite.GetComponent<SpriteRenderer>().enabled = true;
-                        if (storedType != "None")
-                        {
-                            malfunctionType = storedType;
-                            malfunctioning = true;
-                        }
-                        else
-                        {
-                            malfunctioning = false;
-                        }
-                        return;
-                    }
-                }
-            }
-
-        }*/
-/*        if (Input.GetKeyUp("left") || Input.GetKeyUp("right"))
-        {
-            currentBarrelColour = defaultBarrelColour;
-            actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Magwell Empty";
-            detectedMag = false;
-        }
-        if (detectedMag == false)
-        {
-*/
-            if (Input.GetKey("right"))
-            {
-                currentBarrelColour = blueBarrelColour;
-                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma Mag Loaded";
-            actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
-            startingMag = 2;
-                detectedMag = true;
-            }
-
-                else if (Input.GetKey("left"))
-                {
-                    currentBarrelColour = greenBarrelColour;
-/*                    barrel.GetComponent<SpriteRenderer>().color = new Color(0.4009f, 1f, 0.4507f);*/
-                    actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL Mag Loaded";
-            actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color=new Color(0,1f,0);
-            startingMag = 1;
-                    detectedMag = true;
-                }
-        else
-        {
-            currentBarrelColour = defaultBarrelColour;
-            actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Magwell Empty";
-            actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,1f,1f);
-            detectedMag = false;
-        }
-
-
-        /*        if (malfunctioning && malfunctionType != "Barrel" && malfunctionType != "Hull")
-                {
-                    if (damageTimer <= 0)
-                    {
-                        health -= healthDamage;
-                        damageTimer = damageTick;
-                    }
-                    damageTimer -= Time.deltaTime;
-                    mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = malfunctionType;
-                    pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = inputDisplay;
-                    rCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = requiredCode[0] + requiredCode[1] + requiredCode[2] + requiredCode[3];
-                    if ((Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("w")) && playerInput.Count < maxInput)
-                    {
-                        if (Input.GetKeyDown("a"))
-                        {
-                            playerInput.Add("A");
-                            inputDisplay += "A";
-                        }
-                        else if (Input.GetKeyDown("s"))
-                        {
-                            playerInput.Add("S");
-                            inputDisplay += "S";
-                        }
-                        else if (Input.GetKeyDown("d"))
-                        {
-                            playerInput.Add("D");
-                            inputDisplay += "D";
-                        }
-                        else if (Input.GetKeyDown("w"))
-                        {
-                            playerInput.Add("W");
-                            inputDisplay += "W";
-                        }
-                    }
-                    if (playerInput.Count >= maxInput)
-                    {
-                        for (int i = 0; i < maxInput; i++)
-                        {
-                            if (playerInput[i] != requiredCode[i])
-                            {
-                                print(1);
-                                correctNo = false;
-                                break;
-                            }
-                            else
-                            {
-                                correctNo = true;
-                            }
-                        }
-                        if (correctNo == false)
-                        {
-                            damagePlayer();
-                            playerInput.Clear();
-                            inputDisplay = "";
-                        }
-                        if (correctNo)
-                        {
-                            mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Code: N/A";
-                            pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Input: N/A";
-                            rCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Normal";
-                            malfunctioning = false;
-                            playerInput = new List<string>() { };
-                            RunMalfunctions(malfunctionType, barrelColour);
-                            inputDisplay = "";
-                            centralDamaged = false;
-                            correctNo = true;
-                            storedType = "None";
-                            malfunctioning = false;
-                        }
-                    }
-                }*/
-        overheatBar.fillAmount = heat / maxHeat;
-        healthBar.fillAmount = health / maxHealth;
-        overheatBar2.fillAmount = heat / maxHeat;
-        healthBar2.fillAmount = health / maxHealth;
-        barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x + heat / 100, currentBarrelColour.y - heat/400, currentBarrelColour.z);
-        if (currentBarrelColour == defaultBarrelColour)
-        {
-            barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x, currentBarrelColour.y-heat/100, currentBarrelColour.z - heat / 100);
-        }
-        /*statusText.GetComponent<TMPro.TextMeshProUGUI>().color = barrel.GetComponent<SpriteRenderer>().color;*/
-        if (heat >= maxHeat)
-        {
-            heat = maxHeat;
-            if (overheated == false)
-            {
-                source.PlayOneShot(overheat);
-                overheated = true;
-                malfunctionArray[3] = hits;
-            }
-/*            barrelHeated = true;
-            if (malfunctionType != "None" && malfunctionType != "Barrel")
-            {
-                malfunctioning = true;
-                storedType = malfunctionType;
-            }
-            malfunctionType = "Barrel";
-            malfunctioning = true;
-            RunMalfunctions(malfunctionType, Damagedcolour);*/
-        }
-
-        if (Input.GetKey("space") && overheated == false && detectedMag == true)
-        {
-            muzzle.Play("Muzzle");
-            muzzle.SetBool("Firing", true);
-            if (cooldown <= 0)
-            {
-                if (startingMag == 1)
-                {
-                    source.PlayOneShot(shootGun,1.0f);
-                    GameObject bullet = Instantiate(projectile, barrelEnd.transform.position, transform.rotation);
-                    bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                    startingBarrel = 2;
+                    detectedBarrel = true;
                 }
                 else
                 {
-                    source.PlayOneShot(shootPlasma,1.0f);
-                    GameObject bullet = Instantiate(projectile2, barrelEnd.transform.position, transform.rotation);
-                    bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                    barrelInserted = false;
                 }
-                cooldown = shootCooldown;
-                heat += heatBuildUp;
             }
-        }
-        if (cooldown > 0)
-        {
-            muzzle.SetBool("Firing", false);
-        }
-
-       
-        else if (overheated == false)
-        {
-            if (heat < 0)
+            /*        if (detectedMag == false)
+                    {
+                        if (Input.GetAxis("Mouse X") > 0)gg
+                        {
+                            startingMag = 1;
+                            detectedMag = true;
+                        }
+                        if (Input.GetMouseButton(1))
+                        {
+                            startingMag = 2;
+                            detectedMag = true;
+                        }
+                    }*/
+            if (health < 0)
             {
-                heat = 0;
+                health = 0;
             }
-            if (heat > 0)
+            if (damageTaken >= maxDamBeforeMalfunction/* && centralDamaged == false*/)
             {
-                heat -= Time.deltaTime * heatCoolDown;
+                damageTaken = 0;
+                randomMalfunction();
+                source.PlayOneShot(malfunction);
+                /*            malfunctioning = true;
+                            if (malfunctionType == "Barrel")
+                            {
+                                storedType = malfunctionList[Random.Range(0, malfunctionList.Length)];
+                            }
+                            else
+                            {
+                                malfunctionType = malfunctionList[Random.Range(0, malfunctionList.Length)];
+                            }
+                            RunMalfunctions(malfunctionType, damagedColour);*/
             }
-        }
-/*        if (overheated)
-        {
-            statusText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Critical Overheat — Repairs Needed!";
+            /*        if (malfunctioning && hullDamage == true)
+                    {
+                        if (damageTimer <= 0)
+                        {
+                            health -= healthDamage * 2;
+                            damageTimer = damageTick;
+                        }
+                        mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Critical Hull Damage!";
+                        if (Input.GetKeyDown("g") && canRepair)
+                        {
+                            hullHits++;
+                            health += repairAmountPerSwing;
+                            canRepair = false;
+                            repairTimer = repairCooldown;
+                        }
+                        if (repairTimer > 0)
+                        {
+                            repairTimer -= Time.deltaTime;
+                        }
+                        if (repairTimer <= 0)
+                        {
+                            canRepair = true;
+                        }
+                        if (hullHits >= hullHitsReq)
+                        {
+                            repairTimer = 0;
+                            malfunctioning = false;
+                            hullDamage = false;
+                            mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Hull Restored";
+                            RunMalfunctions(malfunctionType, barrelColour);
+                            centralDamaged = false;
+                            if (storedType != "None")
+                            {
+                                storedType = "None";
+                            }
+                            malfunctioning = false;
+                        }
+                    }*/
+            /*        if (malfunctioning == true && barrelHeated == true)
+                    {
+                        if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+                        {
+                            released = true;
+                            actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Barrel removed";
+                        }
+                        if (released == true)
+                        {
+                            turretSprite.GetComponent<SpriteRenderer>().enabled = false;
+                            barrelIcon.GetComponent<SpriteRenderer>().enabled = false;
+                            if (startingBarrel == 1)
+                            {
+                                if (Input.GetMouseButtonDown(1))
+                                {
+                                    actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Barrel changed";
+                                    overheated = false;
+                                    heat = 0;
+                                    startingBarrel = 2;
+                                    RunMalfunctions(malfunctionType, barrelColour);
+                                    released = false;
+                                    barrelHeated = false;
+                                    turretSprite.GetComponent<SpriteRenderer>().enabled = true;
+                                    barrelIcon.GetComponent<SpriteRenderer>().enabled = true;
+                                    if (storedType != "None")
+                                    {
+                                        malfunctionType = storedType;
+                                        malfunctioning = true;
+                                    }
+                                    else
+                                    {
+                                        malfunctioning = false;
+                                    }
+                                    return;
+                                }
+                            }
+                            else if (startingBarrel == 2)
+                            {
+                                if (Input.GetMouseButtonDown(0))
+                                {
+                                    malfunctioning = false;
+                                    overheated = false;
+                                    heat = 0;
+                                    startingBarrel = 1;
+                                    RunMalfunctions(malfunctionType, barrelColour);
+                                    released = false;
+                                    turretSprite.GetComponent<SpriteRenderer>().enabled = true;
+                                    if (storedType != "None")
+                                    {
+                                        malfunctionType = storedType;
+                                        malfunctioning = true;
+                                    }
+                                    else
+                                    {
+                                        malfunctioning = false;
+                                    }
+                                    return;
+                                }
+                            }
+                        }
 
-        }
-        else
-        {
-            statusText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Normal";
-        }*/
+                    }*/
+            /*        if (Input.GetKeyUp("left") || Input.GetKeyUp("right"))
+                    {
+                        currentBarrelColour = defaultBarrelColour;
+                        actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Magwell Empty";
+                        detectedMag = false;
+                    }
+                    if (detectedMag == false)
+                    {
+            */
+            if (Input.GetKey("right"))
+            {
+                currentBarrelColour = blueBarrelColour;
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma " + installedGun + " Loaded";
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
+                startingMag = 2;
+                detectedMag = true;
+            }
 
-        if (malfunctioning == true)
-        {
-            shootCooldown = 1f;
-            heatBuildUp = brokenHeatBuild;
-        }
-        else
-        {
-            shootCooldown = originalShootCooldown;
-            heatBuildUp = originalHeatBuildup;
-        }
-        cooldown -= Time.deltaTime;
-        rotation = Input.GetAxis("Vertical");
-        if(rotation>0 && leftMotionDamage)
-        {
-            transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed*turnPenalty);
-        }
-        else if(rotation<0 && rightMotionDamage)
-        {
-            transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed*turnPenalty);
-        }
-        else
-        {
-            print("bugs");
-            transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed);
-        }
-/*        transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed);*/
-        if (debuffTimer <= 0){
-            canMalfunction = true;
-        }
-        debuffTimer -= Time.deltaTime;
-    }
+            else if (Input.GetKey("left"))
+            {
+                currentBarrelColour = greenBarrelColour;
+                /*                    barrel.GetComponent<SpriteRenderer>().color = new Color(0.4009f, 1f, 0.4507f);*/
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL " + installedGun + " Loaded";
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0, 1f, 0);
+                startingMag = 1;
+                detectedMag = true;
+            }
+            else
+            {
+                currentBarrelColour = defaultBarrelColour;
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Empty " + installedGun;
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);
+                detectedMag = false;
+            }
 
-/*    private void RunMalfunctions(string malfunctionType, Vector3 colour)
-    {
-        centralDamaged = true;
-        switch (malfunctionType)
-        {
-            case "Cockpit":
-                cameraDamage = true;
-                requiredCode = cameraCode;
-                cameraGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
-                break;
-            case "Left wing":
-                lWing = true;
-                requiredCode = leftWingCode;
-                lWingGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
-                break;
-            case "Right wing":
-                rWingGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
-                requiredCode = rightWingCode;
-                break;
-            case "Hull":
-                hullDamage = true;
-                hullGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
-                health -= 1;
-                break;
-            case "Barrel":
-                barrelGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
-                break;
+
+            /*        if (malfunctioning && malfunctionType != "Barrel" && malfunctionType != "Hull")
+                    {
+                        if (damageTimer <= 0)
+                        {
+                            health -= healthDamage;
+                            damageTimer = damageTick;
+                        }
+                        damageTimer -= Time.deltaTime;
+                        mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = malfunctionType;
+                        pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = inputDisplay;
+                        rCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = requiredCode[0] + requiredCode[1] + requiredCode[2] + requiredCode[3];
+                        if ((Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("w")) && playerInput.Count < maxInput)
+                        {
+                            if (Input.GetKeyDown("a"))
+                            {
+                                playerInput.Add("A");
+                                inputDisplay += "A";
+                            }
+                            else if (Input.GetKeyDown("s"))
+                            {
+                                playerInput.Add("S");
+                                inputDisplay += "S";
+                            }
+                            else if (Input.GetKeyDown("d"))
+                            {
+                                playerInput.Add("D");
+                                inputDisplay += "D";
+                            }
+                            else if (Input.GetKeyDown("w"))
+                            {
+                                playerInput.Add("W");
+                                inputDisplay += "W";
+                            }
+                        }
+                        if (playerInput.Count >= maxInput)
+                        {
+                            for (int i = 0; i < maxInput; i++)
+                            {
+                                if (playerInput[i] != requiredCode[i])
+                                {
+                                    print(1);
+                                    correctNo = false;
+                                    break;
+                                }
+                                else
+                                {
+                                    correctNo = true;
+                                }
+                            }
+                            if (correctNo == false)
+                            {
+                                damagePlayer();
+                                playerInput.Clear();
+                                inputDisplay = "";
+                            }
+                            if (correctNo)
+                            {
+                                mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Code: N/A";
+                                pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Input: N/A";
+                                rCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Normal";
+                                malfunctioning = false;
+                                playerInput = new List<string>() { };
+                                RunMalfunctions(malfunctionType, barrelColour);
+                                inputDisplay = "";
+                                centralDamaged = false;
+                                correctNo = true;
+                                storedType = "None";
+                                malfunctioning = false;
+                            }
+                        }
+                    }*/
+            overheatBar.fillAmount = heat / maxHeat;
+            healthBar.fillAmount = health / maxHealth;
+            overheatBar2.fillAmount = heat / maxHeat;
+            healthBar2.fillAmount = health / maxHealth;
+            barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x + heat / 100, currentBarrelColour.y - heat / 400, currentBarrelColour.z);
+            if (currentBarrelColour == defaultBarrelColour)
+            {
+                barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x, currentBarrelColour.y - heat / 100, currentBarrelColour.z - heat / 100);
+            }
+            /*statusText.GetComponent<TMPro.TextMeshProUGUI>().color = barrel.GetComponent<SpriteRenderer>().color;*/
+            if (heat >= maxHeat)
+            {
+                heat = maxHeat;
+                if (overheated == false)
+                {
+                    source.PlayOneShot(overheat);
+                    overheated = true;
+                    laser.enableEmission = false;
+                    malfunctionArray[3] = hits;
+                }
+                /*            barrelHeated = true;
+                            if (malfunctionType != "None" && malfunctionType != "Barrel")
+                            {
+                                malfunctioning = true;
+                                storedType = malfunctionType;
+                            }
+                            malfunctionType = "Barrel";
+                            malfunctioning = true;
+                            RunMalfunctions(malfunctionType, Damagedcolour);*/
+            }
+            if (Input.GetKey("space") && overheated == false && detectedMag == true)
+            {
+                if (chainGun == true)
+                {
+                    shootCooldown = chainGunCool;
+                    heatBuildUp = chainGunHeat;
+                }
+                else
+                {
+                    heatBuildUp = originalHeatBuildup;
+                    shootCooldown = originalShootCooldown;
+                }
+                muzzle.Play("Muzzle");
+                muzzle.SetBool("Firing", true);
+                if (cooldown <= 0)
+                {
+                    if (startingMag == 1)
+                    {
+                        if (shotgun == true)
+                        {
+                            GameObject shotgunBullet = Instantiate(projectile, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
+                            shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectileSpeed;
+                            GameObject shotgunBullet2 = Instantiate(projectile, shotgunPos2.transform.position, shotgunPos2.transform.rotation);
+                            shotgunBullet2.GetComponent<Rigidbody2D>().velocity = shotgunPos2.transform.right * projectileSpeed;
+                            heat += shottyHeat;
+                        }
+                        if (laserUpgrade == true)
+                        {
+                            greenLaserHB.SetActive(true);
+                            heat += laserHeat;
+                            laser.enableEmission = true;
+                            if (laserSoundCoolTime < -0)
+                            {
+                                source.PlayOneShot(laserBlast);
+                                laserSoundCoolTime = laserSoundDuration;
+                            }
+                        }
+                        if (basicGun == true)
+                        {
+                            source.PlayOneShot(shootGun, 1.0f);
+                            GameObject bullet = Instantiate(projectile, barrelEnd.transform.position, transform.rotation);
+                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                        }
+                        if (pierceUpgrade == true && pierceActive == true)
+                        {
+                            source.PlayOneShot(shootGun, 1.0f);
+                            GameObject bullet = Instantiate(projectile3, barrelEnd.transform.position, transform.rotation);
+                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                        }
+
+                    }
+                    else
+                    {
+                        if (shotgun == true)
+                        {
+                            GameObject shotgunBullet = Instantiate(projectile2, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
+                            shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectileSpeed;
+                            GameObject shotgunBullet2 = Instantiate(projectile2, shotgunPos2.transform.position, transform.rotation);
+                            shotgunBullet2.GetComponent<Rigidbody2D>().velocity = shotgunPos2.transform.right * projectileSpeed;
+                            heat += shottyHeat;
+                        }
+                        if (laserUpgrade == true)
+                        {
+                            heat += laserHeat;
+                            laser2HB.SetActive(true);
+                            laser2.enableEmission = true;
+                            if (laserSoundCoolTime < -0)
+                            {
+                                source.PlayOneShot(laserBlast);
+                                laserSoundCoolTime = laserSoundDuration;
+                            }
+                        }
+                        if (pierceUpgrade == true && pierceActive == true)
+                        {
+                            source.PlayOneShot(shootGun, 1.0f);
+                            GameObject bullet = Instantiate(projectile3, barrelEnd.transform.position, transform.rotation);
+                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                        }
+                        if (basicGun == true)
+                        {
+                            source.PlayOneShot(shootPlasma, 1.0f);
+                            GameObject bullet = Instantiate(projectile2, barrelEnd.transform.position, transform.rotation);
+                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                        }
+                    }
+                    cooldown = shootCooldown;
+                    heat += heatBuildUp;
+                }
+            }
+            else
+            {
+                greenLaserHB.SetActive(false);
+                laser.enableEmission = false;
+                laser2HB.SetActive(false);
+                laser2.enableEmission = false;
+            }
+            if (cooldown > 0)
+            {
+                muzzle.SetBool("Firing", false);
+            }
+
+
+            else if (overheated == false)
+            {
+                if (heat < 0)
+                {
+                    heat = 0;
+                }
+                if (heat > 0)
+                {
+                    heat -= Time.deltaTime * heatCoolDown;
+                }
+            }
+            /*        if (overheated)
+                    {
+                        statusText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Critical Overheat — Repairs Needed!";
+
+                    }
+                    else
+                    {
+                        statusText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Normal";
+                    }*/
+
+            if (malfunctioning == true)
+            {
+                shootCooldown = 1f;
+                heatBuildUp = brokenHeatBuild;
+            }
+            else
+            {
+                shootCooldown = originalShootCooldown;
+                heatBuildUp = originalHeatBuildup;
+            }
+            cooldown -= Time.deltaTime;
+            rotation = Input.GetAxis("Vertical");
+            if (rotation > 0 && leftMotionDamage)
+            {
+                transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed * turnPenalty);
+            }
+            else if (rotation < 0 && rightMotionDamage)
+            {
+                transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed * turnPenalty);
+            }
+            else
+            {
+                print("bugs");
+                transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed);
+            }
+            /*        transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed);*/
+            if (debuffTimer <= 0) {
+                canMalfunction = true;
+            }
+            debuffTimer -= Time.deltaTime;
         }
-    }*/
+
+        /*    private void RunMalfunctions(string malfunctionType, Vector3 colour)
+            {
+                centralDamaged = true;
+                switch (malfunctionType)
+                {
+                    case "Cockpit":
+                        cameraDamage = true;
+                        requiredCode = cameraCode;
+                        cameraGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
+                        break;
+                    case "Left wing":
+                        lWing = true;
+                        requiredCode = leftWingCode;
+                        lWingGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
+                        break;
+                    case "Right wing":
+                        rWingGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
+                        requiredCode = rightWingCode;
+                        break;
+                    case "Hull":
+                        hullDamage = true;
+                        hullGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
+                        health -= 1;
+                        break;
+                    case "Barrel":
+                        barrelGUI.GetComponent<SpriteRenderer>().color = new Color(colour.x, colour.y, colour.z);
+                        break;
+                }
+            }*/
     private void Camera()
     {
         blackout.SetActive(true);
@@ -706,7 +891,8 @@ public class Turret : MonoBehaviour
             rightMotionDamage = false;
             rWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             malfunctionArray[0] = 0;
-            rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Systems Normal";
+            rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Right Wing Systems Normal";
+            rWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1, 1);
             rWingFire.enableEmission = false;
         }
         else
@@ -716,10 +902,11 @@ public class Turret : MonoBehaviour
         }
         if (malfunctionArray[1] == 0)
         {
+            lWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1, 1);
             leftMotionDamage = false;
             lWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             malfunctionArray[1] = 0;
-            lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Systems Normal";
+            lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Left Wing Systems Normal";
             lWingFire.enableEmission = false;
         }
         else
@@ -729,11 +916,13 @@ public class Turret : MonoBehaviour
         }
         if (malfunctionArray[2] == 0)
         {
+            camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1, 1);
             blackout.SetActive(false);
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             camText.GetComponent<TMPro.TextMeshProUGUI>().text="Status: Cam Systems Functional";
-            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Systems Normal";
+            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit Systems Normal";
             camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,1f,1f);
+            hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);
         }
         else{
             print("jes");
@@ -753,6 +942,7 @@ public class Turret : MonoBehaviour
         }*/
         if (malfunctionArray[3] == 0)
         {
+            barrelText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1, 1);
             malfunctionArray[3] = 0;
             barrelGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             if (overheated == true)
@@ -761,7 +951,7 @@ public class Turret : MonoBehaviour
                 heat = maxHeat - 1;
             }
             smokeSystem.enableEmission = false;
-            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Systems Normal";
+            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret Systems Normal";
         }
         else
         {
@@ -819,28 +1009,41 @@ public class Turret : MonoBehaviour
     private void rWingMalfunction()
     {
         rWingFire.enableEmission = true;
+        rWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
+        rightMotionDamage = true;
         rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Right Wing damaged: -50% leftwards rotation speed. Hit "+malfunctionArray[0]+" times";
         rightMotionDamage = true;
     }
     private void lWingMalfunction()
     {
+
+        lWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,0,0);
         lWingFire.enableEmission = true;
         lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Left Wing damaged: -50% rightwards rotation speed. Hit " + malfunctionArray[1] + " times";
         leftMotionDamage = true;
     }
     private void hullMalfunction()
     {
+        hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
         print("yes");
         hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit integrity compromised: Turret camera unavailabe. Hit " + malfunctionArray[2] + " times";
         /*        switchColours(hullText, damagedColour);*/
-/*        hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);*/
-        blackout.SetActive(true);
+        /*        hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);*/
+        if (exploded != true)
+        {
+            blackout.SetActive(true);
+        }
+        else
+        {
+            blackout.SetActive(false);
+        }
     }
     private void camMalfunction()
     {        
     }
     private void barrelMalfunction()
     {
+        barrelText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
         smokeSystem.enableEmission = true;
         smoke.gameObject.transform.eulerAngles = new Vector3(0, 0,90);
         barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Melted Barrel: Unable to fire. Hit " + malfunctionArray[3] + " times";
@@ -852,5 +1055,10 @@ public class Turret : MonoBehaviour
     private void damageComponent()
     {
         health -= decreaseHealthPart;
+    }
+    IEnumerator PlayOvercharge()
+    {
+        source.PlayOneShot(overcharge);
+        yield return new WaitForSeconds(2.0f);
     }
 }

@@ -18,7 +18,7 @@ public class Tut : MonoBehaviour
     bool malfSet=false;
     public AudioSource source;
     public AudioClip malfunction;
-    float waitTime = 2f;
+    float waitTime = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -127,6 +127,10 @@ public class Tut : MonoBehaviour
                     tutEnemyGreen.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                     tutEnemyBlue.transform.position = originalPos;
                     tutEnemyBlue.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    tutEnemyBlue.GetComponent<Animator>().SetBool("Destroyed", false);
+                    tutEnemyGreen.GetComponent<Animator>().SetBool("Destroyed", false);
+                    tutEnemyGreen.GetComponent<Rigidbody2D>().isKinematic = true;
+                    tutEnemyBlue.GetComponent<Rigidbody2D>().isKinematic = true;
                     malfSet = true;
                     if (turret.GetComponent<Turret>().startingMag == 1)
                     {
@@ -155,6 +159,7 @@ public class Tut : MonoBehaviour
             }
             SwitchText(turretText, gunTut);
             SwitchText(mechText, mechTut);
+            EnemySpawn.beginNextWave = true;
         }
     }
     private void SwitchText(GameObject thing, string[] array)
@@ -168,9 +173,9 @@ public class Tut : MonoBehaviour
     private void proceed()
     {
         selection++;
-        wait();
+/*        StartCoroutine(Wait());*/
     }
-    IEnumerator wait()
+    IEnumerator Wait()
     {
         yield return new WaitForSeconds(waitTime);
         selection++;

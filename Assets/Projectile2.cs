@@ -28,6 +28,9 @@ public class Projectile2 : MonoBehaviour
                     collision.gameObject.SetActive(false);
                 }*/
 
-        Destroy(gameObject);
+        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2")
+        {
+            Destroy(gameObject);
+        }
     }
 }
