@@ -102,6 +102,13 @@ public class Upgrades : MonoBehaviour
             case "Electric Override":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Optimized Config (Mechanic)<br><color=green>++No barrel heat<br><color=red>--Permanently swap Gunner/Mechanic viewports<br>-Replaces current Overcharge";
                 break;
+
+            case "Enhanced Materials":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Ehanced Materials (Mechanic)<br><color=green>+Less hits to repair ship<color=red>-Replaces current Mechanic upgrade";
+                break;
+            case "Camera Override":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br>color=green>+Briefly view the Gunner's viewport<br><color=red>-Lasts 10 seconds<br>-30 second cooldown<br>-Replaces current weapon";
+                break;
         }
     }
     public void displayUpgrades(GameObject textField, int displayIndex)
@@ -120,6 +127,13 @@ public class Upgrades : MonoBehaviour
             case "Grenade":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Particle Smasher (Gunner)<br><color=green>++Launches giant energy emitting spheres<br><color=red>--Extreme heat<br>-Slow projectile speed<br>-Replaces current weapon";
                 break;
+            case "Speed":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Improved Bearings (Gunner)<br><color=green>+Faster turret turn speed<br>-Replaces current weapon upgrade";
+                break;
+            case "Single Shot":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Railgun Overcharge (Gunner)<br>++High power piercing bullet that rips through any colour ship<br>--Instantly overheats barrel<br>Replaces current weapon";
+                break;
+
         }
     }
     public void InstallPowerups()
