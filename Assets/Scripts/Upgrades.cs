@@ -8,8 +8,8 @@ public class Upgrades : MonoBehaviour
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Shotgun", "Laser", "Chain Gun", "Grenade" };
-    List<string> powerupList = new List<string> { "Piercing", "Repair", "Red Shield", "Electric Override" };
+    List<string> upgradeList = new List<string> { "Shotgun", "Laser", "Chain Gun", "Grenade", "Speed", "Single Shot", "Ricochet Shot", "Reactive Armour", "Charge Shot","Overcharge" };
+    List<string> powerupList = new List<string> { "Piercing", "Repair", "Red Shield", "Electric Override", "Green Shield", "Enhanced Materials", "Thermal Imaging", "Heavy Armour", "Double Duty", "Small" };
     public GameObject upgrade1;
     public GameObject upgrade2;
     int displayChoice;
@@ -90,25 +90,38 @@ public class Upgrades : MonoBehaviour
         switch (powerupList[displayChoice2])
         {
             case "Piercing":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Bullets destroy any ship</color><br><color=red>-Lasts 5 seconds<br>-30 second cooldown<br>Replaces current Overcharge</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Bullets destroy any ship</color><br><color=red>-Lasts 5 seconds<br>-30 second cooldown<br>Replaces current Mechanic upgrade</color>";
                 break;
             case "Repair":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair (Mechanic)<br><color=green>+Automatically repair a bit of health every five seconds<br><color=red>-Replaces current Overcharge</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair (Mechanic)<br><color=green>+Automatically repair a bit of health every five seconds<br><color=red>-Replaces current Mechanic upgrade</color>";
                 break;
             case "Red Shield":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Red Shield (Mechanic)<br><color=green>+Briefly block all incoming red fire<br><color=red>-Lasts 5 seconds<br>-30 escond cooldown<br>-Replaces current overcharge";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Red Shield (Mechanic)<br><color=green>+Briefly block all incoming red fire<br><color=red>-Lasts 5 seconds<br>-30 escond cooldown<br>-Replaces current Mechanic upgradee";
+                break;
+            case "Green Shield":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Green Shield (Mechanic)<br><color=green>+Briefly block all incoming green fire<br><color=red>-Lasts 5 seconds<br>-30 escond cooldown<br>-Replaces current Mechanic upgradee";
                 break;
 
             case "Electric Override":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Optimized Config (Mechanic)<br><color=green>++No barrel heat<br><color=red>--Permanently swap Gunner/Mechanic viewports<br>-Replaces current Overcharge";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Optimized Config (Mechanic)<br><color=green>++No barrel heat<br><color=red>--Permanently swap Gunner/Mechanic viewports<br>-Replaces current Mechanic upgrade";
                 break;
 
             case "Enhanced Materials":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Ehanced Materials (Mechanic)<br><color=green>+Less hits to repair ship<color=red>-Replaces current Mechanic upgrade";
                 break;
-            case "Camera Override":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br>color=green>+Briefly view the Gunner's viewport<br><color=red>-Lasts 10 seconds<br>-30 second cooldown<br>-Replaces current weapon";
+            case "Thermal Imaging":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br><color=green>+Briefly view the Gunner's viewport<br><color=red>-Lasts 10 seconds<br>-30 second cooldown<br>-Replaces current Mechanic upgrade";
                 break;
+            case "Heavy Armour":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Heavy Armour (Mechanic)<br><color=green>++Massively increased health<br>+Less hits needed for repair<br><color=red>--Extremely slow turn speed<br>-Replaces current Mechanic upgrade";
+                break;
+            case "Double Duty":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Duty Sniper Tank (Mechanic)<br><color=green>++Massively increased spotting distance<br>++Greatly increased health<br>+Increased rotation speed<br><color=red><----Enemies start coming at you from the rear<br>-replaces current Mechanic upgrade";
+                break;
+            case "Small":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Small Frame (Mechanic)<br><color=green>+Smaller ship size<br><color=red>-Replaces current Mechanic upgrade";
+                break;
+
         }
     }
     public void displayUpgrades(GameObject textField, int displayIndex)
@@ -128,12 +141,23 @@ public class Upgrades : MonoBehaviour
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Particle Smasher (Gunner)<br><color=green>++Launches giant energy emitting spheres<br><color=red>--Extreme heat<br>-Slow projectile speed<br>-Replaces current weapon";
                 break;
             case "Speed":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Improved Bearings (Gunner)<br><color=green>+Faster turret turn speed<br>-Replaces current weapon upgrade";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Improved Bearings (Gunner)<br><color=green>+Faster turret turn speed<color=red><br>-Replaces current weapon";
                 break;
             case "Single Shot":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Railgun Overcharge (Gunner)<br>++High power piercing bullet that rips through any colour ship<br>--Instantly overheats barrel<br>Replaces current weapon";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Railgun Overcharge (Gunner)<br><color=green>++High power piercing bullet that rips through any colour ship<color=red><br>--Instantly overheats barrel<br>Replaces current weapon";
                 break;
-
+            case "Ricochet Shot":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Matter Destabilizer (Gunner)<br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>--Instantly overheats barrel<br>Replaces current weapon";
+                break;
+            case "Reactive Armour":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Reactive Armour (Gunner)<br><color=green>++Hold fire to greatly reduce damage from incoming fire of selected colour<br><color=red>--Removes gun<br>-Replaces current gunner upgrade";
+                break;
+            case "Charge Shot":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Shot (Gunner)<br><coor=green>+Dual shot split fire<br><color=red>-Slightly increased heat<br>-Replaces current upgrade";
+                break;
+            case "Overcharge":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Rerouted Overcharger (Gunner)<br><color=green>++Rapid-fire armour piercing machine gun<br><color=red>--Each shot has a chance of causing malfunctions<br>-replaces current weapon";
+                break;
         }
     }
     public void InstallPowerups()
