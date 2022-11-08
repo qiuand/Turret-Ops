@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1770811332368123859}
   - component: {fileID: 3966746462077181250}
   m_Layer: 0
-  m_Name: BlueSmallWave 1
+  m_Name: RedSmallWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

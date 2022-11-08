@@ -4822,7 +4822,7 @@ GameObject:
   - component: {fileID: 7661895658399390733}
   - component: {fileID: 1309786765606374734}
   m_Layer: 13
-  m_Name: Enemy (1)
+  m_Name: GreenShooter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

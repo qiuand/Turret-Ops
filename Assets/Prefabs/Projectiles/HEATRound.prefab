@@ -4900,7 +4900,7 @@ GameObject:
   - component: {fileID: 1609514590682157178}
   - component: {fileID: 5366451491565143252}
   m_Layer: 12
-  m_Name: PlayerProjectile2 Variant 1
+  m_Name: HEATRound
   m_TagString: Projectile3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

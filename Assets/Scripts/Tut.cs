@@ -19,29 +19,34 @@ public class Tut : MonoBehaviour
     public AudioSource source;
     public AudioClip malfunction;
     float waitTime = 1f;
+    bool gunnerAgree = false;
+    bool mechanicAgree = false;
     // Start is called before the first frame update
     void Start()
     {
         tutEnemyBlue.SetActive(false);
         tutEnemyGreen.SetActive(false);
-        gunTut[0] = "Welcome to COSMIC CREW! You and your partner have a very important mission: keep your ship afloat at all costs to defeat the advancing fleet!<br>Fire to continue";
-        gunTut[1] = "You're the Gunner! Your partner is the Mechanic.<br>Fire to continue";
+        /*        gunTut[0] = "Welcome to COSMIC CREW! You and your partner have a very important mission: keep your ship afloat at all costs to defeat the advancing fleet!<br>Fire to continue";*/
+        gunTut[0] = "<b>Welcome to COSMIC CREW!<b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship";
+        gunTut[1] = "You're the Gunner! Your partner is the <color=#006CFF>Mechanic.</color><br>Fire to continue";
         gunTut[2] = "You are in charge of shooting down enemies.<br>Fire to continue";
         gunTut[3] = "Lever: Rotate turret<br>Fire: Shoot<br>Destroy that enemy!";
-        gunTut[4] = "Malfunctions occur when the ship is hit! This can cause all sorts of problems for your turret. Your ship automatically repairs a bit of damage after some time, but critical malfunctions must be fixed by your friend!";
-        gunTut[5] = "Shooting too much cuases critical overheats! Let your friend the Mechanic fix those, too!";
-        gunTut[6] = "You can only damage green enemies with green bullets, and blue enemies with blue bullets! The mechanic can't tell what colour enemies are, so tell him which ammo to load!";
-        gunTut[7] = "That's all you need to know to be a certified space gunner! Good luck, Cosmic Crew!";
+        /*gunTut[4] = "Malfunctions occur when the ship is hit! This can cause all sorts of problems for your turret. Your ship automatically repairs a bit of damage after some time, but critical malfunctions must be fixed by your friend!";*/
+        gunTut[4] = "Malfunctions are bad! Ask the mechanic to fix them!";
+        gunTut[5] = "Shooting causes overheating! Let your friend fix that, too!";
+        /*        gunTut[6] = "You can only damage green enemies with green bullets, and blue enemies with blue bullets! The mechanic can't tell what colour enemies are, so tell him which ammo to load!";*/
+        gunTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color> You need to tell the mechanic which you need — they can't see colors!";
+        gunTut[7] = "That's all you need to know! Good luck, Cosmic Gunner!";
         gunTut[8] = "";
 
-        mechTut[0]= "Welcome to COSMIC CREW! You and your partner have a very important mission: keep your ship afloat at all costs to defeat the advancing fleet!"; ;
-        mechTut[1]= "You're the Mechanic! Your partner is the Gunner.";
+        mechTut[0] = "<b>Welcome to COSMIC CREW!</b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship";
+        mechTut[1]= "You're the Mechanic! Your partner is the <color=yellow>Gunner.</color>";
         mechTut[2] = "You are in charge of maintaining the ship.";
-        mechTut[3] = "Your mini map gives you a view of what the Gunner is up to.";
-        mechTut[4] = "Malfunctions occur when the ship is hit! Your ship automatically repairs a bit of damage after some time, but the critical malfunctions can cause all sorts of problems for your friend's turret. Use the button on the left to select the damaged part, and hit the repair pad with the hammer to fix it!";
-        mechTut[5] = "Reckless shooting can cause barrel overheating. Repair the barrel now!";
-        mechTut[6] = "The gunner needs blue ammo to damage blue ships, and green ammo for green ships. You can't see enemy colours, so listen closely to what ammo they need!";
-        mechTut[7]= "Good luck, Cosmic Mechanic!!<b> Use the hammer to continue";
+        mechTut[3] = "Note that your gunport cannot see colours.";
+        mechTut[4] = "Getting hit is bad! Repair the damage with your hammer now!";
+        mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
+        mechTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color>Of course, you wouldn't know who's who; ask the Gunner which to load!";
+        mechTut[7]= "Good luck, Cosmic Mechanic!<b> Use the hammer to continue";
         mechTut[8] = "";
     }
 
@@ -53,12 +58,19 @@ public class Tut : MonoBehaviour
         {
             if (Input.GetKeyDown("space") && selection < 3)
             {
-                print("af");
-                if (selection < gunTut.Length - 2)
-                {
-                    selection += 1;
-                }
+                gunnerAgree = true;
             }
+            if (Input.GetKeyDown("g") && selection < 3)
+            {
+                mechanicAgree = true;
+            }
+            if (gunnerAgree==true && mechanicAgree==true && selection < gunTut.Length - 2)
+            {
+                selection += 1;
+                gunnerAgree = false;
+                mechanicAgree = false;
+            }
+
             if (selection == 3)
             {
                 if (malfSet == false)

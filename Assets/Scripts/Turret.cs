@@ -7,15 +7,26 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public GameObject mechanicView;
+    public GameObject gunnerView;
+    public ParticleSystem minimapLaserGreen;
+    public ParticleSystem minimapLaserRed;
+    public bool electricOverride = false;
+    float smashProjHeat = 40;
+    public GameObject smashProj;
+    public GameObject smashProj2;
+    float smashProjectileSpeed = 1.0f;
+    public bool smasher = false;
+    public bool redShield = false;
     public bool autoRepair = false;
     public AudioClip overcharge;
     public AudioClip cooldownSound;
     public string installedUpgrade = "No";
     bool recharged = true;
-    float rechargeDuration = 5.0f;
-    float rechargeTime = 5.0f;
-    float pierceDurationCool=3.0f;
-    float pierceCooldownTime=3.0f;
+    float rechargeDuration = 7.0f;
+    float rechargeTime = 7.0f;
+    float pierceDurationCool=5.0f;
+    float pierceCooldownTime=5.0f;
     float abilityCooldown=0f;
     public bool pierceUpgrade = false;
     public GameObject projectile3;
@@ -186,16 +197,27 @@ public class Turret : MonoBehaviour
     public ParticleSystem laser2;
     bool pierceActive = false;
     public GameObject powerupInfo;
+    public string powerupInstalled;
     public GameObject powerupCoolText;
+    bool upgradeActive = false;
+    bool redShieldActive = false;
+    public GameObject redShieldObject;
     // Start is called before the first frame update
     void Start()
     {
+        gunnerView.SetActive(false);
+        mechanicView.SetActive(false);
+        redShieldObject.SetActive(false);
         installedGun = "Blaster";
         laser2.gameObject.SetActive(false);
         laser2HB.gameObject.SetActive(false);
         laser.gameObject.SetActive(false);
         laserSoundDuration = laserBlast.length;
         laser.enableEmission = false;
+        minimapLaserGreen.gameObject.SetActive(false);
+        minimapLaserRed.gameObject.SetActive(false);
+        minimapLaserGreen.enableEmission = false;
+        minimapLaserRed.enableEmission = false;
         health = maxHealth;
         currentBarrelColour = defaultBarrelColour;
         lWingSelect.SetActive(false);
@@ -208,20 +230,43 @@ public class Turret : MonoBehaviour
         moveSpeed = originalMoveSpeed;
         malfunctionArray = new int[4] { 0, 0, 0, 0};
         swungMax = malfunctionArray.Length - 1;
+
         powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "";
     }
 
     // Update is called once per framwwwwswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwsse
     void Update()
     {
+        if (electricOverride == true)
+        {
+            gunnerView.SetActive(true);
+            mechanicView.SetActive(true);
+        }
+        else
+        {
+            gunnerView.SetActive(false);
+            mechanicView.SetActive(false);
+        }
+        if (electricOverride == true)
+        {
+            heat = 0;
+        }
         powerupInfo.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade+" installed";
         /*        pierceActive = true;
                 pierceUpgrade = true;*/
-        if (Input.GetKeyDown("q")&& recharged==true) {
+        if (Input.GetKeyDown("q")&& recharged==true && installedUpgrade!=null && installedUpgrade!= "Auto-repair Module") {
             StartCoroutine(PlayOvercharge());
+            switch (installedUpgrade)
+            {
+                case "HEAT Round Module":
+                    pierceActive = true;
+                    break;
+                case "Red Shield Module":
+                    redShieldActive = true;
+                    break;
+            }
             /*source.PlayOneShot(overcharge);*/
-            print("dmf");
-            pierceActive = true;
+            upgradeActive = true;
         }
         if (pierceActive)
         {
@@ -231,39 +276,54 @@ public class Turret : MonoBehaviour
         {
             print("nose");
         }
-        if (pierceUpgrade && pierceActive == true)
+        if (redShieldActive == true)
         {
-            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Active: " + System.Math.Round(pierceCooldownTime, 2) + " seconds remaining";
+            redShieldObject.SetActive(true);
+        }
+        else
+        {
+            redShieldObject.SetActive(false);
+        }
+        if (upgradeActive == true)
+        {
+            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade+" Active: " + System.Math.Round(pierceCooldownTime, 2) + " seconds remaining";
             pierceCooldownTime -= Time.deltaTime;
             if (pierceCooldownTime <= 0)
             {
                 source.PlayOneShot(cooldownSound) ;
+                redShieldObject.SetActive(false);
+                redShieldActive = false;
                 pierceActive = false;
                 recharged = false;
                 rechargeTime = rechargeDuration;
                 pierceCooldownTime = pierceDurationCool;
             }
         }
+        rechargeTime -= Time.deltaTime;
         if (recharged == false)
         {
-            rechargeTime -= Time.deltaTime;
+            upgradeActive = false;
             powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = System.Math.Round(rechargeTime, 2) + " seconds to recharge";
             rechargeTime -= Time.deltaTime;
             if (rechargeTime <= 0)
             {
+                rechargeTime = rechargeDuration;
                 recharged = true;
                 powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Ability fully recharged";
             }
         }
-            if (laserUpgrade == true)
+        if (laserUpgrade == true)
             {
-                laser2.gameObject.SetActive(true);
+            minimapLaserGreen.gameObject.SetActive(true);
+            minimapLaserRed.gameObject.SetActive(true);
+            laser2.gameObject.SetActive(true);
                 laser.gameObject.SetActive(true);
                 basicGun = false;
             }
             else
             {
                 laser.enableEmission = false;
+            minimapLaserGreen.enableEmission = false;
             }
             laserSoundCoolTime -= Time.deltaTime;
             Cursor.visible = true;
@@ -674,7 +734,8 @@ public class Turret : MonoBehaviour
                 {
                     source.PlayOneShot(overheat);
                     overheated = true;
-                    laser.enableEmission = false;
+                minimapLaserGreen.gameObject.SetActive(false);
+                laser.enableEmission = false;
                     malfunctionArray[3] = hits;
                 }
                 /*            barrelHeated = true;
@@ -705,6 +766,12 @@ public class Turret : MonoBehaviour
                 {
                     if (startingMag == 1)
                     {
+                    if (smasher == true)
+                    {
+                        heat += smashProjHeat;
+                        GameObject smashProjectile = Instantiate(smashProj2, barrelEnd.transform.position, transform.rotation);
+                        smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectileSpeed;
+                    }
                         if (shotgun == true)
                         {
                             GameObject shotgunBullet = Instantiate(projectile, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
@@ -717,6 +784,7 @@ public class Turret : MonoBehaviour
                         {
                             greenLaserHB.SetActive(true);
                             heat += laserHeat;
+                                minimapLaserGreen.enableEmission=true;
                             laser.enableEmission = true;
                             if (laserSoundCoolTime < -0)
                             {
@@ -740,7 +808,13 @@ public class Turret : MonoBehaviour
                     }
                     else
                     {
-                        if (shotgun == true)
+                    if (smasher == true)
+                    {
+                        heat += smashProjHeat;
+                        GameObject smashProjectile = Instantiate(smashProj, barrelEnd.transform.position, transform.rotation);
+                        smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectileSpeed;
+                    }
+                    if (shotgun == true)
                         {
                             GameObject shotgunBullet = Instantiate(projectile2, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
                             shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectileSpeed;
@@ -752,6 +826,7 @@ public class Turret : MonoBehaviour
                         {
                             heat += laserHeat;
                             laser2HB.SetActive(true);
+                        minimapLaserRed.enableEmission = true;
                             laser2.enableEmission = true;
                             if (laserSoundCoolTime < -0)
                             {
@@ -782,6 +857,8 @@ public class Turret : MonoBehaviour
                 laser.enableEmission = false;
                 laser2HB.SetActive(false);
                 laser2.enableEmission = false;
+            minimapLaserRed.enableEmission = false;
+            minimapLaserGreen.enableEmission = false;
             }
             if (cooldown > 0)
             {
