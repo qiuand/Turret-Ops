@@ -52,9 +52,25 @@ public class Upgrades : MonoBehaviour
                 InstallUpgrades();
                 canUpgrade = false;
             }
+            if (Input.GetKeyDown("3"))
+            {
+                Skip();
+            }
         }
     }
+    public void Skip()
+    {
+        upgradeLayer.SetActive(false);
+        source.PlayOneShot(ding);
+        upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+        upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+        EnemySpawn.beginNextWave = true;
+        spawner.GetComponent<EnemySpawn>().waveCount++;
 
+        spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
+        spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
+        spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
+    }
     public void RollUpgrades()
     {
         upgradeLayer.SetActive(true);
