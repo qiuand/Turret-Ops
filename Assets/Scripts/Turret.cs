@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    bool greenShieldActive = false;
+    public GameObject greenShieldObj;
     public bool speed = false;
     public bool singleShot = false;
     public bool ricochet=false;
@@ -14,11 +16,12 @@ public class Turret : MonoBehaviour
     public bool dualShot = false;
     public bool overChargeGun = false;
     public bool greenShield = false;
-    public bool ehancedMaterials = false;
-    public bool themralImaging = false;
+    public bool enhancedMaterials = false;
+    public bool thermalImaging = false;
     public bool heavyArmour = false;
     public bool doubleDuty = false;
     public bool small = false;
+    public int originalHealth = 100;
     public GameObject mechanicView;
     public GameObject gunnerView;
     public ParticleSystem minimapLaserGreen;
@@ -153,6 +156,7 @@ public class Turret : MonoBehaviour
     public int swungAt=0;
     int swungMax;
     public int hits = 5;
+    int maxHit = 5;
     float score=10;
     public GameObject yes;
     public AudioClip magazine;
@@ -214,9 +218,15 @@ public class Turret : MonoBehaviour
     bool upgradeActive = false;
     bool redShieldActive = false;
     public GameObject redShieldObject;
+    int enhancedHits=3;
+    float smallSize = 0.75f;
+    float heavyArmourHealth = 200;
+    float slowSpeed = 35;
+    float increasedSpeed = 190;
     // Start is called before the first frame update
     void Start()
     {
+        greenShieldObj.SetActive(false);
         gunnerView.SetActive(false);
         mechanicView.SetActive(false);
         redShieldObject.SetActive(false);
@@ -246,71 +256,61 @@ public class Turret : MonoBehaviour
         powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "";
     }
 
-    // Update is called once per framwwwwswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwsse
+    // Update is called once per frame
     void Update()
     {
-        if (electricOverride == true)
+        if (doubleDuty || heavyArmour)
+        {
+            if (heavyArmour)
+            {
+                maxHealth = heavyArmourHealth;
+                moveSpeed = slowSpeed;
+            }
+            else if (doubleDuty)
+            {
+                maxHealth = heavyArmourHealth;
+                moveSpeed = increasedSpeed;
+            }
+        }
+        else
+        {
+            maxHealth = originalHealth;
+            moveSpeed = originalMoveSpeed;
+        }
+
+        if (small)
+        {
+            ship.gameObject.transform.localScale = new Vector2(smallSize, smallSize);
+        }
+        else
+        {
+            ship.gameObject.transform.localScale = new Vector2(1f,1f);
+        }
+
+        if (enhancedMaterials == true)
+        {
+            hits = enhancedHits;
+        }
+        else
+        {
+            hits = maxHit;
+        }
+        ActivatePowerups();
+        if (electricOverride == true && thermalImaging==false)
         {
             gunnerView.SetActive(true);
             mechanicView.SetActive(true);
+            heat = 0;
         }
-        else
+        else if(electricOverride==false && thermalImaging==false)
         {
             gunnerView.SetActive(false);
             mechanicView.SetActive(false);
         }
-        if (electricOverride == true)
-        {
-            heat = 0;
-        }
+
         powerupInfo.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade+" installed";
         /*        pierceActive = true;
                 pierceUpgrade = true;*/
-        if (Input.GetKeyDown("q")&& recharged==true && installedUpgrade!=null && installedUpgrade!= "Auto-repair Module") {
-            StartCoroutine(PlayOvercharge());
-            switch (installedUpgrade)
-            {
-                case "HEAT Round Module":
-                    pierceActive = true;
-                    break;
-                case "Red Shield Module":
-                    redShieldActive = true;
-                    break;
-            }
-            /*source.PlayOneShot(overcharge);*/
-            upgradeActive = true;
-        }
-        if (pierceActive)
-        {
-            print("yes");
-        }
-        if (pierceUpgrade)
-        {
-            print("nose");
-        }
-        if (redShieldActive == true)
-        {
-            redShieldObject.SetActive(true);
-        }
-        else
-        {
-            redShieldObject.SetActive(false);
-        }
-        if (upgradeActive == true)
-        {
-            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade+" Active: " + System.Math.Round(pierceCooldownTime, 2) + " seconds remaining";
-            pierceCooldownTime -= Time.deltaTime;
-            if (pierceCooldownTime <= 0)
-            {
-                source.PlayOneShot(cooldownSound) ;
-                redShieldObject.SetActive(false);
-                redShieldActive = false;
-                pierceActive = false;
-                recharged = false;
-                rechargeTime = rechargeDuration;
-                pierceCooldownTime = pierceDurationCool;
-            }
-        }
         rechargeTime -= Time.deltaTime;
         if (recharged == false)
         {
@@ -1149,5 +1149,64 @@ public class Turret : MonoBehaviour
     {
         source.PlayOneShot(overcharge);
         yield return new WaitForSeconds(2.0f);
+    }
+    private void ActivatePowerups()
+    {
+        if (Input.GetKeyDown("q") && recharged == true && installedUpgrade != null && installedUpgrade != "Auto-repair Module")
+        {
+            StartCoroutine(PlayOvercharge());
+            switch (installedUpgrade)
+            {
+                case "HEAT Round Module":
+                    pierceActive = true;
+                    break;
+                case "Red Shield Module":
+                    redShieldActive = true;
+                    break;
+                case "Green Shield Module":
+                    greenShieldActive = true;
+                    greenShieldObj.gameObject.SetActive(true);
+                    break;
+                case "Thermal Imaging":
+                    gunnerView.gameObject.SetActive(true);
+                    break;
+            }
+            /*source.PlayOneShot(overcharge);*/
+            upgradeActive = true;
+        }
+        if (pierceActive)
+        {
+            print("yes");
+        }
+        if (pierceUpgrade)
+        {
+            print("nose");
+        }
+        if (redShieldActive == true)
+        {
+            redShieldObject.SetActive(true);
+        }
+        else
+        {
+            redShieldObject.SetActive(false);
+        }
+        if (upgradeActive == true)
+        {
+            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade + " Active: " + System.Math.Round(pierceCooldownTime, 2) + " seconds remaining";
+            pierceCooldownTime -= Time.deltaTime;
+            if (pierceCooldownTime <= 0)
+            {
+                source.PlayOneShot(cooldownSound);
+                gunnerView.SetActive(false);
+                redShieldObject.SetActive(false);
+                greenShieldObj.gameObject.SetActive(false);
+                redShieldActive = false;
+                greenShieldActive = false;
+                pierceActive = false;
+                recharged = false;
+                rechargeTime = rechargeDuration;
+                pierceCooldownTime = pierceDurationCool;
+            }
+        }
     }
 }

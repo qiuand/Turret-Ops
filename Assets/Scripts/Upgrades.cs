@@ -107,7 +107,7 @@ public class Upgrades : MonoBehaviour
                 break;
 
             case "Enhanced Materials":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Ehanced Materials (Mechanic)<br><color=green>+Less hits to repair ship<color=red>-Replaces current Mechanic upgrade";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Enhanced Materials (Mechanic)<br><color=green>+Less hits to repair ship<color=red>-Replaces current Mechanic upgrade";
                 break;
             case "Thermal Imaging":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br><color=green>+Briefly view the Gunner's viewport<br><color=red>-Lasts 10 seconds<br>-30 second cooldown<br>-Replaces current Mechanic upgrade";
@@ -116,7 +116,7 @@ public class Upgrades : MonoBehaviour
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Heavy Armour (Mechanic)<br><color=green>++Massively increased health<br>+Less hits needed for repair<br><color=red>--Extremely slow turn speed<br>-Replaces current Mechanic upgrade";
                 break;
             case "Double Duty":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Duty Sniper Tank (Mechanic)<br><color=green>++Massively increased spotting distance<br>++Greatly increased health<br>+Increased rotation speed<br><color=red><----Enemies start coming at you from the rear<br>-replaces current Mechanic upgrade";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Duty Sniper Tank (Mechanic)<br><color=green>++Massively increased spotting distance<br>++Greatly increased health<br>+Increased rotation speed<br><color=red>----Enemies start coming at you from the rear<br>-replaces current Mechanic upgrade";
                 break;
             case "Small":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Small Frame (Mechanic)<br><color=green>+Smaller ship size<br><color=red>-Replaces current Mechanic upgrade";
@@ -153,7 +153,7 @@ public class Upgrades : MonoBehaviour
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Reactive Armour (Gunner)<br><color=green>++Hold fire to greatly reduce damage from incoming fire of selected colour<br><color=red>--Removes gun<br>-Replaces current gunner upgrade";
                 break;
             case "Charge Shot":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Shot (Gunner)<br><colCor=green>+Dual shot split fire<br><color=red>-Slightly increased heat<br>-Replaces current upgrade";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Shot (Gunner)<br><color=green>+Dual shot split fire<br><color=red>-Slightly increased heat<br>-Replaces current upgrade";
                 break;
             case "Overcharge":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Rerouted Overcharger (Gunner)<br><color=green>++Rapid-fire armour piercing machine gun<br><color=red>--Each shot has a chance of causing malfunctions<br>-replaces current weapon";
@@ -194,9 +194,9 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().electricOverride = true;
                 break;
             case "Green Shield":
+                setPowerupsFalse();
                 ship.GetComponent<Turret>().installedUpgrade = "Green Shield Module";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Green Shield-charge ready";
-                setPowerupsFalse();
                 ship.GetComponent<Turret>().greenShield = true;
                 break;
             case "Enhanced Materials":
@@ -301,7 +301,7 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().overChargeGun = true;
                 break;
         }
-        powerupList.Remove(upgradeList[upgradeIndex]);
+        upgradeList.Remove(upgradeList[upgradeIndex]);
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
