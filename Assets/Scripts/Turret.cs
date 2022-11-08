@@ -768,7 +768,6 @@ public class Turret : MonoBehaviour
                     {
                     if (smasher == true)
                     {
-                        source.PlayOneShot(laserBlast);
                         heat += smashProjHeat;
                         GameObject smashProjectile = Instantiate(smashProj2, barrelEnd.transform.position, transform.rotation);
                         smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectileSpeed;
@@ -811,7 +810,6 @@ public class Turret : MonoBehaviour
                     {
                     if (smasher == true)
                     {
-                        source.PlayOneShot(laserBlast);
                         heat += smashProjHeat;
                         GameObject smashProjectile = Instantiate(smashProj, barrelEnd.transform.position, transform.rotation);
                         smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectileSpeed;
