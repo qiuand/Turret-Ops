@@ -7,6 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public bool speed = false;
+    public bool singleShot = false;
+    public bool ricochet=false;
+    public bool reactiveArmour = false;
+    public bool dualShot = false;
+    public bool overChargeGun = false;
+    public bool greenShield = false;
+    public bool ehancedMaterials = false;
+    public bool themralImaging = false;
+    public bool heavyArmour = false;
+    public bool doubleDuty = false;
+    public bool small = false;
     public GameObject mechanicView;
     public GameObject gunnerView;
     public ParticleSystem minimapLaserGreen;

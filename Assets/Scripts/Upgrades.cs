@@ -153,7 +153,7 @@ public class Upgrades : MonoBehaviour
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Reactive Armour (Gunner)<br><color=green>++Hold fire to greatly reduce damage from incoming fire of selected colour<br><color=red>--Removes gun<br>-Replaces current gunner upgrade";
                 break;
             case "Charge Shot":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Shot (Gunner)<br><coor=green>+Dual shot split fire<br><color=red>-Slightly increased heat<br>-Replaces current upgrade";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Shot (Gunner)<br><colCor=green>+Dual shot split fire<br><color=red>-Slightly increased heat<br>-Replaces current upgrade";
                 break;
             case "Overcharge":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Rerouted Overcharger (Gunner)<br><color=green>++Rapid-fire armour piercing machine gun<br><color=red>--Each shot has a chance of causing malfunctions<br>-replaces current weapon";
@@ -192,6 +192,42 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().electricOverride = true;
+                break;
+            case "Green Shield":
+                ship.GetComponent<Turret>().installedUpgrade = "Green Shield Module";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Green Shield-charge ready";
+                setPowerupsFalse();
+                ship.GetComponent<Turret>().greenShield = true;
+                break;
+            case "Enhanced Materials":
+                ship.GetComponent<Turret>().installedUpgrade = "Enhanced Materials";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                setPowerupsFalse();
+                ship.GetComponent<Turret>().enhancedMaterials = true;
+                break;
+            case "Thermal Imaging":
+                ship.GetComponent<Turret>().installedUpgrade = "Thermal Imaging";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                setPowerupsFalse();
+                ship.GetComponent<Turret>().thermalImaging = true;
+                break;
+            case "Heavy Armour":
+                ship.GetComponent<Turret>().installedUpgrade = "Heavy Armour";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                setPowerupsFalse();
+                ship.GetComponent<Turret>().heavyArmour = true;
+                break;
+            case "Double Duty":
+                ship.GetComponent<Turret>().installedUpgrade = "Double Duty Sniper Tank";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                setPowerupsFalse();
+                ship.GetComponent<Turret>().doubleDuty = true;
+                break;
+            case "Small":
+                ship.GetComponent<Turret>().installedUpgrade = "Small Frame";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                setPowerupsFalse();
+                ship.GetComponent<Turret>().small = true;
                 break;
         }
         powerupList.Remove(powerupList[upgradeIndex]);
@@ -233,7 +269,36 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().installedGun = "Spitter Launcher";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().smasher = true;
-
+                break;
+            case "Speed":
+                ship.GetComponent<Turret>().installedGun = "Fast Blaster";
+                setGunUpgradesFalse();
+                ship.GetComponent<Turret>().speed = true;
+                break;
+            case "Single Shot":
+                ship.GetComponent<Turret>().installedGun = "Railgun";
+                setGunUpgradesFalse();
+                ship.GetComponent<Turret>().singleShot = true;
+                break;
+            case "Ricochet Shot":
+                ship.GetComponent<Turret>().installedGun = "Matter Destabilizer";
+                setGunUpgradesFalse();
+                ship.GetComponent<Turret>().ricochet = true;
+                break;
+            case "Reactive Armour":
+                ship.GetComponent<Turret>().installedGun = "Reactive Armour";
+                setGunUpgradesFalse();
+                ship.GetComponent<Turret>().reactiveArmour = true;
+                break;
+            case "Charge Shot":
+                ship.GetComponent<Turret>().installedGun = "Dual Blaster";
+                setGunUpgradesFalse();
+                ship.GetComponent<Turret>().dualShot = true;
+                break;
+            case "Overcharge":
+                ship.GetComponent<Turret>().installedGun = "Overcharger";
+                setGunUpgradesFalse();
+                ship.GetComponent<Turret>().overChargeGun = true;
                 break;
         }
         powerupList.Remove(upgradeList[upgradeIndex]);
@@ -253,12 +318,27 @@ public class Upgrades : MonoBehaviour
         ship.GetComponent<Turret>().basicGun = false;
         ship.GetComponent<Turret>().chainGun = false;
         ship.GetComponent<Turret>().smasher = false;
+        ship.GetComponent<Turret>().speed = false;
+        ship.GetComponent<Turret>().singleShot = false;
+        ship.GetComponent<Turret>().ricochet = false;
+        ship.GetComponent<Turret>().reactiveArmour = false;
+        ship.GetComponent<Turret>().dualShot = false;
+        ship.GetComponent<Turret>().overChargeGun = false;
     }
+
     private void setPowerupsFalse()
     {
         ship.GetComponent<Turret>().autoRepair = false;
         ship.GetComponent<Turret>().pierceUpgrade = false;
         ship.GetComponent<Turret>().redShield = false;
         ship.GetComponent<Turret>().electricOverride = false;
+        ship.GetComponent<Turret>().greenShield = false;
+        ship.GetComponent<Turret>().enhancedMaterials = false;
+        ship.GetComponent<Turret>().thermalImaging = false;
+        ship.GetComponent<Turret>().heavyArmour = false;
+        ship.GetComponent<Turret>().doubleDuty = false;
+        ship.GetComponent<Turret>().small = false;
+
+
     }
 }
