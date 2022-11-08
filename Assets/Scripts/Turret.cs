@@ -315,12 +315,14 @@ public class Turret : MonoBehaviour
         if (recharged == false)
         {
             upgradeActive = false;
+            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
             powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = System.Math.Round(rechargeTime, 2) + " seconds to recharge";
             rechargeTime -= Time.deltaTime;
             if (rechargeTime <= 0)
             {
                 rechargeTime = rechargeDuration;
                 recharged = true;
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0f, 1f, 0);
                 powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Ability fully recharged";
             }
         }

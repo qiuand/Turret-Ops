@@ -52577,6 +52577,7 @@ MonoBehaviour:
   upgrade1: {fileID: 1210143190}
   upgrade2: {fileID: 2037178569}
   ship: {fileID: 804768600}
+  cooldownText: {fileID: 604248759}
   spawner: {fileID: 817288743}
 --- !u!4 &2113512842
 Transform:

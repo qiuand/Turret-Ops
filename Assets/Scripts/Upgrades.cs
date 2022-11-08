@@ -19,6 +19,7 @@ public class Upgrades : MonoBehaviour
     public GameObject ship;
     public static bool upgradesRolled = true;
     int upgradeIndex;
+    public GameObject cooldownText;
     public GameObject spawner;
     // Start is called before the first frame update
     void Start()
@@ -230,6 +231,7 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().small = true;
                 break;
         }
+        cooldownText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0f, 1f, 0);
         powerupList.Remove(powerupList[upgradeIndex]);
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
