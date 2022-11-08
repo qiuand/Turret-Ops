@@ -78,7 +78,7 @@ public class EnemySpawn : MonoBehaviour
         waveTimer -= Time.deltaTime;
         if (waveTime > 0)
         {
-            waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + waveCount + ": " + System.Math.Round(waveTime, 2) + " Seconds Remaining: " + waveTimer + " Break: " + breakCounter;
+            waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + waveCount + ": " + System.Math.Round(waveTime, 2) + " Seconds Remaining: "/* + waveTimer + " Break: " + breakCounter*/;
         }
         else
         {
