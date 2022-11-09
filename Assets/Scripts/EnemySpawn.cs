@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
+    int maxWave = 20;
     AudioSource source;
     public AudioClip ding;
     bool endOfTut = false;
@@ -87,7 +88,7 @@ public class EnemySpawn : MonoBehaviour
             }
             else
             {
-                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + waveCount + ": " + System.Math.Round(waveTime, 2) + " Seconds Remaining:"/* + waveTimer + " Break: " + breakCounter*/;
+                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + waveCount + "/"+maxWave+": " + System.Math.Round(waveTime, 2) + " Seconds Remaining:"/* + waveTimer + " Break: " + breakCounter*/;
             }
         }
         else

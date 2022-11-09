@@ -15,7 +15,7 @@ public class Turret : MonoBehaviour
     float dualShotHeat = 5.0f;
     public AudioClip railgunSound;
     public GameObject railgunProj;
-    float  railgunSpeed=40f;
+    float  railgunspeed=40f;
     bool greenShieldActive = false;
     public GameObject greenShieldObj;
     public bool speed = false;
@@ -39,7 +39,7 @@ public class Turret : MonoBehaviour
     float smashProjHeat = 40;
     public GameObject smashProj;
     public GameObject smashProj2;
-    float smashProjectileSpeed = 1.0f;
+    float smashProjectilespeed = 1.0f;
     public bool smasher = false;
     public bool redShield = false;
     public bool autoRepair = false;
@@ -88,10 +88,10 @@ public class Turret : MonoBehaviour
     public float maxHeat = 100;
     float heatCoolDown = 100;
     public GameObject barrelEnd;
-    float moveSpeed;
+    float movespeed;
     float rotation;
     public GameObject projectile;
-    public int projectileSpeed = 30;
+    public int projectilespeed = 30;
     float shootCooldown;
     float cooldown = 0f;
     bool canRepair = true;
@@ -138,7 +138,7 @@ public class Turret : MonoBehaviour
     bool NewbarrelIn;
     int installedBarrel = 1;
     int startingBarrel;
-    int originalMoveSpeed = 70;
+    int originalMovespeed = 70;
     bool barrelInserted = true;
     bool released = false;
     public GameObject turretSprite;
@@ -155,7 +155,7 @@ public class Turret : MonoBehaviour
     bool centralDamaged = false;
     public int insertedChip;
     public GameObject actionStatus;
-    public int reducedMoveSpeed = 10;
+    public int reducedMovespeed = 10;
     float damageTick = 3f;
     float damageTimer = 0f;
     public GameObject barrelIcon;
@@ -230,8 +230,8 @@ public class Turret : MonoBehaviour
     int enhancedHits=3;
     float smallSize = 0.75f;
     float heavyArmourHealth = 200;
-    float slowSpeed = 35;
-    float increasedSpeed = 190;
+    float slowspeed = 35;
+    float increasedspeed = 190;
     // Start is called before the first frame update
     void Start()
     {
@@ -259,7 +259,7 @@ public class Turret : MonoBehaviour
         blackout.SetActive(false);
         heatBuildUp = originalHeatBuildup;
         shootCooldown = originalShootCooldown;
-        moveSpeed = originalMoveSpeed;
+        movespeed = originalMovespeed;
         malfunctionArray = new int[4] { 0, 0, 0, 0};
         swungMax = malfunctionArray.Length - 1;
 
@@ -273,23 +273,23 @@ public class Turret : MonoBehaviour
         {
             if (speed)
             {
-                moveSpeed = increasedSpeed;
+                movespeed = increasedspeed;
             }
             if (heavyArmour)
             {
                 maxHealth = heavyArmourHealth;
-                moveSpeed = slowSpeed;
+                movespeed = slowspeed;
             }
             else if (doubleDuty)
             {
                 maxHealth = heavyArmourHealth;
-                moveSpeed = increasedSpeed;
+                movespeed = increasedspeed;
             }
         }
         else
         {
             maxHealth = originalHealth;
-            moveSpeed = originalMoveSpeed;
+            movespeed = originalMovespeed;
         }
 
         if (small)
@@ -487,13 +487,13 @@ public class Turret : MonoBehaviour
             /*        if (cameraDamage == true)
                     {
                         blackout.SetActive(true);
-                        moveSpeed = reducedMoveSpeed;
+                        movespeed = reducedMovespeed;
 
                     }
                     else
                     {
                         blackout.SetActive(false);
-                        moveSpeed = originalMoveSpeed;
+                        movespeed = originalMovespeed;
                     }*/
             if (detectedBarrel == false)
             {
@@ -816,7 +816,7 @@ public class Turret : MonoBehaviour
                 source.PlayOneShot(railgunSound);
                 heat = maxHeat;
                 GameObject railgun = Instantiate(railgunProj, barrelEnd.transform.position, transform.rotation);
-                railgun.GetComponent<Rigidbody2D>().velocity = transform.right * railgunSpeed;
+                railgun.GetComponent<Rigidbody2D>().velocity = transform.right * railgunspeed;
             }
                 if (chainGun == true)
                 {
@@ -839,7 +839,7 @@ public class Turret : MonoBehaviour
                         source.PlayOneShot(laserBlast);
                         heat += smashProjHeat;
                         GameObject smashProjectile = Instantiate(smashProj2, barrelEnd.transform.position, transform.rotation);
-                        smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectileSpeed;
+                        smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectilespeed;
                     }
                         if (shotgun == true || dualShot)
                         {
@@ -849,9 +849,9 @@ public class Turret : MonoBehaviour
                             source.PlayOneShot(shootPlasma);
                         }
                             GameObject shotgunBullet = Instantiate(projectile, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
-                            shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectileSpeed;
+                            shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectilespeed;
                             GameObject shotgunBullet2 = Instantiate(projectile, shotgunPos2.transform.position, shotgunPos2.transform.rotation);
-                            shotgunBullet2.GetComponent<Rigidbody2D>().velocity = shotgunPos2.transform.right * projectileSpeed;
+                            shotgunBullet2.GetComponent<Rigidbody2D>().velocity = shotgunPos2.transform.right * projectilespeed;
                             heat += shottyHeat;
                         }
                         if (laserUpgrade == true)
@@ -870,13 +870,13 @@ public class Turret : MonoBehaviour
                         {
                             source.PlayOneShot(shootGun, 1.0f);
                             GameObject bullet = Instantiate(projectile, barrelEnd.transform.position, transform.rotation);
-                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectilespeed;
                         }
                         if (pierceUpgrade == true && pierceActive == true)
                         {
                             source.PlayOneShot(shootGun, 1.0f);
                             GameObject bullet = Instantiate(projectile3, barrelEnd.transform.position, transform.rotation);
-                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectilespeed;
                         }
 
                     }
@@ -887,7 +887,7 @@ public class Turret : MonoBehaviour
                         source.PlayOneShot(laserBlast);
                         heat += smashProjHeat;
                         GameObject smashProjectile = Instantiate(smashProj, barrelEnd.transform.position, transform.rotation);
-                        smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectileSpeed;
+                        smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectilespeed;
                     }
                     if (shotgun == true || dualShot == true)
                         {
@@ -897,9 +897,9 @@ public class Turret : MonoBehaviour
                             source.PlayOneShot(shootPlasma);
                         }
                             GameObject shotgunBullet = Instantiate(projectile2, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
-                            shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectileSpeed;
+                            shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectilespeed;
                             GameObject shotgunBullet2 = Instantiate(projectile2, shotgunPos2.transform.position, transform.rotation);
-                            shotgunBullet2.GetComponent<Rigidbody2D>().velocity = shotgunPos2.transform.right * projectileSpeed;
+                            shotgunBullet2.GetComponent<Rigidbody2D>().velocity = shotgunPos2.transform.right * projectilespeed;
                             heat += shottyHeat;
                         }
                         if (laserUpgrade == true)
@@ -918,20 +918,20 @@ public class Turret : MonoBehaviour
                         {
                             source.PlayOneShot(shootGun, 1.0f);
                             GameObject bullet = Instantiate(projectile3, barrelEnd.transform.position, transform.rotation);
-                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectilespeed;
                         }
                         if (basicGun == true)
                         {
                             source.PlayOneShot(shootPlasma, 1.0f);
                             GameObject bullet = Instantiate(projectile2, barrelEnd.transform.position, transform.rotation);
-                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                            bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectilespeed;
                         }
                     }
                 if (overChargeGun)
                 {
                     source.PlayOneShot(shootGun, 1.0f);
                     GameObject bullet = Instantiate(projectile3, barrelEnd.transform.position, transform.rotation);
-                    bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                    bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectilespeed;
                     int roll = Random.Range(0, 9);
                     if (roll == 0)
                     {
@@ -992,18 +992,18 @@ public class Turret : MonoBehaviour
             rotation = Input.GetAxis("Vertical");
             if (rotation > 0 && leftMotionDamage)
             {
-                transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed * turnPenalty);
+                transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed * turnPenalty);
             }
             else if (rotation < 0 && rightMotionDamage)
             {
-                transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed * turnPenalty);
+                transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed * turnPenalty);
             }
             else
             {
                 print("bugs");
-                transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed);
+                transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);
             }
-            /*        transform.Rotate(0, 0, rotation * Time.deltaTime * moveSpeed);*/
+            /*        transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);*/
             if (debuffTimer <= 0) {
                 canMalfunction = true;
             }

@@ -129,6 +129,7 @@ public class Upgrades : MonoBehaviour
     }
     public void Skip()
     {
+        abortTimer = abortDuration;
         upgradeLayer.SetActive(false);
         source.PlayOneShot(ding);
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
@@ -243,6 +244,7 @@ public class Upgrades : MonoBehaviour
     }
     public void InstallPowerups()
     {
+        abortTimer = abortDuration;
         mechanicScreenUppyLayer.SetActive(false);
         upgradeLayer.SetActive(false);
         source.PlayOneShot(ding);
@@ -325,6 +327,7 @@ public class Upgrades : MonoBehaviour
     }
     public void InstallUpgrades()
     {
+        abortTimer = abortDuration;
         mechanicScreenUppyLayer.SetActive(false);
         upgradeLayer.SetActive(false);
         source.PlayOneShot(ding);

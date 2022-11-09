@@ -23,6 +23,7 @@ public class Tut : MonoBehaviour
     bool mechanicAgree = false;
     int agreeNum = 0;
     public GameObject agreeText;
+    public GameObject agreeText2;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +45,7 @@ public class Tut : MonoBehaviour
         mechTut[0] = "<b>Welcome to COSMIC CREW!</b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship<br>Select to continue";
         mechTut[1]= "You're the Mechanic! Your partner is the <color=yellow>Gunner.</color><br>Select to continue";
         mechTut[2] = "You are in charge of maintaining the ship.<br>Select to continue";
-        mechTut[3] = "Note that your gunport cannot see colours.";
+        mechTut[3] = "Note that your gunport cannot see colours.<br>Waiting for Gunner...";
         mechTut[4] = "Getting hit is bad! Repair the damage with your hammer now!";
         mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
         mechTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color>Of course, you wouldn't know who's who; ask the Gunner which to load!";
@@ -55,8 +56,8 @@ public class Tut : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agreeText.GetComponent<TMPro.TextMeshProUGUI>().text= "Waiting for players:"+agreeNum+" / "+2;
-     
+        agreeText.GetComponent<TMPro.TextMeshProUGUI>().text= "Waiting for players :"+agreeNum+" / "+2;
+        agreeText2.GetComponent<TMPro.TextMeshProUGUI>().text = agreeText.GetComponent<TMPro.TextMeshProUGUI>().text;
 
         if (mechanicAgree && gunnerAgree)
         {
@@ -87,6 +88,8 @@ public class Tut : MonoBehaviour
 
             if (selection == 3)
             {
+                agreeText.SetActive(false);
+                agreeText2.SetActive(false);
                 if (malfSet == false)
                 {
                     malfSet = true;
@@ -177,6 +180,8 @@ public class Tut : MonoBehaviour
             }
             if (selection == 7)
             {
+                agreeText.SetActive(true);
+                agreeText2.SetActive(true);
                 if (Input.GetKeyDown("space"))
                 {
                     gunnerAgree = true;
