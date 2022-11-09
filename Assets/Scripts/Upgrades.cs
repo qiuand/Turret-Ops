@@ -20,9 +20,19 @@ public class Upgrades : MonoBehaviour
     public static bool upgradesRolled = true;
     int upgradeIndex;
     public GameObject spawner;
+    float abortTimer;
+    float abortDuration = 5.0f;
+    public GameObject abortText;
+    bool pendingUpgrade;
+    int upgradeNumSelected;
+    public GameObject mechanicScreenUppy1;
+    public GameObject mechanicScreenUppy2;
+    public GameObject mechanicScreenUppyLayer;
     // Start is called before the first frame update
     void Start()
     {
+        abortTimer = abortDuration;
+        mechanicScreenUppyLayer.SetActive(false);
         upgradeLayer.SetActive(false);
         source = GetComponent<AudioSource>();
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
@@ -36,25 +46,64 @@ public class Upgrades : MonoBehaviour
         {
             if (Input.GetKeyDown("2"))
             {
+                print("giggle");
+                upgradeNumSelected = 2;
                 print("yee");
                 chosenUpgrade = upgradeList[displayChoice2];
-                upgradeChosen = true;
+/*                upgradeChosen = true;*/
                 upgradeIndex = displayChoice2;
-                InstallPowerups();
-                canUpgrade = false;
+/*                InstallPowerups();*/
+/*                canUpgrade = false;*/
+                pendingUpgrade = true;
             }
             if (Input.GetKeyDown("1"))
             {
+                upgradeNumSelected = 1;
                 print("Oh boy");
                 chosenUpgrade = upgradeList[displayChoice];
-                upgradeChosen = true;
             upgradeIndex = displayChoice;
-                InstallUpgrades();
-                canUpgrade = false;
+                pendingUpgrade = true;
+
+            }
+            if (pendingUpgrade)
+            {
+                if (abortTimer > 0 && pendingUpgrade)
+                {
+                    abortTimer -= Time.deltaTime;
+                    abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for Mechanic approval; auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                    abortTimer -= Time.deltaTime;
+                    if (Abort())
+                    {
+                        upgradeChosen = true;
+                        canUpgrade = false;
+                        if (upgradeNumSelected == 1)
+                        {
+                            InstallUpgrades();
+                        }
+                        else if(upgradeNumSelected==2)
+                        {
+                            InstallPowerups();
+                        }
+                        else
+                        {
+                            Skip();
+                        }
+                        pendingUpgrade = false;
+                    }
+                    else { }
+                }
+                if (abortTimer <= 0)
+                {
+                    abortTimer = abortDuration;
+                    pendingUpgrade = false;
+                    abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade failed. Please choose again!";
+                }
             }
             if (Input.GetKeyDown("3"))
             {
-                Skip();
+                upgradeNumSelected = 3;
+                pendingUpgrade = true;
+/*                Skip();*/
             }
         }
     }
@@ -73,8 +122,10 @@ public class Upgrades : MonoBehaviour
     }
     public void RollUpgrades()
     {
-        if(upgradeList.Count>0 && powerupList.Count > 0)
+        abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an upgrade! Choose one:";
+        if (upgradeList.Count>0 && powerupList.Count > 0)
         {
+            mechanicScreenUppyLayer.SetActive(true);
             upgradeLayer.SetActive(true);
             canUpgrade = true;
             displayChoice = Random.Range(0, upgradeList.Count);
@@ -130,6 +181,7 @@ public class Upgrades : MonoBehaviour
                 break;
 
         }
+        mechanicScreenUppy2.GetComponent<TMPro.TextMeshProUGUI>().text = textField.GetComponent<TMPro.TextMeshProUGUI>().text;
     }
     public void displayUpgrades(GameObject textField)
     {
@@ -166,6 +218,7 @@ public class Upgrades : MonoBehaviour
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Rerouted Overcharger (Gunner)<br><color=green>++Rapid-fire armour piercing machine gun<br><color=red>--Each shot has a chance of causing malfunctions<br>-replaces current weapon";
                 break;
         }
+        mechanicScreenUppy1.GetComponent<TMPro.TextMeshProUGUI>().text = textField.GetComponent<TMPro.TextMeshProUGUI>().text;
     }
     public void InstallPowerups()
     {
@@ -249,6 +302,7 @@ public class Upgrades : MonoBehaviour
     }
     public void InstallUpgrades()
     {
+        mechanicScreenUppyLayer.SetActive(false);
         upgradeLayer.SetActive(false);
         source.PlayOneShot(ding);
         switch (upgradeList[upgradeIndex])
@@ -351,5 +405,17 @@ public class Upgrades : MonoBehaviour
         ship.GetComponent<Turret>().small = false;
 
 
+    }
+
+    private bool Abort()
+    {
+        if (Input.GetKeyDown("g"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

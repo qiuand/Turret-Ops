@@ -21,13 +21,15 @@ public class Tut : MonoBehaviour
     float waitTime = 1f;
     bool gunnerAgree = false;
     bool mechanicAgree = false;
+    int agreeNum = 0;
+    public GameObject agreeText;
     // Start is called before the first frame update
     void Start()
     {
         tutEnemyBlue.SetActive(false);
         tutEnemyGreen.SetActive(false);
         /*        gunTut[0] = "Welcome to COSMIC CREW! You and your partner have a very important mission: keep your ship afloat at all costs to defeat the advancing fleet!<br>Fire to continue";*/
-        gunTut[0] = "<b>Welcome to COSMIC CREW!<b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship";
+        gunTut[0] = "<b>Welcome to COSMIC CREW!<b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship<br>Fire to continue";
         gunTut[1] = "You're the Gunner! Your partner is the <color=#006CFF>Mechanic.</color><br>Fire to continue";
         gunTut[2] = "You are in charge of shooting down enemies.<br>Fire to continue";
         gunTut[3] = "Lever: Rotate turret<br>Fire: Shoot<br>Destroy that enemy!";
@@ -53,6 +55,17 @@ public class Tut : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        agreeText.GetComponent<TMPro.TextMeshProUGUI>().text= "Waiting for players:"+agreeNum+" / "+2;
+     
+
+        if (mechanicAgree && gunnerAgree)
+        {
+            agreeNum=2;
+        }
+        if (mechanicAgree || gunnerAgree)
+        {
+            agreeNum=1;
+        }
         inTut = gun.inTutorial;
         if (inTut == true)
         {
@@ -69,6 +82,7 @@ public class Tut : MonoBehaviour
                 selection += 1;
                 gunnerAgree = false;
                 mechanicAgree = false;
+                agreeNum = 0;
             }
 
             if (selection == 3)
@@ -163,7 +177,15 @@ public class Tut : MonoBehaviour
             }
             if (selection == 7)
             {
+                if (Input.GetKeyDown("space"))
+                {
+                    gunnerAgree = true;
+                }
                 if (Input.GetKeyDown("g"))
+                {
+                    mechanicAgree = true;
+                }
+                if (/*Input.GetKeyDown("g")*/mechanicAgree && gunnerAgree)
                 {
                     proceed();
                     gun.inTutorial = false;
