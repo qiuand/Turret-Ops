@@ -38,17 +38,17 @@ public class Tut : MonoBehaviour
         gunTut[5] = "Shooting causes overheating! Let your friend fix that, too!";
         /*        gunTut[6] = "You can only damage green enemies with green bullets, and blue enemies with blue bullets! The mechanic can't tell what colour enemies are, so tell him which ammo to load!";*/
         gunTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color> You need to tell the mechanic which you need — they can't see colors!";
-        gunTut[7] = "That's all you need to know! Good luck, Cosmic Gunner!";
+        gunTut[7] = "That's all you need to know! Good luck, Cosmic Gunner!<Fire to continue";
         gunTut[8] = "";
 
-        mechTut[0] = "<b>Welcome to COSMIC CREW!</b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship";
-        mechTut[1]= "You're the Mechanic! Your partner is the <color=yellow>Gunner.</color>";
-        mechTut[2] = "You are in charge of maintaining the ship.";
+        mechTut[0] = "<b>Welcome to COSMIC CREW!</b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship<br>Select to continue";
+        mechTut[1]= "You're the Mechanic! Your partner is the <color=yellow>Gunner.</color><br>Select to continue";
+        mechTut[2] = "You are in charge of maintaining the ship.<br>Select to continue";
         mechTut[3] = "Note that your gunport cannot see colours.";
         mechTut[4] = "Getting hit is bad! Repair the damage with your hammer now!";
         mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
         mechTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color>Of course, you wouldn't know who's who; ask the Gunner which to load!";
-        mechTut[7]= "Good luck, Cosmic Mechanic!<b> Use the hammer to continue";
+        mechTut[7]= "Good luck, Cosmic Mechanic!<b><br>Select to continue";
         mechTut[8] = "";
     }
 

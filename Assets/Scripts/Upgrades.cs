@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Upgrades : MonoBehaviour
 {
+    public GameObject abortText2;
     public GameObject upgradeLayer;
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Shotgun", "Laser", "Chain Gun", "Grenade", "Speed", "Single Shot", "Ricochet Shot", "Reactive Armour", "Charge Shot", "Overcharge" };
-    List<string> powerupList = new List<string> { "Piercing", "Repair", "Red Shield", "Electric Override", "Green Shield", "Enhanced Materials", "Thermal Imaging", "Heavy Armour", "Double Duty", "Small" };
+    List<string> upgradeList = new List<string> { "Shotgun", "Laser", "Chain Gun", "Particle Smasher", "Improved Bearings", "Railgun Overcharge", "Ricochet Shot", "Reactive Armour", "Dual shot", "Overcharge" };
+    List<string> powerupList = new List<string> { "Piercing", "Repair", "Red Shield", "Electric Override", "Green Shield", "Enhanced Materials", "Thermal Imaging", "Heavy Armour", "Double Duty", "Small Frame" };
     public GameObject upgrade1;
     public GameObject upgrade2;
     int displayChoice;
@@ -42,68 +43,87 @@ public class Upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canUpgrade)
+        if (Turret.scoreToUpgrade >= ship.GetComponent<Turret>().scoreToUpgradeRequired)
         {
-            if (Input.GetKeyDown("2"))
+            if (canUpgrade)
             {
-                print("giggle");
-                upgradeNumSelected = 2;
-                print("yee");
-                chosenUpgrade = upgradeList[displayChoice2];
-/*                upgradeChosen = true;*/
-                upgradeIndex = displayChoice2;
-/*                InstallPowerups();*/
-/*                canUpgrade = false;*/
-                pendingUpgrade = true;
-            }
-            if (Input.GetKeyDown("1"))
-            {
-                upgradeNumSelected = 1;
-                print("Oh boy");
-                chosenUpgrade = upgradeList[displayChoice];
-            upgradeIndex = displayChoice;
-                pendingUpgrade = true;
-
-            }
-            if (pendingUpgrade)
-            {
-                if (abortTimer > 0 && pendingUpgrade)
+                if (Input.GetKeyDown("2"))
                 {
-                    abortTimer -= Time.deltaTime;
-                    abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for Mechanic approval; auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
-                    abortTimer -= Time.deltaTime;
-                    if (Abort())
+                    print("giggle");
+                    upgradeNumSelected = 2;
+                    print("yee");
+                    chosenUpgrade = upgradeList[displayChoice2];
+                    /*                upgradeChosen = true;*/
+                    upgradeIndex = displayChoice2;
+                    /*                InstallPowerups();*/
+                    /*                canUpgrade = false;*/
+                    pendingUpgrade = true;
+                }
+                if (Input.GetKeyDown("1"))
+                {
+                    upgradeNumSelected = 1;
+                    print("Oh boy");
+                    chosenUpgrade = upgradeList[displayChoice];
+                    upgradeIndex = displayChoice;
+                    pendingUpgrade = true;
+
+                }
+                if (pendingUpgrade)
+                {
+                    if (abortTimer > 0 && pendingUpgrade)
                     {
-                        upgradeChosen = true;
-                        canUpgrade = false;
-                        if (upgradeNumSelected == 1)
+                        abortTimer -= Time.deltaTime;
+                        abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for Mechanic approval; auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                        if (upgradeNumSelected==1)
                         {
-                            InstallUpgrades();
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + upgradeList[displayChoice2] + ". Press Select to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortTimer -= Time.deltaTime;
                         }
-                        else if(upgradeNumSelected==2)
+                        else if (upgradeNumSelected == 2)
                         {
-                            InstallPowerups();
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + powerupList[displayChoice2] + ". Press Select to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortTimer -= Time.deltaTime;
                         }
                         else
                         {
-                            Skip();
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose nothing. Press Select to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortTimer -= Time.deltaTime;
                         }
-                        pendingUpgrade = false;
+
+                        if (Abort())
+                        {
+                            upgradeChosen = true;
+                            canUpgrade = false;
+                            if (upgradeNumSelected == 1)
+                            {
+                                InstallUpgrades();
+                            }
+                            else if (upgradeNumSelected == 2)
+                            {
+                                InstallPowerups();
+                            }
+                            else
+                            {
+                                Skip();
+                            }
+                            pendingUpgrade = false;
+                        }
+                        else { }
                     }
-                    else { }
+                    if (abortTimer <= 0)
+                    {
+                        abortTimer = abortDuration;
+                        pendingUpgrade = false;
+                        abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade failed. Please choose again!";
+                        abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade failed. Please choose again!";
+                    }
                 }
-                if (abortTimer <= 0)
+                if (Input.GetKeyDown("3"))
                 {
-                    abortTimer = abortDuration;
-                    pendingUpgrade = false;
-                    abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade failed. Please choose again!";
+                    upgradeNumSelected = 3;
+                    pendingUpgrade = true;
+                    /*                Skip();*/
                 }
-            }
-            if (Input.GetKeyDown("3"))
-            {
-                upgradeNumSelected = 3;
-                pendingUpgrade = true;
-/*                Skip();*/
             }
         }
     }
@@ -123,6 +143,7 @@ public class Upgrades : MonoBehaviour
     public void RollUpgrades()
     {
         abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an upgrade! Choose one:";
+        abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an upgrade! Choose one:";
         if (upgradeList.Count>0 && powerupList.Count > 0)
         {
             mechanicScreenUppyLayer.SetActive(true);
@@ -176,7 +197,7 @@ public class Upgrades : MonoBehaviour
             case "Double Duty":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Duty Sniper Tank (Mechanic)<br><color=green>++Massively increased spotting distance<br>++Greatly increased health<br>+Increased rotation speed<br><color=red>----Enemies start coming at you from the rear<br>-replaces current Mechanic upgrade";
                 break;
-            case "Small":
+            case "Small Frame":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Small Frame (Mechanic)<br><color=green>+Smaller ship size<br><color=red>-Replaces current Mechanic upgrade";
                 break;
 
@@ -196,13 +217,13 @@ public class Upgrades : MonoBehaviour
             case "Chain Gun":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Chain Gun (Gunner)<br><color=green>+Increased fire rate<br>+Decreased Barrel Heat<br><color=red>-Replaces current weapon";
                 break;
-            case "Grenade":
+            case "Particle Smasher":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Particle Smasher (Gunner)<br><color=green>++Launches giant energy emitting spheres<br><color=red>--Extreme heat<br>-Slow projectile speed<br>-Replaces current weapon";
                 break;
-            case "Speed":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Improved Bearings (Gunner)<br><color=green>+Faster turret turn speed<color=red><br>-Replaces current weapon";
+            case "Improved Bearings":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "speed (Gunner)<br><color=green>+Faster turret turn speed<color=red><br>-Replaces current weapon";
                 break;
-            case "Single Shot":
+            case "Railgun Overcharge":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Railgun Overcharge (Gunner)<br><color=green>++High power piercing bullet that rips through any colour ship<color=red><br>--Instantly overheats barrel<br>Replaces current weapon";
                 break;
             case "Ricochet Shot":
@@ -211,7 +232,7 @@ public class Upgrades : MonoBehaviour
             case "Reactive Armour":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Reactive Armour (Gunner)<br><color=green>++Hold fire to greatly reduce damage from incoming fire of selected colour<br><color=red>--Removes gun<br>-Replaces current gunner upgrade";
                 break;
-            case "Charge Shot":
+            case "Dual shot":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Shot (Gunner)<br><color=green>+Dual shot split fire<br><color=red>-Slightly increased heat<br>-Replaces current upgrade";
                 break;
             case "Overcharge":
@@ -222,6 +243,7 @@ public class Upgrades : MonoBehaviour
     }
     public void InstallPowerups()
     {
+        mechanicScreenUppyLayer.SetActive(false);
         upgradeLayer.SetActive(false);
         source.PlayOneShot(ding);
         print("yoy");
@@ -283,19 +305,20 @@ public class Upgrades : MonoBehaviour
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().doubleDuty = true;
                 break;
-            case "Small":
+            case "Small Frame":
                 ship.GetComponent<Turret>().installedUpgrade = "Small Frame";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().small = true;
                 break;
         }
+        setScoreUpgradeReset();
         powerupList.Remove(powerupList[upgradeIndex]);
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
         spawner.GetComponent<EnemySpawn>().waveCount++;
-        
+        ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().maxHealth;
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
         spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
@@ -326,17 +349,18 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().basicGun =true;
                 ship.GetComponent<Turret>().chainGun = true;
                 break;
-            case "Grenade":
+            case "Particle Smasher":
                 ship.GetComponent<Turret>().installedGun = "Spitter Launcher";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().smasher = true;
                 break;
-            case "Speed":
+            case "Improved Bearings":
                 ship.GetComponent<Turret>().installedGun = "Fast Blaster";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().speed = true;
+                ship.GetComponent<Turret>().basicGun = true;
                 break;
-            case "Single Shot":
+            case "Railgun Overcharge":
                 ship.GetComponent<Turret>().installedGun = "Railgun";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().singleShot = true;
@@ -352,7 +376,7 @@ public class Upgrades : MonoBehaviour
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().reactiveArmour = true;
                 break;
-            case "Charge Shot":
+            case "Dual shot":
                 ship.GetComponent<Turret>().installedGun = "Dual Blaster";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().dualShot = true;
@@ -366,6 +390,7 @@ public class Upgrades : MonoBehaviour
 
                 break;
         }
+        setScoreUpgradeReset();
         upgradeList.Remove(upgradeList[upgradeIndex]);
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
@@ -406,7 +431,11 @@ public class Upgrades : MonoBehaviour
 
 
     }
-
+    private void setScoreUpgradeReset()
+    {
+        Turret.scoreToUpgrade = 0;
+        ship.GetComponent<Turret>().scoreToUpgradeRequired += ship.GetComponent<Turret>().scoreToUpgradeIncrement;
+    }
     private bool Abort()
     {
         if (Input.GetKeyDown("g"))

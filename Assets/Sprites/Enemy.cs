@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    float scoreUpgradeValue = 20;
     public Animator enemyAnim;
     Rigidbody2D rb;
     public AudioClip explode;
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour
         {
             if (collision.gameObject.tag != "Bounds")
             {
+                Turret.scoreToUpgrade += scoreUpgradeValue;
                 source.PlayOneShot(explode);
             }
             rb.velocity = new Vector2(0, 0);

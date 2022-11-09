@@ -16,22 +16,22 @@ public class EnemySpawn : MonoBehaviour
     RectTransform rect;
     float spawnCooldown = 0.75f;
     float spawnTimer = 0;
-    float minXSpeed = -0.01f;
-    float maxXSpeed = -0.02f;
-    float minYSpeed = -2;
-    float maxYSpeed = 2;
+    float minXspeed = -0.01f;
+    float maxXspeed = -0.02f;
+    float minYspeed = -2;
+    float maxYspeed = 2;
     int random;
     bool isEnemy2 = false;
     public float waveTimer = 0f;
     public float waveTiming = 3f;
     public int enemyNum = 3;
-    float minSpeed = -1;
-    float maxSpeed = -2;
+    float minspeed = -1;
+    float maxspeed = -2;
     public float minRotate = 3;
     public float maxRotate = -3;
-    float genSpeed;
+    float genspeed;
     public GameObject turret;
-    public float enemySpeedMultiplier = 0.1f;
+    public float enemyspeedMultiplier = 0.1f;
     GameObject[] positionArray;
     public GameObject greenWave;
     public GameObject blueWave;
@@ -44,6 +44,8 @@ public class EnemySpawn : MonoBehaviour
     float breakCount=10.0f;
     float gracePeriod = 3.0f;
     public GameObject upgradeManager;
+    public bool upgradeTrigger = true;
+    public bool upgradeWaveChance = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,7 +80,15 @@ public class EnemySpawn : MonoBehaviour
         waveTimer -= Time.deltaTime;
         if (waveTime > 0)
         {
-            waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + waveCount + ": " + System.Math.Round(waveTime, 2) + " Seconds Remaining: " + waveTimer + " Break: " + breakCounter;
+            if(waveCompleted && beginNextWave==false)
+            {
+                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave Completed!";
+
+            }
+            else
+            {
+                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + waveCount + ": " + System.Math.Round(waveTime, 2) + " Seconds Remaining:"/* + waveTimer + " Break: " + breakCounter*/;
+            }
         }
         else
         {
@@ -89,18 +99,33 @@ public class EnemySpawn : MonoBehaviour
         {
             turret.GetComponent<Turret>().health = turret.GetComponent<Turret>().maxHealth;
             source.PlayOneShot(ding);
-            waveTime = 999;
+            waveTime = 9999;
             waveCompleted = true;
             beginNextWave = false;
-
-            Upgrades.upgradesRolled = false;
-            if (Upgrades.upgradesRolled == false)
+            if (Turret.scoreToUpgrade >= turret.GetComponent<Turret>().scoreToUpgradeRequired)
             {
-                upgradeManager.GetComponent<Upgrades>().RollUpgrades();
-                Upgrades.upgradesRolled = true;
+                upgradeTrigger = true;
+                upgradeWaveChance = false;
+            }
+            else
+            {
+
+                    upgradeManager.GetComponent<Upgrades>().Skip();
+            }
+        }
+        if (beginNextWave == false && beginNextWave == false && upgradeTrigger)
+            {
+                Upgrades.upgradesRolled = false;
+                if (Upgrades.upgradesRolled == false)
+                {
+                    upgradeManager.GetComponent<Upgrades>().RollUpgrades();
+                    Upgrades.upgradesRolled = true;
+                    upgradeTrigger = false;
+                }
             }
 
-        }
+  
+
 /*        if (*//*Input.GetKeyDown("g") &&*//* beginNextWave == false && waveTime<0-gracePeriod)
         {
             waveCount++;
@@ -111,7 +136,7 @@ public class EnemySpawn : MonoBehaviour
         }*/
         if (gun.inTutorial == false && beginNextWave == true)
         {
-            maxSpeed -= Time.deltaTime * enemySpeedMultiplier;
+            maxspeed -= Time.deltaTime * enemyspeedMultiplier;
         }
         if (turret.GetComponent<Turret>().inTut == false)
         {
@@ -141,13 +166,13 @@ public class EnemySpawn : MonoBehaviour
                                     {
                                         {
                                             GameObject enemyInstance = Instantiate(enemy, new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
-                                            enemyInstance.GetComponent<Rigidbody2D>().velocity = transform.right * (genSpeed);
+                                            enemyInstance.GetComponent<Rigidbody2D>().velocity = transform.right * (genspeed);
                                         }
                                     }
                                     else
                                     {
                                         GameObject enemyInstance = Instantiate(enemy2, new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.identity);
-                                        enemyInstance.GetComponent<Rigidbody2D>().velocity = transform.right * (genSpeed);
+                                        enemyInstance.GetComponent<Rigidbody2D>().velocity = transform.right * (genspeed);
                                     }
                                 }*/
             }
@@ -157,9 +182,9 @@ public class EnemySpawn : MonoBehaviour
     private void createEnemies(int waveRestrict)
     {
         int type = Random.Range(0, waveRestrict);
-        genSpeed = Random.Range(minSpeed, maxSpeed);
+        genspeed = Random.Range(minspeed, maxspeed);
         GameObject waveControl = Instantiate(positionArray[type], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
-        waveControl.GetComponent<Rigidbody2D>().velocity = transform.up * (genSpeed);
+        waveControl.GetComponent<Rigidbody2D>().velocity = transform.up * (genspeed);
         waveTimer = waveTiming;
     }
     /*        if (spawnTimer <= 0)
@@ -168,12 +193,12 @@ public class EnemySpawn : MonoBehaviour
                 if (random == 0)
                 {
                     GameObject enemyInstance = Instantiate(enemy, new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.identity);
-                    enemyInstance.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.Range(minXSpeed, maxXSpeed), Random.Range(minYSpeed, maxYSpeed));
+                    enemyInstance.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.Range(minXspeed, maxXspeed), Random.Range(minYspeed, maxYspeed));
                 }
                 else
                 {
                     GameObject enemyInstance = Instantiate(enemy2, new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.identity);
-                    enemyInstance.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.Range(minXSpeed, maxXSpeed), Random.Range(minYSpeed, maxYSpeed));
+                    enemyInstance.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.Range(minXspeed, maxXspeed), Random.Range(minYspeed, maxYspeed));
                 }
                 spawnTimer = spawnCooldown;
             }*/

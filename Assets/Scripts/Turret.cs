@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    float manualRepairAmount = 5;
+    public static float scoreToUpgrade=0f;
+    public int scoreToUpgradeRequired=40;
+    public int scoreToUpgradeIncrement=40;
     public GameObject barrels;
     float dualShotHeat = 5.0f;
     public AudioClip railgunSound;
@@ -231,6 +235,7 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scoreToUpgrade = 0;
         greenShieldObj.SetActive(false);
         gunnerView.SetActive(false);
         mechanicView.SetActive(false);
@@ -416,8 +421,17 @@ public class Turret : MonoBehaviour
                 tutLayer2.SetActive(false);
                 gameScore += Time.deltaTime * gameScoreMultiplier;
                 int gameScoreInt = Mathf.FloorToInt(gameScore);
-                gameScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Score:  " + gameScoreInt;
-                gameScoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Score:  " + gameScoreInt;
+
+            if (scoreToUpgrade >= scoreToUpgradeRequired)
+            {
+                gameScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade Ready!";
+                gameScoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = gameScoreText.GetComponent<TMPro.TextMeshProUGUI>().text;
+            }
+            else
+            {
+                gameScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Next upgrade: " + scoreToUpgrade + "/" + scoreToUpgradeRequired;
+                gameScoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = gameScoreText.GetComponent<TMPro.TextMeshProUGUI>().text;
+            }
             }
             else
             {
@@ -1124,6 +1138,7 @@ public class Turret : MonoBehaviour
             if (malfunctionArray[swungAt] ==1){
                 debuffTimer = 5.0f;
                 source.PlayOneShot(fix);
+                health += manualRepairAmount;
             }
             source.PlayOneShot(repair);
             malfunctionArray[swungAt] -= 1;
