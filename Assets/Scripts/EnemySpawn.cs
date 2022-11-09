@@ -87,6 +87,7 @@ public class EnemySpawn : MonoBehaviour
 
         if (waveTime < 0)
         {
+            turret.GetComponent<Turret>().health = turret.GetComponent<Turret>().maxHealth;
             source.PlayOneShot(ding);
             waveTime = 999;
             waveCompleted = true;

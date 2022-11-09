@@ -8,7 +8,7 @@ public class Upgrades : MonoBehaviour
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Shotgun", "Laser", "Chain Gun", "Grenade", "Speed", "Single Shot", "Ricochet Shot", "Reactive Armour", "Charge Shot","Overcharge" };
+    List<string> upgradeList = new List<string> { "Shotgun", "Laser", "Chain Gun", "Grenade", "Speed", "Single Shot", "Ricochet Shot", "Reactive Armour", "Charge Shot", "Overcharge" };
     List<string> powerupList = new List<string> { "Piercing", "Repair", "Red Shield", "Electric Override", "Green Shield", "Enhanced Materials", "Thermal Imaging", "Heavy Armour", "Double Duty", "Small" };
     public GameObject upgrade1;
     public GameObject upgrade2;
@@ -73,17 +73,24 @@ public class Upgrades : MonoBehaviour
     }
     public void RollUpgrades()
     {
-        upgradeLayer.SetActive(true);
-        canUpgrade = true;
-        displayChoice = Random.Range(0, upgradeList.Count);
-        displayChoice2 = Random.Range(0, powerupList.Count);
-/*        while (displayChoice2 == displayChoice)
+        if(upgradeList.Count>0 && powerupList.Count > 0)
         {
-            displayChoice2 = Random.Range(0, upgradeList.Length);
-        }*/
-        displayUpgrades(upgrade1, displayChoice);
-        displayPowerups(upgrade2);
-        upgradesRolled = true;
+            upgradeLayer.SetActive(true);
+            canUpgrade = true;
+            displayChoice = Random.Range(0, upgradeList.Count);
+            displayChoice2 = Random.Range(0, powerupList.Count);
+            /*        while (displayChoice2 == displayChoice)
+                    {
+                        displayChoice2 = Random.Range(0, upgradeList.Length);
+                    }*/
+            displayUpgrades(upgrade1);
+            displayPowerups(upgrade2);
+            upgradesRolled = true;
+        }
+        else
+        {
+            Skip();
+        }
     }
     public void displayPowerups(GameObject textField)
     {
@@ -124,9 +131,9 @@ public class Upgrades : MonoBehaviour
 
         }
     }
-    public void displayUpgrades(GameObject textField, int displayIndex)
+    public void displayUpgrades(GameObject textField)
     {
-        switch (upgradeList[displayIndex])
+        switch (upgradeList[displayChoice])
         {
             case "Laser":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Energy Condensor (Gunner) <br><color=green>+Ceoncentrated Laser Fire</color><br><color=red>-Severe barrel heat<br>-Replaces current weapon</color>";
@@ -235,7 +242,7 @@ public class Upgrades : MonoBehaviour
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
         spawner.GetComponent<EnemySpawn>().waveCount++;
-
+        
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
         spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
@@ -294,11 +301,14 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().installedGun = "Dual Blaster";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().dualShot = true;
+                ship.GetComponent<Turret>().basicGun = false;
+                ship.GetComponent<Turret>().shotgun = true;
                 break;
             case "Overcharge":
                 ship.GetComponent<Turret>().installedGun = "Overcharger";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().overChargeGun = true;
+
                 break;
         }
         upgradeList.Remove(upgradeList[upgradeIndex]);
@@ -306,7 +316,7 @@ public class Upgrades : MonoBehaviour
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
         spawner.GetComponent<EnemySpawn>().waveCount++;
-
+        ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().maxHealth;
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
         spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;

@@ -462,10 +462,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58453304}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: -0.70710677}
-  m_LocalPosition: {x: 0.07099998, y: 0.004000063, z: 3.5200827}
+  m_LocalPosition: {x: 1.391, y: 0.004000063, z: 3.5200827}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1496439423}
+  m_Father: {fileID: 1353050719}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!212 &58453306
@@ -830,12 +830,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75128700}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.24, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.08, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1682512123}
-  m_Father: {fileID: 1496439423}
+  m_Father: {fileID: 1353050719}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &100348542
@@ -8411,7 +8411,7 @@ Transform:
   m_Children:
   - {fileID: 1756052505}
   - {fileID: 1869351755}
-  - {fileID: 1902310385}
+  - {fileID: 2074064870}
   - {fileID: 504835697}
   - {fileID: 889210013}
   m_Father: {fileID: 61553594}
@@ -8429,11 +8429,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a10634517b6f254459756ff81e3463fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barrels: {fileID: 2074064869}
+  railgunSound: {fileID: 8300000, guid: e99179918f375bf409b94bec23693437, type: 3}
+  railgunProj: {fileID: 2442381203675938480, guid: aeda71617f24f094d836f67c9b6bab04, type: 3}
   greenShieldObj: {fileID: 889210012}
   speed: 0
   singleShot: 0
   ricochet: 0
-  reactiveArmour: 0
+  reactiveArmour: 1
   dualShot: 0
   overChargeGun: 0
   greenShield: 0
@@ -8455,7 +8458,7 @@ MonoBehaviour:
   autoRepair: 0
   overcharge: {fileID: 8300000, guid: bea6d2f79453c454594d9efa9c78b6f3, type: 3}
   cooldownSound: {fileID: 8300000, guid: 8c65d13f31039144ea00bcf4d1736df0, type: 3}
-  installedUpgrade: No
+  installedUpgrade: No upgrade
   pierceUpgrade: 0
   projectile3: {fileID: 3439377669332239816, guid: 56128176efc899745b88b4a613d8a244, type: 3}
   installedGun: 
@@ -8463,7 +8466,7 @@ MonoBehaviour:
   chainGunHeat: 5
   chainGun: 0
   greenLaserHB: {fileID: 1606684259}
-  basicGun: 1
+  basicGun: 0
   laser: {fileID: 947571215}
   laserUpgrade: 0
   shotgunPos1: {fileID: 1756052504}
@@ -8511,6 +8514,7 @@ MonoBehaviour:
   mTypeText: {fileID: 643507151}
   projectile2: {fileID: 3914609088040297855, guid: c57087b9c4cbf5348a4b8fef3c8601a6, type: 3}
   turretSprite: {fileID: 1353050718}
+  detectedMag: 0
   startingMag: 0
   insertedChip: 0
   actionStatus: {fileID: 698341567}
@@ -8859,7 +8863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ding: {fileID: 8300000, guid: 08e1346b3655689438ee55adcad82182, type: 3}
-  waveDuration: 1
+  waveDuration: 10
   waveCount: 1
   waveTime: 0
   waveTimeIncrement: 0
@@ -9713,7 +9717,7 @@ Transform:
   - {fileID: 1606684260}
   - {fileID: 469114164}
   m_Father: {fileID: 1353050719}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!199 &947571214
 ParticleSystemRenderer:
@@ -20713,6 +20717,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 58453305}
+  - {fileID: 75128701}
   - {fileID: 1963279389}
   - {fileID: 947571213}
   - {fileID: 1496439423}
@@ -26103,13 +26109,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496439422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.32, y: 0, z: 0}
+  m_LocalPosition: {x: 1.85, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 58453305}
-  - {fileID: 75128701}
+  m_Children: []
   m_Father: {fileID: 1353050719}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1585886324
 GameObject:
@@ -42084,13 +42088,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902310384}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.36, y: -0.011, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.13052619, w: 0.99144495}
+  m_LocalPosition: {x: -1.0789405, y: 0.2787485, z: 0}
   m_LocalScale: {x: 0.89645594, y: 0.30192, z: 1}
   m_Children:
   - {fileID: 1353050719}
-  m_Father: {fileID: 804768601}
-  m_RootOrder: 2
+  m_Father: {fileID: 2074064870}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1902310386
 SpriteRenderer:
@@ -51967,7 +51971,7 @@ Transform:
   - {fileID: 134236083}
   - {fileID: 1917267962}
   m_Father: {fileID: 1353050719}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1964354095
 GameObject:
@@ -52466,6 +52470,37 @@ Transform:
   - {fileID: 1209582851}
   m_Father: {fileID: 733748743}
   m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2074064869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2074064870}
+  m_Layer: 0
+  m_Name: BarrelList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2074064870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074064869}
+  m_LocalRotation: {x: -0, y: -0, z: 0.13052619, w: 0.99144495}
+  m_LocalPosition: {x: 1.4743218, y: -0.00100004, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1902310385}
+  m_Father: {fileID: 804768601}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2089601824
 GameObject:

@@ -7,6 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public GameObject barrels;
+    float dualShotHeat = 5.0f;
+    public AudioClip railgunSound;
+    public GameObject railgunProj;
+    float  railgunSpeed=40f;
     bool greenShieldActive = false;
     public GameObject greenShieldObj;
     public bool speed = false;
@@ -36,7 +41,7 @@ public class Turret : MonoBehaviour
     public bool autoRepair = false;
     public AudioClip overcharge;
     public AudioClip cooldownSound;
-    public string installedUpgrade = "No";
+    public string installedUpgrade = "No upgrade";
     bool recharged = true;
     float rechargeDuration = 7.0f;
     float rechargeTime = 7.0f;
@@ -136,7 +141,7 @@ public class Turret : MonoBehaviour
     bool detectedBarrel = false;
     bool needReload = false;
     bool magRelease = true;
-    bool detectedMag = false;
+    public bool detectedMag = false;
     public int startingMag;
     bool lWing = false;
     bool rWing = false;
@@ -259,8 +264,12 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (doubleDuty || heavyArmour)
+        if (doubleDuty || heavyArmour || speed)
         {
+            if (speed)
+            {
+                moveSpeed = increasedSpeed;
+            }
             if (heavyArmour)
             {
                 maxHealth = heavyArmourHealth;
@@ -760,8 +769,41 @@ public class Turret : MonoBehaviour
                             malfunctioning = true;
                             RunMalfunctions(malfunctionType, Damagedcolour);*/
             }
-            if (Input.GetKey("space") && overheated == false && detectedMag == true)
+        if (reactiveArmour == true)
+        {
+            barrels.gameObject.SetActive(false);
+            if (startingMag == 1)
             {
+                ship.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
+            }
+            else if (startingMag == 2)
+            {
+                ship.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
+            }
+            if(detectedMag==false)
+            {
+                ship.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+            }
+        }
+        else
+        {
+            ship.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+            barrels.gameObject.SetActive(true);
+        }
+            if (Input.GetKey("space") && overheated == false && detectedMag == true && reactiveArmour!=true)
+            {
+            if (overChargeGun)
+            {
+                shootCooldown = chainGunCool;
+                heatBuildUp = chainGunHeat;
+            }
+            if (singleShot)
+            {
+                source.PlayOneShot(railgunSound);
+                heat = maxHeat;
+                GameObject railgun = Instantiate(railgunProj, barrelEnd.transform.position, transform.rotation);
+                railgun.GetComponent<Rigidbody2D>().velocity = transform.right * railgunSpeed;
+            }
                 if (chainGun == true)
                 {
                     shootCooldown = chainGunCool;
@@ -780,12 +822,18 @@ public class Turret : MonoBehaviour
                     {
                     if (smasher == true)
                     {
+                        source.PlayOneShot(laserBlast);
                         heat += smashProjHeat;
                         GameObject smashProjectile = Instantiate(smashProj2, barrelEnd.transform.position, transform.rotation);
                         smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectileSpeed;
                     }
-                        if (shotgun == true)
+                        if (shotgun == true || dualShot)
                         {
+                        if (dualShot)
+                        {
+                            heat += dualShotHeat;
+                            source.PlayOneShot(shootPlasma);
+                        }
                             GameObject shotgunBullet = Instantiate(projectile, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
                             shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectileSpeed;
                             GameObject shotgunBullet2 = Instantiate(projectile, shotgunPos2.transform.position, shotgunPos2.transform.rotation);
@@ -822,12 +870,18 @@ public class Turret : MonoBehaviour
                     {
                     if (smasher == true)
                     {
+                        source.PlayOneShot(laserBlast);
                         heat += smashProjHeat;
                         GameObject smashProjectile = Instantiate(smashProj, barrelEnd.transform.position, transform.rotation);
                         smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectileSpeed;
                     }
-                    if (shotgun == true)
+                    if (shotgun == true || dualShot == true)
                         {
+                        if (dualShot)
+                        {
+                            heat += dualShotHeat;
+                            source.PlayOneShot(shootPlasma);
+                        }
                             GameObject shotgunBullet = Instantiate(projectile2, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
                             shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectileSpeed;
                             GameObject shotgunBullet2 = Instantiate(projectile2, shotgunPos2.transform.position, transform.rotation);
@@ -859,6 +913,17 @@ public class Turret : MonoBehaviour
                             bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
                         }
                     }
+                if (overChargeGun)
+                {
+                    source.PlayOneShot(shootGun, 1.0f);
+                    GameObject bullet = Instantiate(projectile3, barrelEnd.transform.position, transform.rotation);
+                    bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectileSpeed;
+                    int roll = Random.Range(0, 9);
+                    if (roll == 0)
+                    {
+                        randomMalfunction();
+                    }
+                }
                     cooldown = shootCooldown;
                     heat += heatBuildUp;
                 }
