@@ -136,7 +136,7 @@ public class Upgrades : MonoBehaviour
         switch (upgradeList[displayChoice])
         {
             case "Laser":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Energy Condensor (Gunner) <br><color=green>+Ceoncentrated Laser Fire</color><br><color=red>-Severe barrel heat<br>-Replaces current weapon</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Energy Condensor (Gunner) <br><color=green>+Concentrated Laser Fire</color><br><color=red>-Severe barrel heat<br>-Replaces current weapon</color>";
                 break;
             case "Shotgun":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Energy Refractor (Gunner)<br><color=green>+Tri-laser shot<br><color=red>-Increased barrel heat<br>-Replaces current weapon";
@@ -291,6 +291,7 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().installedGun = "Matter Destabilizer";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().ricochet = true;
+                ship.GetComponent<Turret>().basicGun = true;
                 break;
             case "Reactive Armour":
                 ship.GetComponent<Turret>().installedGun = "Reactive Armour";
