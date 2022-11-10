@@ -10,7 +10,7 @@ public class EnemyTut : MonoBehaviour
     AudioSource source;
     public AudioClip explode;
     float activeTimer;
-    float activeTime=0.6f;
+    float activeTime=0.65f;
     // Start is called before the first frame update
     void Start()
     {

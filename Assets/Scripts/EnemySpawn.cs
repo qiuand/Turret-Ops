@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    int maxWave = 20;
+    int maxWave = 10;
     AudioSource source;
     public AudioClip ding;
     bool endOfTut = false;
@@ -103,7 +103,8 @@ public class EnemySpawn : MonoBehaviour
             waveTime = 9999;
             waveCompleted = true;
             beginNextWave = false;
-            if (Turret.scoreToUpgrade >= turret.GetComponent<Turret>().scoreToUpgradeRequired)
+            upgradeTrigger = true;
+/*            if (Turret.scoreToUpgrade >= turret.GetComponent<Turret>().scoreToUpgradeRequired)
             {
                 upgradeTrigger = true;
                 upgradeWaveChance = false;
@@ -112,9 +113,9 @@ public class EnemySpawn : MonoBehaviour
             {
 
                     upgradeManager.GetComponent<Upgrades>().Skip();
-            }
+            }*/
         }
-        if (beginNextWave == false && beginNextWave == false && upgradeTrigger)
+        if (beginNextWave == false && waveCompleted==true && /*Upgrades.upgradesRolled==true*/upgradeTrigger)
             {
                 Upgrades.upgradesRolled = false;
                 if (Upgrades.upgradesRolled == false)

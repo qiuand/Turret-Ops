@@ -6,6 +6,7 @@ public class shootEnemy : MonoBehaviour
 {
     public GameObject projectile;
     public GameObject muzzle;
+    public GameObject ship;
     float shootCooldown = 1f;
     float shootDuration;
     float velocity = 3;
@@ -22,7 +23,7 @@ public class shootEnemy : MonoBehaviour
         if (shootDuration <= 0)
         {
             GameObject thingy = Instantiate(projectile, muzzle.transform.position, Quaternion.identity);
-            thingy.GetComponent<Rigidbody2D>().velocity = -transform.up * velocity;
+            thingy.GetComponent<Rigidbody2D>().velocity = (-transform.up * velocity) + new Vector3(0,ship.GetComponent<Rigidbody2D>().velocity.y,0);
             shootDuration = shootCooldown;
         }
 

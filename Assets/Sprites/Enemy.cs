@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
             rb.isKinematic = false;
             fire.enableEmission = false;
             enemyAnim.SetBool("Destroyed", true);
-            Destroy(gameObject,0.3f);
+            Destroy(gameObject,0.65f);
         }
         
     }

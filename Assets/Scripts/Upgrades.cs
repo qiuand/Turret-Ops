@@ -9,8 +9,8 @@ public class Upgrades : MonoBehaviour
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Shotgun", "Laser", "Chain Gun", "Particle Smasher", "Improved Bearings", "Railgun Overcharge", "Ricochet Shot", "Reactive Armour", "Dual shot", "Overcharge" };
-    List<string> powerupList = new List<string> { "Piercing", "Repair", "Red Shield", "Electric Override", "Green Shield", "Enhanced Materials", "Thermal Imaging", "Heavy Armour", "Double Duty", "Small Frame" };
+    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher",  "Railgun Overcharge", "Ricochet Shot", "Overcharge", "Reactive Armour"};
+    List<string> powerupList = new List<string> { "Small Frame",  "Repair", "Red Shield", "Green Shield", "Double Duty", "Enhanced Materials", "Heavy Armour", "Piercing", "Thermal Imaging", "Electric Override" };
     public GameObject upgrade1;
     public GameObject upgrade2;
     int displayChoice;
@@ -49,9 +49,7 @@ public class Upgrades : MonoBehaviour
             {
                 if (Input.GetKeyDown("2"))
                 {
-                    print("giggle");
                     upgradeNumSelected = 2;
-                    print("yee");
                     chosenUpgrade = upgradeList[displayChoice2];
                     /*                upgradeChosen = true;*/
                     upgradeIndex = displayChoice2;
@@ -62,7 +60,6 @@ public class Upgrades : MonoBehaviour
                 if (Input.GetKeyDown("1"))
                 {
                     upgradeNumSelected = 1;
-                    print("Oh boy");
                     chosenUpgrade = upgradeList[displayChoice];
                     upgradeIndex = displayChoice;
                     pendingUpgrade = true;
@@ -150,12 +147,15 @@ public class Upgrades : MonoBehaviour
             mechanicScreenUppyLayer.SetActive(true);
             upgradeLayer.SetActive(true);
             canUpgrade = true;
-            displayChoice = Random.Range(0, upgradeList.Count);
-            displayChoice2 = Random.Range(0, powerupList.Count);
-            /*        while (displayChoice2 == displayChoice)
-                    {
-                        displayChoice2 = Random.Range(0, upgradeList.Length);
-                    }*/
+            if(spawner.GetComponent<EnemySpawn>().waveCount< spawner.GetComponent<EnemySpawn>().waveCount)
+            {
+                displayChoice = /*Random.Range(0, */spawner.GetComponent<EnemySpawn>().waveCount - 1/*upgradeList.Count-1*//*);*/;
+                displayChoice2 = /*Random.Range(0, */spawner.GetComponent<EnemySpawn>().waveCount - 1 /*powerupList.Count-1*//*);*/;
+                /*        while (displayChoice2 == displayChoice)
+                        {
+                            displayChoice2 = Random.Range(0, upgradeList.Length);
+                        }*/
+            }
             displayUpgrades(upgrade1);
             displayPowerups(upgrade2);
             upgradesRolled = true;
@@ -248,12 +248,9 @@ public class Upgrades : MonoBehaviour
         mechanicScreenUppyLayer.SetActive(false);
         upgradeLayer.SetActive(false);
         source.PlayOneShot(ding);
-        print("yoy");
-        print("heya"+powerupList[upgradeIndex]);
         switch (powerupList[upgradeIndex])
         {
             case "Piercing":
-                print("yesn't");
                 ship.GetComponent<Turret>().installedUpgrade = "HEAT Round Module";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press Emergency Override to Use";
                 setPowerupsFalse();
@@ -315,7 +312,7 @@ public class Upgrades : MonoBehaviour
                 break;
         }
         setScoreUpgradeReset();
-        powerupList.Remove(powerupList[upgradeIndex]);
+/*        powerupList.Remove(powerupList[upgradeIndex]);*/
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
@@ -394,7 +391,7 @@ public class Upgrades : MonoBehaviour
                 break;
         }
         setScoreUpgradeReset();
-        upgradeList.Remove(upgradeList[upgradeIndex]);
+/*        upgradeList.Remove(upgradeList[upgradeIndex]);*/
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;

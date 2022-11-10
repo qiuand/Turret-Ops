@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public GameObject actionStatus2;
+    public GameObject steamObject;
+    public AudioClip engine;
+    public static Rigidbody2D playerShipPos;
     float manualRepairAmount = 5;
     public static float scoreToUpgrade=0f;
     public int scoreToUpgradeRequired=40;
@@ -235,6 +239,9 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*        source.PlayOneShot(engine);*/
+        steamObject.gameObject.SetActive(false);
+        playerShipPos = GetComponent<Rigidbody2D>();
         scoreToUpgrade = 0;
         greenShieldObj.SetActive(false);
         gunnerView.SetActive(false);
@@ -262,7 +269,6 @@ public class Turret : MonoBehaviour
         movespeed = originalMovespeed;
         malfunctionArray = new int[4] { 0, 0, 0, 0};
         swungMax = malfunctionArray.Length - 1;
-
         powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "";
     }
 
@@ -372,7 +378,6 @@ public class Turret : MonoBehaviour
             if (health <= 0)
             {
                 /*            SceneManager.LoadScene("GameOver");*/
-                print("ducky: " + deathTimer + health);
                 if (exploded == false)
                 {
                     source.PlayOneShot(deathExplode);
@@ -393,9 +398,6 @@ public class Turret : MonoBehaviour
                     shipExplode.SetBool("Exploded", true);
                     ship.SetBool("Exploded", true);
                 }
-
-
-                print(1222);
             }
             if (Input.GetKeyDown("left"))
             {
@@ -439,7 +441,6 @@ public class Turret : MonoBehaviour
                 tutLayer2.SetActive(true);
             }
             inTut = gun.inTutorial;
-            print(score);
             int scoreInt = Mathf.FloorToInt(score);
             score -= Time.deltaTime * scoreMultiplier;
         if (autoRepair == true)
@@ -661,7 +662,9 @@ public class Turret : MonoBehaviour
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
                 startingMag = 2;
                 detectedMag = true;
-            }
+            actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().text = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text;
+            actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().color = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color;
+        }
 
             else if (Input.GetKey("left"))
             {
@@ -671,14 +674,18 @@ public class Turret : MonoBehaviour
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0, 1f, 0);
                 startingMag = 1;
                 detectedMag = true;
-            }
+            actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().text = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text;
+            actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().color = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color;
+        }
             else
             {
                 currentBarrelColour = defaultBarrelColour;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Empty " + installedGun;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);
                 detectedMag = false;
-            }
+            actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().text = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text;
+            actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().color = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color;
+        }
 
 
             /*        if (malfunctioning && malfunctionType != "Barrel" && malfunctionType != "Hull")
@@ -761,6 +768,14 @@ public class Turret : MonoBehaviour
             {
                 barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x, currentBarrelColour.y - heat / 100, currentBarrelColour.z - heat / 100);
             }
+        if (overheated)
+        {
+            steamObject.gameObject.SetActive(true);
+        }
+        else
+        {
+            steamObject.gameObject.SetActive(false);
+        }
             /*statusText.GetComponent<TMPro.TextMeshProUGUI>().color = barrel.GetComponent<SpriteRenderer>().color;*/
             if (heat >= maxHeat)
             {
@@ -813,6 +828,7 @@ public class Turret : MonoBehaviour
             }
             if (singleShot)
             {
+                ship.Play("Railgun");
                 source.PlayOneShot(railgunSound);
                 heat = maxHeat;
                 GameObject railgun = Instantiate(railgunProj, barrelEnd.transform.position, transform.rotation);
@@ -1000,7 +1016,6 @@ public class Turret : MonoBehaviour
             }
             else
             {
-                print("bugs");
                 transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);
             }
             /*        transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);*/
@@ -1093,7 +1108,6 @@ public class Turret : MonoBehaviour
             hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);
         }
         else{
-            print("jes");
             camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 0f, 0f);
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
             hullMalfunction();
@@ -1194,7 +1208,6 @@ public class Turret : MonoBehaviour
     private void hullMalfunction()
     {
         hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
-        print("yes");
         hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit integrity compromised: Turret camera unavailabe. Hit " + malfunctionArray[2] + " times";
         /*        switchColours(hullText, damagedColour);*/
         /*        hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);*/
@@ -1256,11 +1269,9 @@ public class Turret : MonoBehaviour
         }
         if (pierceActive)
         {
-            print("yes");
         }
         if (pierceUpgrade)
         {
-            print("nose");
         }
         if (redShieldActive == true)
         {
