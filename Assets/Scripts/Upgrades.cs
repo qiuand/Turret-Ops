@@ -9,7 +9,7 @@ public class Upgrades : MonoBehaviour
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher",  "Railgun Overcharge", "Ricochet Shot", "Overcharge", "Reactive Armour"};
+    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher",  "Railgun Overcharge", "Overcharge", "Reactive Armour"};
     List<string> powerupList = new List<string> { "Small Frame",  "Repair", "Red Shield", "Green Shield", "Double Duty", "Enhanced Materials", "Heavy Armour", "Piercing", "Thermal Imaging", "Electric Override" };
     public GameObject upgrade1;
     public GameObject upgrade2;
@@ -140,14 +140,14 @@ public class Upgrades : MonoBehaviour
     }
     public void RollUpgrades()
     {
-        abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an upgrade! Choose one:";
-        abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an upgrade! Consult with the Gunner! (Pick one)";
+        abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an <color=green>upgrade!</color> Choose one:";
+        abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an <color=green<upgrade!</color> Consult with the Gunner! (Pick one)";
         if (upgradeList.Count>0 && powerupList.Count > 0)
         {
             mechanicScreenUppyLayer.SetActive(true);
             upgradeLayer.SetActive(true);
             canUpgrade = true;
-            if(spawner.GetComponent<EnemySpawn>().waveCount< spawner.GetComponent<EnemySpawn>().waveCount)
+            if(spawner.GetComponent<EnemySpawn>().waveCount<upgradeList.Count)
             {
                 displayChoice = /*Random.Range(0, */spawner.GetComponent<EnemySpawn>().waveCount - 1/*upgradeList.Count-1*//*);*/;
                 displayChoice2 = /*Random.Range(0, */spawner.GetComponent<EnemySpawn>().waveCount - 1 /*powerupList.Count-1*//*);*/;

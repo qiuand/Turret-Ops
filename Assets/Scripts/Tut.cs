@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Tut : MonoBehaviour
 {
     public AudioClip ding;
-    Vector3 originalPos = new Vector3(-0.6f, 1.94f, -1.61f);
+    Vector3 originalPos = new Vector3(-0.6f, 2.27f,0);
     public GameObject mechText;
     public GameObject turretText;
     string[] gunTut=new string[9];
@@ -35,26 +35,26 @@ public class Tut : MonoBehaviour
         tutEnemyBlue.SetActive(false);
         tutEnemyGreen.SetActive(false);
         /*        gunTut[0] = "Welcome to COSMIC CREW! You and your partner have a very important mission: keep your ship afloat at all costs to defeat the advancing fleet!<br>Fire to continue";*/
-        gunTut[0] = "<b>Welcome to COSMIC CREW!<b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship<br>Fire to continue";
-        gunTut[1] = "You're the Gunner! Your partner is the <color=#006CFF>Mechanic.</color><br>Fire to continue";
-        gunTut[2] = "You are in charge of shooting down enemies.<br>Fire to continue";
-        gunTut[3] = "Lever: Rotate turret<br>Fire: Shoot<br>Destroy that enemy!";
+        gunTut[0] = "<b>Welcome to COSMIC CREW!</b><br><br>Your mission is simple:<br><br>1: Destroy the advancing fleet<br><color=#006CFF>2: Maintain the ship</color><br><br><color=green>Press fire to continue";
+        gunTut[1] = "<b>You're the Gunner!</b> Your partner is the <color=#006CFF>Mechanic.</color><br><br><color=green>Press fire to continue";
+        gunTut[2] = "You are in charge of shooting down enemies.<br><br><color=green>Press fire to continue";
+        gunTut[3] = "Lever: Rotate turret<br>Fire: Shoot<br><b>Destroy that enemy!</b>";
         /*gunTut[4] = "Malfunctions occur when the ship is hit! This can cause all sorts of problems for your turret. Your ship automatically repairs a bit of damage after some time, but critical malfunctions must be fixed by your friend!";*/
-        gunTut[4] = "Malfunctions are bad! Ask the mechanic to fix them!<br>Waiting for Mechanic...";
-        gunTut[5] = "Shooting causes overheating! Let your friend fix that, too!";
+        gunTut[4] = "<b><color=red>Malfunctions</color> are bad!</b> Ask the <color=#006CFF>Mechanic</color> to fix them!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
+        gunTut[5] = "<b>Shooting causes <color=red>overheating!</color></b> Let your <color=#006CFF>friend</color> fix that, too!";
         /*        gunTut[6] = "You can only damage green enemies with green bullets, and blue enemies with blue bullets! The mechanic can't tell what colour enemies are, so tell him which ammo to load!";*/
-        gunTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color> You need to tell the mechanic which you need — they can't see colors!";
-        gunTut[7] = "That's all you need to know! Good luck, Cosmic Gunner!<Fire to continue";
+        gunTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color> You need to tell the <color=#006CFF>Mechanic</color> which you need — they can't see colors!";
+        gunTut[7] = "That's all you need to know! Good luck, Cosmic Gunner!<br><br><color=green>Press fire to continue";
         gunTut[8] = "";
 
-        mechTut[0] = "<b>Welcome to COSMIC CREW!</b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship<br>Select to continue";
-        mechTut[1]= "You're the Mechanic! Your partner is the <color=yellow>Gunner.</color><br>Select to continue";
-        mechTut[2] = "You are in charge of maintaining the ship.<br>Select to continue";
-        mechTut[3] = "Note that your gunport cannot see colours.<br>Waiting for Gunner...";
-        mechTut[4] = "Getting hit is bad! Repair the damage with your hammer now!";
+        mechTut[0] = "<b>Welcome to COSMIC CREW!</b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship<br><color=green>Select to continue";
+        mechTut[1]= "<b>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press select to continue";
+        mechTut[2] = "You are in charge of maintaining the ship.<br><br><color=green>Press select to continue";
+        mechTut[3] = "Note that your gunport cannot see colours.<br>Waiting for <color=yellow>Gunner...</color>";
+        mechTut[4] = "<b>Getting hit is bad!</b> Repair the damage with your hammer now!";
         mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
-        mechTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color>Of course, you wouldn't know who's who; ask the Gunner which to load!";
-        mechTut[7]= "Good luck, Cosmic Mechanic!<b><br>Select to continue";
+        mechTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color>Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";
+        mechTut[7]= "Good luck, Cosmic Mechanic!<b><br><br><color=green>Press select to continue";
         mechTut[8] = "";
     }
 
@@ -94,7 +94,6 @@ public class Tut : MonoBehaviour
                     /*                selection += 1;*/
                     gunnerAgree = false;
                     mechanicAgree = false;
-                    agreeNum = 0;
                 }
 
                 if (selection == 3)
@@ -232,9 +231,15 @@ public class Tut : MonoBehaviour
     }
     IEnumerator Wait()
     {
+        agreeNum = 2;
+        agreeText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0,1,0);
+        agreeText2.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0, 1, 0);
         yield return new WaitForSeconds(waitTime);
         selection++;
         malfSet = false;
         continued = true;
+        agreeText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1, 1, 1);
+        agreeText2.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1, 1, 1);
+        agreeNum = 0;
     }
 }
