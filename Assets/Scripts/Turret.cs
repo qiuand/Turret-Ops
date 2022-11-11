@@ -275,6 +275,8 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+/*        GameObject obectFind = GameObject.FindGameObjectWithTag("Enemy");
+        Debug.Log(obectFind.name);*/
         if (doubleDuty || heavyArmour || speed)
         {
             if (speed)

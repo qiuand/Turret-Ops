@@ -22,4 +22,8 @@ public class sinMotion : MonoBehaviour
         position.x = sinCenterX + sin;
         transform.position = position;
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Destroy(gameObject);
+    }
 }

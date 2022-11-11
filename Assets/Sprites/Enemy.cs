@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bounds"||(collision.gameObject.tag=="Projectile"&&gameObject.tag=="Enemy")||( collision.gameObject.tag=="Projectile2"&&gameObject.tag=="Enemy2")||collision.gameObject.tag=="Projectile3")
         {
+            source.PlayOneShot(explode);
             if (collision.gameObject.tag != "Bounds")
             {
                 Turret.scoreToUpgrade += scoreUpgradeValue;

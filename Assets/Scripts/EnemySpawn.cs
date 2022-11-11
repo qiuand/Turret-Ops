@@ -47,6 +47,7 @@ public class EnemySpawn : MonoBehaviour
     public GameObject upgradeManager;
     public bool upgradeTrigger = true;
     public bool upgradeWaveChance = true;
+    public bool stopSpawn = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,12 +99,17 @@ public class EnemySpawn : MonoBehaviour
 
         if (waveTime < 0)
         {
-            turret.GetComponent<Turret>().health = turret.GetComponent<Turret>().maxHealth;
-            source.PlayOneShot(ding);
-            waveTime = 9999;
-            waveCompleted = true;
-            beginNextWave = false;
-            upgradeTrigger = true;
+            stopSpawn = true;
+            if ((!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
+            {
+                print("yoy");
+                turret.GetComponent<Turret>().health = turret.GetComponent<Turret>().maxHealth;
+                source.PlayOneShot(ding);
+                waveTime = 9999;
+                waveCompleted = true;
+                beginNextWave = false;
+                upgradeTrigger = true;
+            }
 /*            if (Turret.scoreToUpgrade >= turret.GetComponent<Turret>().scoreToUpgradeRequired)
             {
                 upgradeTrigger = true;
@@ -140,7 +146,7 @@ public class EnemySpawn : MonoBehaviour
         {
             maxspeed -= Time.deltaTime * enemyspeedMultiplier;
         }
-        if (turret.GetComponent<Turret>().inTut == false)
+        if (turret.GetComponent<Turret>().inTut == false && stopSpawn==false)
         {
             if (waveTimer <= 0 && beginNextWave == true)
             {
