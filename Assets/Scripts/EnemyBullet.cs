@@ -29,7 +29,8 @@ public class EnemyBullet : MonoBehaviour
                 source.PlayOneShot(explode);
             }
             rb.velocity = new Vector2(0, 0);
-            rb.isKinematic = false;
+            /*            rb.isKinematic = false;*/
+            GetComponent<Collider2D>().enabled = false;
             fire.enableEmission = false;
             enemyAnim.SetBool("Destroyed", true);
             Destroy(gameObject, 0.5f);

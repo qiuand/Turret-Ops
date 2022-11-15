@@ -4899,10 +4899,9 @@ GameObject:
   - component: {fileID: 4521032961277013511}
   - component: {fileID: 6612748395003381860}
   - component: {fileID: 3773563830764174652}
-  - component: {fileID: 6838266854039750596}
   - component: {fileID: 6842390563309208963}
   - component: {fileID: 2503137289741728144}
-  - component: {fileID: 1715811524749734940}
+  - component: {fileID: 4582107242756010909}
   m_Layer: 10
   m_Name: BomberEnemy
   m_TagString: Enemy2
@@ -4967,7 +4966,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: c447cb94af46fb34f85f19a3e1a224a6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.074136704, g: 0.3207547, b: 0.2572319, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5033,18 +5032,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6838266854039750596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7998179110985364875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b3e355e380d5ff47b816a14239a97bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &6842390563309208963
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5157,7 +5144,7 @@ MonoBehaviour:
   explode: {fileID: 8300000, guid: c472a5e1d2c1db246a53314c857a39fe, type: 3}
   source: {fileID: 6842390563309208963}
   fire: {fileID: 7501368475866375650}
---- !u!114 &1715811524749734940
+--- !u!114 &4582107242756010909
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5166,6 +5153,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7998179110985364875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fa98230929f1634fa54e3119f08a111, type: 3}
+  m_Script: {fileID: 11500000, guid: 2969105997c91ad4d9c17efcc86bc8f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bomb: {fileID: 3001414755435022467, guid: e0424e7eed6edbf4b81f0485e2ab255a, type: 3}

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4148274957855005699}
   - component: {fileID: 1540930410333943737}
   - component: {fileID: 5199156985473680342}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: RedShooterWave
-  m_TagString: Untagged
+  m_TagString: WaveObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7811765206571826969, guid: 225e6cef32b365f4693c02e0c346a787, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.35
+      value: -3.43
       objectReference: {fileID: 0}
     - target: {fileID: 7811765206571826969, guid: 225e6cef32b365f4693c02e0c346a787, type: 3}
       propertyPath: m_LocalPosition.z
@@ -147,7 +147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7811765206571826969, guid: 225e6cef32b365f4693c02e0c346a787, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.18
+      value: -1.9000001
       objectReference: {fileID: 0}
     - target: {fileID: 7811765206571826969, guid: 225e6cef32b365f4693c02e0c346a787, type: 3}
       propertyPath: m_LocalPosition.z
@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7811765206571826969, guid: 225e6cef32b365f4693c02e0c346a787, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3199999
+      value: -3.4
       objectReference: {fileID: 0}
     - target: {fileID: 7811765206571826969, guid: 225e6cef32b365f4693c02e0c346a787, type: 3}
       propertyPath: m_LocalPosition.z

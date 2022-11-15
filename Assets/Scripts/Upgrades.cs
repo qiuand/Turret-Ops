@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Upgrades : MonoBehaviour
 {
+    public AudioClip select;
+    public AudioClip bing;
+    public AudioClip donk;
+    public GameObject tankAnimate;
     public GameObject abortText2;
     public GameObject upgradeLayer;
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher",  "Railgun Overcharge", "Overcharge", "Reactive Armour"};
-    List<string> powerupList = new List<string> { "Small Frame",  "Repair", "Red Shield", "Green Shield", "Double Duty", "Enhanced Materials", "Heavy Armour", "Piercing", "Thermal Imaging", "Electric Override" };
+    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge", "Railgun Overcharge" };
+    List<string> powerupList = new List<string> { "Small Frame", "Repair", "Red Shield", "Piercing",  "Green Shield", "Piercing", "Thermal Imaging", "Enhanced Materials", "Heavy Armour",  "Tactical Airstrike", "Electric Override" };
     public GameObject upgrade1;
     public GameObject upgrade2;
     int displayChoice;
@@ -29,6 +33,8 @@ public class Upgrades : MonoBehaviour
     public GameObject mechanicScreenUppy1;
     public GameObject mechanicScreenUppy2;
     public GameObject mechanicScreenUppyLayer;
+    public Camera cam;
+    public bool installing = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +55,7 @@ public class Upgrades : MonoBehaviour
             {
                 if (Input.GetKeyDown("2"))
                 {
+                    source.PlayOneShot(select);
                     upgradeNumSelected = 2;
                     chosenUpgrade = upgradeList[displayChoice2];
                     /*                upgradeChosen = true;*/
@@ -59,6 +66,7 @@ public class Upgrades : MonoBehaviour
                 }
                 if (Input.GetKeyDown("1"))
                 {
+                    source.PlayOneShot(select);
                     upgradeNumSelected = 1;
                     chosenUpgrade = upgradeList[displayChoice];
                     upgradeIndex = displayChoice;
@@ -69,7 +77,10 @@ public class Upgrades : MonoBehaviour
                 {
                     if (abortTimer > 0 && pendingUpgrade)
                     {
-                        abortTimer -= Time.deltaTime;
+                        if (installing == false)
+                        {
+                            abortTimer -= Time.deltaTime;
+                        }
                         abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for Mechanic approval; auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                         if (upgradeNumSelected==1)
                         {
@@ -90,20 +101,33 @@ public class Upgrades : MonoBehaviour
                         if (Abort())
                         {
                             upgradeChosen = true;
-                            canUpgrade = false;
                             if (upgradeNumSelected == 1)
                             {
-                                InstallUpgrades();
+                                source.PlayOneShot(select);
+                                canUpgrade = false;
+                                installing = true;
+                                ship.GetComponent<Turret>().malfunctionArray[3] = ship.GetComponent<Turret>().hits;
+/*                                InstallUpgrades();*/
+                                pendingUpgrade = false;
                             }
                             else if (upgradeNumSelected == 2)
                             {
-                                InstallPowerups();
+                                source.PlayOneShot(select);
+                                installing = true;
+                                ship.GetComponent<Turret>().malfunctionArray[2] = ship.GetComponent<Turret>().hits;
+                                pendingUpgrade = false;
+/*                                if (ship.GetComponent<Turret>().malfunctionArray[3] <= 0)
+                                {
+                                    InstallPowerups();
+                                    pendingUpgrade = false;
+                                }*/
                             }
                             else
                             {
+                                source.PlayOneShot(select);
                                 Skip();
+                                pendingUpgrade = false;
                             }
-                            pendingUpgrade = false;
                         }
                         else { }
                     }
@@ -113,6 +137,7 @@ public class Upgrades : MonoBehaviour
                         pendingUpgrade = false;
                         abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade failed. Please choose again!";
                         abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade failed. Please choose again!";
+                        source.PlayOneShot(donk);
                     }
                 }
                 if (Input.GetKeyDown("3"))
@@ -123,9 +148,31 @@ public class Upgrades : MonoBehaviour
                 }
             }
         }
+        if (installing == true)
+        {
+            if (upgradeNumSelected == 1)
+            {
+                if (ship.GetComponent<Turret>().malfunctionArray[3] <= 0)
+                {
+                    InstallUpgrades();
+                    pendingUpgrade = false;
+                    source.PlayOneShot(bing);
+                }
+            }
+            else
+            {
+                if (ship.GetComponent<Turret>().malfunctionArray[2] <= 0)
+                {
+                    InstallPowerups();
+                    pendingUpgrade = false;
+                    source.PlayOneShot(bing);
+                }
+            }
+        }
     }
     public void Skip()
     {
+        cam.GetComponent<CamZoom>().zoomIn=false;
         abortTimer = abortDuration;
         upgradeLayer.SetActive(false);
         source.PlayOneShot(ding);
@@ -133,7 +180,7 @@ public class Upgrades : MonoBehaviour
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
         spawner.GetComponent<EnemySpawn>().waveCount++;
-
+        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
         spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
@@ -141,7 +188,7 @@ public class Upgrades : MonoBehaviour
     public void RollUpgrades()
     {
         abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an <color=green>upgrade!</color> Choose one:";
-        abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an <color=green<upgrade!</color> Consult with the Gunner! (Pick one)";
+        abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an <color=green>upgrade!</color> Consult with the Gunner! (Pick one)";
         if (upgradeList.Count>0 && powerupList.Count > 0)
         {
             mechanicScreenUppyLayer.SetActive(true);
@@ -201,6 +248,9 @@ public class Upgrades : MonoBehaviour
             case "Small Frame":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Small Frame (Mechanic)<br><color=green>+Smaller ship size<br><color=red>-Replaces current Mechanic upgrade";
                 break;
+            case "Tactical Airstrike":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Tactical Airstrike (Gunner)<br><color=green>++Destroy all enemies of selected colour<br><color=red>-30 second cooldown<br>-Replaces current Mechanic upgrade";
+                break;
 
         }
         mechanicScreenUppy2.GetComponent<TMPro.TextMeshProUGUI>().text = textField.GetComponent<TMPro.TextMeshProUGUI>().text;
@@ -252,7 +302,7 @@ public class Upgrades : MonoBehaviour
         {
             case "Piercing":
                 ship.GetComponent<Turret>().installedUpgrade = "HEAT Round Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press Emergency Override to Use";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().pierceUpgrade = true;
                 break;
@@ -264,7 +314,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Red Shield":
                 ship.GetComponent<Turret>().installedUpgrade = "Red Shield Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Red Shield-charge ready";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().redShield = true;
                 break;
@@ -277,7 +327,7 @@ public class Upgrades : MonoBehaviour
             case "Green Shield":
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().installedUpgrade = "Green Shield Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Green Shield-charge ready";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
                 ship.GetComponent<Turret>().greenShield = true;
                 break;
             case "Enhanced Materials":
@@ -291,6 +341,12 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().thermalImaging = true;
+                break;
+            case "Tactical Airstrike":
+                ship.GetComponent<Turret>().installedUpgrade = "Tactical Airstrike";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
+                setPowerupsFalse();
+                ship.GetComponent<Turret>().tacticalStrike = true;
                 break;
             case "Heavy Armour":
                 ship.GetComponent<Turret>().installedUpgrade = "Heavy Armour";
@@ -312,7 +368,8 @@ public class Upgrades : MonoBehaviour
                 break;
         }
         setScoreUpgradeReset();
-/*        powerupList.Remove(powerupList[upgradeIndex]);*/
+        cam.GetComponent<CamZoom>().zoomIn = false;
+        /*        powerupList.Remove(powerupList[upgradeIndex]);*/
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
@@ -321,6 +378,8 @@ public class Upgrades : MonoBehaviour
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
         spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
+/*        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");*/
+        installing = false;
     }
     public void InstallUpgrades()
     {
@@ -391,15 +450,18 @@ public class Upgrades : MonoBehaviour
                 break;
         }
         setScoreUpgradeReset();
-/*        upgradeList.Remove(upgradeList[upgradeIndex]);*/
+        cam.GetComponent<CamZoom>().zoomIn = false;
+        /*        upgradeList.Remove(upgradeList[upgradeIndex]);*/
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
+        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");
         spawner.GetComponent<EnemySpawn>().waveCount++;
         ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().maxHealth;
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
         spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
+        installing = false;
     }
     private void setGunUpgradesFalse()
     {
@@ -440,6 +502,7 @@ public class Upgrades : MonoBehaviour
     {
         if (Input.GetKeyDown("g"))
         {
+            source.PlayOneShot(select);
             return true;
         }
         else

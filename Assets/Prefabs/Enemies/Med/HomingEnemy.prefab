@@ -4817,11 +4817,10 @@ GameObject:
   - component: {fileID: 7744169031156068096}
   - component: {fileID: 1008820143862237539}
   - component: {fileID: 7033315839154142267}
-  - component: {fileID: 802582239195088579}
   - component: {fileID: 806200153657246852}
   - component: {fileID: 8609142132945074327}
   - component: {fileID: 4758886779697132827}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: HomingEnemy
   m_TagString: Enemy2
   m_Icon: {fileID: 0}
@@ -4885,7 +4884,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: c447cb94af46fb34f85f19a3e1a224a6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4951,18 +4950,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &802582239195088579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4267726569879352460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b3e355e380d5ff47b816a14239a97bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &806200153657246852
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5087,6 +5074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa98230929f1634fa54e3119f08a111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &5071139467471108077
 GameObject:
   m_ObjectHideFlags: 0

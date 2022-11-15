@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 410016288940116555}
   - component: {fileID: 410016288940116554}
   - component: {fileID: 6193146184293585349}
-  - component: {fileID: 3497790043461466022}
   - component: {fileID: 6850523060784120574}
   - component: {fileID: 3866887128554354694}
   - component: {fileID: 3871578168588171841}
   - component: {fileID: 5328734967588177490}
-  m_Layer: 10
+  - component: {fileID: 251323076119039395}
+  m_Layer: 0
   m_Name: RedEnemy
   m_TagString: Enemy2
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 410016288940116553}
   m_LocalRotation: {x: -0, y: -0, z: -0.0028639913, w: 0.9999959}
   m_LocalPosition: {x: -2, y: -2, z: 0}
-  m_LocalScale: {x: 1.787986, y: 1.787986, z: 1.787986}
+  m_LocalScale: {x: 1.5324113, y: 1.5324113, z: 1.5324113}
   m_Children:
   - {fileID: 1963247015692615319}
   - {fileID: 8920891141210054543}
@@ -111,22 +111,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &3497790043461466022
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410016288940116553}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.96, y: 0.96}
-  m_Direction: 0
 --- !u!95 &6850523060784120574
 Animator:
   serializedVersion: 3
@@ -270,6 +254,22 @@ MonoBehaviour:
   explode: {fileID: 8300000, guid: c472a5e1d2c1db246a53314c857a39fe, type: 3}
   source: {fileID: 3871578168588171841}
   fire: {fileID: 240274903960984096}
+--- !u!70 &251323076119039395
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410016288940116553}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.9600001, y: 0.9600001}
+  m_Direction: 0
 --- !u!1 &4149308590798410208
 GameObject:
   m_ObjectHideFlags: 0

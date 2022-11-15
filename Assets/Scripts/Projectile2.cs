@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile2 : MonoBehaviour
 {
+    public bool ricochet;
     public GameObject tutShip;
     // Start is called before the first frame update
     void Start()
@@ -27,8 +28,16 @@ public class Projectile2 : MonoBehaviour
                 {
                     collision.gameObject.SetActive(false);
                 }*/
-
-        if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2")
+        if (ricochet)
+        {
+            gameObject.transform.rotation = Quaternion.Inverse(transform.rotation);
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-gameObject.GetComponent<Rigidbody2D>().velocity.x, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+        }
+        else if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2")
+        {
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.tag == "Bounds")
         {
             Destroy(gameObject);
         }

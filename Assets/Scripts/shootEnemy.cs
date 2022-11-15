@@ -7,9 +7,9 @@ public class shootEnemy : MonoBehaviour
     public GameObject projectile;
     public GameObject muzzle;
     public GameObject ship;
-    float shootCooldown = 1f;
+    public float shootCooldown = 1f;
     float shootDuration;
-    float velocity = 3;
+    public float velocity = 3;
     // Start is called before the first frame update
     void Start()
     {

@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bounds"||(collision.gameObject.tag=="Projectile"&&gameObject.tag=="Enemy")||( collision.gameObject.tag=="Projectile2"&&gameObject.tag=="Enemy2")||collision.gameObject.tag=="Projectile3")
         {
-            source.PlayOneShot(explode);
+/*            source.PlayOneShot(explode);*/
             if (collision.gameObject.tag != "Bounds")
             {
                 Turret.scoreToUpgrade += scoreUpgradeValue;
@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
             rb.velocity = new Vector2(0, 0);
             rb.isKinematic = false;
             fire.enableEmission = false;
+            GetComponent<CapsuleCollider2D>().enabled = false;
             enemyAnim.SetBool("Destroyed", true);
             Destroy(gameObject,0.65f);
         }

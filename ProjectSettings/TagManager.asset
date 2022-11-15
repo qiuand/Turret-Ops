@@ -14,6 +14,8 @@ TagManager:
   - Shot
   - Shot2
   - Projectile3
+  - WaveObject
+  - Boss Health
   layers:
   - Default
   - TransparentFX
@@ -30,7 +32,7 @@ TagManager:
   - Projectile2
   - Enemy
   - TutEnemy
-  - 
+  - WaveObject
   - 
   - 
   - 

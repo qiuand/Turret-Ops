@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97355fa85b909a4489f55d858c77a9dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ricochet: 0
   lifetime: 4
   tutShip: {fileID: 0}
 --- !u!61 &3821620702127582179
@@ -398,7 +399,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 100
       minScalar: 5
       maxCurve:
         serializedVersion: 2

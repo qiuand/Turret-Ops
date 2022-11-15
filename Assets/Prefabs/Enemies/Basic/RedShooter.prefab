@@ -4918,7 +4918,7 @@ Transform:
   m_GameObject: {fileID: 7811765206571826971}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2, y: -2, z: 0}
-  m_LocalScale: {x: 0.6861881, y: 0.6861881, z: 0.6861881}
+  m_LocalScale: {x: 0.7749884, y: 0.7749884, z: 0.7749884}
   m_Children:
   - {fileID: 2116404352668146778}
   - {fileID: 6992321729740040222}
@@ -5127,6 +5127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 8996536967858451340, guid: 003e73b48ee2a0b4c853f213474bb52c, type: 3}
   muzzle: {fileID: 1239259415799643258}
+  ship: {fileID: 7811765206571826971}
 --- !u!114 &5793963769108840416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5153,7 +5154,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Tut : MonoBehaviour
 {
+    public GameObject spawner;
     public AudioClip ding;
     Vector3 originalPos = new Vector3(-0.6f, 2.27f,0);
     public GameObject mechText;
@@ -28,6 +29,7 @@ public class Tut : MonoBehaviour
     float waitTimer;
     float waitDuration = 1.0f;
     bool continued = true;
+    bool magChanged = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +43,7 @@ public class Tut : MonoBehaviour
         gunTut[3] = "Lever: Rotate turret<br>Fire: Shoot<br><b>Destroy that enemy!</b>";
         /*gunTut[4] = "Malfunctions occur when the ship is hit! This can cause all sorts of problems for your turret. Your ship automatically repairs a bit of damage after some time, but critical malfunctions must be fixed by your friend!";*/
         gunTut[4] = "<b><color=red>Malfunctions</color> are bad!</b> Ask the <color=#006CFF>Mechanic</color> to fix them!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
-        gunTut[5] = "<b>Shooting causes <color=red>overheating!</color></b> Let your <color=#006CFF>friend</color> fix that, too!";
+        gunTut[5] = "<b>Shooting causes <color=red>overheating!</color></b> Let your <color=#006CFF>friend</color> fix that, too!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
         /*        gunTut[6] = "You can only damage green enemies with green bullets, and blue enemies with blue bullets! The mechanic can't tell what colour enemies are, so tell him which ammo to load!";*/
         gunTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color> You need to tell the <color=#006CFF>Mechanic</color> which you need — they can't see colors!";
         gunTut[7] = "That's all you need to know! Good luck, Cosmic Gunner!<br><br><color=green>Press fire to continue";
@@ -100,16 +102,24 @@ public class Tut : MonoBehaviour
                 {
                     agreeText.SetActive(false);
                     agreeText2.SetActive(false);
-                    if (malfSet == false)
+                    if (turret.GetComponent<Turret>().startingMag == 0)
+                    {
+                        magChanged = false;
+                        turretText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>Magazine empty!</color> Ask the <color=#006CFF>Mechanic</color> to slap one in!";
+                        mechText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>Magazine empty!</color> Slap one in to let the <color=yellow>Gunner</color> to destroy that enemy!";
+                    }
+                    if (malfSet == false && turret.GetComponent<Turret>().startingMag != 0)
                     {
                         malfSet = true;
                         if (turret.GetComponent<Turret>().startingMag == 1)
                         {
+                            magChanged = true;
                             tutEnemyBlue.SetActive(false);
                             tutEnemyGreen.SetActive(true);
                         }
                         else
                         {
+                            magChanged = true;
                             tutEnemyGreen.SetActive(false);
                             tutEnemyBlue.SetActive(true);
                         }
@@ -120,7 +130,7 @@ public class Tut : MonoBehaviour
                                     print("yessir");
                                     proceed();
                                 }*/
-                    if (tutEnemyBlue.activeSelf == false && tutEnemyGreen.activeSelf == false && continued==true)
+                    if (tutEnemyBlue.activeSelf == false && tutEnemyGreen.activeSelf == false && continued==true && magChanged)
                     {
                         continued = false;
                         source.PlayOneShot(ding);
@@ -213,12 +223,16 @@ public class Tut : MonoBehaviour
                 SwitchText(turretText, gunTut);
                 SwitchText(mechText, mechTut);
                 EnemySpawn.beginNextWave = true;
+                spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
             }
         }
     }
     private void SwitchText(GameObject thing, string[] array)
     {
-        thing.GetComponent<TMPro.TextMeshProUGUI>().text = array[selection];
+        if (magChanged == true)
+        {
+            thing.GetComponent<TMPro.TextMeshProUGUI>().text = array[selection];
+        }
     }
     private void spawnTutEnemy()
     {

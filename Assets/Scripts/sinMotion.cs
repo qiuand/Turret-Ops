@@ -16,7 +16,10 @@ public class sinMotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (transform.childCount == 0)
+        {
+            Destroy(gameObject);
+        }
         Vector2 position = transform.position;
         float sin = Mathf.Sin(transform.position.y)*amplitude;
         position.x = sinCenterX + sin;
@@ -24,6 +27,10 @@ public class sinMotion : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject);
+        if (collision.gameObject.tag == "Bounds" || transform.childCount==0)
+        {
+            Destroy(gameObject);
+        }
+/*        Destroy(gameObject);*/
     }
 }
