@@ -114,6 +114,7 @@ public class Chamelelon : MonoBehaviour
     }
     private void Destroy()
     {
+        GameObject.FindGameObjectWithTag("Scrippy").GetComponent<EnemySpawn>().bossDestroyed = true;
         source.PlayOneShot(explode);
         rb.velocity = new Vector2(0, 0);
         rb.isKinematic = false;

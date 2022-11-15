@@ -31,7 +31,7 @@ public class EnemyTut : MonoBehaviour
             GetComponent<Collider2D>().enabled = false;
             rb.isKinematic = false;
             fire.enableEmission = false;
-            enemyAnim.SetBool("Destroyed", true);
+            enemyAnim.SetBool("Exploded", true);
             StartCoroutine(Wait());
         }
     }

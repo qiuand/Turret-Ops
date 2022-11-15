@@ -48,7 +48,7 @@ public class EnemySpawn : MonoBehaviour
     public GameObject radial;
     public GameObject greenShield;
     public GameObject rotate;
-    int bossWave = 8;
+    int bossWave = 12;
     public GameObject chameleon;
     bool waveCompleted = false;
     public GameObject waveText;
@@ -64,7 +64,8 @@ public class EnemySpawn : MonoBehaviour
     float waveGraceTimer;
     float waveGraceDuration = 3.0f;
     public GameObject tankAnimate;
-    bool bossActive = false;
+    public bool bossActive = false;
+    public bool bossDestroyed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -186,6 +187,13 @@ public class EnemySpawn : MonoBehaviour
         {
             maxspeed -= (Time.deltaTime * enemyspeedMultiplier);
         }
+        if (bossDestroyed == true && waveCount == bossWave)
+        {
+            boss.SetActive(false);
+/*            bossActive = false;*/
+            waveCompleted = true;
+            beginNextWave = false;
+        }
         if (turret.GetComponent<Turret>().inTut == false && stopSpawn==false)
         {
             if (waveTimer <= 0 && beginNextWave == true)
@@ -193,15 +201,9 @@ public class EnemySpawn : MonoBehaviour
                 if (waveCount == bossWave && bossActive==false)
                 {
                     boss.SetActive(true);
-                    GameObject waveControl = Instantiate(positionArray[positionArray.Length-1], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
+                    GameObject bossControl = Instantiate(positionArray[positionArray.Length-1], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
                     bossActive = true;
-                    if (waveControl == null)
-                    {
-                        boss.SetActive(false);
-                        bossActive = false;
-                        waveCompleted = true;
-                        beginNextWave = false;
-                    }
+
                 }
                 else
                 {
@@ -211,19 +213,37 @@ public class EnemySpawn : MonoBehaviour
                             createEnemies(2);
                             break;
                         case 2:
-                            createEnemies(4);
+                            createEnemies(3);
                             break;
                         case 3:
-                            createEnemies(6);
+                            createEnemies(4);
                             break;
                         case 4:
-                            createEnemies(8);
+                            createEnemies(5);
                             break;
                         case 5:
-                            createEnemies(10);
+                            createEnemies(6);
                             break;
                         case 6:
+                            createEnemies(7);
+                            break;
+                        case 7:
+                            createEnemies(8);
+                            break;
+                        case 8:
+                            createEnemies(9);
+                            break;
+                        case 9:
+                            createEnemies(10);
+                            break;
+                        case 10:
+                            createEnemies(11);
+                            break;
+                        case 11:
                             createEnemies(12);
+                            break;
+                        case 12:
+                            createEnemies(5);
                             break;
 /*                        case 7:
                             createEnemies(11);

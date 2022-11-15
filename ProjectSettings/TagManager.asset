@@ -16,6 +16,7 @@ TagManager:
   - Projectile3
   - WaveObject
   - Boss Health
+  - Scrippy
   layers:
   - Default
   - TransparentFX

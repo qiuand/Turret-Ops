@@ -1079,7 +1079,7 @@ public class Turret : MonoBehaviour
     private void randomMalfunction()
     {
         int random = Random.Range(0, malfunctionArray.Length-1);
-        malfunctionArray[random] = hits;
+        malfunctionArray[2/*random*/] = hits;
     }
     private void processMalfunction()
     {
@@ -1123,7 +1123,7 @@ public class Turret : MonoBehaviour
         else{
             camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 0f, 0f);
             hullMalfunction();
-            camText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Critical Cam System Damage!";
+            camText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade in progress..."/*"Status: Critical Cam System Damage!"*/;
         }
 /*        if (malfunctionArray[3] == 0)
         {
@@ -1232,7 +1232,7 @@ public class Turret : MonoBehaviour
         }
         /*        switchColours(hullText, damagedColour);*/
         /*        hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);*/
-        if (exploded != true)
+        if (exploded != true && upgrader.GetComponent<Upgrades>().installing==false)
         {
             blackout.SetActive(true);
         }
