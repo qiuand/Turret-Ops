@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Chamelelon : MonoBehaviour
 {
+    public Sprite redGuy;
+    public Sprite greenGuy;
     public Text text;
     public Image healthText;
     float scoreUpgradeValue = 20;
@@ -16,8 +18,8 @@ public class Chamelelon : MonoBehaviour
     float chameleonHealth;
     float changeMin = 3.0f;
     float changeMax = 5.0f;
-    float changeCooldownTime;
-    float changeDuration;
+    float changeCooldownTime=5.0f;
+    float changeDuration=5.0f;
     float speed=2;
     public GameObject bomb;
     float health = 5;
@@ -28,19 +30,33 @@ public class Chamelelon : MonoBehaviour
     float bombCooldown;
     float bombDuration = 6.0f;
     public AudioClip damage;
+    public AudioClip dink;
+    public SpriteRenderer render;
+    float sinCenterY;
+    float frequency = 1;
+    float amplitude = 0.3f;
     Vector3 newPos;
     // Start is called before the first frame update
     void Start()
     {
+        sinCenterY = transform.position.y;
+        /*        render = GetComponent<SpriteRenderer>();*/
+        GetComponent<SpriteRenderer>().sprite = greenGuy;
         healthText = GameObject.FindGameObjectWithTag("Boss Health").GetComponent<Image>();
         moveCooldown = moveDuration;
         enemyAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        enemyAnim.SetBool("Chameleon", true);
     }
 
     // Update is called once per frame
     void Update()
     {
+/*        Vector2 position = transform.position;
+        float sin = Mathf.Sin(transform.position.x) * amplitude;
+        position.y = sinCenterY + sin;
+        transform.position = position;*/
+        /*        GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>().sprite = greenGuy;*/
         healthText.fillAmount = health / maxHealth;
         bombCooldown -= Time.deltaTime;
         if (bombCooldown <= 0)
@@ -49,16 +65,16 @@ public class Chamelelon : MonoBehaviour
             Instantiate(bomb, transform.position, Quaternion.identity);
             if (gameObject.tag == "Enemy")
             {
-                bomb.gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1f, 0f);
+                bomb.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.4f, 0.8f);
                 bomb.gameObject.tag = "Shot";
             }
             else{
                 bomb.gameObject.tag = "Shot2";
-                bomb.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0f, 0f);
+                bomb.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.3f, 0.15f);
             }
         }
         moveCooldown -= Time.deltaTime;
-        if (moveCooldown <= 0)
+/*        if (moveCooldown <= 0)
         {
             positionFound = false;
             moveCooldown = moveDuration;
@@ -68,7 +84,7 @@ public class Chamelelon : MonoBehaviour
             newPos = new Vector3(Random.Range(RoamRange.roamRange.rect.xMin, RoamRange.roamRange.rect.xMax), Random.Range(RoamRange.roamRange.rect.yMin, RoamRange.roamRange.rect.yMax), 0) + RoamRange.roamRange.transform.position;
             positionFound = true;
         }
-        transform.position = Vector3.MoveTowards(transform.position, newPos, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, newPos, speed * Time.deltaTime);*/
 /*        if (newPos == rb.transform.position)
         {
             positionFound = false;
@@ -78,17 +94,21 @@ public class Chamelelon : MonoBehaviour
         {
             if (gameObject.tag == "Enemy")
             {
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0f, 0f);
+                render.sprite = redGuy;
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.3f, 0.15f);
                 gameObject.tag = "Enemy2";
             }
             else
             {
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1f, 0f);
+                render.sprite = greenGuy;
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(0.07f, 0.4f, 0.8f);
                 gameObject.tag = "Enemy";
             }
             changeDuration = Random.Range(changeMin, changeMax);
             changeCooldownTime = changeDuration;
         }
+        render.sprite = redGuy;
+        /*        GetComponent<SpriteRenderer>().sprite = greenGuy;*/
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -110,10 +130,15 @@ public class Chamelelon : MonoBehaviour
             enemyAnim.SetBool("Destroyed", true);
             Destroy(gameObject, 0.65f);*/
         }
+        else if (collision.gameObject.tag=="Projectile" || collision.gameObject.tag == "Projectile2")
+        {
+            source.PlayOneShot(dink);
+        }
 
     }
     private void Destroy()
     {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1,1,1);
         GameObject.FindGameObjectWithTag("Scrippy").GetComponent<EnemySpawn>().bossDestroyed = true;
         source.PlayOneShot(explode);
         rb.velocity = new Vector2(0, 0);

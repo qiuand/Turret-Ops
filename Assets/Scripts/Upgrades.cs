@@ -4,8 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Upgrades : MonoBehaviour
 {
+    public Sprite dual;
+    public Sprite triple;
+    public Sprite fast;
+    public Sprite railgun;
+    public Sprite ricochet;
+    public Sprite chaingun;
+    public Sprite laserSprite;
+    public Sprite particleSprite;
+    public Sprite overgunSprite;
+    public GameObject minimapGun;
+    public GameObject minimapHull;
+    public Sprite small, repair, redPower, greenPower, pierce, Thermals, enhanced, heavy, airstrike, tactialOverride;
     public AudioClip select;
     public AudioClip bing;
+    public GameObject hullThing;
     public AudioClip donk;
     public GameObject tankAnimate;
     public GameObject abortText2;
@@ -14,7 +27,7 @@ public class Upgrades : MonoBehaviour
     public AudioClip ding;
     public static bool canUpgrade=false;
     List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge", "Railgun Overcharge" };
-    List<string> powerupList = new List<string> { "Small Frame", "Repair", "Red Shield", "Piercing",  "Green Shield", "Piercing", "Thermal Imaging", "Enhanced Materials", "Heavy Armour",  "Tactical Airstrike", "Electric Override" };
+    List<string> powerupList = new List<string> { "Small Frame", "Repair", "Red Shield", "Piercing", "Green Shield", "Thermal Imaging", "Enhanced Materials", "Heavy Armour", "Tactical Airstrike", "Electric Override" };
     public GameObject upgrade1;
     public GameObject upgrade2;
     int displayChoice;
@@ -35,9 +48,13 @@ public class Upgrades : MonoBehaviour
     public GameObject mechanicScreenUppyLayer;
     public Camera cam;
     public bool installing = false;
+    public GameObject turretSprite;
+    float upgradeTimeShow;
+    float upgradeTimeDuration=1.0f;
     // Start is called before the first frame update
     void Start()
     {
+        upgradeTimeShow = upgradeTimeDuration;
         abortTimer = abortDuration;
         mechanicScreenUppyLayer.SetActive(false);
         upgradeLayer.SetActive(false);
@@ -49,6 +66,18 @@ public class Upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+/*        upgradeTimeShow -= Time.deltaTime;
+        if (upgradeTimeShow <= 0)
+        {
+            upgradeIndex = Random.Range(0, 9);
+            print("wowzers");
+            chosenUpgrade = upgradeList[Random.Range(2,3)];
+            InstallPowerups();
+            upgradeIndex = Random.Range(0, 9);
+            chosenUpgrade = powerupList[Random.Range(2,3)];
+            InstallUpgrades();
+            upgradeTimeShow = upgradeTimeDuration;
+        }*/
         if (Turret.scoreToUpgrade >= ship.GetComponent<Turret>().scoreToUpgradeRequired)
         {
             if (canUpgrade)
@@ -302,53 +331,62 @@ public class Upgrades : MonoBehaviour
         {
             case "Piercing":
                 ship.GetComponent<Turret>().installedUpgrade = "HEAT Round Module";
+                hullThing.GetComponent<SpriteRenderer>().sprite = pierce;
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().pierceUpgrade = true;
                 break;
             case "Repair":
+                hullThing.GetComponent<SpriteRenderer>().sprite = repair;
                 ship.GetComponent<Turret>().installedUpgrade = "Auto-repair Module";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair ready";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().autoRepair = true;
                 break;
             case "Red Shield":
+                hullThing.GetComponent<SpriteRenderer>().sprite = redPower;
                 ship.GetComponent<Turret>().installedUpgrade = "Red Shield Module";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().redShield = true;
                 break;
             case "Electric Override":
+                hullThing.GetComponent<SpriteRenderer>().sprite = tactialOverride;
                 ship.GetComponent<Turret>().installedUpgrade = "Optimized Config";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().electricOverride = true;
                 break;
             case "Green Shield":
+                hullThing.GetComponent<SpriteRenderer>().sprite = greenPower;
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().installedUpgrade = "Green Shield Module";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
                 ship.GetComponent<Turret>().greenShield = true;
                 break;
             case "Enhanced Materials":
+                hullThing.GetComponent<SpriteRenderer>().sprite = enhanced;
                 ship.GetComponent<Turret>().installedUpgrade = "Enhanced Materials";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().enhancedMaterials = true;
                 break;
             case "Thermal Imaging":
+                hullThing.GetComponent<SpriteRenderer>().sprite = Thermals;
                 ship.GetComponent<Turret>().installedUpgrade = "Thermal Imaging";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().thermalImaging = true;
                 break;
             case "Tactical Airstrike":
+                hullThing.GetComponent<SpriteRenderer>().sprite = airstrike;
                 ship.GetComponent<Turret>().installedUpgrade = "Tactical Airstrike";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().tacticalStrike = true;
                 break;
             case "Heavy Armour":
+                hullThing.GetComponent<SpriteRenderer>().sprite = heavy;
                 ship.GetComponent<Turret>().installedUpgrade = "Heavy Armour";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
                 setPowerupsFalse();
@@ -361,13 +399,32 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().doubleDuty = true;
                 break;
             case "Small Frame":
+                hullThing.GetComponent<SpriteRenderer>().sprite = small;
                 ship.GetComponent<Turret>().installedUpgrade = "Small Frame";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().small = true;
                 break;
         }
-        setScoreUpgradeReset();
+        /*        setScoreUpgradeReset();
+                cam.GetComponent<CamZoom>().zoomIn = false;
+                *//*        powerupList.Remove(powerupList[upgradeIndex]);*//*
+                upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+                upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+                EnemySpawn.beginNextWave = true;
+                spawner.GetComponent<EnemySpawn>().waveCount++;
+                ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().maxHealth;
+                spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
+                spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
+                spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
+        *//*        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");*//*
+                installing = false;*/
+
+        levelSkip();
+        minimapHull.GetComponent<SpriteRenderer>().sprite = hullThing.GetComponent<SpriteRenderer>().sprite;
+    }
+    public void levelSkip()
+    {
         cam.GetComponent<CamZoom>().zoomIn = false;
         /*        powerupList.Remove(powerupList[upgradeIndex]);*/
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
@@ -378,8 +435,9 @@ public class Upgrades : MonoBehaviour
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
         spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
-/*        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");*/
+        /*        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");*/
         installing = false;
+        minimapHull.GetComponent<SpriteRenderer>().sprite = hullThing.GetComponent<SpriteRenderer>().sprite;
     }
     public void InstallUpgrades()
     {
@@ -390,12 +448,16 @@ public class Upgrades : MonoBehaviour
         switch (upgradeList[upgradeIndex])
         {
             case "Laser":
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.22f, 0);
+                turretSprite.GetComponent<SpriteRenderer>().sprite = laserSprite;
                 ship.GetComponent<Turret>().installedGun = "Energy Condensor";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().laserUpgrade = true;
 
                 break;
             case "Shotgun":
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.62f, 0);
+                turretSprite.GetComponent<SpriteRenderer>().sprite = triple;
                 ship.GetComponent<Turret>().installedGun = "Energy Refractor";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().shotgun = true;
@@ -403,64 +465,80 @@ public class Upgrades : MonoBehaviour
 
                 break;
             case "Chain Gun":
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.62f, 0);
+                turretSprite.GetComponent<SpriteRenderer>().sprite = chaingun;
                 ship.GetComponent<Turret>().installedGun = "Chain Gun";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().basicGun =true;
                 ship.GetComponent<Turret>().chainGun = true;
                 break;
             case "Particle Smasher":
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.16f, 0);
+                turretSprite.GetComponent<SpriteRenderer>().sprite = particleSprite;
                 ship.GetComponent<Turret>().installedGun = "Spitter Launcher";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().smasher = true;
                 break;
             case "Improved Bearings":
+                turretSprite.GetComponent<SpriteRenderer>().sprite = fast;
                 ship.GetComponent<Turret>().installedGun = "Fast Blaster";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().speed = true;
                 ship.GetComponent<Turret>().basicGun = true;
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.22f, 0);
                 break;
             case "Railgun Overcharge":
+                turretSprite.GetComponent<SpriteRenderer>().sprite = railgun;
                 ship.GetComponent<Turret>().installedGun = "Railgun";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().singleShot = true;
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.62f, 0);
                 break;
             case "Ricochet Shot":
+                turretSprite.GetComponent<SpriteRenderer>().sprite = ricochet;
                 ship.GetComponent<Turret>().installedGun = "Matter Destabilizer";
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.28f, 0);
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().ricochet = true;
                 ship.GetComponent<Turret>().basicGun = true;
                 break;
             case "Reactive Armour":
                 ship.GetComponent<Turret>().installedGun = "Reactive Armour";
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.62f, 0);
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().reactiveArmour = true;
                 break;
             case "Dual shot":
+                turretSprite.GetComponent<SpriteRenderer>().sprite = dual;
                 ship.GetComponent<Turret>().installedGun = "Dual Blaster";
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.62f, 0);
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().dualShot = true;
                 ship.GetComponent<Turret>().basicGun = false;
                 ship.GetComponent<Turret>().shotgun = true;
                 break;
             case "Overcharge":
+                ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.62f, 0);
+                turretSprite.GetComponent<SpriteRenderer>().sprite = overgunSprite;
                 ship.GetComponent<Turret>().installedGun = "Overcharger";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().overChargeGun = true;
-
                 break;
         }
-        setScoreUpgradeReset();
-        cam.GetComponent<CamZoom>().zoomIn = false;
-        /*        upgradeList.Remove(upgradeList[upgradeIndex]);*/
-        upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
-        upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
-        EnemySpawn.beginNextWave = true;
-        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");
-        spawner.GetComponent<EnemySpawn>().waveCount++;
-        ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().maxHealth;
-        spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
-        spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
-        spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
+        minimapGun.GetComponent<SpriteRenderer>().sprite = turretSprite.GetComponent<SpriteRenderer>().sprite;
+        /*        setScoreUpgradeReset();
+                cam.GetComponent<CamZoom>().zoomIn = false;
+                *//*        upgradeList.Remove(upgradeList[upgradeIndex]);*//*
+                upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+                upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+                EnemySpawn.beginNextWave = true;
+                tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");
+                spawner.GetComponent<EnemySpawn>().waveCount++;
+                ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().maxHealth;
+                spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
+                spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
+                spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;*/
+        levelSkip();
         installing = false;
     }
     private void setGunUpgradesFalse()

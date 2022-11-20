@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public static float empowerMultiplier = 1.1f;
     public GameObject boss;
     public Camera cam;
     int maxWave = 10;
@@ -280,7 +281,7 @@ public class EnemySpawn : MonoBehaviour
         genspeed = Random.Range(minspeed, maxspeed);
         GameObject waveControl = Instantiate(positionArray[type], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
         print(positionArray[type]);
-        if(positionArray[type]!=homingRed && positionArray[type] != homingGreen)
+        if (positionArray[type]!=homingRed && positionArray[type] != homingGreen)
         {
             print("Bazingo");
             waveControl.GetComponent<Rigidbody2D>().velocity = transform.up * (genspeed);

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyTut : MonoBehaviour
 {
+    public AudioClip dink;
     Rigidbody2D rb;
     public ParticleSystem fire;
     public Animator enemyAnim;
@@ -33,6 +34,10 @@ public class EnemyTut : MonoBehaviour
             fire.enableEmission = false;
             enemyAnim.SetBool("Exploded", true);
             StartCoroutine(Wait());
+        }
+        else if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "Projectile2")
+        {
+            source.PlayOneShot(dink);
         }
     }
     IEnumerator Wait()

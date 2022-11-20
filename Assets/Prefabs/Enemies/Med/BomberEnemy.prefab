@@ -4965,8 +4965,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: c447cb94af46fb34f85f19a3e1a224a6, type: 3}
-  m_Color: {r: 0.074136704, g: 0.3207547, b: 0.2572319, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 88c73419541685d468d295ca2bd26a9a, type: 3}
+  m_Color: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5140,6 +5140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dink: {fileID: 8300000, guid: de92e38b17e665541967c5f2bf8b9cff, type: 3}
   enemyAnim: {fileID: 3773563830764174652}
   explode: {fileID: 8300000, guid: c472a5e1d2c1db246a53314c857a39fe, type: 3}
   source: {fileID: 6842390563309208963}

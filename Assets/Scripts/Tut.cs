@@ -6,7 +6,7 @@ public class Tut : MonoBehaviour
 {
     public GameObject spawner;
     public AudioClip ding;
-    Vector3 originalPos = new Vector3(-0.6f, 2.27f,0);
+    Vector3 originalPos = new Vector3(-0.51f, 2.27f,0);
     public GameObject mechText;
     public GameObject turretText;
     string[] gunTut=new string[9];
@@ -30,6 +30,7 @@ public class Tut : MonoBehaviour
     float waitDuration = 1.0f;
     bool continued = true;
     bool magChanged = true;
+    bool soundPlayed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +46,7 @@ public class Tut : MonoBehaviour
         gunTut[4] = "<b><color=red>Malfunctions</color> are bad!</b> Ask the <color=#006CFF>Mechanic</color> to fix them!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
         gunTut[5] = "<b>Shooting causes <color=red>overheating!</color></b> Let your <color=#006CFF>friend</color> fix that, too!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
         /*        gunTut[6] = "You can only damage green enemies with green bullets, and blue enemies with blue bullets! The mechanic can't tell what colour enemies are, so tell him which ammo to load!";*/
-        gunTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color> You need to tell the <color=#006CFF>Mechanic</color> which you need — they can't see colors!";
+        gunTut[6] = "<color=#1266E6>blue bullets</color> for <color=#1266E6>blue enemies</color>, and <color=#CC4C26>orange bullets</color> for <color=#CC4C26>orange enemies!</color>Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";
         gunTut[7] = "That's all you need to know! Good luck, Cosmic Gunner!<br><br><color=green>Press fire to continue";
         gunTut[8] = "";
 
@@ -55,7 +56,7 @@ public class Tut : MonoBehaviour
         mechTut[3] = "Note that your gunport cannot see colours.<br>Waiting for <color=yellow>Gunner...</color>";
         mechTut[4] = "<b>Getting hit is bad!</b> Repair the damage with your hammer now!";
         mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
-        mechTut[6] = "<color=green>Green bullets</color> for <color=green>green enemies</color>, and <color=red>red bullets</color> for <color=red>red enemies!</color>Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";
+        mechTut[6] = "<color=#1266E6>blue bullets</color> for <color=#1266E6>blue enemies</color>, and <color=#CC4C26>orange bullets</color> for <color=#CC4C26>orange enemies!</color>Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";
         mechTut[7]= "Good luck, Cosmic Mechanic!<b><br><br><color=green>Press select to continue";
         mechTut[8] = "";
     }
@@ -82,13 +83,19 @@ public class Tut : MonoBehaviour
             {
                 if (Input.GetKeyDown("space") && selection < 3)
                 {
-                    source.PlayOneShot(ding);
-                    gunnerAgree = true;
+                    if (gunnerAgree == false)
+                    {
+                        source.PlayOneShot(ding);
+                        gunnerAgree = true;
+                    }
                 }
                 if (Input.GetKeyDown("g") && selection < 3)
                 {
-                    source.PlayOneShot(ding);
-                    mechanicAgree = true;
+                    if (mechanicAgree == false)
+                    {
+                        source.PlayOneShot(ding);
+                        mechanicAgree = true;
+                    }
                 }
                 if (gunnerAgree == true && mechanicAgree == true && selection < 3/*gunTut.Length - 2*/)
                 {

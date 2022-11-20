@@ -4936,8 +4936,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: afe91b8a978879548ab305eafcf4ab80, type: 3}
-  m_Color: {r: 0.6608963, g: 0, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: bc2c881f014996748b6e058c5c0d02c0, type: 3}
+  m_Color: {r: 0, g: 0.45470548, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4959,6 +4959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dink: {fileID: 0}
   enemyAnim: {fileID: 8104924968954108105}
   explode: {fileID: 8300000, guid: c472a5e1d2c1db246a53314c857a39fe, type: 3}
   source: {fileID: 1932347602821849206}
@@ -5111,6 +5112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dink: {fileID: 8300000, guid: de92e38b17e665541967c5f2bf8b9cff, type: 3}
   enemyAnim: {fileID: 8104924968954108105}
   explode: {fileID: 8300000, guid: 584aaee48ee7c9442ab97ea1d196ebfc, type: 3}
   source: {fileID: 1932347602821849206}

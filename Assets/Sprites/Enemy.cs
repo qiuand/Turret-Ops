@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public AudioClip dink;
     float scoreUpgradeValue = 20;
     public Animator enemyAnim;
     Rigidbody2D rb;
@@ -39,6 +40,11 @@ public class Enemy : MonoBehaviour
             GetComponent<CapsuleCollider2D>().enabled = false;
             enemyAnim.SetBool("Destroyed", true);
             Destroy(gameObject,0.65f);
+        }
+        else if(collision.gameObject.tag=="Projecile" || collision.gameObject.tag == "Projectile2")
+        {
+            print("bazinga");
+            source.PlayOneShot(dink);
         }
         
     }

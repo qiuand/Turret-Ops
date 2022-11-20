@@ -35,6 +35,13 @@ public class Projectile2 : MonoBehaviour
         }
         else if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2")
         {
+            if (collision.gameObject.tag == "Enemy")
+            {
+                /*                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z+90);
+                                rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y);*/
+                Vector3 enemyScalex = collision.gameObject.transform.localScale *= EnemySpawn.empowerMultiplier;
+                collision.gameObject.transform.localScale = new Vector3(enemyScalex.x, enemyScalex.y, collision.gameObject.transform.localScale.z);
+            }
             Destroy(gameObject);
         }
         if (collision.gameObject.tag == "Bounds")

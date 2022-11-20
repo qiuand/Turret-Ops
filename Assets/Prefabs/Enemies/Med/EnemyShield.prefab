@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.4392157}
+  m_Color: {r: 1, g: 0.39090377, b: 0, a: 0.4392157}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -328,7 +328,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: afe91b8a978879548ab305eafcf4ab80, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df4a2b2e8cc15554eb4ffd49aefb701c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -351,6 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dink: {fileID: 0}
   enemyAnim: {fileID: 3419649985266142497}
   explode: {fileID: 8300000, guid: c472a5e1d2c1db246a53314c857a39fe, type: 3}
   source: {fileID: 5034567202561815966}
@@ -520,6 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dink: {fileID: 8300000, guid: de92e38b17e665541967c5f2bf8b9cff, type: 3}
   enemyAnim: {fileID: 3419649985266142497}
   explode: {fileID: 8300000, guid: 584aaee48ee7c9442ab97ea1d196ebfc, type: 3}
   source: {fileID: 5034567202561815966}

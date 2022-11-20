@@ -16,6 +16,7 @@ public class Bomber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+/*        transform.position = new Vector2(9, 9);*/
 /*        Instantiate(bomb, transform.position, Quaternion.identity);*/
         bombTimer -= Time.deltaTime;
         if (bombTimer <= 0)

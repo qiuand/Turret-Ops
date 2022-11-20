@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    bool gotStarterMag = false;
+    float magWaitTime=1.0f;
+    float magWaitDuration;
     public GameObject upgrader;
     public GameObject tacStrikeRadius;
     public bool tacticalStrike;
@@ -88,7 +91,7 @@ public class Turret : MonoBehaviour
     public Image healthBar;
     public Image overheatBar2;
     public Image healthBar2;
-    Vector3 barrelColour = new Vector3(0.6033731f, 0.8584906f, 0.8451912f);
+    Vector3 barrelColour = new Vector3/*(0.6033731f, 0.8584906f, 0.8451912f)*/(1,1,1);
     Vector3 damagedColour = new Vector3(1f, 0f, 0f);
     public float heat;
     float heatBuildUp;
@@ -190,8 +193,8 @@ public class Turret : MonoBehaviour
     public GameObject barrelText;
     Vector3 defaultBarrelColour=new Vector3(1f,1f,1f);
     Vector3 currentBarrelColour = new Vector3();
-    Vector3 blueBarrelColour = new Vector3(0.5f, 0, 0);
-    Vector3 greenBarrelColour=new Vector3(0f, 0.5f, 0f);
+    Vector3 blueBarrelColour = new Vector3(0.8f, 0.3f, 0.15f);
+    Vector3 greenBarrelColour=new Vector3(0.07f, 0.4f, 0.9f);
     public GameObject scoreText;
     public GameObject scoreText2;
     public float scoreMultiplier = 10;
@@ -242,6 +245,7 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        magWaitTime = magWaitDuration;
         tacStrikeRadius.SetActive(false);
         /*        source.PlayOneShot(engine);*/
         steamObject.gameObject.SetActive(false);
@@ -279,6 +283,43 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gotStarterMag == false)
+        {
+            if (Input.GetKey("j"))
+            {
+                currentBarrelColour = greenBarrelColour;
+                /*                    barrel.GetComponent<SpriteRenderer>().color = new Color(0.4009f, 1f, 0.4507f);*/
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL (○) " + installedGun + " Loaded";
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(greenBarrelColour.x, greenBarrelColour.y, greenBarrelColour.z);
+                startingMag = 1;
+                detectedMag = true;
+                actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().text = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text;
+                actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().color = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color;
+                gotStarterMag = true;
+            }
+            else if (Input.GetKey("k"))
+            {
+                currentBarrelColour = blueBarrelColour;
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma (☐) " + installedGun + " Loaded";
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(blueBarrelColour.x, blueBarrelColour.y, blueBarrelColour.z);
+                startingMag = 2;
+                detectedMag = true;
+                actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().text = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text;
+                actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().color = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color;
+                gotStarterMag = true;
+            }
+            else if (Input.GetKey("l"))
+            {
+                currentBarrelColour = defaultBarrelColour;
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Empty " + installedGun;
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);
+                detectedMag = false;
+                actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().text = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text;
+                actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().color = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color;
+                gotStarterMag = true;
+            }
+        }
+        magWaitTime -= Time.deltaTime;
 /*        GameObject obectFind = GameObject.FindGameObjectWithTag("Enemy");
         Debug.Log(obectFind.name);*/
         if (doubleDuty || heavyArmour || speed)
@@ -407,18 +448,18 @@ public class Turret : MonoBehaviour
             }
             if (Input.GetKeyDown("left"))
             {
-                startingMag = 1;
-                source.PlayOneShot(magazine);
-            }
+            /*                startingMag = 1;*/
+            source.PlayOneShot(magazine);
+        }
             if (Input.GetKeyDown("right"))
             {
-                startingMag = 2;
-                source.PlayOneShot(magazine);
-            }
-            if (Input.GetKeyUp("left") || Input.GetKeyUp("right"))
+            /*                startingMag = 2;*/
+            source.PlayOneShot(magazine);
+        }
+            if (Input.GetKeyDown("p")/*Input.GetKeyUp("left") || Input.GetKeyUp("right")*/)
             {
-                source.PlayOneShot(magazine);
-            }
+            source.PlayOneShot(magazine);
+        }
             if (Input.GetKeyDown("escape"))
             {
                 SceneManager.LoadScene("Main");
@@ -661,29 +702,29 @@ public class Turret : MonoBehaviour
                     if (detectedMag == false)
                     {
             */
-            if (Input.GetKey("right"))
+            if (Input.GetKeyDown("right"))
             {
                 currentBarrelColour = blueBarrelColour;
-                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma " + installedGun + " Loaded";
-                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma (☐) " + installedGun + " Loaded";
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(blueBarrelColour.x, blueBarrelColour.y, blueBarrelColour.z);
                 startingMag = 2;
                 detectedMag = true;
             actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().text = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text;
             actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().color = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color;
         }
 
-            else if (Input.GetKey("left"))
+            else if (Input.GetKeyDown("left"))
             {
                 currentBarrelColour = greenBarrelColour;
                 /*                    barrel.GetComponent<SpriteRenderer>().color = new Color(0.4009f, 1f, 0.4507f);*/
-                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL " + installedGun + " Loaded";
-                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0, 1f, 0);
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL (○) " + installedGun + " Loaded";
+                actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(greenBarrelColour.x, greenBarrelColour.y, greenBarrelColour.z);
                 startingMag = 1;
                 detectedMag = true;
             actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().text = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text;
             actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().color = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color;
         }
-            else
+            else if (Input.GetKeyDown("p"))
             {
                 currentBarrelColour = defaultBarrelColour;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Empty " + installedGun;
@@ -692,80 +733,99 @@ public class Turret : MonoBehaviour
             actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().text = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text;
             actionStatus2.GetComponent<TMPro.TextMeshProUGUI>().color = actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color;
         }
+        if (Input.GetKeyDown("z"))
+        {
+            swungAt = 0;
+            HammerSwing();
+        }
+        else if (Input.GetKeyDown("x"))
+        {
+            swungAt = 1;
+            HammerSwing();
+        }
+        else if (Input.GetKeyDown("c"))
+        {
+            swungAt = 2;
+            HammerSwing();
+        }
+        else if (Input.GetKeyDown("v"))
+        {
+            swungAt = 3;
+            HammerSwing();
+        }
 
-
-            /*        if (malfunctioning && malfunctionType != "Barrel" && malfunctionType != "Hull")
+        /*        if (malfunctioning && malfunctionType != "Barrel" && malfunctionType != "Hull")
+                {
+                    if (damageTimer <= 0)
                     {
-                        if (damageTimer <= 0)
+                        health -= healthDamage;
+                        damageTimer = damageTick;
+                    }
+                    damageTimer -= Time.deltaTime;
+                    mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = malfunctionType;
+                    pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = inputDisplay;
+                    rCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = requiredCode[0] + requiredCode[1] + requiredCode[2] + requiredCode[3];
+                    if ((Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("w")) && playerInput.Count < maxInput)
+                    {
+                        if (Input.GetKeyDown("a"))
                         {
-                            health -= healthDamage;
-                            damageTimer = damageTick;
+                            playerInput.Add("A");
+                            inputDisplay += "A";
                         }
-                        damageTimer -= Time.deltaTime;
-                        mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = malfunctionType;
-                        pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = inputDisplay;
-                        rCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = requiredCode[0] + requiredCode[1] + requiredCode[2] + requiredCode[3];
-                        if ((Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("w")) && playerInput.Count < maxInput)
+                        else if (Input.GetKeyDown("s"))
                         {
-                            if (Input.GetKeyDown("a"))
-                            {
-                                playerInput.Add("A");
-                                inputDisplay += "A";
-                            }
-                            else if (Input.GetKeyDown("s"))
-                            {
-                                playerInput.Add("S");
-                                inputDisplay += "S";
-                            }
-                            else if (Input.GetKeyDown("d"))
-                            {
-                                playerInput.Add("D");
-                                inputDisplay += "D";
-                            }
-                            else if (Input.GetKeyDown("w"))
-                            {
-                                playerInput.Add("W");
-                                inputDisplay += "W";
-                            }
+                            playerInput.Add("S");
+                            inputDisplay += "S";
                         }
-                        if (playerInput.Count >= maxInput)
+                        else if (Input.GetKeyDown("d"))
                         {
-                            for (int i = 0; i < maxInput; i++)
+                            playerInput.Add("D");
+                            inputDisplay += "D";
+                        }
+                        else if (Input.GetKeyDown("w"))
+                        {
+                            playerInput.Add("W");
+                            inputDisplay += "W";
+                        }
+                    }
+                    if (playerInput.Count >= maxInput)
+                    {
+                        for (int i = 0; i < maxInput; i++)
+                        {
+                            if (playerInput[i] != requiredCode[i])
                             {
-                                if (playerInput[i] != requiredCode[i])
-                                {
-                                    print(1);
-                                    correctNo = false;
-                                    break;
-                                }
-                                else
-                                {
-                                    correctNo = true;
-                                }
+                                print(1);
+                                correctNo = false;
+                                break;
                             }
-                            if (correctNo == false)
+                            else
                             {
-                                damagePlayer();
-                                playerInput.Clear();
-                                inputDisplay = "";
-                            }
-                            if (correctNo)
-                            {
-                                mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Code: N/A";
-                                pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Input: N/A";
-                                rCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Normal";
-                                malfunctioning = false;
-                                playerInput = new List<string>() { };
-                                RunMalfunctions(malfunctionType, barrelColour);
-                                inputDisplay = "";
-                                centralDamaged = false;
                                 correctNo = true;
-                                storedType = "None";
-                                malfunctioning = false;
                             }
                         }
-                    }*/
-            overheatBar.fillAmount = heat / maxHeat;
+                        if (correctNo == false)
+                        {
+                            damagePlayer();
+                            playerInput.Clear();
+                            inputDisplay = "";
+                        }
+                        if (correctNo)
+                        {
+                            mTypeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Code: N/A";
+                            pCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Input: N/A";
+                            rCodeText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Normal";
+                            malfunctioning = false;
+                            playerInput = new List<string>() { };
+                            RunMalfunctions(malfunctionType, barrelColour);
+                            inputDisplay = "";
+                            centralDamaged = false;
+                            correctNo = true;
+                            storedType = "None";
+                            malfunctioning = false;
+                        }
+                    }
+                }*/
+        overheatBar.fillAmount = heat / maxHeat;
             healthBar.fillAmount = health / maxHealth;
             overheatBar2.fillAmount = heat / maxHeat;
             healthBar2.fillAmount = health / maxHealth;
@@ -825,7 +885,7 @@ public class Turret : MonoBehaviour
             ship.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
             barrels.gameObject.SetActive(true);
         }
-            if (Input.GetKey("space") && overheated == false && detectedMag == true && reactiveArmour!=true)
+            if (Input.GetKey("space")/* && Input.GetKey("m")*/ && overheated == false && detectedMag == true && reactiveArmour!=true)
             {
             if (overChargeGun)
             {
@@ -1000,7 +1060,7 @@ public class Turret : MonoBehaviour
             }
             /*        if (overheated)
                     {
-                        statusText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Critical Overheat � Repairs Needed!";
+                        statusText.GetComponent<TMPro.TextMeshProUGUI>().text = "Status: Critical Overheat — Repairs Needed!";
 
                     }
                     else
@@ -1079,7 +1139,7 @@ public class Turret : MonoBehaviour
     private void randomMalfunction()
     {
         int random = Random.Range(0, malfunctionArray.Length-1);
-        malfunctionArray[2/*random*/] = hits;
+        malfunctionArray[random] = hits;
     }
     private void processMalfunction()
     {
@@ -1222,7 +1282,7 @@ public class Turret : MonoBehaviour
         hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
         if (upgrader.GetComponent<Upgrades>().installing)
         {
-            hullGUI.GetComponent<SpriteRenderer>().color = new Color(0.25f, 0.25f, 0.25f);
+            hullGUI.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f);
             hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Hull upgrades in progress: Hit " + malfunctionArray[2] + " times";
         }
         else
@@ -1248,7 +1308,7 @@ public class Turret : MonoBehaviour
     {
         if (upgrader.GetComponent<Upgrades>().installing)
         {
-            barrelGUI.GetComponent<SpriteRenderer>().color = new Color(0.25f, 0.25f, 0.25f);
+            barrelGUI.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f);
             barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret upgrades in progress: Hit " + malfunctionArray[3] + " times";
         }
         else
@@ -1275,7 +1335,7 @@ public class Turret : MonoBehaviour
     }
     private void ActivatePowerups()
     {
-        if (Input.GetKeyDown("q") && recharged == true && installedUpgrade != null && installedUpgrade != "Auto-repair Module")
+        if (Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No upgrade" && installedUpgrade != "Auto-repair Module" && upgradeActive==false)
         {
             StartCoroutine(PlayOvercharge());
             switch (installedUpgrade)
@@ -1344,6 +1404,7 @@ public class Turret : MonoBehaviour
                 recharged = false;
                 rechargeTime = rechargeDuration;
                 pierceCooldownTime = pierceDurationCool;
+                upgradeActive = false;
             }
         }
     }

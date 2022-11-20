@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 6394762150506198185}
   m_Layer: 13
   m_Name: Rotate
-  m_TagString: Enemy
+  m_TagString: Enemy2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,8 +130,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: afe91b8a978879548ab305eafcf4ab80, type: 3}
-  m_Color: {r: 0.4669811, g: 0.57846344, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: d68687038165ba54084999467ad6e5af, type: 3}
+  m_Color: {r: 1, g: 0.36163157, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dink: {fileID: 0}
   enemyAnim: {fileID: 5326611614107806225}
   explode: {fileID: 8300000, guid: c472a5e1d2c1db246a53314c857a39fe, type: 3}
   source: {fileID: 2540176098234176174}
@@ -318,6 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dink: {fileID: 8300000, guid: de92e38b17e665541967c5f2bf8b9cff, type: 3}
   enemyAnim: {fileID: 5326611614107806225}
   explode: {fileID: 8300000, guid: 584aaee48ee7c9442ab97ea1d196ebfc, type: 3}
   source: {fileID: 2540176098234176174}
