@@ -22,8 +22,8 @@ public class Chamelelon : MonoBehaviour
     float changeDuration=5.0f;
     float speed=2;
     public GameObject bomb;
-    float health = 5;
-    float maxHealth = 5;
+    float health = 10;
+    float maxHealth = 10;
     bool positionFound = false;
     float moveCooldown;
     float moveDuration=3.0f;

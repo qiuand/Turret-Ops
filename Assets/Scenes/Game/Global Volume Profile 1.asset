@@ -89,11 +89,11 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 0.61
+    m_Value: 0.39
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.77
+    m_Value: 1.01
     min: 0
   scatter:
     m_OverrideState: 1
