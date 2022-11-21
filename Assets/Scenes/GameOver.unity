@@ -182,7 +182,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Gunner Fire: Restart
 
-    Mechanic Part Select: Menu'
+    Mechanic Select: Menu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab6472fea4a630f43a9c90f638fe27e1, type: 2}
   m_sharedMaterial: {fileID: -2079440697834281969, guid: ab6472fea4a630f43a9c90f638fe27e1, type: 2}
@@ -318,7 +318,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Gunner Fire: Restart
 
-    Mechanic Part Select: Menu'
+    Mechanic Select: Menu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab6472fea4a630f43a9c90f638fe27e1, type: 2}
   m_sharedMaterial: {fileID: -2079440697834281969, guid: ab6472fea4a630f43a9c90f638fe27e1, type: 2}

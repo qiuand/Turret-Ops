@@ -509,10 +509,10 @@ public class Turret : MonoBehaviour
             }
         }
             highLight();
-            if (Input.GetKeyDown("g"))
+/*            if (Input.GetKeyDown("g"))
             {
                 HammerSwing();
-            }
+            }*/
             if (Input.GetKeyDown("w")) {
                 source.PlayOneShot(select);
                 swungAt += 1;
@@ -1092,8 +1092,17 @@ public class Turret : MonoBehaviour
             {
                 transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);
             }
-            /*        transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);*/
-            if (debuffTimer <= 0) {
+        print("yoy" + transform.rotation.z);
+        if (transform.rotation.eulerAngles.z >= 177f)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 176.999f);
+        }
+        else if (transform.rotation.eulerAngles.z <= 3)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 2.999f);
+        }
+        /*        transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);*/
+        if (debuffTimer <= 0) {
                 canMalfunction = true;
             }
             debuffTimer -= Time.deltaTime;

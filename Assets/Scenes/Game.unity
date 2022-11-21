@@ -23977,14 +23977,14 @@ MonoBehaviour:
   boss: {fileID: 2030526595}
   cam: {fileID: 1288791047}
   ding: {fileID: 8300000, guid: 08e1346b3655689438ee55adcad82182, type: 3}
-  waveDuration: 1
+  waveDuration: 30
   waveCount: 1
   waveTime: 0
   waveTimeIncrement: 1
   enemy2: {fileID: 3680820831301527401, guid: fe27672c3f84cac4abf5bbf392eefc32, type: 3}
   enemy: {fileID: 5571464584035240969, guid: b6a1d5c9e8da04447885a1d7209d732c, type: 3}
-  waveTimer: 5
-  waveTiming: 5
+  waveTimer: 4
+  waveTiming: 4
   enemyNum: 3
   minRotate: 3
   maxRotate: -3
@@ -74342,7 +74342,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: c447cb94af46fb34f85f19a3e1a224a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88c73419541685d468d295ca2bd26a9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -79617,7 +79617,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d58922b86634a5043bace8a09963e743, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f7f2f6d36439af42b565047e89592a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
