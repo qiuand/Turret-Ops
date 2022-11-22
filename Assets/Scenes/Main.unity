@@ -11976,9 +11976,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gunner Fire: Start
+  m_text: '(Mechanic) Select: Tutorial
 
-    Mechanic Select: Tutorial'
+    (Gunner) Fire: Start
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab6472fea4a630f43a9c90f638fe27e1, type: 2}
   m_sharedMaterial: {fileID: -2079440697834281969, guid: ab6472fea4a630f43a9c90f638fe27e1, type: 2}
@@ -12177,9 +12179,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(Gunner) Fire: Start
+  m_text: '(Mechanic) Select: Tutorial
 
-    (Mechanic Select): Tutorial'
+    (Gunner) Fire: Start
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab6472fea4a630f43a9c90f638fe27e1, type: 2}
   m_sharedMaterial: {fileID: -2079440697834281969, guid: ab6472fea4a630f43a9c90f638fe27e1, type: 2}

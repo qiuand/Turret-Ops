@@ -23978,7 +23978,7 @@ MonoBehaviour:
   cam: {fileID: 1288791047}
   ding: {fileID: 8300000, guid: 08e1346b3655689438ee55adcad82182, type: 3}
   waveDuration: 30
-  waveCount: 1
+  waveCount: 14
   waveTime: 0
   waveTimeIncrement: 1
   enemy2: {fileID: 3680820831301527401, guid: fe27672c3f84cac4abf5bbf392eefc32, type: 3}
