@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    float requestTimer;
+    float requestDuration = 4.0f;
     bool gotStarterMag = false;
     float magWaitTime=1.0f;
     float magWaitDuration;
@@ -242,9 +244,14 @@ public class Turret : MonoBehaviour
     float heavyArmourHealth = 200;
     float slowspeed = 35;
     float increasedspeed = 190;
+    public GameObject requestLayer;
+    public GameObject requestText;
+    public GameObject spawner;
     // Start is called before the first frame update
     void Start()
     {
+        requestLayer.SetActive(false);
+        requestTimer = 0f;
         magWaitTime = magWaitDuration;
         tacStrikeRadius.SetActive(false);
         /*        source.PlayOneShot(engine);*/
@@ -283,6 +290,39 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        requestTimer -= Time.deltaTime;
+        /*        if (requestTimer <= 0)
+                {*/
+        if (EnemySpawn.beginNextWave == true)
+        {
+            if (Input.GetKeyDown("1"))
+            {
+                requestLayer.SetActive(true);
+                requestText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=#1266E6>Gunner requests<br>Blue (○) Ammo!";
+                requestTimer = requestDuration;
+            }
+            else if (Input.GetKeyDown("2"))
+            {
+                requestLayer.SetActive(true);
+                requestText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=#CC4C26>Gunner requests<br>Orange (☐) Ammo!";
+                requestTimer = requestDuration;
+            }
+            else if (Input.GetKeyDown("3"))
+            {
+                requestLayer.SetActive(true);
+                requestText.GetComponent<TMPro.TextMeshProUGUI>().text = "Oops, never mind!";
+                requestTimer = requestDuration;
+            }
+        }
+        if (requestTimer <= 0 || EnemySpawn.beginNextWave==false)
+        {
+            requestLayer.SetActive(false);
+        }
+/*        }*/
+/*        else
+        {
+            requestLayer.SetActive(false);
+        }*/
         if (gotStarterMag == false)
         {
             if (Input.GetKey("j"))
