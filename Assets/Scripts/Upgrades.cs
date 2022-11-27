@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +27,7 @@ public class Upgrades : MonoBehaviour
     public AudioClip ding;
     public static bool canUpgrade=false;
     List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge", "Railgun Overcharge" };
-    List<string> powerupList = new List<string> { /*"Small Frame", "Repair", "Red Shield", "Piercing", */"Green Shield", "Thermal Imaging", "Enhanced Materials", "Heavy Armour", "Tactical Airstrike", "Electric Override" };
+    List<string> powerupList = new List<string> { "Small Frame", "Repair", "Orange Shield", "Piercing", "Blue Shield", "Thermal Imaging", "Enhanced Materials", "Heavy Armour", "Tactical Airstrike", "Electric Override" };
     public GameObject upgrade1;
     public GameObject upgrade2;
     int displayChoice;
@@ -208,7 +208,7 @@ public class Upgrades : MonoBehaviour
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
-        spawner.GetComponent<EnemySpawn>().waveCount++;
+        EnemySpawn.waveCount++;
         tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
         spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
@@ -223,10 +223,10 @@ public class Upgrades : MonoBehaviour
             mechanicScreenUppyLayer.SetActive(true);
             upgradeLayer.SetActive(true);
             canUpgrade = true;
-            if(spawner.GetComponent<EnemySpawn>().waveCount<upgradeList.Count)
+            if(EnemySpawn.waveCount<upgradeList.Count)
             {
-                displayChoice = /*Random.Range(0, */spawner.GetComponent<EnemySpawn>().waveCount - 1/*upgradeList.Count-1*//*);*/;
-                displayChoice2 = /*Random.Range(0, */spawner.GetComponent<EnemySpawn>().waveCount - 1 /*powerupList.Count-1*//*);*/;
+                displayChoice = /*Random.Range(0, */EnemySpawn.waveCount - 1/*upgradeList.Count-1*//*);*/;
+                displayChoice2 = /*Random.Range(0, */EnemySpawn.waveCount - 1 /*powerupList.Count-1*//*);*/;
                 /*        while (displayChoice2 == displayChoice)
                         {
                             displayChoice2 = Random.Range(0, upgradeList.Length);
@@ -251,11 +251,11 @@ public class Upgrades : MonoBehaviour
             case "Repair":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair (Mechanic)<br><color=green>+Automatically repair a bit of health every five seconds<br><color=red>-Replaces current Mechanic upgrade</color>";
                 break;
-            case "Red Shield":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Red Shield (Mechanic)<br><color=green>+Briefly block all incoming red fire<br><color=red>-Lasts 5 seconds<br>-30 escond cooldown<br>-Replaces current Mechanic upgradee";
+            case "Orange Shield":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Briefly block all incoming orange (○) fire<br><color=red>-Lasts 5 seconds<br>-30 escond cooldown<br>-Replaces current Mechanic upgradee";
                 break;
-            case "Green Shield":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Green Shield (Mechanic)<br><color=green>+Briefly block all incoming green fire<br><color=red>-Lasts 5 seconds<br>-30 escond cooldown<br>-Replaces current Mechanic upgradee";
+            case "Blue Shield":
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Briefly block all incoming blue (☐) fire<br><color=red>-Lasts 5 seconds<br>-30 escond cooldown<br>-Replaces current Mechanic upgradee";
                 break;
 
             case "Electric Override":
@@ -301,7 +301,7 @@ public class Upgrades : MonoBehaviour
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Particle Smasher (Gunner)<br><color=green>++Launches giant energy emitting spheres<br><color=red>--Extreme heat<br>-Slow projectile speed<br>-Replaces current weapon";
                 break;
             case "Improved Bearings":
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "speed (Gunner)<br><color=green>+Faster turret turn speed<color=red><br>-Replaces current weapon";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Speed (Gunner)<br><color=green>+Faster turret turn speed<color=red><br>-Replaces current weapon";
                 break;
             case "Railgun Overcharge":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Railgun Overcharge (Gunner)<br><color=green>++High power piercing bullet that rips through any colour ship<color=red><br>--Instantly overheats barrel<br>Replaces current weapon";
@@ -343,9 +343,9 @@ public class Upgrades : MonoBehaviour
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().autoRepair = true;
                 break;
-            case "Red Shield":
+            case "Orange Shield":
                 hullThing.GetComponent<SpriteRenderer>().sprite = redPower;
-                ship.GetComponent<Turret>().installedUpgrade = "Red Shield Module";
+                ship.GetComponent<Turret>().installedUpgrade = "Orange Shield Module";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().redShield = true;
@@ -357,10 +357,10 @@ public class Upgrades : MonoBehaviour
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().electricOverride = true;
                 break;
-            case "Green Shield":
+            case "Blue Shield":
                 hullThing.GetComponent<SpriteRenderer>().sprite = greenPower;
                 setPowerupsFalse();
-                ship.GetComponent<Turret>().installedUpgrade = "Green Shield Module";
+                ship.GetComponent<Turret>().installedUpgrade = "Blue Shield Module";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
                 ship.GetComponent<Turret>().greenShield = true;
                 break;
@@ -430,7 +430,7 @@ public class Upgrades : MonoBehaviour
         upgrade1.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         upgrade2.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         EnemySpawn.beginNextWave = true;
-        spawner.GetComponent<EnemySpawn>().waveCount++;
+        EnemySpawn.waveCount++;
         ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().maxHealth;
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
         spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;

@@ -22,11 +22,13 @@ public class gun : MonoBehaviour
     {
         Cursor.visible = false;
         if (Input.GetKeyDown("space")){
+            EnemySpawn.waveCount = 1;
             inTutorial = false;
             SceneManager.LoadScene("Game");
         }
         if (Input.GetKeyDown("g"))
         {
+            EnemySpawn.waveCount = 1;
             inTutorial = true;
             SceneManager.LoadScene("Game");
         }

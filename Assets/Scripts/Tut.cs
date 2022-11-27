@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Tut : MonoBehaviour
 {
+    bool canToggle = true;
     public GameObject spawner;
     public AudioClip ding;
     Vector3 originalPos = new Vector3(-0.51f, 2.27f,0);
@@ -50,7 +51,7 @@ public class Tut : MonoBehaviour
         gunTut[7] = "That's all you need to know! Good luck, Cosmic Gunner!<br><br><color=green>Press fire to continue";
         gunTut[8] = "";
 
-        mechTut[0] = "<b>Welcome to COSMIC CREW!</b><br>Your mission is simple:<br>1: Destroy the advancing fleet<br>2: Maintain the ship<br><color=green>Select to continue";
+        mechTut[0] = "<b>Welcome to COSMIC CREW!</b><br>Your mission is simple:<br><br>1: Destroy the advancing fleet<br>2: Maintain the ship<br><br><color=green>Select to continue";
         mechTut[1]= "<b>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press select to continue";
         mechTut[2] = "You are in charge of maintaining the ship.<br><br><color=green>Press select to continue";
         mechTut[3] = "Note that your gunport cannot see colours.<br>Waiting for <color=yellow>Gunner...</color>";
@@ -252,15 +253,25 @@ public class Tut : MonoBehaviour
     }
     IEnumerator Wait()
     {
-        agreeNum = 2;
-        agreeText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0,1,0);
-        agreeText2.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0, 1, 0);
-        yield return new WaitForSeconds(waitTime);
-        selection++;
-        malfSet = false;
-        continued = true;
-        agreeText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1, 1, 1);
-        agreeText2.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1, 1, 1);
-        agreeNum = 0;
+        if (canToggle == true)
+        {
+            canToggle = false;
+            agreeNum = 2;
+            agreeText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0, 1, 0);
+            agreeText2.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0, 1, 0);
+            yield return new WaitForSeconds(waitTime);
+            selection++;
+            malfSet = false;
+            continued = true;
+            agreeText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1, 1, 1);
+            agreeText2.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1, 1, 1);
+            agreeNum = 0;
+            canToggle = true;
+        }
+    }
+    private void setActiveAgain(GameObject shipTut)
+    {
+        shipTut.GetComponent<EnemyTut>().fire.enableEmission = true;
+        shipTut.GetComponent<Rigidbody2D>().isKinematic = true;
     }
 }

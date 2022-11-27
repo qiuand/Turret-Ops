@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawn : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class EnemySpawn : MonoBehaviour
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 5f;
-    public int waveCount = 1;
+    public static int waveCount = 1;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -105,7 +106,7 @@ public class EnemySpawn : MonoBehaviour
         if (waveTime > 0)
         {
             waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for wave end...";
-            if (waveCompleted && beginNextWave==false)
+            if (waveCompleted && beginNextWave==false && waveCount!=bossWave)
             {
                 waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave Completed!";
 
@@ -129,6 +130,10 @@ public class EnemySpawn : MonoBehaviour
             stopSpawn = true;
             if ((!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
             {
+                if (waveCount == bossWave)
+                {
+                    SceneManager.LoadScene("Won");
+                }
                 cam.GetComponent<CamZoom>().zoomIn = true;
 /*                tankAnimate.GetComponent<Animator>().Play("Upgrade");*/
 /*                tankAnimate.GetComponent<Animator>().SetBool("Upgrade", false);*/

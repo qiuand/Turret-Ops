@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.SceneManagement;
 public class Turret : MonoBehaviour
 {
+    static int[] waveCheckpoint = new int[3] { 3, 6, 9 };
     float requestTimer;
     float requestDuration = 4.0f;
     bool gotStarterMag = false;
@@ -310,7 +311,7 @@ public class Turret : MonoBehaviour
             else if (Input.GetKeyDown("3"))
             {
                 requestLayer.SetActive(true);
-                requestText.GetComponent<TMPro.TextMeshProUGUI>().text = "Oops, never mind!";
+                requestText.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner requests powerup!";
                 requestTimer = requestDuration;
             }
         }
@@ -950,8 +951,11 @@ public class Turret : MonoBehaviour
                     heatBuildUp = originalHeatBuildup;
                     shootCooldown = originalShootCooldown;
                 }
+                if(installedGun!="Double Shot")
+            {
                 muzzle.Play("Muzzle");
                 muzzle.SetBool("Firing", true);
+            }
                 if (cooldown <= 0)
                 {
                     if (startingMag == 1)
@@ -1408,10 +1412,10 @@ public class Turret : MonoBehaviour
                 case "HEAT Round Module":
                     pierceActive = true;
                     break;
-                case "Red Shield Module":
+                case "Orange Shield Module":
                     redShieldActive = true;
                     break;
-                case "Green Shield Module":
+                case "Blue Shield Module":
                     greenShieldActive = true;
                     greenShieldObj.gameObject.SetActive(true);
                     break;
@@ -1456,5 +1460,17 @@ public class Turret : MonoBehaviour
                 upgradeActive = false;
             }
         }
+    }
+    public static void Checkpoints()
+    {
+        for (int i = 0; i < waveCheckpoint.Length; i++)
+        {
+            if (EnemySpawn.waveCount == waveCheckpoint[i])
+            {
+                EnemySpawn.waveCount = waveCheckpoint[i];
+                return;
+            }
+        }
+        EnemySpawn.waveCount = 1;
     }
 }

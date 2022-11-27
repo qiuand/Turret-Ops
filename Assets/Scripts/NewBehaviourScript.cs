@@ -16,11 +16,13 @@ public class NewBehaviourScript : MonoBehaviour
         Cursor.visible = false;
         if (Input.GetKeyDown("space"))
         {
+            Turret.Checkpoints();
             SceneManager.LoadScene("Game");
 
         }
-        if (Input.GetKeyDown("w"))
+        if (Input.GetKeyDown("g"))
         {
+            Turret.Checkpoints();
             SceneManager.LoadScene("Main");
         }
 
