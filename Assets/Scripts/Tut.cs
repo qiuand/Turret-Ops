@@ -55,7 +55,7 @@ public class Tut : MonoBehaviour
         mechTut[1]= "<b>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press select to continue";
         mechTut[2] = "You are in charge of maintaining the ship.<br><br><color=green>Press select to continue";
         mechTut[3] = "Note that your gunport cannot see colours.<br>Waiting for <color=yellow>Gunner...</color>";
-        mechTut[4] = "<b>Getting hit is bad!</b> Repair the damage with your hammer now!";
+        mechTut[4] = "<b>Getting hit is bad!</b> Repair damage and apply upgrades with your hammer!";
         mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
         mechTut[6] = "<color=#1266E6>blue bullets</color> for <color=#1266E6>blue enemies</color>, and <color=#CC4C26>orange bullets</color> for <color=#CC4C26>orange enemies!</color>Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";
         mechTut[7]= "Good luck, Cosmic Mechanic!<b><br><br><color=green>Press select to continue";
@@ -65,7 +65,6 @@ public class Tut : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(selection);
         if (gun.inTutorial != false)
         {
         agreeText.GetComponent<TMPro.TextMeshProUGUI>().text= "Waiting for players: "+agreeNum+" / "+2;
@@ -135,7 +134,6 @@ public class Tut : MonoBehaviour
 
                     /*            if (tutEnemyGreen.activeSelf==false && turret.GetComponent<Turret>().startingMag==1)
                                 {
-                                    print("yessir");
                                     proceed();
                                 }*/
                     if (tutEnemyBlue.activeSelf == false && tutEnemyGreen.activeSelf == false && continued==true && magChanged)

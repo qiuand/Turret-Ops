@@ -105,10 +105,8 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(swungAt);
         processMalfunction();
         if (Input.GetKeyDown("w")){
-            print(1);
             swungAt += 1;
         }
         if (Input.GetKeyDown("s")){
@@ -169,7 +167,6 @@ public class Turret : MonoBehaviour
         }
 
         if (Input.GetKeyDown("g")){
-            print(true);
             HammerSwing();
         }
         if (damageTaken >= maxDamBeforeMalfunction/* && centralDamaged == false*/)
@@ -350,7 +347,6 @@ public class Turret : MonoBehaviour
                 {
                     if (playerInput[i] != requiredCode[i])
                     {
-                        print(1);
                         correctNo = false;
                         break;
                     }
@@ -553,9 +549,7 @@ public class Turret : MonoBehaviour
     }
     private void HammerSwing()
     {
-        print(malfunctionArray[swungAt]+"1");
         if (malfunctionArray[swungAt] > 0){
-            print(true);
             malfunctionArray[swungAt] -= 1;
         }
     }

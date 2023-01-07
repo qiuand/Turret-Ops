@@ -43,7 +43,6 @@ public class Enemy : MonoBehaviour
         }
         else if(collision.gameObject.tag=="Projecile" || collision.gameObject.tag == "Projectile2")
         {
-            print("bazinga");
             source.PlayOneShot(dink);
         }
         

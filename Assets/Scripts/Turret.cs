@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using UnityEngine.SceneManagement;
+
 public class Turret : MonoBehaviour
 {
-    static int[] waveCheckpoint = new int[3] { 3, 6, 9 };
+    bool heatFlag = false;
+    static int[] waveCheckpoint = new int[3] { 3,6,9 };
     float requestTimer;
     float requestDuration = 4.0f;
     bool gotStarterMag = false;
@@ -291,6 +292,10 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(installedGun=="Dual Shot")
+        {
+            smokeSystem.enableEmission = false;
+        }
         requestTimer -= Time.deltaTime;
         /*        if (requestTimer <= 0)
                 {*/
@@ -461,6 +466,9 @@ public class Turret : MonoBehaviour
                 basicGun = true;
                 Upgrades.canUpgrade = false;
                 Upgrades.upgradesRolled = true;
+            print("Prev wave: " + EnemySpawn.waveCount);
+            Checkpoints();
+            print("Checkpoint: " + EnemySpawn.waveCount);
                 SceneManager.LoadScene("GameOver");
             }
             if (health <= 0)
@@ -835,7 +843,6 @@ public class Turret : MonoBehaviour
                         {
                             if (playerInput[i] != requiredCode[i])
                             {
-                                print(1);
                                 correctNo = false;
                                 break;
                             }
@@ -910,11 +917,11 @@ public class Turret : MonoBehaviour
             barrels.gameObject.SetActive(false);
             if (startingMag == 1)
             {
-                ship.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
+                ship.GetComponent<SpriteRenderer>().color = new Color(greenBarrelColour.x, greenBarrelColour.y, greenBarrelColour.z);
             }
             else if (startingMag == 2)
             {
-                ship.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
+                ship.GetComponent<SpriteRenderer>().color = new Color(blueBarrelColour.x, blueBarrelColour.y, blueBarrelColour.z);
             }
             if(detectedMag==false)
             {
@@ -951,7 +958,7 @@ public class Turret : MonoBehaviour
                     heatBuildUp = originalHeatBuildup;
                     shootCooldown = originalShootCooldown;
                 }
-                if(installedGun!="Double Shot")
+                if(installedGun!="Dual Shot")
             {
                 muzzle.Play("Muzzle");
                 muzzle.SetBool("Firing", true);
@@ -1085,6 +1092,10 @@ public class Turret : MonoBehaviour
             minimapLaserRed.enableEmission = false;
             minimapLaserGreen.enableEmission = false;
             }
+            if(heat<=0 && heatFlag == true)
+        {
+            heatFlag = false;
+        }
             if (cooldown > 0)
             {
                 muzzle.SetBool("Firing", false);
@@ -1097,10 +1108,10 @@ public class Turret : MonoBehaviour
                 {
                     heat = 0;
                 }
-                if (heat > 0)
+                if (heat > 0 && heatFlag==true)
                 {
-                    heat -= Time.deltaTime * heatCoolDown;
-                }
+                heat -= Time.deltaTime * heatCoolDown;
+            }
             }
             /*        if (overheated)
                     {
@@ -1136,7 +1147,6 @@ public class Turret : MonoBehaviour
             {
                 transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);
             }
-        print("yoy" + transform.rotation.z);
         if (transform.rotation.eulerAngles.z >= 177f)
         {
             transform.rotation = Quaternion.Euler(0, 0, 176.999f);
@@ -1254,6 +1264,7 @@ public class Turret : MonoBehaviour
             barrelGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             if (overheated == true)
             {
+                heatFlag = true;
                 overheated = false;
                 heat = maxHeat - 1;
             }
@@ -1335,7 +1346,7 @@ public class Turret : MonoBehaviour
         hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
         if (upgrader.GetComponent<Upgrades>().installing)
         {
-            hullGUI.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f);
+            hullGUI.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0f, 0f);
             hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Hull upgrades in progress: Hit " + malfunctionArray[2] + " times";
         }
         else
@@ -1361,7 +1372,7 @@ public class Turret : MonoBehaviour
     {
         if (upgrader.GetComponent<Upgrades>().installing)
         {
-            barrelGUI.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f);
+            barrelGUI.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0f, 0f);
             barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret upgrades in progress: Hit " + malfunctionArray[3] + " times";
         }
         else
@@ -1370,8 +1381,11 @@ public class Turret : MonoBehaviour
             barrelText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
             barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Melted Barrel: Unable to fire. Hit " + malfunctionArray[3] + " times";
         }
-        smokeSystem.enableEmission = true;
-        smoke.gameObject.transform.eulerAngles = new Vector3(0, 0,90);
+        if(installedGun!="Dual Shot")
+        {
+            smokeSystem.enableEmission = true;
+            smoke.gameObject.transform.eulerAngles = new Vector3(0, 0, 90);
+        }
     }
     private void switchColours(GameObject obj, Vector3 change)
     {
@@ -1463,9 +1477,9 @@ public class Turret : MonoBehaviour
     }
     public static void Checkpoints()
     {
-        for (int i = 0; i < waveCheckpoint.Length; i++)
+        for (int i = waveCheckpoint.Length-1; i >=0; i--)
         {
-            if (EnemySpawn.waveCount == waveCheckpoint[i])
+            if (EnemySpawn.waveCount >= waveCheckpoint[i])
             {
                 EnemySpawn.waveCount = waveCheckpoint[i];
                 return;

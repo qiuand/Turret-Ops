@@ -19,7 +19,7 @@ public class Projectile2 : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*        print(3);
+        /*     
                 if (collision.gameObject.tag == "Enemy2")
                 {
                     Destroy(collision.gameObject);

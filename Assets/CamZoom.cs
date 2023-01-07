@@ -25,7 +25,6 @@ public class CamZoom : MonoBehaviour
         if (zoomIn)
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoom, Time.deltaTime);
-            print(cam.orthographicSize);
             cam.transform.position = new Vector3 (Mathf.Lerp(transform.position.x, 0.3f, Time.deltaTime), Mathf.Lerp(transform.position.y, -0.79f, Time.deltaTime), -10f);
 /*            cam.orthographicSize = 3.21018f;*/
 /*            cam.transform.position = new Vector3(-1.26f, -1.36f, -10f);*/
@@ -33,14 +32,12 @@ public class CamZoom : MonoBehaviour
 /*        {
             if (cam.orthographicSize > zoom)
             {
-                print(cam.orthographicSize);*/
                 /*    cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoom, Time.deltaTime * lerpSpeed);*/
                 /*            }*/
 /*            }*/
         if (zoomIn == false)
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 5, Time.deltaTime);
-            print(cam.orthographicSize);
             cam.transform.position = new Vector3(Mathf.Lerp(transform.position.x, originalPos.x, Time.deltaTime), Mathf.Lerp(transform.position.y, originalPos.y, Time.deltaTime), -10f);
         }
 /*        {

@@ -24,7 +24,6 @@ public class PlayerProjectile : MonoBehaviour
     {
         /*        if (collision.gameObject.tag == "TutEnemy")
                 {
-                    print("yippee");
                     collision.gameObject.SetActive(false);
                 }*/
 

@@ -23,7 +23,6 @@ public class Tank : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("dagnabbit");
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Enemy2" || collision.gameObject.tag == "Shot" || collision.gameObject.tag == "Shot2")
         {
             shaker.GetComponent<Shake>().startShake = true;
@@ -58,7 +57,6 @@ public class Tank : MonoBehaviour
             src.PlayOneShot(explode);
             Destroy(other.gameObject);
         }
-        print("DML");
 
     }
 

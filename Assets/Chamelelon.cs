@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Chamelelon : MonoBehaviour
 {
+    public GameObject square;
+    public GameObject circle;
     public Sprite redGuy;
     public Sprite greenGuy;
     public Text text;
@@ -94,12 +96,16 @@ public class Chamelelon : MonoBehaviour
         {
             if (gameObject.tag == "Enemy")
             {
+                square.SetActive(true);
+                circle.SetActive(false);
                 render.sprite = redGuy;
                 gameObject.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.3f, 0.15f);
                 gameObject.tag = "Enemy2";
             }
             else
             {
+                square.SetActive(false);
+                circle.SetActive(true);
                 render.sprite = greenGuy;
                 gameObject.GetComponent<SpriteRenderer>().color = new Color(0.07f, 0.4f, 0.8f);
                 gameObject.tag = "Enemy";
@@ -138,6 +144,8 @@ public class Chamelelon : MonoBehaviour
     }
     private void Destroy()
     {
+        square.SetActive(false);
+        circle.SetActive(false);
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1,1,1);
         GameObject.FindGameObjectWithTag("Scrippy").GetComponent<EnemySpawn>().bossDestroyed = true;
         source.PlayOneShot(explode);

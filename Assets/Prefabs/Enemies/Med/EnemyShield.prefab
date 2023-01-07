@@ -517,8 +517,8 @@ MonoBehaviour:
   projectile: {fileID: 4183472923654046197, guid: 3245c95cc415378448a1f12cc739e807, type: 3}
   muzzle: {fileID: 616461589822326519}
   ship: {fileID: 8490499445358314902}
-  shootCooldown: 1
-  velocity: 3
+  shootCooldown: 3
+  velocity: 2
 --- !u!114 &5320136589596476781
 MonoBehaviour:
   m_ObjectHideFlags: 0

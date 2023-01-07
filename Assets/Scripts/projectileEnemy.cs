@@ -22,7 +22,6 @@ public class projectileEnemy : MonoBehaviour
         if (other.gameObject.tag == "Shot")
         {
         }
-        print("DML");
 
     }
 }

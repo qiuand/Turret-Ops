@@ -8,12 +8,12 @@ public class EnemySpawn : MonoBehaviour
     public static float empowerMultiplier = 1.1f;
     public GameObject boss;
     public Camera cam;
-    int maxWave = 10;
+    int maxWave = 12;
     AudioSource source;
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 5f;
-    public static int waveCount = 1;
+    public static int waveCount = 12;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -68,6 +68,7 @@ public class EnemySpawn : MonoBehaviour
     public GameObject tankAnimate;
     public bool bossActive = false;
     public bool bossDestroyed = false;
+/*    int[] waveCheckpointList = new int[3] { 3,6,9 };*/
     // Start is called before the first frame update
     void Start()
     {
@@ -82,7 +83,6 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(maxspeed);
         /*        if (waveCompleted == true)
                 {
                     breakCounter -= Time.deltaTime;
@@ -137,7 +137,6 @@ public class EnemySpawn : MonoBehaviour
                 cam.GetComponent<CamZoom>().zoomIn = true;
 /*                tankAnimate.GetComponent<Animator>().Play("Upgrade");*/
 /*                tankAnimate.GetComponent<Animator>().SetBool("Upgrade", false);*/
-                print("yoy");
                 turret.GetComponent<Turret>().health = turret.GetComponent<Turret>().maxHealth;
                 source.PlayOneShot(ding);                waveTime = 9999;
                 waveCompleted = true;
@@ -285,10 +284,8 @@ public class EnemySpawn : MonoBehaviour
         int type = Random.Range(0, waveRestrict);
         genspeed = Random.Range(minspeed, maxspeed);
         GameObject waveControl = Instantiate(positionArray[type], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
-        print(positionArray[type]);
         if (positionArray[type]!=homingRed && positionArray[type] != homingGreen)
         {
-            print("Bazingo");
             waveControl.GetComponent<Rigidbody2D>().velocity = transform.up * (genspeed);
         }
         waveTimer = waveTiming;

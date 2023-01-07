@@ -12,7 +12,6 @@ public class HomingEnemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        print(player);
         target = new Vector2(player.position.x, player.position.y);
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(0, 0);

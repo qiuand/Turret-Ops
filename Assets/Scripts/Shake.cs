@@ -23,7 +23,6 @@ public class Shake : MonoBehaviour
     }
         IEnumerator ShakeCam()
         {
-            print("skaey");
             Vector3 startPos = transform.position;
             float timeElapsed = duration;
             while (timeElapsed > 0)
