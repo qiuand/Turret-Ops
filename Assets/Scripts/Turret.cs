@@ -65,10 +65,10 @@ public class Turret : MonoBehaviour
     public AudioClip cooldownSound;
     public string installedUpgrade = "No Upgrade";
     bool recharged = true;
-    float rechargeDuration = 10.0f;
-    float rechargeTime = 10.0f;
-    float pierceDurationCool=5.0f;
-    float pierceCooldownTime=5.0f;
+    public float rechargeDuration = 15.0f;
+    float rechargeTime;
+    public float pierceDurationCool=10.0f;
+    float pierceCooldownTime;
     float abilityCooldown=0f;
     public bool pierceUpgrade = false;
     public GameObject projectile3;
@@ -256,6 +256,8 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rechargeTime = rechargeDuration;
+        pierceCooldownTime = pierceDurationCool;
 /*        parent.transform.localPosition = new Vector3(-0.51f, 1f, -2.71f);*/
         turnSound.SetActive(false);
         requestLayer.SetActive(false);
@@ -479,6 +481,7 @@ public class Turret : MonoBehaviour
 /*            print("Prev wave: " + EnemySpawn.waveCount);*/
             Checkpoints();
 /*            print("Checkpoint: " + EnemySpawn.waveCount);*/
+                /*EnemySpawn.savedMaxSpeed=spawner.GetComponent<EnemySpawn>().maxspeed;*/
                 SceneManager.LoadScene("GameOver");
             }
             if (health <= 0)
@@ -1373,7 +1376,7 @@ public class Turret : MonoBehaviour
         rWingFire.enableEmission = true;
         rWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
         rightMotionDamage = true;
-        rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "-50% leftwards rotation speed.<br>Hit "+malfunctionArray[0]+" times";
+        rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret turns 50% slower to the right.<br>Hit "+malfunctionArray[0]+" times";
         rightMotionDamage = true;
     }
     private void lWingMalfunction()
@@ -1381,7 +1384,7 @@ public class Turret : MonoBehaviour
         lWingGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
         lWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,0,0);
         lWingFire.enableEmission = true;
-        lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "-50% rightwards rotation speed.<br>Hit " + malfunctionArray[1] + " times";
+        lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret turns 50% slower to the left.<br>Hit " + malfunctionArray[1] + " times";
         leftMotionDamage = true;
     }
     private void hullMalfunction()
@@ -1395,7 +1398,7 @@ public class Turret : MonoBehaviour
         else
         {
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
-            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner camera down.<br>Hit " + malfunctionArray[2] + " times";
+            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner camera down!<br>Hit " + malfunctionArray[2] + " times";
         }
         /*        switchColours(hullText, damagedColour);*/
         /*        hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);*/
@@ -1422,7 +1425,7 @@ public class Turret : MonoBehaviour
         {
             barrelGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
             barrelText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
-            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Unable to fire.<br>Hit " + malfunctionArray[3] + " times";
+            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Unable to fire!<br>Hit " + malfunctionArray[3] + " times";
         }
         if(installedGun!="Dual Blaster")
         {
@@ -1445,7 +1448,7 @@ public class Turret : MonoBehaviour
     }
     private void ActivatePowerups()
     {
-        if (Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No Upgrade" && installedUpgrade != "Auto-repair Module" && upgradeActive==false)
+        if (upgrader.GetComponent<Upgrades>().pendingUpgrade==false && Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No Upgrade" && (string.Equals(installedUpgrade, "HEAT Round Module") || string.Equals(installedUpgrade, "Orange Shield Module") || string.Equals(installedUpgrade, "Blue Shield Module") || string.Equals(installedUpgrade, "Tactical Airstrike")) && installedUpgrade != "Auto-repair Module" && upgradeActive==false)
         {
             StartCoroutine(PlayOvercharge());
             switch (installedUpgrade)

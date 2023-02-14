@@ -20,11 +20,11 @@ public class NewBehaviourScript : MonoBehaviour
         {
             SceneManager.LoadScene("Game");
         }
-        if (Input.GetKeyDown("g"))
+        if (Input.GetKeyDown("1"))
         {
             SceneManager.LoadScene("Main");
         }
-        text.GetComponent<TMPro.TextMeshProUGUI>().text = "Restart at wave " + EnemySpawn.waveCount + " with basic ship";
+        text.GetComponent<TMPro.TextMeshProUGUI>().text = "Restart at wave " + EnemySpawn.waveCount + " with basic ship?";
         text2.GetComponent<TMPro.TextMeshProUGUI>().text = text.GetComponent<TMPro.TextMeshProUGUI>().text;
     }
 }

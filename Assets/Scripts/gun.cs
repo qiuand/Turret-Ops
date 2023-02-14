@@ -26,7 +26,7 @@ public class gun : MonoBehaviour
             inTutorial = false;
             SceneManager.LoadScene("Game");
         }
-        if (Input.GetKeyDown("g"))
+        if (Input.GetKeyDown("1"))
         {
             EnemySpawn.waveCount = 1;
             inTutorial = true;

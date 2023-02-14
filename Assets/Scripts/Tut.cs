@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 public class Tut : MonoBehaviour
 {
+    public GameObject standardUI;
     public VideoClip spin, load, swap, hammer, black, colour;
     public GameObject mechVid, gunVid;
     public GameObject gunTutVid;
@@ -41,7 +42,7 @@ public class Tut : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        mechVid.SetActive(false);
         mechTutVid.SetActive(false);
         gunTutVid.SetActive(false);
 
@@ -49,26 +50,27 @@ public class Tut : MonoBehaviour
         tutEnemyBlue.SetActive(false);
         tutEnemyGreen.SetActive(false);
         /*        gunTut[0] = "Welcome to COSMIC CREW! You and your partner have a very important mission: keep your ship afloat at all costs to defeat the advancing fleet!<br>Fire to continue";*/
-        gunTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!";/*<br><color=#006CFF>2: Maintain the ship</color><br><br><color=green>Press fire to continue";*/
-        gunTut[1] = "<b>2/4<br>You're the Gunner!</b> Your partner is the <color=#006CFF>Mechanic.</color><br><br><color=green>Press fire to continue";
+        gunTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!<br><br><color=green>Press <color=red>○</color> to Continue";/*<br><color=#006CFF>2: Maintain the ship</color><br><br><color=green>Press fire to continue";*/
+        gunTut[1] = "<b>2/4<br>You're the Gunner!</b> Your partner is the <color=#006CFF>Mechanic.</color><br><br><color=green>Press Press <color=red>○</color> to Continue";
         /*gunTut[2] = "You are in charge of shooting down enemies.<br><br><color=green>Press fire to continue";*/
-        gunTut[2] = "Rotate turret<br>Fire: Shoot<br><b>Destroy that enemy!</b>";
+        gunTut[2] = "Rotate and fire to destroy that enemy!</b>";
         /*gunTut[4] = "Malfunctions occur when the ship is hit! This can cause all sorts of problems for your turret. Your ship automatically repairs a bit of damage after some time, but critical malfunctions must be fixed by your friend!";*/
         gunTut[3] = "<b>3/4<br><color=red>Malfunctions</color> are bad!</b> Ask the <color=#006CFF>Mechanic</color> to fix them!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
-/*        gunTut[5] = "<b>Shooting causes <color=red>overheating!</color></b> Let your <color=#006CFF>friend</color> fix that, too!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
-*/        gunTut[4] = "4/4<br>You can only destroy <color=#1266E6>blue (○) enemies</color> with <color=#1266E6>blue (○) bullets</color>, and <color=#CC4C26>orange enemies</color> with <color=#CC4C26>orange (☐) bullets!</color>!<br>The mechanic can switch bullets, but can't see colours. Tell them which ammo to load!";
+        /*        gunTut[5] = "<b>Shooting causes <color=red>overheating!</color></b> Let your <color=#006CFF>friend</color> fix that, too!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
+        */
+        gunTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies!</color><br><color=#CC4C26>Orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!<br></color>But the <color=#006CFF>Mechanic</color> can't see colours; Help them out! ";
         /*        gunTut[4] = "<color=#1266E6>blue (○) bullets</color> for <color=#1266E6>blue enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange enemies!</color>Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";*/
-        gunTut[5] = "That's all you need to know!<br><br><color=green>Press fire to continue";
+        gunTut[5] = "Good Luck, Cosmic Gunner!<br><br><color=green><br>Press <color=red>○</color> to Continue";
         gunTut[6] = "";
 
-        mechTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!";
-        mechTut[1]= "<b>2/4<br>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press select to continue";
+        mechTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!<br><br><color=green>Press <color=red>○</color> to Continue";
+        mechTut[1]= "<b>2/4<br>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press <color=red>○</color> to Continue";
 /*        mechTut[2] = "You are in charge of maintaining the ship.<br><br><color=green>Press select to continue";
-*/        mechTut[2] = "<b>3/4</b><br>Note that your gunport cannot see colours.<br>Waiting for <color=yellow>Gunner...</color>";
-        mechTut[3] = "<b>Getting hit is bad!</b> Repair damage and apply upgrades with your hammer!";
+*/        mechTut[2] = "<b>3/4</b><br>Note that you cannot see colours.<br>Waiting for <color=yellow>Gunner...</color>";
+        mechTut[3] = "<b><color=red>Getting hit is bad!</color></b> Repair damage and apply upgrades with your hammer!";
 /*        mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
-*/        mechTut[4] = "<b>1/4<br></b><color=#1266E6>blue bullets</color> for <color=#1266E6>blue enemies</color>, and <color=#CC4C26>orange bullets</color> for <color=#CC4C26>orange enemies!</color>Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";
-        mechTut[5]= "<b>1/4<br></b>Good luck, Cosmic Mechanic!<b><br><br><color=green>Press select to continue";
+*/        mechTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!</color> Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";
+        mechTut[5]= "<b>Good luck, Cosmic Mechanic!<b><br><br><color=green>Press <color=red>○</color> to Continue";
         mechTut[6] = "";
     }
 
@@ -77,6 +79,7 @@ public class Tut : MonoBehaviour
     {
         if (gun.inTutorial != false)
         {
+            standardUI.SetActive(false);
         agreeText.GetComponent<TMPro.TextMeshProUGUI>().text= "Waiting for players: "+agreeNum+" / "+2;
         agreeText2.GetComponent<TMPro.TextMeshProUGUI>().text = agreeText.GetComponent<TMPro.TextMeshProUGUI>().text;
 
@@ -122,20 +125,24 @@ public class Tut : MonoBehaviour
                     if (turret.GetComponent<Turret>().startingMag == 0)
                     {
                         magChanged = false;
-                        turretText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>Magazine empty!</color> Ask the <color=#006CFF>Mechanic</color> to slap one in!";
-                        mechText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>Magazine empty!</color> Slap one in to let the <color=yellow>Gunner</color> to destroy that enemy!";
+                        turretText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>The gun is empty!</color><br>Ask the <color=#006CFF>Mechanic</color> to slap one in!";
+                        mechText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>The gun is empty!</color><br>Slap one in to let the <color=yellow>Gunner</color> to destroy that enemy!";
+                        gunTutVid.SetActive(true);
+                        gunTutVid.GetComponent<VideoPlayer>().clip = swap;
                     }
                     if (malfSet == false && turret.GetComponent<Turret>().startingMag != 0)
                     {
                         malfSet = true;
                         if (turret.GetComponent<Turret>().startingMag == 1)
                         {
+                            gunTutVid.GetComponent<VideoPlayer>().clip = spin;
                             magChanged = true;
                             tutEnemyBlue.SetActive(false);
                             tutEnemyGreen.SetActive(true);
                         }
                         else
                         {
+                            gunTutVid.GetComponent<VideoPlayer>().clip = spin;
                             magChanged = true;
                             tutEnemyGreen.SetActive(false);
                             tutEnemyBlue.SetActive(true);
@@ -155,6 +162,8 @@ public class Tut : MonoBehaviour
                 }
                 if (selection == 3)
                 {
+                    gunTutVid.SetActive(true);
+                    gunTutVid.GetComponent<VideoPlayer>().clip = hammer;
                     if (malfSet == false)
                     {
                         turret.GetComponent<Turret>().malfunctionArray[0] = turret.GetComponent<Turret>().hits;
@@ -219,12 +228,12 @@ public class Tut : MonoBehaviour
                 {
                     agreeText.SetActive(true);
                     agreeText2.SetActive(true);
-                    if (Input.GetKeyDown("space"))
+                    if (Input.GetKeyDown("space") && gunnerAgree==false)
                     {
                         source.PlayOneShot(ding);
                         gunnerAgree = true;
                     }
-                    if (Input.GetKeyDown("g"))
+                    if (Input.GetKeyDown("g") && mechanicAgree == false)
                     {
                         source.PlayOneShot(ding);
                         mechanicAgree = true;
@@ -234,6 +243,7 @@ public class Tut : MonoBehaviour
                         continued = false;
                         StartCoroutine(Wait());
                         gun.inTutorial = false;
+                        standardUI.SetActive(true); ;
                     }
                 }
                 SwitchText(turretText, gunTut);
@@ -288,13 +298,14 @@ public class Tut : MonoBehaviour
         switch (selection)
         {
             case 2:
+                mechVid.SetActive(true);
                 mechTutVid.SetActive(true);
                 gunTutVid.SetActive(true);
                 gunTutVid.GetComponent<VideoPlayer>().clip = spin;
                 mechTutVid.GetComponent<VideoPlayer>().clip = swap;
                 break;
             case 3:
-                gunVid.SetActive(false);
+/*                gunVid.SetActive(false);*/
                 gunTutVid.SetActive(false);
                 mechTutVid.GetComponent<VideoPlayer>().clip = hammer;
                 break;

@@ -5,16 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public static float bossTime=35f;
+    public GameObject standardUI;
+    public static float savedMaxSpeed;
     public GameObject waveText2;
     public static float empowerMultiplier = 1.1f;
     public GameObject boss;
     public Camera cam;
-    public int maxWave = 7;
+    public static int maxWave = 7;
     AudioSource source;
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 6.5f;
-    public static int waveCount = 1;
+    public static int waveCount = 7;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -31,8 +34,10 @@ public class EnemySpawn : MonoBehaviour
     public float waveTimer = 0f;
     public float waveTiming = 3f;
     public int enemyNum = 3;
-    float minspeed = -1.0f;
-    float maxspeed = -1.45f;
+    public float baseMaxSpeed = -1.45f;
+    public float speedWaveMultiplier = 0.01f;
+    public float minspeed = -1.0f;
+    public float maxspeed = -1.45f;
     public float minRotate = 3;
     public float maxRotate = -3;
     float genspeed;
@@ -73,6 +78,7 @@ public class EnemySpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        maxspeed = baseMaxSpeed;
         boss.SetActive(false);
         waveGraceTimer = waveGraceDuration;
         source = GetComponent<AudioSource>();
@@ -84,6 +90,7 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        maxspeed = baseMaxSpeed+baseMaxSpeed* (waveCount*speedWaveMultiplier);
         /*        if (waveCompleted == true)
                 {
                     breakCounter -= Time.deltaTime;
@@ -109,17 +116,20 @@ public class EnemySpawn : MonoBehaviour
             waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for wave end...";
             if (waveCompleted && beginNextWave==false && waveCount!=bossWave)
             {
+                standardUI.SetActive(false);
                 waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave Completed!";
 
             }
             else if (waveCount == bossWave)
             {
-                waveTime = 10;
+                standardUI.SetActive(true);
                 waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Wave!";
+                waveText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Wave!";
             }
             else
             {
-                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + waveCount + "/"+maxWave+": " + System.Math.Round(waveTime, 0) + " seconds remaining:"/* + waveTimer + " Break: " + breakCounter*/;
+                standardUI.SetActive(true);
+                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>WAVE " + waveCount + "/"+maxWave+": " + System.Math.Round(waveTime, 0) + " Seconds Left"/* + waveTimer + " Break: " + breakCounter*/;
                 waveText2.GetComponent<TMPro.TextMeshProUGUI>().text = waveText.GetComponent<TMPro.TextMeshProUGUI>().text;
             }
 
@@ -130,10 +140,10 @@ public class EnemySpawn : MonoBehaviour
                 }*/
         if ((!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
         {
-            if (waveCount == bossWave)
+/*            if (waveCount == bossWave)
             {
                 SceneManager.LoadScene("Won");
-            }
+            }*/
         }
             if (waveTime < 0)
         {
@@ -204,12 +214,13 @@ public class EnemySpawn : MonoBehaviour
         }*/
         if (gun.inTutorial == false && beginNextWave == true)
         {
-            maxspeed -= (Time.deltaTime * enemyspeedMultiplier);
+/*            maxspeed -= (Time.deltaTime * enemyspeedMultiplier);*/
         }
-        if (bossDestroyed == true && waveCount == bossWave)
+        if (bossDestroyed == true && waveCount == bossWave && (!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
         {
             boss.SetActive(false);
-/*            bossActive = false;*/
+            SceneManager.LoadScene("Won");
+            /*            bossActive = false;*/
             waveCompleted = true;
             beginNextWave = false;
         }

@@ -149,10 +149,12 @@ public class Chamelelon : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1,1,1);
         GameObject.FindGameObjectWithTag("Scrippy").GetComponent<EnemySpawn>().bossDestroyed = true;
         source.PlayOneShot(explode);
+        source.PlayOneShot(explode);
+        source.PlayOneShot(explode);
         rb.velocity = new Vector2(0, 0);
         rb.isKinematic = false;
         fire.enableEmission = false;
         enemyAnim.SetBool("Destroyed", true);
-        Destroy(gameObject, 0.65f);
+        Destroy(gameObject, 2f);
     }
 }

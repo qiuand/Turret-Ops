@@ -5069,7 +5069,7 @@ MonoBehaviour:
   fire: {fileID: 6233543670393960425}
   bomb: {fileID: 3001414755435022467, guid: e0424e7eed6edbf4b81f0485e2ab255a, type: 3}
   damage: {fileID: 8300000, guid: 06456893dca2c35438896c0cc6035c1c, type: 3}
-  dink: {fileID: 0}
+  dink: {fileID: 8300000, guid: 908d494f84d2f8641a90020781eac92f, type: 3}
   render: {fileID: 6233543672017553106}
 --- !u!1 &6233543672409347781
 GameObject:

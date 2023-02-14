@@ -36,6 +36,7 @@ public class Projectile2 : MonoBehaviour
             if (ricochet)
             {
                 source.PlayOneShot(ricochetSound);
+                source.volume -= 0.25f;
                 Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
                 var speed = rb.velocity;
                 print(speed);
@@ -48,6 +49,7 @@ public class Projectile2 : MonoBehaviour
                 if (collision.gameObject.tag == "Enemy")
                 {
                     source.PlayOneShot(ricochetSound);
+                    source.volume -= 0.25f;
                     gameObject.transform.rotation = Quaternion.Inverse(transform.rotation);
                     gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-gameObject.GetComponent<Rigidbody2D>().velocity.x, gameObject.GetComponent<Rigidbody2D>().velocity.y);
                     /*                Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());

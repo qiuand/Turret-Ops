@@ -462,7 +462,7 @@ MonoBehaviour:
   fire: {fileID: 6849792184676720325}
   bomb: {fileID: 3001414755435022467, guid: e0424e7eed6edbf4b81f0485e2ab255a, type: 3}
   damage: {fileID: 8300000, guid: 06456893dca2c35438896c0cc6035c1c, type: 3}
-  dink: {fileID: 8300000, guid: de92e38b17e665541967c5f2bf8b9cff, type: 3}
+  dink: {fileID: 8300000, guid: 908d494f84d2f8641a90020781eac92f, type: 3}
   render: {fileID: 6849792184178044926}
 --- !u!95 &5653530256466939255
 Animator:

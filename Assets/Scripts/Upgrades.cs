@@ -7,6 +7,9 @@ public class Upgrades : MonoBehaviour
     public GameObject gun;
     public GameObject body;
 
+    float cooldownTime;
+    float activationTime;
+
     public GameObject mechGun;
     public GameObject mechBody;
 
@@ -49,7 +52,7 @@ public class Upgrades : MonoBehaviour
     float abortTimer;
     float abortDuration = 5.0f;
     public GameObject abortText;
-    bool pendingUpgrade;
+    public bool pendingUpgrade;
     int upgradeNumSelected;
     public GameObject mechanicScreenUppy1;
     public GameObject mechanicScreenUppy2;
@@ -62,8 +65,12 @@ public class Upgrades : MonoBehaviour
     public string replacedThingGun = "";
     public string replacedThingBody = "";
     // Start is called before the first frame update
+    public GameObject turret;
+
     void Start()
     {
+        cooldownTime = turret.GetComponent<Turret>().pierceDurationCool;
+        activationTime = turret.GetComponent<Turret>().rechargeDuration;
         upgradeTimeShow = upgradeTimeDuration;
         abortTimer = abortDuration;
         mechanicScreenUppyLayer.SetActive(false);
@@ -111,6 +118,14 @@ public class Upgrades : MonoBehaviour
                     pendingUpgrade = true;
 
                 }
+                if (Input.GetKeyDown("3"))
+                {
+                    source.PlayOneShot(select);
+                    upgradeNumSelected = 15;
+
+                    pendingUpgrade = true;
+
+                }
                 if (pendingUpgrade)
                 {
                     if (abortTimer > 0 && pendingUpgrade)
@@ -122,12 +137,13 @@ public class Upgrades : MonoBehaviour
                         abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for Mechanic approval.<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                         if (upgradeNumSelected==1)
                         {
-                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + upgradeList[displayChoice2] + ". Press Select to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + upgradeList[displayChoice] + ".<br>Press <color=red>○ Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortTimer -= Time.deltaTime;
                             abortTimer -= Time.deltaTime;
                         }
                         else if (upgradeNumSelected == 2)
                         {
-                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + powerupList[displayChoice2] + ". Press Select to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + powerupList[displayChoice2] + ".<br>Press <color=red>○ Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                             abortTimer -= Time.deltaTime;
                         }
                         else
@@ -223,7 +239,14 @@ public class Upgrades : MonoBehaviour
         EnemySpawn.waveCount++;
         tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
-        spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
+        if (EnemySpawn.waveCount == EnemySpawn.maxWave)
+        {
+            spawner.GetComponent<EnemySpawn>().waveTime = EnemySpawn.bossTime;
+        }
+        else
+        {
+            spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
+        }
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
     }
     public void RollUpgrades()
@@ -271,7 +294,7 @@ public class Upgrades : MonoBehaviour
         {
             case "Piercing":
                 body.GetComponent<Image>().sprite = pierce;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Activate powerup: Bullets destroy any ship</color><br><color=red>-Lasts 5 seconds<br>-30 second cooldown<br>Replaces "+ replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Activate powerup: Bullets destroy any ship for "+activationTime+" seconds.<br></color><br><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
                 break;
             case "Repair":
                 body.GetComponent<Image>().sprite = repair;
@@ -279,11 +302,12 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Orange Shield":
                 body.GetComponent<Image>().sprite = redPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Activate powerup: Briefly block all incoming orange (○) fire<br><color=red>-Lasts 5 seconds<br>-30 escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Activate powerup: Briefly block all incoming <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
                 break;
             case "Blue Shield":
                 body.GetComponent<Image>().sprite = greenPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Activate powerup: Briefly block all incoming blue (☐) fire<br><color=red>-Lasts 5 seconds<br>-30 escond cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                body.GetComponent<Image>().sprite = greenPower;
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Activate powerup: Briefly block all incoming <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Electric Override":
@@ -297,7 +321,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Thermal Imaging":
                 body.GetComponent<Image>().sprite = Thermals;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br><color=green>+Activate powerup: Briefly view the Gunner's viewport<br><color=red>-Lasts 10 seconds<br>-30 second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br><color=green>+Activate powerup: Briefly view the Gunner's viewport for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Heavy Armour":
                 body.GetComponent<Image>().sprite = heavy;
@@ -312,7 +336,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Tactical Airstrike":
                 body.GetComponent<Image>().sprite = airstrike;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Tactical Airstrike (Gunner)<br><color=green>++Destroy all enemies of selected colour<br><color=red>-30 second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Tactical Airstrike (Gunner)<br><color=green>++Destroy all enemies of selected colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
         }
@@ -350,7 +374,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Ricochet Shot":
                 gun.GetComponent<Image>().sprite = ricochet;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Matter Destabilizer (Gunner)<br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>--Instantly overheats barrel<br>Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Matter Destabilizer (Gunner)<br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>--Greatly increased heat<br>Replaces " + replacedThingGun + "</color>";
                 break;
             case "Reactive Armour":
                 gun.GetComponent<Image>().sprite = heavy;
@@ -370,7 +394,6 @@ public class Upgrades : MonoBehaviour
     }
     public void InstallPowerups()
     {
-        powerupList.RemoveAt(displayChoice);
         abortTimer = abortDuration;
         mechanicScreenUppyLayer.SetActive(false);
         upgradeLayer.SetActive(false);
@@ -467,7 +490,8 @@ public class Upgrades : MonoBehaviour
                 spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
         *//*        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");*//*
                 installing = false;*/
-
+        powerupList.RemoveAt(upgradeIndex);
+        upgradeList.RemoveAt(displayChoice);
         levelSkip();
         minimapHull.GetComponent<SpriteRenderer>().sprite = hullThing.GetComponent<SpriteRenderer>().sprite;
     }
@@ -481,7 +505,14 @@ public class Upgrades : MonoBehaviour
         EnemySpawn.waveCount++;
         ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().maxHealth;
         spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
-        spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
+        if (EnemySpawn.waveCount == EnemySpawn.maxWave)
+        {
+            spawner.GetComponent<EnemySpawn>().waveTime = EnemySpawn.bossTime;
+        }
+        else
+        {
+            spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
+        }
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
         /*        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");*/
         installing = false;
@@ -489,7 +520,6 @@ public class Upgrades : MonoBehaviour
     }
     public void InstallUpgrades()
     {
-        upgradeList.RemoveAt(displayChoice);
         abortTimer = abortDuration;
         mechanicScreenUppyLayer.SetActive(false);
         upgradeLayer.SetActive(false);
@@ -587,6 +617,8 @@ public class Upgrades : MonoBehaviour
                 spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
                 spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
                 spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;*/
+        upgradeList.RemoveAt(upgradeIndex);
+        powerupList.RemoveAt(displayChoice2);
         levelSkip();
         installing = false;
     }
