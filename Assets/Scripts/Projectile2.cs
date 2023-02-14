@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Projectile2 : MonoBehaviour
 {
+    public AudioClip ricochetSound;
+    AudioSource source;
     Rigidbody2D rb;
     public bool ricochet;
     public GameObject tutShip;
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -28,37 +31,43 @@ public class Projectile2 : MonoBehaviour
                 {
                     collision.gameObject.SetActive(false);
                 }*/
-        if (ricochet)
+        if (collision.gameObject.tag != "WaveObject")
         {
-            Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
-            var speed = rb.velocity;
-            print(speed);
-            /*            transform.eulerAngles = Vector3.Reflect(speed, collision.contacts[0].normal);*/
-            gameObject.transform.rotation = Quaternion.Inverse(transform.rotation);
-            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-gameObject.GetComponent<Rigidbody2D>().velocity.x, gameObject.GetComponent<Rigidbody2D>().velocity.y);
-        }
-        else if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2")
-        {
-            if (collision.gameObject.tag == "Enemy")
+            if (ricochet)
             {
-                Destroy(gameObject);
-/*                Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
+                source.PlayOneShot(ricochetSound);
+                Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
                 var speed = rb.velocity;
                 print(speed);
-                transform.eulerAngles = Vector3.Reflect(speed, collision.contacts[0].normal);*/
-                /*var speed = rb.velocity;
-                var direction = Vector3.Reflect(speed, collision.contacts[0].normal);
-                rb.velocity = direction;*/
-                /*                rb.AddForce(new Vector2(500, 500), ForceMode2D.Impulse);*/
+                /*            transform.eulerAngles = Vector3.Reflect(speed, collision.contacts[0].normal);*/
+                gameObject.transform.rotation = Quaternion.Inverse(transform.rotation);
+                gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-gameObject.GetComponent<Rigidbody2D>().velocity.x, gameObject.GetComponent<Rigidbody2D>().velocity.y);
             }
-            else
+            else if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2")
+            {
+                if (collision.gameObject.tag == "Enemy")
+                {
+                    source.PlayOneShot(ricochetSound);
+                    gameObject.transform.rotation = Quaternion.Inverse(transform.rotation);
+                    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-gameObject.GetComponent<Rigidbody2D>().velocity.x, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+                    /*                Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
+                                    var speed = rb.velocity;
+                                    print(speed);
+                                    transform.eulerAngles = Vector3.Reflect(speed, collision.contacts[0].normal);*/
+                    /*var speed = rb.velocity;
+                    var direction = Vector3.Reflect(speed, collision.contacts[0].normal);
+                    rb.velocity = direction;*/
+                    /*                rb.AddForce(new Vector2(500, 500), ForceMode2D.Impulse);*/
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+            }
+            if (collision.gameObject.tag == "Bounds")
             {
                 Destroy(gameObject);
             }
-        }
-        if (collision.gameObject.tag == "Bounds")
-        {
-            Destroy(gameObject);
         }
     }
 }

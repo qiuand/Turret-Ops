@@ -109,7 +109,7 @@ public class Turret : MonoBehaviour
     float movespeed;
     float rotation;
     public GameObject projectile;
-    public int projectilespeed = 10;
+    public int projectilespeed = 15;
     float shootCooldown;
     float cooldown = 0f;
     bool canRepair = true;
