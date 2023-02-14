@@ -10,15 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 2567263641394624650}
   - component: {fileID: 2567263641394624651}
-  - component: {fileID: 4425097095321565854}
-  - component: {fileID: 757550290964300473}
   - component: {fileID: 3109882925016662826}
   - component: {fileID: 6624723731928811002}
   - component: {fileID: 7083728856042721292}
   - component: {fileID: 6820918087369392629}
-  m_Layer: 0
+  - component: {fileID: 1947224608583311234}
+  - component: {fileID: 2743161266161319392}
+  m_Layer: 11
   m_Name: bombGreen
-  m_TagString: Shot
+  m_TagString: Shot2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2567263641394624648}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.0000004917383, w: 1}
   m_LocalPosition: {x: -0.75671625, y: 5.013208, z: 0}
   m_LocalScale: {x: 1.7009658, y: 1.7009658, z: 1.7009658}
   m_Children:
@@ -90,43 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &4425097095321565854
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2567263641394624648}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &757550290964300473
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2567263641394624648}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.16
 --- !u!114 &3109882925016662826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +236,53 @@ MonoBehaviour:
   explode: {fileID: 0}
   fire: {fileID: 0}
   player: {fileID: 0}
+--- !u!61 &1947224608583311234
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567263641394624648}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.96, y: 0.96}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.96, y: 0.96}
+  m_EdgeRadius: 0
+--- !u!50 &2743161266161319392
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567263641394624648}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6509278044654485528
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,13 +390,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8495342905193002501}
-  m_LocalRotation: {x: -0.49999982, y: -0.50000024, z: -0.49999988, w: 0.5000002}
-  m_LocalPosition: {x: -0.012, y: -0.007, z: -0}
+  m_LocalRotation: {x: 0.5000026, y: 0.49999726, z: 0.50000274, w: -0.49999735}
+  m_LocalPosition: {x: -0.012000019, y: -0.0069999075, z: 0}
   m_LocalScale: {x: 0.96404636, y: 0.30959466, z: 1.0845485}
   m_Children: []
   m_Father: {fileID: 2567263641394624650}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 269.999}
 --- !u!198 &5382178298671370583
 ParticleSystem:
   m_ObjectHideFlags: 0

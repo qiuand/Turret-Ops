@@ -7,8 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public GameObject parent;
+    public GameObject turnSound;
+    float deadZone2 = 0.25f;
+    float deadZone1 = 0.6f;
     bool heatFlag = false;
-    static int[] waveCheckpoint = new int[3] { 3,6,9 };
+    static int[] waveCheckpoint = new int[3] { 2,4,6 };
     float requestTimer;
     float requestDuration = 4.0f;
     bool gotStarterMag = false;
@@ -21,7 +25,7 @@ public class Turret : MonoBehaviour
     public GameObject steamObject;
     public AudioClip engine;
     public static Rigidbody2D playerShipPos;
-    float manualRepairAmount = 5;
+    float manualRepairAmount = 15;
     public static float scoreToUpgrade=0f;
     public int scoreToUpgradeRequired=40;
     public int scoreToUpgradeIncrement=40;
@@ -59,16 +63,16 @@ public class Turret : MonoBehaviour
     public bool autoRepair = false;
     public AudioClip overcharge;
     public AudioClip cooldownSound;
-    public string installedUpgrade = "No upgrade";
+    public string installedUpgrade = "No Upgrade";
     bool recharged = true;
-    float rechargeDuration = 15.0f;
-    float rechargeTime = 15.0f;
+    float rechargeDuration = 10.0f;
+    float rechargeTime = 10.0f;
     float pierceDurationCool=5.0f;
     float pierceCooldownTime=5.0f;
     float abilityCooldown=0f;
     public bool pierceUpgrade = false;
     public GameObject projectile3;
-    public string installedGun;
+    public string installedGun="Default Gun";
     public float chainGunCool = 0.1f;
     public float chainGunHeat = 15f;
     public bool chainGun = false;
@@ -179,7 +183,7 @@ public class Turret : MonoBehaviour
     public int swungAt=0;
     int swungMax;
     public int hits = 5;
-    int maxHit = 5;
+    int maxHit = 10;
     float score=10;
     public GameObject yes;
     public AudioClip magazine;
@@ -241,17 +245,19 @@ public class Turret : MonoBehaviour
     bool upgradeActive = false;
     bool redShieldActive = false;
     public GameObject redShieldObject;
-    int enhancedHits=3;
-    float smallSize = 0.75f;
+    int enhancedHits=5;
+    float smallSize = 0.6f;
     float heavyArmourHealth = 200;
     float slowspeed = 35;
-    float increasedspeed = 190;
+    float increasedspeed = 125;
     public GameObject requestLayer;
     public GameObject requestText;
     public GameObject spawner;
     // Start is called before the first frame update
     void Start()
     {
+/*        parent.transform.localPosition = new Vector3(-0.51f, 1f, -2.71f);*/
+        turnSound.SetActive(false);
         requestLayer.SetActive(false);
         requestTimer = 0f;
         magWaitTime = magWaitDuration;
@@ -292,6 +298,10 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKey("1")&& Input.GetKey("2") && Input.GetKey(KeyCode.Space))
+        {
+            SceneManager.LoadScene("Main");
+        }
         if(installedGun=="Dual Shot")
         {
             smokeSystem.enableEmission = false;
@@ -466,9 +476,9 @@ public class Turret : MonoBehaviour
                 basicGun = true;
                 Upgrades.canUpgrade = false;
                 Upgrades.upgradesRolled = true;
-            print("Prev wave: " + EnemySpawn.waveCount);
+/*            print("Prev wave: " + EnemySpawn.waveCount);*/
             Checkpoints();
-            print("Checkpoint: " + EnemySpawn.waveCount);
+/*            print("Checkpoint: " + EnemySpawn.waveCount);*/
                 SceneManager.LoadScene("GameOver");
             }
             if (health <= 0)
@@ -942,7 +952,7 @@ public class Turret : MonoBehaviour
             }
             if (singleShot)
             {
-                ship.Play("Railgun");
+                /*ship.Play("Railgun");*/
                 source.PlayOneShot(railgunSound);
                 heat = maxHeat;
                 GameObject railgun = Instantiate(railgunProj, barrelEnd.transform.position, transform.rotation);
@@ -958,7 +968,7 @@ public class Turret : MonoBehaviour
                     heatBuildUp = originalHeatBuildup;
                     shootCooldown = originalShootCooldown;
                 }
-                if(installedGun!="Dual Shot")
+                if(installedGun!="Dual Blaster")
             {
                 muzzle.Play("Muzzle");
                 muzzle.SetBool("Firing", true);
@@ -1108,7 +1118,7 @@ public class Turret : MonoBehaviour
                 {
                     heat = 0;
                 }
-                if (heat > 0 && heatFlag==true)
+                if (heat > 0 /*&& heatFlag==true*/)
                 {
                 heat -= Time.deltaTime * heatCoolDown;
             }
@@ -1134,19 +1144,52 @@ public class Turret : MonoBehaviour
                 heatBuildUp = originalHeatBuildup;
             }
             cooldown -= Time.deltaTime;
-            rotation = Input.GetAxis("Vertical");
-            if (rotation > 0 && leftMotionDamage)
-            {
+ /*           rotation = Input.GetAxis("Vertical");*/
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            rotation = 1;
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            rotation = -1;
+        }
+        else if (Input.GetKey("9"))
+        {
+            rotation = 1 * deadZone1;
+        }
+        else if (Input.GetKey("7"))
+        {
+            rotation = 1 * deadZone2;
+        }
+        else if (Input.GetKey("8"))
+        {
+            rotation = -1 * deadZone2;
+        }
+        else if (Input.GetKey("0"))
+        {
+            rotation = -1 * deadZone1;
+        }
+        else
+        {
+            rotation = 0;
+        }
+        if (rotation > 0 && leftMotionDamage)
+        {
                 transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed * turnPenalty);
-            }
-            else if (rotation < 0 && rightMotionDamage)
-            {
+        }
+        else if (rotation < 0 && rightMotionDamage)
+        {
                 transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed * turnPenalty);
-            }
-            else
-            {
-                transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);
-            }
+         }
+        else if (Mathf.Abs(rotation)>=0.1f)
+        {
+            turnSound.SetActive(true);
+            transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);
+        }
+        else
+        {
+            turnSound.SetActive(false);
+        }
         if (transform.rotation.eulerAngles.z >= 177f)
         {
             transform.rotation = Quaternion.Euler(0, 0, 176.999f);
@@ -1211,7 +1254,7 @@ public class Turret : MonoBehaviour
             rightMotionDamage = false;
             rWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             malfunctionArray[0] = 0;
-            rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Right Wing Systems Normal";
+            rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "RWing Okay";
             rWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1, 1);
             rWingFire.enableEmission = false;
         }
@@ -1225,7 +1268,7 @@ public class Turret : MonoBehaviour
             leftMotionDamage = false;
             lWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             malfunctionArray[1] = 0;
-            lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Left Wing Systems Normal";
+            lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "LWing Okay";
             lWingFire.enableEmission = false;
         }
         else
@@ -1238,8 +1281,8 @@ public class Turret : MonoBehaviour
             blackout.SetActive(false);
 
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
-            camText.GetComponent<TMPro.TextMeshProUGUI>().text="Cam systems normal";
-            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit Systems Normal";
+            camText.GetComponent<TMPro.TextMeshProUGUI>().text="Cockpit okay";
+            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit okay";
             camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,1f,1f);
             hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);
         }
@@ -1269,7 +1312,7 @@ public class Turret : MonoBehaviour
                 heat = maxHeat - 1;
             }
             smokeSystem.enableEmission = false;
-            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret Systems Normal";
+            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Gun okay";
         }
         else
         {
@@ -1330,7 +1373,7 @@ public class Turret : MonoBehaviour
         rWingFire.enableEmission = true;
         rWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
         rightMotionDamage = true;
-        rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Right Wing damaged: -50% leftwards rotation speed. Hit "+malfunctionArray[0]+" times";
+        rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "-50% leftwards rotation speed.<br>Hit "+malfunctionArray[0]+" times";
         rightMotionDamage = true;
     }
     private void lWingMalfunction()
@@ -1338,7 +1381,7 @@ public class Turret : MonoBehaviour
         lWingGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
         lWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,0,0);
         lWingFire.enableEmission = true;
-        lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Left Wing damaged: -50% rightwards rotation speed. Hit " + malfunctionArray[1] + " times";
+        lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "-50% rightwards rotation speed.<br>Hit " + malfunctionArray[1] + " times";
         leftMotionDamage = true;
     }
     private void hullMalfunction()
@@ -1347,12 +1390,12 @@ public class Turret : MonoBehaviour
         if (upgrader.GetComponent<Upgrades>().installing)
         {
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0f, 0f);
-            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Hull upgrades in progress: Hit " + malfunctionArray[2] + " times";
+            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade the hull:<br>Hit " + malfunctionArray[2] + " times";
         }
         else
         {
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
-            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit integrity compromised: Turret camera unavailabe. Hit " + malfunctionArray[2] + " times";
+            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner camera down.<br>Hit " + malfunctionArray[2] + " times";
         }
         /*        switchColours(hullText, damagedColour);*/
         /*        hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);*/
@@ -1373,15 +1416,15 @@ public class Turret : MonoBehaviour
         if (upgrader.GetComponent<Upgrades>().installing)
         {
             barrelGUI.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0f, 0f);
-            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret upgrades in progress: Hit " + malfunctionArray[3] + " times";
+            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade the gun:<br>Hit " + malfunctionArray[3] + " times";
         }
         else
         {
             barrelGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
             barrelText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
-            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Melted Barrel: Unable to fire. Hit " + malfunctionArray[3] + " times";
+            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Unable to fire.<br>Hit " + malfunctionArray[3] + " times";
         }
-        if(installedGun!="Dual Shot")
+        if(installedGun!="Dual Blaster")
         {
             smokeSystem.enableEmission = true;
             smoke.gameObject.transform.eulerAngles = new Vector3(0, 0, 90);
@@ -1402,7 +1445,7 @@ public class Turret : MonoBehaviour
     }
     private void ActivatePowerups()
     {
-        if (Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No upgrade" && installedUpgrade != "Auto-repair Module" && upgradeActive==false)
+        if (Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No Upgrade" && installedUpgrade != "Auto-repair Module" && upgradeActive==false)
         {
             StartCoroutine(PlayOvercharge());
             switch (installedUpgrade)

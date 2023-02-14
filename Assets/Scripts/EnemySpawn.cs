@@ -5,15 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public GameObject waveText2;
     public static float empowerMultiplier = 1.1f;
     public GameObject boss;
     public Camera cam;
-    int maxWave = 12;
+    public int maxWave = 7;
     AudioSource source;
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 5f;
-    public static int waveCount = 12;
+    public static int waveCount = 7;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -31,12 +32,12 @@ public class EnemySpawn : MonoBehaviour
     public float waveTiming = 3f;
     public int enemyNum = 3;
     float minspeed = -1.0f;
-    float maxspeed = -1.25f;
+    float maxspeed = -1.45f;
     public float minRotate = 3;
     public float maxRotate = -3;
     float genspeed;
     public GameObject turret;
-    float enemyspeedMultiplier = 0.001f;
+    float enemyspeedMultiplier = 0.005f;
     GameObject[] positionArray;
     public GameObject greenWave;
     public GameObject blueWave;
@@ -50,7 +51,7 @@ public class EnemySpawn : MonoBehaviour
     public GameObject radial;
     public GameObject greenShield;
     public GameObject rotate;
-    int bossWave = 12;
+    int bossWave = 7;
     public GameObject chameleon;
     bool waveCompleted = false;
     public GameObject waveText;
@@ -113,19 +114,28 @@ public class EnemySpawn : MonoBehaviour
             }
             else if (waveCount == bossWave)
             {
+                waveTime = 10;
                 waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Wave!";
             }
             else
             {
                 waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + waveCount + "/"+maxWave+": " + System.Math.Round(waveTime, 0) + " seconds remaining:"/* + waveTimer + " Break: " + breakCounter*/;
+                waveText2.GetComponent<TMPro.TextMeshProUGUI>().text = waveText.GetComponent<TMPro.TextMeshProUGUI>().text;
+            }
+
+        }
+        /*        else
+                {
+                    waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Continue";
+                }*/
+        if ((!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
+        {
+            if (waveCount == bossWave)
+            {
+                SceneManager.LoadScene("Won");
             }
         }
-/*        else
-        {
-            waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Continue";
-        }*/
-
-        if (waveTime < 0)
+            if (waveTime < 0)
         {
             stopSpawn = true;
             if ((!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
@@ -138,6 +148,10 @@ public class EnemySpawn : MonoBehaviour
 /*                tankAnimate.GetComponent<Animator>().Play("Upgrade");*/
 /*                tankAnimate.GetComponent<Animator>().SetBool("Upgrade", false);*/
                 turret.GetComponent<Turret>().health = turret.GetComponent<Turret>().maxHealth;
+                for(int i=0; i< turret.GetComponent<Turret>().malfunctionArray.Length; i++)
+                {
+                    turret.GetComponent<Turret>().malfunctionArray[i] = 0;
+                }
                 source.PlayOneShot(ding);                waveTime = 9999;
                 waveCompleted = true;
                 beginNextWave = false;
@@ -218,38 +232,38 @@ public class EnemySpawn : MonoBehaviour
                             createEnemies(2);
                             break;
                         case 2:
-                            createEnemies(3);
-                            break;
-                        case 3:
                             createEnemies(4);
                             break;
-                        case 4:
-                            createEnemies(5);
-                            break;
-                        case 5:
+                        case 3:
                             createEnemies(6);
                             break;
-                        case 6:
-                            createEnemies(7);
-                            break;
-                        case 7:
+                        case 4:
                             createEnemies(8);
                             break;
-                        case 8:
+                        case 5:
+                            createEnemies(10);
+                            break;
+                        case 6:
+                            createEnemies(12);
+                            break;
+                        case 7:
+                            createEnemies(12);
+                            break;
+/*                        case 8:
                             createEnemies(9);
                             break;
                         case 9:
-                            createEnemies(10);
+                            createEnemies(9);
                             break;
                         case 10:
-                            createEnemies(11);
+                            createEnemies(10);
                             break;
                         case 11:
-                            createEnemies(12);
+                            createEnemies(11);
                             break;
                         case 12:
-                            createEnemies(5);
-                            break;
+                            createEnemies(12);
+                            break;*/
 /*                        case 7:
                             createEnemies(11);
                             break;*/

@@ -26,6 +26,10 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.tag == "Bounds")
+        {
+            Destroy(gameObject);
+        }
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bounds"||(collision.gameObject.tag=="Projectile"&&gameObject.tag=="Enemy")||( collision.gameObject.tag=="Projectile2"&&gameObject.tag=="Enemy2")||collision.gameObject.tag=="Projectile3")
         {
 /*            source.PlayOneShot(explode);*/
@@ -41,10 +45,10 @@ public class Enemy : MonoBehaviour
             enemyAnim.SetBool("Destroyed", true);
             Destroy(gameObject,0.65f);
         }
-        else if(collision.gameObject.tag=="Projecile" || collision.gameObject.tag == "Projectile2")
+/*        else if(collision.gameObject.tag=="Projecile" || collision.gameObject.tag == "Projectile2")
         {
             source.PlayOneShot(dink);
-        }
+        }*/
         
     }
 /*    private void OnParticleTrigger(Collider2D collision)

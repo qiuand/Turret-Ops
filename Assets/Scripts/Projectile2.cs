@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Projectile2 : MonoBehaviour
 {
+    Rigidbody2D rb;
     public bool ricochet;
     public GameObject tutShip;
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -30,6 +30,10 @@ public class Projectile2 : MonoBehaviour
                 }*/
         if (ricochet)
         {
+            Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
+            var speed = rb.velocity;
+            print(speed);
+            /*            transform.eulerAngles = Vector3.Reflect(speed, collision.contacts[0].normal);*/
             gameObject.transform.rotation = Quaternion.Inverse(transform.rotation);
             gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-gameObject.GetComponent<Rigidbody2D>().velocity.x, gameObject.GetComponent<Rigidbody2D>().velocity.y);
         }
@@ -37,12 +41,20 @@ public class Projectile2 : MonoBehaviour
         {
             if (collision.gameObject.tag == "Enemy")
             {
-                /*                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z+90);
-                                rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y);*/
-                Vector3 enemyScalex = collision.gameObject.transform.localScale *= EnemySpawn.empowerMultiplier;
-                collision.gameObject.transform.localScale = new Vector3(enemyScalex.x, enemyScalex.y, collision.gameObject.transform.localScale.z);
+                Destroy(gameObject);
+/*                Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
+                var speed = rb.velocity;
+                print(speed);
+                transform.eulerAngles = Vector3.Reflect(speed, collision.contacts[0].normal);*/
+                /*var speed = rb.velocity;
+                var direction = Vector3.Reflect(speed, collision.contacts[0].normal);
+                rb.velocity = direction;*/
+                /*                rb.AddForce(new Vector2(500, 500), ForceMode2D.Impulse);*/
             }
-            Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
         if (collision.gameObject.tag == "Bounds")
         {

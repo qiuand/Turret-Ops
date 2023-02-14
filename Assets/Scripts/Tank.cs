@@ -9,11 +9,12 @@ public class Tank : MonoBehaviour
     public GameObject Turret;
     public GameObject shaker;
     public GameObject shaker2;
+    Rigidbody2D rb;
     float reactiveArmourDamageMultiplier = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class Tank : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Enemy2" || collision.gameObject.tag == "Shot" || collision.gameObject.tag == "Shot2")
         {
+            /*rb.velocity = new Vector2(0, 0);*/
             shaker.GetComponent<Shake>().startShake = true;
             shaker2.GetComponent<Shake>().startShake = true;
             if (((Turret.GetComponent<Turret>().reactiveArmour == true && (collision.gameObject.tag == "Enemy" && Turret.GetComponent<Turret>().startingMag==1)) ||( (Turret.GetComponent<Turret>().reactiveArmour == true && (collision.gameObject.tag == "Enemy2" && Turret.GetComponent<Turret>().startingMag == 2))))&& Turret.GetComponent<Turret>().detectedMag==true)

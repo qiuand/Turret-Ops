@@ -5057,6 +5057,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cbb9fd9a4578941986876349468f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  square: {fileID: 0}
+  circle: {fileID: 0}
   redGuy: {fileID: 21300000, guid: 35da54cc7b3ed4045a66d98c6fe5fc7f, type: 3}
   greenGuy: {fileID: 21300000, guid: da9b4b0dc5211d1449dbdfe5aabf9962, type: 3}
   text: {fileID: 0}
@@ -5067,6 +5069,7 @@ MonoBehaviour:
   fire: {fileID: 6233543670393960425}
   bomb: {fileID: 3001414755435022467, guid: e0424e7eed6edbf4b81f0485e2ab255a, type: 3}
   damage: {fileID: 8300000, guid: 06456893dca2c35438896c0cc6035c1c, type: 3}
+  dink: {fileID: 0}
   render: {fileID: 6233543672017553106}
 --- !u!1 &6233543672409347781
 GameObject:

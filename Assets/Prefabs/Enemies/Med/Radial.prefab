@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2204183386637136680}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.71, y: -0.01, z: 0}
+  m_LocalPosition: {x: -1.09, y: -0.157, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3088101107994103932}
@@ -47,7 +47,7 @@ MonoBehaviour:
   muzzle: {fileID: 2204183386637136680}
   ship: {fileID: 3088101107994103934}
   shootCooldown: 3
-  velocity: 1
+  velocity: 0.5
 --- !u!1 &2368767182841969326
 GameObject:
   m_ObjectHideFlags: 0
@@ -5158,7 +5158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3490880081160981017}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.02, z: 0}
+  m_LocalPosition: {x: 0, y: -1.474, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3088101107994103932}
@@ -5206,7 +5206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5063508192457701324}
   m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 0.36, y: -0.46, z: 0}
+  m_LocalPosition: {x: 0.36, y: -1.3139999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3088101107994103932}
@@ -5228,7 +5228,7 @@ MonoBehaviour:
   muzzle: {fileID: 5063508192457701324}
   ship: {fileID: 3088101107994103934}
   shootCooldown: 3
-  velocity: 1
+  velocity: 0.5
 --- !u!1 &5981934726892022930
 GameObject:
   m_ObjectHideFlags: 0
@@ -5254,7 +5254,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5981934726892022930}
   m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -0.41, y: -0.48, z: 0}
+  m_LocalPosition: {x: -0.41, y: -1.334, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3088101107994103932}
@@ -5276,7 +5276,7 @@ MonoBehaviour:
   muzzle: {fileID: 5981934726892022930}
   ship: {fileID: 3088101107994103934}
   shootCooldown: 3
-  velocity: 1
+  velocity: 0.5
 --- !u!1 &6176304946203466689
 GameObject:
   m_ObjectHideFlags: 0
@@ -5302,7 +5302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6176304946203466689}
   m_LocalRotation: {x: -0, y: -0, z: 0.70710576, w: 0.70710784}
-  m_LocalPosition: {x: 0.64, y: -0.01, z: 0}
+  m_LocalPosition: {x: 0.943, y: -0.157, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3088101107994103932}
@@ -5324,7 +5324,7 @@ MonoBehaviour:
   muzzle: {fileID: 6176304946203466689}
   ship: {fileID: 3088101107994103934}
   shootCooldown: 3
-  velocity: 1
+  velocity: 0.5
 --- !u!1 &6305443372031611679
 GameObject:
   m_ObjectHideFlags: 0
