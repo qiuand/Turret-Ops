@@ -69,7 +69,7 @@ public class Tut : MonoBehaviour
 */        mechTut[2] = "<b>3/4</b><br>Note that you cannot see colours.<br>Waiting for <color=yellow>Gunner...</color>";
         mechTut[3] = "<b><color=red>Getting hit is bad!</color></b> Repair damage and apply upgrades with your hammer!";
 /*        mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
-*/        mechTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!</color> Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!<b>Now destroy that enemy!</b>";
+*/        mechTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!</color> Of course, you can't see colours!<br><b>ask the <color=yellow>Gunner</color> which to load!</b>";
         mechTut[5]= "<b>Good luck, Cosmic Mechanic!<b><br><br><color=green>Press <color=red>Select ●</color> to Continue";
         mechTut[6] = "";
     }

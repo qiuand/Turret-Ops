@@ -38,7 +38,7 @@ public class Turret : MonoBehaviour
     public int scoreToUpgradeRequired=40;
     public int scoreToUpgradeIncrement=40;
     public GameObject barrels;
-    float dualShotHeat = 5.0f;
+    float dualShotHeat = 20.0f;
     public AudioClip railgunSound;
     public GameObject railgunProj;
     float  railgunspeed=40f;
@@ -133,7 +133,7 @@ public class Turret : MonoBehaviour
     public float health;
     public float maxHealth = 100f;
     public int damageTaken = 0;
-    int maxDamBeforeMalfunction = 2;
+    int maxDamBeforeMalfunction = 1;
     bool malfunctioning = false;
     string malfunctionType = "None";
     public string[] malfunctionList = new string[] { "Cockpit", "Left wing", "Right wing", "Barrel" };
@@ -145,7 +145,7 @@ public class Turret : MonoBehaviour
     string inputDisplay = "";
     string codeDisplay = "None";
     int hullHits = 0;
-    int hullHitsReq = 5;
+    int hullHitsReq = 6;
     bool barrelChanged = false;
     public GameObject blackout;
     List<string> playerInput = new List<string>();
@@ -190,8 +190,8 @@ public class Turret : MonoBehaviour
     public int[] malfunctionArray;
     public int swungAt=0;
     int swungMax;
-    public int hits = 5;
-    int maxHit = 10;
+    public int hits = 6;
+    int maxHit = 6;
 
     public static float score=0;
 
@@ -245,7 +245,7 @@ public class Turret : MonoBehaviour
     float deathDelay = 2.0f;
     bool exploded = false;
     public Animator shipExplode;
-    float laserHeat = 32f;
+    float laserHeat = 35f;
     public AudioClip laserBlast;
     float laserSoundCoolTime=0f;
     float laserSoundDuration;
@@ -259,9 +259,9 @@ public class Turret : MonoBehaviour
     bool upgradeActive = false;
     bool redShieldActive = false;
     public GameObject redShieldObject;
-    int enhancedHits=5;
+    int enhancedHits=4;
     float smallSize = 0.6f;
-    float heavyArmourHealth = 200;
+    public float heavyArmourHealth = 200;
     float slowspeed = 35;
     float increasedspeed = 125;
     public GameObject requestLayer;
@@ -270,6 +270,7 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = maxHealth;
         repairTime = repairDuration;
         rechargeTime = rechargeDuration;
         pierceCooldownTime = pierceDurationCool;
@@ -1015,6 +1016,10 @@ public class Turret : MonoBehaviour
                         {
                         if (dualShot)
                         {
+                            if (basicGun)
+                            {
+                                heat += dualShotHeat * electricReduction;
+                            }
                             heat += dualShotHeat * electricReduction;
                             source.PlayOneShot(shootPlasma);
                         }
@@ -1068,6 +1073,10 @@ public class Turret : MonoBehaviour
                         {
                         if (dualShot)
                         {
+                            if (basicGun)
+                            {
+                                heat += dualShotHeat * electricReduction;
+                            }
                             heat += dualShotHeat * electricReduction;
                             source.PlayOneShot(shootPlasma);
                         }

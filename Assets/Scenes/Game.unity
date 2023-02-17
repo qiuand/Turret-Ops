@@ -24265,7 +24265,7 @@ MonoBehaviour:
   heavyArmour: 0
   doubleDuty: 0
   small: 0
-  originalHealth: 100
+  originalHealth: 140
   mechanicView: {fileID: 370763888}
   gunnerView: {fileID: 1258108334}
   minimapLaserGreen: {fileID: 469114166}
@@ -24320,7 +24320,7 @@ MonoBehaviour:
   originalShootCooldown: 0.2
   originalHeatBuildup: 20
   health: 100
-  maxHealth: 100
+  maxHealth: 140
   damageTaken: 0
   malfunctionList:
   - Cockpit
@@ -24383,6 +24383,7 @@ MonoBehaviour:
   powerupInstalled: 
   powerupCoolText: {fileID: 375546380}
   redShieldObject: {fileID: 504835696}
+  heavyArmourHealth: 200
   requestLayer: {fileID: 2124465508}
   requestText: {fileID: 1071729153}
   spawner: {fileID: 0}
