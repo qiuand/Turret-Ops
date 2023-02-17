@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public int uppieHits=10;
+
     public AudioClip heatRoundNoise;
     public AudioClip shipExplosion;
     public int ddddc;

@@ -24236,6 +24236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a10634517b6f254459756ff81e3463fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uppieHits: 12
   heatRoundNoise: {fileID: 8300000, guid: d052fde2445dc714187e94e7eb568a22, type: 3}
   shipExplosion: {fileID: 8300000, guid: c10b852aa1ec61c4b8a1392f66fff9f1, type: 3}
   ddddc: 0

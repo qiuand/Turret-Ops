@@ -166,7 +166,7 @@ public class Upgrades : MonoBehaviour
                                 source.PlayOneShot(select);
                                 canUpgrade = false;
                                 installing = true;
-                                ship.GetComponent<Turret>().malfunctionArray[3] = ship.GetComponent<Turret>().hits;
+                                ship.GetComponent<Turret>().malfunctionArray[3] = ship.GetComponent<Turret>().uppieHits;
 /*                                InstallUpgrades();*/
                                 pendingUpgrade = false;
                             }
@@ -174,7 +174,7 @@ public class Upgrades : MonoBehaviour
                             {
                                 source.PlayOneShot(select);
                                 installing = true;
-                                ship.GetComponent<Turret>().malfunctionArray[2] = ship.GetComponent<Turret>().hits;
+                                ship.GetComponent<Turret>().malfunctionArray[2] = ship.GetComponent<Turret>().uppieHits;
                                 pendingUpgrade = false;
 /*                                if (ship.GetComponent<Turret>().malfunctionArray[3] <= 0)
                                 {

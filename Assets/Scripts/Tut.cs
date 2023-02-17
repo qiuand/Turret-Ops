@@ -66,7 +66,7 @@ public class Tut : MonoBehaviour
         mechTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!<br><br><color=green>Press <color=red>Select ●</color> to Continue";
         mechTut[1]= "<b>2/4<br>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press <color=red>Select ●</color> to Continue";
 /*        mechTut[2] = "You are in charge of maintaining the ship.<br><br><color=green>Press select to continue";
-*/        mechTut[2] = "<b>3/4</b><br>Note that you cannot see colours.<br>Waiting for <color=yellow>Gunner...</color>";
+*/        mechTut[2] = "<b>3/4</b><br>Note that your view is in black and white.<br>Waiting for <color=yellow>Gunner...</color>";
         mechTut[3] = "<b><color=red>Getting hit is bad!</color></b> Repair damage and apply upgrades with your hammer!";
 /*        mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
 */        mechTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!</color> Of course, you can't see colours!<br><b>ask the <color=yellow>Gunner</color> which to load!</b>";
@@ -136,6 +136,7 @@ public class Tut : MonoBehaviour
                         if (turret.GetComponent<Turret>().startingMag == 1)
                         {
                             gunTutVid.GetComponent<VideoPlayer>().clip = spin;
+                            mechTutVid.GetComponent<VideoPlayer>().clip = black;
                             magChanged = true;
                             tutEnemyBlue.SetActive(false);
                             tutEnemyGreen.SetActive(true);
@@ -143,6 +144,7 @@ public class Tut : MonoBehaviour
                         else
                         {
                             gunTutVid.GetComponent<VideoPlayer>().clip = spin;
+                            mechTutVid.GetComponent<VideoPlayer>().clip = black;
                             magChanged = true;
                             tutEnemyGreen.SetActive(false);
                             tutEnemyBlue.SetActive(true);
