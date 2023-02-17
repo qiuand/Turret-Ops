@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tank : MonoBehaviour
 {
+    public AudioClip shipExplosion;
     public AudioSource src;
     public AudioClip explode;
     public GameObject Turret;
@@ -26,6 +27,7 @@ public class Tank : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Enemy2" || collision.gameObject.tag == "Shot" || collision.gameObject.tag == "Shot2")
         {
+            src.PlayOneShot(shipExplosion);
             /*rb.velocity = new Vector2(0, 0);*/
             shaker.GetComponent<Shake>().startShake = true;
             shaker2.GetComponent<Shake>().startShake = true;
@@ -56,7 +58,7 @@ public class Tank : MonoBehaviour
                 Turret.GetComponent<Turret>().health -= 20;
                 Turret.GetComponent<Turret>().damageTaken += 1;
             }
-            src.PlayOneShot(explode);
+            src.PlayOneShot(shipExplosion);
             Destroy(other.gameObject);
         }
 

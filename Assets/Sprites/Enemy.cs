@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public float value = 20;
     public AudioClip dink;
     float scoreUpgradeValue = 20;
     public Animator enemyAnim;
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour
             fire.enableEmission = false;
             GetComponent<CapsuleCollider2D>().enabled = false;
             enemyAnim.SetBool("Destroyed", true);
+            Turret.score += value * EnemySpawn.scoreMultiply;
             Destroy(gameObject,0.65f);
         }
 /*        else if(collision.gameObject.tag=="Projecile" || collision.gameObject.tag == "Projectile2")

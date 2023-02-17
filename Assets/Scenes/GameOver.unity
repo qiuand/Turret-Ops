@@ -284,14 +284,14 @@ RectTransform:
   m_GameObject: {fileID: 138557446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.9172063, y: 2.9172063, z: 2.9172063}
+  m_LocalScale: {x: 3.407297, y: 3.407297, z: 3.407297}
   m_Children: []
   m_Father: {fileID: 234212260}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -39, y: -261}
+  m_AnchoredPosition: {x: -34, y: -274}
   m_SizeDelta: {x: 324.08, y: 68.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &138557448
@@ -314,9 +314,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Restart:
+  m_text: 'Yes:
 
-    Main Menu'
+    No:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 574cce01029140e439e52e6ef2ecadf8, type: 2}
   m_sharedMaterial: {fileID: -8420232950713787578, guid: 574cce01029140e439e52e6ef2ecadf8, type: 2}
@@ -420,14 +420,14 @@ RectTransform:
   m_GameObject: {fileID: 148583346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.42846087, y: 0.42846087, z: 0.42846087}
+  m_LocalScale: {x: 0.51192504, y: 0.51192504, z: 0.51192504}
   m_Children: []
   m_Father: {fileID: 234212260}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 217, y: -325}
+  m_AnchoredPosition: {x: 105, y: -352}
   m_SizeDelta: {x: 242, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &148583348
@@ -802,7 +802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 189, y: -217.99998}
+  m_AnchoredPosition: {x: 131, y: -224.99998}
   m_SizeDelta: {x: 274, y: 262}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &460753944
@@ -1006,6 +1006,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f44049ce8db201e449e22f9692de5759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 901100759}
+  scoreText2: {fileID: 1525534297}
   text: {fileID: 2122934848}
   text2: {fileID: 601679066}
 --- !u!4 &651311569
@@ -1138,7 +1140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.0848, y: -45.393734}
+  m_AnchoredPosition: {x: -3.0848, y: -0.68380356}
   m_SizeDelta: {x: 394.2807, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &901100761
@@ -1684,7 +1686,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.0848, y: -45.692245}
+  m_AnchoredPosition: {x: -3.0848, y: -1}
   m_SizeDelta: {x: 394.2807, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1525534299

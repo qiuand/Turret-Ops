@@ -5128,8 +5128,8 @@ MonoBehaviour:
   projectile: {fileID: 8996536967858451340, guid: 003e73b48ee2a0b4c853f213474bb52c, type: 3}
   muzzle: {fileID: 1239259415799643258}
   ship: {fileID: 7811765206571826971}
-  shootCooldown: 4
-  velocity: 2
+  shootCooldown: 5
+  velocity: 4
 --- !u!114 &5793963769108840416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5142,6 +5142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 20
   dink: {fileID: 8300000, guid: de92e38b17e665541967c5f2bf8b9cff, type: 3}
   enemyAnim: {fileID: 3947878795191957420}
   explode: {fileID: 8300000, guid: 584aaee48ee7c9442ab97ea1d196ebfc, type: 3}

@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class WonScript : MonoBehaviour
 {
-    public GameObject text;
-    public GameObject text2;
+    public GameObject scoreText;
+    public GameObject scoreText2;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +20,15 @@ public class WonScript : MonoBehaviour
         {
             SceneManager.LoadScene("Game");
         }*/
-        if (Input.GetKeyDown("g"))
+        if (Input.GetKeyDown("1"))
         {
+            Turret.score = 0;
             SceneManager.LoadScene("Main");
         }
-/*        text.GetComponent<TMPro.TextMeshProUGUI>().text = "Restart at wave " + EnemySpawn.waveCount + " with basic ship";
-        text2.GetComponent<TMPro.TextMeshProUGUI>().text = text.GetComponent<TMPro.TextMeshProUGUI>().text;*/
+        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
+        scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
+        /*        text.GetComponent<TMPro.TextMeshProUGUI>().text = "Restart at wave " + EnemySpawn.waveCount + " with basic ship";
+                text2.GetComponent<TMPro.TextMeshProUGUI>().text = text.GetComponent<TMPro.TextMeshProUGUI>().text;*/
     }
 }
 

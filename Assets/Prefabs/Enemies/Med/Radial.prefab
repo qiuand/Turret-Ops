@@ -46,7 +46,7 @@ MonoBehaviour:
   projectile: {fileID: 8996536967858451340, guid: 003e73b48ee2a0b4c853f213474bb52c, type: 3}
   muzzle: {fileID: 2204183386637136680}
   ship: {fileID: 3088101107994103934}
-  shootCooldown: 3
+  shootCooldown: 4.6
   velocity: 0.3
 --- !u!1 &2368767182841969326
 GameObject:
@@ -4959,6 +4959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 20
   dink: {fileID: 0}
   enemyAnim: {fileID: 8104924968954108105}
   explode: {fileID: 8300000, guid: c472a5e1d2c1db246a53314c857a39fe, type: 3}
@@ -5112,6 +5113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 20
   dink: {fileID: 8300000, guid: de92e38b17e665541967c5f2bf8b9cff, type: 3}
   enemyAnim: {fileID: 8104924968954108105}
   explode: {fileID: 8300000, guid: 584aaee48ee7c9442ab97ea1d196ebfc, type: 3}
@@ -5227,7 +5229,7 @@ MonoBehaviour:
   projectile: {fileID: 8996536967858451340, guid: 003e73b48ee2a0b4c853f213474bb52c, type: 3}
   muzzle: {fileID: 5063508192457701324}
   ship: {fileID: 3088101107994103934}
-  shootCooldown: 3
+  shootCooldown: 4.6
   velocity: 0.3
 --- !u!1 &5981934726892022930
 GameObject:
@@ -5275,7 +5277,7 @@ MonoBehaviour:
   projectile: {fileID: 8996536967858451340, guid: 003e73b48ee2a0b4c853f213474bb52c, type: 3}
   muzzle: {fileID: 5981934726892022930}
   ship: {fileID: 3088101107994103934}
-  shootCooldown: 3
+  shootCooldown: 4.6
   velocity: 0.3
 --- !u!1 &6176304946203466689
 GameObject:
@@ -5323,7 +5325,7 @@ MonoBehaviour:
   projectile: {fileID: 8996536967858451340, guid: 003e73b48ee2a0b4c853f213474bb52c, type: 3}
   muzzle: {fileID: 6176304946203466689}
   ship: {fileID: 3088101107994103934}
-  shootCooldown: 3
+  shootCooldown: 4.6
   velocity: 0.3
 --- !u!1 &6305443372031611679
 GameObject:

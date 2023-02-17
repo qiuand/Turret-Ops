@@ -37,7 +37,7 @@ public class Upgrades : MonoBehaviour
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge", "Railgun Overcharge", "Railgun Overcharge"  };
+    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", /*"Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge", "Railgun Overcharge"*/ };
     List<string> powerupList = new List<string> { "Small Frame", "Repair", "Orange Shield", "Piercing", "Blue Shield", "Thermal Imaging", "Enhanced Materials", "Heavy Armour", "Electric Override",  "Tactical Airstrike", };
     public GameObject upgrade1;
     public GameObject upgrade2;
@@ -50,7 +50,8 @@ public class Upgrades : MonoBehaviour
     int upgradeIndex;
     public GameObject spawner;
     float abortTimer;
-    float abortDuration = 5.0f;
+    float abortDuration = 10.0f;
+    public GameObject ticking;
     public GameObject abortText;
     public bool pendingUpgrade;
     int upgradeNumSelected;
@@ -83,6 +84,7 @@ public class Upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(powerupList.Count);
 /*        upgradeTimeShow -= Time.deltaTime;
         if (upgradeTimeShow <= 0)
         {
@@ -130,6 +132,7 @@ public class Upgrades : MonoBehaviour
                 {
                     if (abortTimer > 0 && pendingUpgrade)
                     {
+                        ticking.SetActive(true);
                         if (installing == false)
                         {
                             abortTimer -= Time.deltaTime;
@@ -137,23 +140,24 @@ public class Upgrades : MonoBehaviour
                         abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for Mechanic approval.<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                         if (upgradeNumSelected==1)
                         {
-                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + upgradeList[displayChoice] + ".<br>Press <color=red>○ Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + upgradeList[displayChoice] + ".<br>Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                             abortTimer -= Time.deltaTime;
                             abortTimer -= Time.deltaTime;
                         }
                         else if (upgradeNumSelected == 2)
                         {
-                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + powerupList[displayChoice2] + ".<br>Press <color=red>○ Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + powerupList[displayChoice2] + ".<br>Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                             abortTimer -= Time.deltaTime;
                         }
                         else
                         {
-                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose nothing. Press Select to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose nothing. Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                             abortTimer -= Time.deltaTime;
                         }
 
                         if (Abort())
                         {
+                            ticking.SetActive(false);
                             abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Success! Waiting for installation...";
                             abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Success! Hit plates to install upgrades.";
                             upgradeChosen = true;
@@ -189,6 +193,7 @@ public class Upgrades : MonoBehaviour
                     }
                     if (abortTimer <= 0)
                     {
+                        ticking.SetActive(false);
                         abortTimer = abortDuration;
                         pendingUpgrade = false;
                         abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade failed. Please choose again!";
@@ -294,7 +299,7 @@ public class Upgrades : MonoBehaviour
         {
             case "Piercing":
                 body.GetComponent<Image>().sprite = pierce;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Activate powerup: Bullets destroy any ship for "+activationTime+" seconds.<br></color><br><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Bullets destroy any ship for " + activationTime+" seconds.<br></color><br><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
                 break;
             case "Repair":
                 body.GetComponent<Image>().sprite = repair;
@@ -302,12 +307,12 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Orange Shield":
                 body.GetComponent<Image>().sprite = redPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Activate powerup: Briefly block all incoming <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Briefly block all incoming <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
                 break;
             case "Blue Shield":
                 body.GetComponent<Image>().sprite = greenPower;
                 body.GetComponent<Image>().sprite = greenPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Activate powerup: Briefly block all incoming <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Briefly block all incoming <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Electric Override":
@@ -321,7 +326,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Thermal Imaging":
                 body.GetComponent<Image>().sprite = Thermals;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br><color=green>+Activate powerup: Briefly view the Gunner's viewport for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Briefly view the Gunner's viewport for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Heavy Armour":
                 body.GetComponent<Image>().sprite = heavy;
@@ -336,7 +341,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Tactical Airstrike":
                 body.GetComponent<Image>().sprite = airstrike;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Tactical Airstrike (Gunner)<br><color=green>++Destroy all enemies of selected colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Tactical Airstrike (Gunner)<br><color=green>++Activate with <color=red>● Select</color>:Destroy all enemies of selected colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
         }
@@ -403,7 +408,7 @@ public class Upgrades : MonoBehaviour
             case "Piercing":
                 ship.GetComponent<Turret>().installedUpgrade = "HEAT Round Module";
                 hullThing.GetComponent<SpriteRenderer>().sprite = pierce;
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().pierceUpgrade = true;
                 break;
@@ -417,7 +422,7 @@ public class Upgrades : MonoBehaviour
             case "Orange Shield":
                 hullThing.GetComponent<SpriteRenderer>().sprite = redPower;
                 ship.GetComponent<Turret>().installedUpgrade = "Orange Shield Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().redShield = true;
                 break;
@@ -432,7 +437,7 @@ public class Upgrades : MonoBehaviour
                 hullThing.GetComponent<SpriteRenderer>().sprite = greenPower;
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().installedUpgrade = "Blue Shield Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate";
                 ship.GetComponent<Turret>().greenShield = true;
                 break;
             case "Enhanced Materials":
@@ -452,7 +457,7 @@ public class Upgrades : MonoBehaviour
             case "Tactical Airstrike":
                 hullThing.GetComponent<SpriteRenderer>().sprite = airstrike;
                 ship.GetComponent<Turret>().installedUpgrade = "Tactical Airstrike";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press select to activate";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().tacticalStrike = true;
                 break;

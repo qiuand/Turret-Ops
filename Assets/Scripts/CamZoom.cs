@@ -6,7 +6,7 @@ public class CamZoom : MonoBehaviour
 {
     private Camera cam;
     private float zoom=2.09f;
-    public float zoomStrength = 2.65487f;
+    public float zoomStrength = 2.72f;
     private float lerpSpeed = 7000;
     public bool zoomIn = false;
     private Vector2 originalPos;
@@ -25,7 +25,7 @@ public class CamZoom : MonoBehaviour
         if (zoomIn)
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoom, Time.deltaTime);
-            cam.transform.position = new Vector3 (Mathf.Lerp(transform.position.x, 1.19f, Time.deltaTime), Mathf.Lerp(transform.position.y, -3.14f, Time.deltaTime), -10f);
+            cam.transform.position = new Vector3 (Mathf.Lerp(transform.position.x, 1.84f, Time.deltaTime), Mathf.Lerp(transform.position.y, -2.46f, Time.deltaTime), -10f);
 /*            cam.orthographicSize = 3.21018f;*/
 /*            cam.transform.position = new Vector3(-1.26f, -1.36f, -10f);*/
         }

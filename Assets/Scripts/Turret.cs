@@ -7,6 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public AudioClip heatRoundNoise;
+    public AudioClip shipExplosion;
+    public int ddddc;
+
+    float repairTimer;
+    float repairDuration=0.13f;
+    float electricReduction = 1f;
+
     public GameObject parent;
     public GameObject turnSound;
     float deadZone2 = 0.25f;
@@ -54,7 +62,7 @@ public class Turret : MonoBehaviour
     public ParticleSystem minimapLaserGreen;
     public ParticleSystem minimapLaserRed;
     public bool electricOverride = false;
-    float smashProjHeat = 40;
+    float smashProjHeat = 55f;
     public GameObject smashProj;
     public GameObject smashProj2;
     float smashProjectilespeed = 1.0f;
@@ -73,8 +81,8 @@ public class Turret : MonoBehaviour
     public bool pierceUpgrade = false;
     public GameObject projectile3;
     public string installedGun="Default Gun";
-    public float chainGunCool = 0.1f;
-    public float chainGunHeat = 15f;
+    float chainGunCool = 0.05f;
+    float chainGunHeat = 15f;
     public bool chainGun = false;
     public GameObject greenLaserHB;
     public bool basicGun = true;
@@ -118,7 +126,7 @@ public class Turret : MonoBehaviour
     float repairAmountPerSwing = 20;
     public bool overheated = false;
     float repairCooldown = 1f;
-    float repairTimer = 0;
+    float repairTime = 0;
     public GameObject barrel;
     public float originalShootCooldown = 0.2f;
     public float originalHeatBuildup = 20;
@@ -184,7 +192,9 @@ public class Turret : MonoBehaviour
     int swungMax;
     public int hits = 5;
     int maxHit = 10;
-    float score=10;
+
+    public static float score=0;
+
     public GameObject yes;
     public AudioClip magazine;
     public GameObject lWingSelect;
@@ -203,8 +213,12 @@ public class Turret : MonoBehaviour
     Vector3 currentBarrelColour = new Vector3();
     Vector3 blueBarrelColour = new Vector3(0.8f, 0.3f, 0.15f);
     Vector3 greenBarrelColour=new Vector3(0.07f, 0.4f, 0.9f);
+
     public GameObject scoreText;
     public GameObject scoreText2;
+
+    public GameObject scoreCountText;
+    public GameObject scoreCountText2;
     public float scoreMultiplier = 10;
     float autoRepairMax=9;
     int repairAmount = 8;
@@ -231,7 +245,7 @@ public class Turret : MonoBehaviour
     float deathDelay = 2.0f;
     bool exploded = false;
     public Animator shipExplode;
-    float laserHeat = 15f;
+    float laserHeat = 32f;
     public AudioClip laserBlast;
     float laserSoundCoolTime=0f;
     float laserSoundDuration;
@@ -256,6 +270,7 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        repairTime = repairDuration;
         rechargeTime = rechargeDuration;
         pierceCooldownTime = pierceDurationCool;
 /*        parent.transform.localPosition = new Vector3(-0.51f, 1f, -2.71f);*/
@@ -300,6 +315,16 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateScore();
+        if (electricOverride)
+        {
+            electricReduction = 0.5f;
+        }
+        else
+        {
+            electricReduction = 1f;
+        }
+        repairTime -= Time.deltaTime;
         if(Input.GetKey("1")&& Input.GetKey("2") && Input.GetKey(KeyCode.Space))
         {
             SceneManager.LoadScene("Main");
@@ -425,7 +450,6 @@ public class Turret : MonoBehaviour
         {
             gunnerView.SetActive(true);
             mechanicView.SetActive(true);
-            heat = 0;
         }
         else if(electricOverride==false && thermalImaging==false)
         {
@@ -446,7 +470,7 @@ public class Turret : MonoBehaviour
             {
                 rechargeTime = rechargeDuration;
                 recharged = true;
-                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Ability fully recharged";
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press Select ";
             }
         }
         if (laserUpgrade == true)
@@ -551,7 +575,7 @@ public class Turret : MonoBehaviour
             }
             inTut = gun.inTutorial;
             int scoreInt = Mathf.FloorToInt(score);
-            score -= Time.deltaTime * scoreMultiplier;
+/*            score -= Time.deltaTime * scoreMultiplier;*/
         if (autoRepair == true)
         {
             if (health >= 100)
@@ -643,7 +667,6 @@ public class Turret : MonoBehaviour
             {
                 damageTaken = 0;
                 randomMalfunction();
-                source.PlayOneShot(malfunction);
                 /*            malfunctioning = true;
                             if (malfunctionType == "Barrel")
                             {
@@ -953,13 +976,14 @@ public class Turret : MonoBehaviour
                 shootCooldown = chainGunCool;
                 heatBuildUp = chainGunHeat;
             }
-            if (singleShot)
+            if (singleShot && cooldown<=0)
             {
                 /*ship.Play("Railgun");*/
                 source.PlayOneShot(railgunSound);
-                heat = maxHeat;
+                heat += 100*electricReduction;
                 GameObject railgun = Instantiate(railgunProj, barrelEnd.transform.position, transform.rotation);
                 railgun.GetComponent<Rigidbody2D>().velocity = transform.right * railgunspeed;
+                cooldown = shootCooldown;
             }
                 if (chainGun == true)
                 {
@@ -983,7 +1007,7 @@ public class Turret : MonoBehaviour
                     if (smasher == true)
                     {
                         source.PlayOneShot(laserBlast);
-                        heat += smashProjHeat;
+                        heat += smashProjHeat*electricReduction;
                         GameObject smashProjectile = Instantiate(smashProj2, barrelEnd.transform.position, transform.rotation);
                         smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectilespeed;
                     }
@@ -991,19 +1015,19 @@ public class Turret : MonoBehaviour
                         {
                         if (dualShot)
                         {
-                            heat += dualShotHeat;
+                            heat += dualShotHeat * electricReduction;
                             source.PlayOneShot(shootPlasma);
                         }
                             GameObject shotgunBullet = Instantiate(projectile, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
                             shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectilespeed;
                             GameObject shotgunBullet2 = Instantiate(projectile, shotgunPos2.transform.position, shotgunPos2.transform.rotation);
                             shotgunBullet2.GetComponent<Rigidbody2D>().velocity = shotgunPos2.transform.right * projectilespeed;
-                            heat += shottyHeat;
+                            heat += shottyHeat * electricReduction;
                         }
                         if (laserUpgrade == true)
                         {
                             greenLaserHB.SetActive(true);
-                            heat += laserHeat;
+                            heat += laserHeat * electricReduction;
                                 minimapLaserGreen.enableEmission=true;
                             laser.enableEmission = true;
                             if (laserSoundCoolTime < -0)
@@ -1025,6 +1049,7 @@ public class Turret : MonoBehaviour
                         if (pierceUpgrade == true && pierceActive == true)
                         {
                             source.PlayOneShot(shootGun, 1.0f);
+                            source.PlayOneShot(heatRoundNoise, 1.0f);
                             GameObject bullet = Instantiate(projectile3, barrelEnd.transform.position, transform.rotation);
                             bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectilespeed;
                         }
@@ -1035,7 +1060,7 @@ public class Turret : MonoBehaviour
                     if (smasher == true)
                     {
                         source.PlayOneShot(laserBlast);
-                        heat += smashProjHeat;
+                        heat += smashProjHeat * electricReduction;
                         GameObject smashProjectile = Instantiate(smashProj, barrelEnd.transform.position, transform.rotation);
                         smashProjectile.GetComponent<Rigidbody2D>().velocity = transform.right * smashProjectilespeed;
                     }
@@ -1043,18 +1068,18 @@ public class Turret : MonoBehaviour
                         {
                         if (dualShot)
                         {
-                            heat += dualShotHeat;
+                            heat += dualShotHeat * electricReduction;
                             source.PlayOneShot(shootPlasma);
                         }
                             GameObject shotgunBullet = Instantiate(projectile2, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
                             shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectilespeed;
                             GameObject shotgunBullet2 = Instantiate(projectile2, shotgunPos2.transform.position, shotgunPos2.transform.rotation);
                             shotgunBullet2.GetComponent<Rigidbody2D>().velocity = shotgunPos2.transform.right * projectilespeed;
-                            heat += shottyHeat;
+                            heat += shottyHeat * electricReduction;
                         }
                         if (laserUpgrade == true)
                         {
-                            heat += laserHeat;
+                            heat += laserHeat * electricReduction;
                             laser2HB.SetActive(true);
                         minimapLaserRed.enableEmission = true;
                             laser2.enableEmission = true;
@@ -1067,6 +1092,7 @@ public class Turret : MonoBehaviour
                         if (pierceUpgrade == true && pierceActive == true)
                         {
                             source.PlayOneShot(shootGun, 1.0f);
+                            source.PlayOneShot(heatRoundNoise, 1.0f);
                             GameObject bullet = Instantiate(projectile3, barrelEnd.transform.position, barrelEnd.transform.rotation);
                             bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectilespeed;
                         }
@@ -1083,17 +1109,19 @@ public class Turret : MonoBehaviour
                     }
                 if (overChargeGun)
                 {
-                    source.PlayOneShot(shootGun, 1.0f);
+                    source.PlayOneShot(heatRoundNoise, 1.0f);
                     GameObject bullet = Instantiate(projectile3, barrelEnd.transform.position, transform.rotation);
                     bullet.GetComponent<Rigidbody2D>().velocity = transform.right * projectilespeed;
-                    int roll = Random.Range(0, 9);
+                    int roll = Random.Range(0, 5);
                     if (roll == 0)
                     {
+                        source.PlayOneShot(shipExplosion);
+                        source.PlayOneShot(malfunction);
                         randomMalfunction();
                     }
                 }
                     cooldown = shootCooldown;
-                    heat += heatBuildUp;
+                    heat += heatBuildUp * electricReduction;
                 }
             }
             else
@@ -1166,11 +1194,11 @@ public class Turret : MonoBehaviour
         }
         else if (Input.GetKey("8"))
         {
-            rotation = -1 * deadZone2;
+            rotation = -1 * deadZone1;
         }
         else if (Input.GetKey("0"))
         {
-            rotation = -1 * deadZone1;
+            rotation = -1 * deadZone2;
         }
         else
         {
@@ -1247,6 +1275,8 @@ public class Turret : MonoBehaviour
     }
     private void randomMalfunction()
     {
+        source.PlayOneShot(shipExplosion);
+        source.PlayOneShot(malfunction);
         int random = Random.Range(0, malfunctionArray.Length-1);
         malfunctionArray[random] = hits;
     }
@@ -1284,7 +1314,7 @@ public class Turret : MonoBehaviour
             blackout.SetActive(false);
 
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
-            camText.GetComponent<TMPro.TextMeshProUGUI>().text="Cockpit okay";
+/*            camText.GetComponent<TMPro.TextMeshProUGUI>().text="Cockpit okay";*/
             hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit okay";
             camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,1f,1f);
             hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);
@@ -1328,16 +1358,22 @@ public class Turret : MonoBehaviour
     }
     private void HammerSwing()
     {
-        if (malfunctionArray[swungAt] > 0)
+        if (repairTime <= 0)
         {
-            if (malfunctionArray[swungAt] ==1){
-                debuffTimer = 5.0f;
-                source.PlayOneShot(fix);
-                health += manualRepairAmount;
+            if (malfunctionArray[swungAt] > 0)
+            {
+                if (malfunctionArray[swungAt] == 1)
+                {
+                    debuffTimer = 5.0f;
+                    source.PlayOneShot(fix);
+                    health += manualRepairAmount;
+                }
+                source.PlayOneShot(repair);
+                malfunctionArray[swungAt] -= 1;
             }
-            source.PlayOneShot(repair);
-            malfunctionArray[swungAt] -= 1;
+            repairTime = repairDuration;
         }
+
 
     }
     private void highLight()
@@ -1448,7 +1484,7 @@ public class Turret : MonoBehaviour
     }
     private void ActivatePowerups()
     {
-        if (upgrader.GetComponent<Upgrades>().pendingUpgrade==false && Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No Upgrade" && (string.Equals(installedUpgrade, "HEAT Round Module") || string.Equals(installedUpgrade, "Orange Shield Module") || string.Equals(installedUpgrade, "Blue Shield Module") || string.Equals(installedUpgrade, "Tactical Airstrike")) && installedUpgrade != "Auto-repair Module" && upgradeActive==false)
+        if (upgrader.GetComponent<Upgrades>().pendingUpgrade==false && Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No Upgrade" && (string.Equals(installedUpgrade, "HEAT Round Module") || string.Equals(installedUpgrade, "Orange Shield Module") || string.Equals(installedUpgrade, "Blue Shield Module") || string.Equals(installedUpgrade, "Tactical Airstrike") || string.Equals(installedUpgrade, "Thermal Imaging")) && upgradeActive==false)
         {
             StartCoroutine(PlayOvercharge());
             switch (installedUpgrade)
@@ -1464,9 +1500,10 @@ public class Turret : MonoBehaviour
                     }
                     else
                     {
-                        tacStrikeRadius.gameObject.tag =null;
+                        tacStrikeRadius.gameObject.tag ="Boss Health";
                     }
                     tacStrikeRadius.SetActive(true);
+                    pierceCooldownTime = 1.5f;
                     rechargeTime = rechargeDuration;
                     break;
                 case "HEAT Round Module":
@@ -1480,7 +1517,7 @@ public class Turret : MonoBehaviour
                     greenShieldObj.gameObject.SetActive(true);
                     break;
                 case "Thermal Imaging":
-                    gunnerView.gameObject.SetActive(true);
+                    gunnerView.SetActive(true);
                     break;
             }
             /*source.PlayOneShot(overcharge);*/
@@ -1532,5 +1569,11 @@ public class Turret : MonoBehaviour
             }
         }
         EnemySpawn.waveCount = 1;
+    }
+
+    public void UpdateScore()
+    {
+        scoreCountText.GetComponent<TMPro.TextMeshProUGUI>().text = "Score: " + score;
+        scoreCountText2.GetComponent<TMPro.TextMeshProUGUI>().text = scoreCountText.GetComponent<TMPro.TextMeshProUGUI>().text;
     }
 }

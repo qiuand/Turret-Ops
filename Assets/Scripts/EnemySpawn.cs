@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public static float scoreMultiply = 1;
+
     public static float bossTime=35f;
     public GameObject standardUI;
     public static float savedMaxSpeed;
@@ -17,7 +19,7 @@ public class EnemySpawn : MonoBehaviour
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 6.5f;
-    public static int waveCount = 7;
+    public static int waveCount = 1;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -74,10 +76,35 @@ public class EnemySpawn : MonoBehaviour
     public GameObject tankAnimate;
     public bool bossActive = false;
     public bool bossDestroyed = false;
+    float difficultyMultiply;
+
 /*    int[] waveCheckpointList = new int[3] { 3,6,9 };*/
     // Start is called before the first frame update
     void Start()
     {
+        switch (gun.index)
+        {
+            case 0:
+                difficultyMultiply = 0.75f;
+                waveTiming = 7f;
+                break;
+            case 1:
+                difficultyMultiply = 1.0f;
+                scoreMultiply = scoreMultiply * 1.25f;
+                waveTiming = 6f;
+                break;
+            case 2:
+                difficultyMultiply = 1.35f;
+                scoreMultiply = scoreMultiply * 1.5f;
+                waveTiming = 5f;
+                break;
+            default:
+                difficultyMultiply = 1.0f;
+                scoreMultiply = scoreMultiply * 1.25f;
+                waveTiming = 6f;
+                break;
+
+        }
         maxspeed = baseMaxSpeed;
         boss.SetActive(false);
         waveGraceTimer = waveGraceDuration;
@@ -90,7 +117,7 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        maxspeed = baseMaxSpeed+baseMaxSpeed* (waveCount*speedWaveMultiplier);
+        maxspeed = baseMaxSpeed+baseMaxSpeed* (waveCount*speedWaveMultiplier*difficultyMultiply);
         /*        if (waveCompleted == true)
                 {
                     breakCounter -= Time.deltaTime;
@@ -240,19 +267,19 @@ public class EnemySpawn : MonoBehaviour
                     switch (waveCount)
                     {
                         case 1:
-                            createEnemies(2);
-                            break;
-                        case 2:
                             createEnemies(4);
                             break;
-                        case 3:
+                        case 2:
                             createEnemies(6);
                             break;
-                        case 4:
+                        case 3:
                             createEnemies(8);
                             break;
-                        case 5:
+                        case 4:
                             createEnemies(10);
+                            break;
+                        case 5:
+                            createEnemies(12);
                             break;
                         case 6:
                             createEnemies(12);

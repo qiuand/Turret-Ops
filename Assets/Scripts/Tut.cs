@@ -48,29 +48,29 @@ public class Tut : MonoBehaviour
 
         waitTimer = waitDuration;
         tutEnemyBlue.SetActive(false);
-        tutEnemyGreen.SetActive(false);
+            tutEnemyGreen.SetActive(false);
         /*        gunTut[0] = "Welcome to COSMIC CREW! You and your partner have a very important mission: keep your ship afloat at all costs to defeat the advancing fleet!<br>Fire to continue";*/
-        gunTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!<br><br><color=green>Press <color=red>○</color> to Continue";/*<br><color=#006CFF>2: Maintain the ship</color><br><br><color=green>Press fire to continue";*/
-        gunTut[1] = "<b>2/4<br>You're the Gunner!</b> Your partner is the <color=#006CFF>Mechanic.</color><br><br><color=green>Press Press <color=red>○</color> to Continue";
+        gunTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!<br><br><color=green>Press <color=red>●</color> to Continue";/*<br><color=#006CFF>2: Maintain the ship</color><br><br><color=green>Press fire to continue";*/
+        gunTut[1] = "<b>2/4<br>You're the Gunner!</b> Your partner is the <color=#006CFF>Mechanic.</color><br><br><color=green>Press Press <color=red>●</color> to Continue";
         /*gunTut[2] = "You are in charge of shooting down enemies.<br><br><color=green>Press fire to continue";*/
         gunTut[2] = "Rotate and fire to destroy that enemy!</b>";
         /*gunTut[4] = "Malfunctions occur when the ship is hit! This can cause all sorts of problems for your turret. Your ship automatically repairs a bit of damage after some time, but critical malfunctions must be fixed by your friend!";*/
         gunTut[3] = "<b>3/4<br><color=red>Malfunctions</color> are bad!</b> Ask the <color=#006CFF>Mechanic</color> to fix them!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
         /*        gunTut[5] = "<b>Shooting causes <color=red>overheating!</color></b> Let your <color=#006CFF>friend</color> fix that, too!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
         */
-        gunTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies!</color><br><color=#CC4C26>Orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!<br></color>But the <color=#006CFF>Mechanic</color> can't see colours; Help them out! ";
+        gunTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies!</color><br><color=#CC4C26>Orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!<br></color>But the <color=#006CFF>Mechanic</color> can't see colours; Help them out!<br><b>Now destroy that enemy!</b>";
         /*        gunTut[4] = "<color=#1266E6>blue (○) bullets</color> for <color=#1266E6>blue enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange enemies!</color>Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";*/
-        gunTut[5] = "Good Luck, Cosmic Gunner!<br><br><color=green><br>Press <color=red>○</color> to Continue";
+        gunTut[5] = "Good Luck, Cosmic Gunner!<br><br><color=green><br>Press <color=red>●</color> to Continue";
         gunTut[6] = "";
 
-        mechTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!<br><br><color=green>Press <color=red>○</color> to Continue";
-        mechTut[1]= "<b>2/4<br>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press <color=red>○</color> to Continue";
+        mechTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!<br><br><color=green>Press <color=red>●</color> to Continue";
+        mechTut[1]= "<b>2/4<br>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press <color=red>●</color> to Continue";
 /*        mechTut[2] = "You are in charge of maintaining the ship.<br><br><color=green>Press select to continue";
 */        mechTut[2] = "<b>3/4</b><br>Note that you cannot see colours.<br>Waiting for <color=yellow>Gunner...</color>";
         mechTut[3] = "<b><color=red>Getting hit is bad!</color></b> Repair damage and apply upgrades with your hammer!";
 /*        mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
-*/        mechTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!</color> Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";
-        mechTut[5]= "<b>Good luck, Cosmic Mechanic!<b><br><br><color=green>Press <color=red>○</color> to Continue";
+*/        mechTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!</color> Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!<b>Now destroy that enemy!</b>";
+        mechTut[5]= "<b>Good luck, Cosmic Mechanic!<b><br><br><color=green>Press <color=red>●</color> to Continue";
         mechTut[6] = "";
     }
 

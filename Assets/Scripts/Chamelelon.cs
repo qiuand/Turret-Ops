@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Chamelelon : MonoBehaviour
 {
+    public float value = 100f;
+
     public GameObject square;
     public GameObject circle;
     public Sprite redGuy;
@@ -155,6 +157,7 @@ public class Chamelelon : MonoBehaviour
         rb.isKinematic = false;
         fire.enableEmission = false;
         enemyAnim.SetBool("Destroyed", true);
+        Turret.score += value * EnemySpawn.scoreMultiply;
         Destroy(gameObject, 2f);
     }
 }
