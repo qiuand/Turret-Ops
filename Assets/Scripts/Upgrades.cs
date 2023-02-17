@@ -70,8 +70,8 @@ public class Upgrades : MonoBehaviour
 
     void Start()
     {
-        cooldownTime = turret.GetComponent<Turret>().pierceDurationCool;
-        activationTime = turret.GetComponent<Turret>().rechargeDuration;
+        cooldownTime = turret.GetComponent<Turret>().rechargeDuration;
+        activationTime = turret.GetComponent<Turret>().pierceDurationCool;
         upgradeTimeShow = upgradeTimeDuration;
         abortTimer = abortDuration;
         mechanicScreenUppyLayer.SetActive(false);
@@ -299,7 +299,7 @@ public class Upgrades : MonoBehaviour
         {
             case "Piercing":
                 body.GetComponent<Image>().sprite = pierce;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Bullets destroy any ship for " + activationTime+" seconds.<br></color><br><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Bullets will destroy any ship for " + activationTime+" seconds.<br></color><br><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
                 break;
             case "Repair":
                 body.GetComponent<Image>().sprite = repair;
@@ -307,17 +307,17 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Orange Shield":
                 body.GetComponent<Image>().sprite = redPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Briefly block all incoming <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Block all incoming <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
                 break;
             case "Blue Shield":
                 body.GetComponent<Image>().sprite = greenPower;
                 body.GetComponent<Image>().sprite = greenPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Briefly block all incoming <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Activate with <color=red>● Select</color>: Block all incoming <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Electric Override":
                 body.GetComponent<Image>().sprite = tactialOverride;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Optimized Config (Mechanic)<br><color=green>++No barrel heat<br><color=red>--Permanently swap Gunner/Mechanic viewports<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Optimized Config (Mechanic)<br><color=green>++Greatly reduced barrel heat<br><color=red>--Exchanges Gunner and Mechanic viewports<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Enhanced Materials":
@@ -341,7 +341,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Tactical Airstrike":
                 body.GetComponent<Image>().sprite = airstrike;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Tactical Airstrike (Gunner)<br><color=green>++Activate with <color=red>● Select</color>:Destroy all enemies of selected colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Tactical Airstrike (Gunner)<br><color=green>++Activate with <color=red>● Select</color>:Destroy all onscreen enemies of selected colour for.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
         }

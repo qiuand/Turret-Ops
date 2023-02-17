@@ -46,7 +46,7 @@ public class PlayerProjectile : MonoBehaviour
             }
             else if (collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2" /*&& ((gameObject.tag=="Projectile" && collision.gameObject.tag=="Enemy2")||(gameObject.tag=="Projectile2" && collision.gameObject.tag=="Enemy"))*/)
             {
-                if (collision.gameObject.tag == "Enemy2")
+                if (collision.gameObject.tag == "Enemy2" || collision.gameObject.tag == "TutEnemy2")
                 {
                     source.PlayOneShot(ricochetSound);
                     source.volume -= 0.25f;
