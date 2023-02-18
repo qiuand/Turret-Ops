@@ -32,6 +32,10 @@ public class PlayerProjectile : MonoBehaviour
 
         if (collision.gameObject.tag != "WaveObject")
         {
+            if (collision.gameObject.tag == "EatBullets")
+            {
+                Destroy(gameObject);
+            }
             if (ricochet && collision.gameObject.tag != "Bounds")
             {
                 source.PlayOneShot(ricochetSound);

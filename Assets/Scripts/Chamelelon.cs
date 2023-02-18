@@ -8,7 +8,7 @@ public class Chamelelon : MonoBehaviour
     float chainDamage=0.25f;
     float railDamage=4f;
     float laserDamage=3f;
-    float smasherDamage = 5f;
+    float smasherDamage = 3f;
 
     public float value = 100f;
     public GameObject square;

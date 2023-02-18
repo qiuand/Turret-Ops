@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HomingEnemy : MonoBehaviour
 {
-    float speed = 4;
+    float speed = 3;
     Rigidbody2D rb;
     public Transform player;
     private Vector2 target;

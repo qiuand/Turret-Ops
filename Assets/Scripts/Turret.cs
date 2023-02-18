@@ -16,13 +16,14 @@ public class Turret : MonoBehaviour
     float repairTimer;
     float repairDuration=0.13f;
     float electricReduction = 1f;
-
+    int gunRepairHits = 12;
+    int gunRepairEnhancedReduction = 8;
     public GameObject parent;
     public GameObject turnSound;
     float deadZone2 = 0.25f;
     float deadZone1 = 0.6f;
     bool heatFlag = false;
-    static int[] waveCheckpoint = new int[3] { 2,4,6 };
+    static int[] waveCheckpoint = new int[4] { 2,4,6,8};
     float requestTimer;
     float requestDuration = 4.0f;
     bool gotStarterMag = false;
@@ -64,7 +65,7 @@ public class Turret : MonoBehaviour
     public ParticleSystem minimapLaserGreen;
     public ParticleSystem minimapLaserRed;
     public bool electricOverride = false;
-    float smashProjHeat = 55f;
+    float smashProjHeat = 65f;
     public GameObject smashProj;
     public GameObject smashProj2;
     float smashProjectilespeed = 1.0f;
@@ -939,7 +940,14 @@ public class Turret : MonoBehaviour
                     overheated = true;
                 minimapLaserGreen.gameObject.SetActive(false);
                 laser.enableEmission = false;
-                    malfunctionArray[3] = hits;
+                if (enhancedMaterials)
+                {
+                    malfunctionArray[3] = gunRepairEnhancedReduction;
+                }
+                else
+                {
+                    malfunctionArray[3] = gunRepairHits;
+                }
                 }
                 /*            barrelHeated = true;
                             if (malfunctionType != "None" && malfunctionType != "Barrel")
@@ -1029,7 +1037,7 @@ public class Turret : MonoBehaviour
                             shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectilespeed;
                             GameObject shotgunBullet2 = Instantiate(projectile, shotgunPos2.transform.position, shotgunPos2.transform.rotation);
                             shotgunBullet2.GetComponent<Rigidbody2D>().velocity = shotgunPos2.transform.right * projectilespeed;
-                            heat += shottyHeat * electricReduction;
+                            heat += dualShotHeat * electricReduction;
                         }
                         if (laserUpgrade == true)
                         {

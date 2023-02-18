@@ -14,7 +14,7 @@ public class EnemySpawn : MonoBehaviour
     public static float empowerMultiplier = 1.1f;
     public GameObject boss;
     public Camera cam;
-    public static int maxWave = 8;
+    public static int maxWave = 9;
     AudioSource source;
     public AudioClip ding;
     bool endOfTut = false;
@@ -58,7 +58,17 @@ public class EnemySpawn : MonoBehaviour
     public GameObject radial;
     public GameObject greenShield;
     public GameObject rotate;
-    int bossWave = 8;
+    public GameObject blueBombDuo;
+    public GameObject mixed;
+    public GameObject mixed2;
+    public GameObject mixedShoot;
+    public GameObject shieldWave;
+    public GameObject homingOrangeSmall;
+    public GameObject homingBlueSmall;
+    public GameObject blueBombBig;
+    public GameObject orangeBombBig;
+
+    int bossWave = 9;
     public GameObject chameleon;
     bool waveCompleted = false;
     public GameObject waveText;
@@ -91,17 +101,17 @@ public class EnemySpawn : MonoBehaviour
             case 1:
                 difficultyMultiply = 1.0f;
                 scoreMultiply = scoreMultiply * 1.25f;
-                waveTiming = 6f;
+                waveTiming = 5f;
                 break;
             case 2:
                 difficultyMultiply = 1.35f;
                 scoreMultiply = scoreMultiply * 1.5f;
-                waveTiming = 5f;
+                waveTiming = 4f;
                 break;
             default:
                 difficultyMultiply = 1.0f;
                 scoreMultiply = scoreMultiply * 1.25f;
-                waveTiming = 6f;
+                waveTiming = 4f;
                 break;
 
         }
@@ -111,7 +121,7 @@ public class EnemySpawn : MonoBehaviour
         source = GetComponent<AudioSource>();
         breakCounter = breakCount;
         waveTime = waveDuration;
-        positionArray = new GameObject[] { greenWave, blueWave, triangle, square, shootWave, shootWave2, homingGreen, homingRed, bomber, radial, greenShield, rotate, chameleon};
+        positionArray = new GameObject[] { greenWave, blueWave, triangle, square, mixed, mixed2, shootWave, shootWave2, mixedShoot, homingOrangeSmall, homingBlueSmall, homingGreen, homingRed,  bomber, blueBombDuo, orangeBombBig, blueBombBig, radial, greenShield, shieldWave, rotate, chameleon};
         rect = GetComponent<RectTransform>();
     }
     // Update is called once per frame
@@ -267,28 +277,31 @@ public class EnemySpawn : MonoBehaviour
                     switch (waveCount)
                     {
                         case 1:
-                            createEnemies(4);
+                            createEnemies(6);
                             break;
                         case 2:
-                            createEnemies(7);
+                            createEnemies(8);
                             break;
                         case 3:
-                            createEnemies(10);
+                            createEnemies(11);
                             break;
                         case 4:
-                            createEnemies(10);
+                            createEnemies(13);
                             break;
                         case 5:
-                            createEnemies(12);
+                            createEnemies(15);
                             break;
                         case 6:
-                            createEnemies(12);
+                            createEnemies(18);
                             break;
                         case 7:
-                            createEnemies(12);
+                            createEnemies(19);
                             break;
                         case 8:
-                            createEnemies(12);
+                            createEnemies(21);
+                            break;
+                        case 9:
+                            createEnemies(21);
                             break;
                         /*                        case 8:
                                                     createEnemies(9);
@@ -336,7 +349,7 @@ public class EnemySpawn : MonoBehaviour
     }
     private void createEnemies(int waveRestrict)
     {
-        int type = Random.Range(0, waveRestrict);
+        int type = Random.Range(0, waveRestrict-1);
         genspeed = Random.Range(minspeed, maxspeed);
         GameObject waveControl = Instantiate(positionArray[type], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
         if (positionArray[type]!=homingRed && positionArray[type] != homingGreen)

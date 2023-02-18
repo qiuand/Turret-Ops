@@ -18,6 +18,7 @@ TagManager:
   - Boss Health
   - Scrippy
   - Turret
+  - EatBullets
   layers:
   - Default
   - TransparentFX

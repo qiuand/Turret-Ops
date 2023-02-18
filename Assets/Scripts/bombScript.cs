@@ -8,7 +8,7 @@ public class bombScript : MonoBehaviour
     public AudioClip explode;
     Animator enemyAnim;
     public ParticleSystem fire;
-    float speed = 1;
+    float speed = 2;
     Rigidbody2D rb;
     public Transform player;
     private Vector2 target;

@@ -37,7 +37,7 @@ public class Upgrades : MonoBehaviour
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", /*"Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge", "Railgun Overcharge"*/ };
+    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge", "Railgun Overcharge" };
     List<string> powerupList = new List<string> { "Small Frame", "Repair", "Orange Shield", "Piercing", "Blue Shield", "Thermal Imaging", "Enhanced Materials", "Heavy Armour", "Electric Override",  "Tactical Airstrike", };
     public GameObject upgrade1;
     public GameObject upgrade2;
@@ -84,7 +84,8 @@ public class Upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(powerupList.Count);
+        print(displayChoice + " " + upgradeList.Count);
+        print(displayChoice2+" "+powerupList.Count);
 /*        upgradeTimeShow -= Time.deltaTime;
         if (upgradeTimeShow <= 0)
         {
@@ -233,6 +234,8 @@ public class Upgrades : MonoBehaviour
     }
     public void Skip()
     {
+        powerupList.RemoveAt(displayChoice2);
+        upgradeList.RemoveAt(displayChoice);
         cam.GetComponent<CamZoom>().zoomIn=false;
         abortTimer = abortDuration;
         upgradeLayer.SetActive(false);
@@ -273,8 +276,8 @@ public class Upgrades : MonoBehaviour
                 }
                 else
                 {
-                    displayChoice = Random.Range(0, upgradeList.Count);
-                    displayChoice2 = Random.Range(0, powerupList.Count);
+                    displayChoice = Random.Range(0, upgradeList.Count-1);
+                    displayChoice2 = Random.Range(0, powerupList.Count-1);
                 }
                 /*displayChoice = *//*Random.Range(0, *//*EnemySpawn.waveCount - 1*//*upgradeList.Count-1*//*);*//*;
                 displayChoice2 = *//*Random.Range(0, *//*EnemySpawn.waveCount - 1 *//*powerupList.Count-1*//*);*//*;*/
@@ -496,7 +499,7 @@ public class Upgrades : MonoBehaviour
                 spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
         *//*        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");*//*
                 installing = false;*/
-        powerupList.RemoveAt(upgradeIndex);
+        powerupList.RemoveAt(displayChoice2);
         upgradeList.RemoveAt(displayChoice);
         levelSkip();
         minimapHull.GetComponent<SpriteRenderer>().sprite = hullThing.GetComponent<SpriteRenderer>().sprite;
@@ -623,7 +626,7 @@ public class Upgrades : MonoBehaviour
                 spawner.GetComponent<EnemySpawn>().waveDuration += spawner.GetComponent<EnemySpawn>().waveTimeIncrement;
                 spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
                 spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;*/
-        upgradeList.RemoveAt(upgradeIndex);
+        upgradeList.RemoveAt(displayChoice);
         powerupList.RemoveAt(displayChoice2);
         levelSkip();
         installing = false;
