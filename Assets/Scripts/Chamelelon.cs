@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class Chamelelon : MonoBehaviour
 {
-    public float value = 100f;
+    float chainDamage=0.25f;
+    float railDamage=4f;
+    float laserDamage=3f;
+    float smasherDamage = 5f;
 
+    public float value = 100f;
     public GameObject square;
     public GameObject circle;
     public Sprite redGuy;
@@ -26,8 +30,8 @@ public class Chamelelon : MonoBehaviour
     float changeDuration=5.0f;
     float speed=2;
     public GameObject bomb;
-    float health = 10;
-    float maxHealth = 10;
+    float health = 30;
+    float maxHealth = 30;
     bool positionFound = false;
     float moveCooldown;
     float moveDuration=3.0f;
@@ -69,12 +73,12 @@ public class Chamelelon : MonoBehaviour
             Instantiate(bomb, transform.position, Quaternion.identity);
             if (gameObject.tag == "Enemy")
             {
-                bomb.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.0f, 0.3f, 1f);
-                bomb.gameObject.tag = "Shot";
-            }
-            else{
                 bomb.gameObject.tag = "Shot2";
                 bomb.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.3f, 0.15f);
+            }
+            else{
+                bomb.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.0f, 0.3f, 1f);
+                bomb.gameObject.tag = "Shot";
             }
         }
         moveCooldown -= Time.deltaTime;
@@ -127,7 +131,22 @@ public class Chamelelon : MonoBehaviour
                 Turret.scoreToUpgrade += scoreUpgradeValue;
                 source.PlayOneShot(damage);
             }
-            health--;
+            if (GameObject.FindGameObjectWithTag("Turret").GetComponent<Turret>().chainGun)
+            {
+                health-=chainDamage;
+            }
+            else if (GameObject.FindGameObjectWithTag("Turret").GetComponent<Turret>().singleShot)
+            {
+                health -= railDamage;
+            }
+            else if (GameObject.FindGameObjectWithTag("Turret").GetComponent<Turret>().smasher)
+            {
+                health -= smasherDamage;
+            }
+            else
+            {
+                health--;
+            }
             if (health <= 0)
             {
                 Destroy();

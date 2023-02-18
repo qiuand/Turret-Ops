@@ -49893,7 +49893,7 @@ GameObject:
   - component: {fileID: 1709705113}
   - component: {fileID: 1709705114}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TacStrike
   m_TagString: Projectile3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

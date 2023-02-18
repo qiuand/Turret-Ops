@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 5034567202561815966}
   - component: {fileID: 4028009651575980762}
   - component: {fileID: 5320136589596476781}
-  - component: {fileID: 4476620679648646041}
+  - component: {fileID: 6495964879075371788}
   m_Layer: 13
   m_Name: EnemyShield
   m_TagString: Enemy
@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 20
   dink: {fileID: 0}
   enemyAnim: {fileID: 3419649985266142497}
   explode: {fileID: 8300000, guid: c472a5e1d2c1db246a53314c857a39fe, type: 3}
@@ -426,7 +427,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.67677855
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -531,12 +532,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcfc9657795ae6448ad5ba1fb929629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 20
   dink: {fileID: 8300000, guid: de92e38b17e665541967c5f2bf8b9cff, type: 3}
   enemyAnim: {fileID: 3419649985266142497}
   explode: {fileID: 8300000, guid: 584aaee48ee7c9442ab97ea1d196ebfc, type: 3}
   source: {fileID: 5034567202561815966}
   fire: {fileID: 5857526286885341193}
---- !u!70 &4476620679648646041
+--- !u!70 &6495964879075371788
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -546,11 +548,11 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.24, y: 2.24}
+  m_Offset: {x: -0.012512423, y: 0.19850068}
+  m_Size: {x: 1.5810418, y: 1.871353}
   m_Direction: 0
 --- !u!1 &9210141517650636614
 GameObject:

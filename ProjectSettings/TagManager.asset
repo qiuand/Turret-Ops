@@ -17,6 +17,7 @@ TagManager:
   - WaveObject
   - Boss Health
   - Scrippy
+  - Turret
   layers:
   - Default
   - TransparentFX
