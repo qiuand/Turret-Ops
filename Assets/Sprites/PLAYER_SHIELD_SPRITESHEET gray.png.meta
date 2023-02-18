@@ -45,7 +45,6 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -293,14 +292,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      PLAYER_SHIELD_SPRITESHEET gray_5: 778320376527292207
-      PLAYER_SHIELD_SPRITESHEET gray_2: 2248455184187093352
-      PLAYER_SHIELD_SPRITESHEET gray_0: 4459206022651215757
-      PLAYER_SHIELD_SPRITESHEET gray_1: 3962297088553444187
-      PLAYER_SHIELD_SPRITESHEET gray_4: 7077747779379372644
-      PLAYER_SHIELD_SPRITESHEET gray_3: 8457733518952500036
-      PLAYER_SHIELD_SPRITESHEET gray_6: 8384927778002909596
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
