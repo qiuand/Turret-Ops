@@ -14,12 +14,12 @@ public class EnemySpawn : MonoBehaviour
     public static float empowerMultiplier = 1.1f;
     public GameObject boss;
     public Camera cam;
-    public static int maxWave = 7;
+    public static int maxWave = 8;
     AudioSource source;
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 6.5f;
-    public static int waveCount = 7;
+    public static int waveCount = 1;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -58,7 +58,7 @@ public class EnemySpawn : MonoBehaviour
     public GameObject radial;
     public GameObject greenShield;
     public GameObject rotate;
-    int bossWave = 7;
+    int bossWave = 8;
     public GameObject chameleon;
     bool waveCompleted = false;
     public GameObject waveText;
@@ -270,10 +270,10 @@ public class EnemySpawn : MonoBehaviour
                             createEnemies(4);
                             break;
                         case 2:
-                            createEnemies(6);
+                            createEnemies(7);
                             break;
                         case 3:
-                            createEnemies(8);
+                            createEnemies(10);
                             break;
                         case 4:
                             createEnemies(10);
@@ -287,26 +287,29 @@ public class EnemySpawn : MonoBehaviour
                         case 7:
                             createEnemies(12);
                             break;
-/*                        case 8:
-                            createEnemies(9);
-                            break;
-                        case 9:
-                            createEnemies(9);
-                            break;
-                        case 10:
-                            createEnemies(10);
-                            break;
-                        case 11:
-                            createEnemies(11);
-                            break;
-                        case 12:
+                        case 8:
                             createEnemies(12);
-                            break;*/
-/*                        case 7:
-                            createEnemies(11);
-                            break;*/
-/*                        case 8:
-                            break;*/
+                            break;
+                        /*                        case 8:
+                                                    createEnemies(9);
+                                                    break;
+                                                case 9:
+                                                    createEnemies(9);
+                                                    break;
+                                                case 10:
+                                                    createEnemies(10);
+                                                    break;
+                                                case 11:
+                                                    createEnemies(11);
+                                                    break;
+                                                case 12:
+                                                    createEnemies(12);
+                                                    break;*/
+                        /*                        case 7:
+                                                    createEnemies(11);
+                                                    break;*/
+                        /*                        case 8:
+                                                    break;*/
                         default:
                             createEnemies(11);
                             break;
