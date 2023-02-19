@@ -84,8 +84,8 @@ public class Upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(displayChoice + " " + upgradeList.Count);
-        print(displayChoice2+" "+powerupList.Count);
+        print("Upgrade: "+displayChoice + " " + upgradeList.Count);
+        print("Powerup:"+displayChoice2+" "+powerupList.Count);
 /*        upgradeTimeShow -= Time.deltaTime;
         if (upgradeTimeShow <= 0)
         {
@@ -267,7 +267,7 @@ public class Upgrades : MonoBehaviour
             upgradeLayer2.SetActive(true);
             upgradeLayer.SetActive(true);
             canUpgrade = true;
-            if(EnemySpawn.waveCount<upgradeList.Count)
+            if(/*EnemySpawn.waveCount<upgradeList.Count*/true)
             {
                 if (EnemySpawn.waveCount < 3)
                 {
@@ -302,7 +302,7 @@ public class Upgrades : MonoBehaviour
         {
             case "Piercing":
                 body.GetComponent<Image>().sprite = pierce;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Bullets will destroy any ship for " + activationTime+" seconds.<br></color><br><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Bullets will destroy any ship for " + activationTime+" seconds.</color><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
                 break;
             case "Repair":
                 body.GetComponent<Image>().sprite = repair;
@@ -465,6 +465,7 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().tacticalStrike = true;
                 break;
             case "Heavy Armour":
+                ship.GetComponent<Turret>().maxHealth = ship.GetComponent<Turret>().heavyArmourHealth;
                 ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().heavyArmourHealth;
                 hullThing.GetComponent<SpriteRenderer>().sprite = heavy;
                 ship.GetComponent<Turret>().installedUpgrade = "Heavy Armour";

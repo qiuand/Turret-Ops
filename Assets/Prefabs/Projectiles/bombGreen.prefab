@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c426ef568b678a24bbc92f0d56b3ce4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explode: {fileID: 0}
+  explode: {fileID: 8300000, guid: 10fd9983996b8f343a9d344885fc2426, type: 3}
   fire: {fileID: 5382178298671370583}
   player: {fileID: 0}
 --- !u!61 &1947224608583311234

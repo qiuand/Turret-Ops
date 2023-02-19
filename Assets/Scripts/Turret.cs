@@ -9,6 +9,10 @@ public class Turret : MonoBehaviour
 {
     public int uppieHits=10;
 
+    public GameObject gunSprite;
+    public GameObject gunSprite2;
+
+    public Sprite orange, blue, exclamation;
     public AudioClip heatRoundNoise;
     public AudioClip shipExplosion;
     public int ddddc;
@@ -273,6 +277,12 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gunSprite.GetComponent<Image>().sprite = exclamation;
+        gunSprite.GetComponent<Image>().color = new Color(1, 1, 1);
+
+        gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
+        gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
+
         health = maxHealth;
         repairTime = repairDuration;
         rechargeTime = rechargeDuration;
@@ -377,6 +387,13 @@ public class Turret : MonoBehaviour
                 currentBarrelColour = greenBarrelColour;
                 /*                    barrel.GetComponent<SpriteRenderer>().color = new Color(0.4009f, 1f, 0.4507f);*/
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL (○) " + installedGun + " Loaded";
+
+                gunSprite.GetComponent<Image>().sprite = blue;
+                gunSprite.GetComponent<Image>().color = new Color(0.07f, 0.4f, 0.9f);
+
+                gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
+                gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
+
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(greenBarrelColour.x, greenBarrelColour.y, greenBarrelColour.z);
                 startingMag = 1;
                 detectedMag = true;
@@ -388,6 +405,13 @@ public class Turret : MonoBehaviour
             {
                 currentBarrelColour = blueBarrelColour;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma (☐) " + installedGun + " Loaded";
+                
+                gunSprite.GetComponent<Image>().sprite = orange;
+                gunSprite.GetComponent<Image>().color = new Color(0.8f, 0.29f, 0.14f);
+
+                gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
+                gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
+
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(blueBarrelColour.x, blueBarrelColour.y, blueBarrelColour.z);
                 startingMag = 2;
                 detectedMag = true;
@@ -397,6 +421,12 @@ public class Turret : MonoBehaviour
             }
             else if (Input.GetKey("l"))
             {
+                gunSprite.GetComponent<Image>().sprite = exclamation;
+                gunSprite.GetComponent<Image>().color = new Color(1,1,1);
+
+                gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
+                gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
+
                 currentBarrelColour = defaultBarrelColour;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Empty " + installedGun;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);
@@ -793,7 +823,14 @@ public class Turret : MonoBehaviour
             */
             if (Input.GetKeyDown("right"))
             {
+
+                gunSprite.GetComponent<Image>().sprite = orange;
+                gunSprite.GetComponent<Image>().color = new Color(0.8f, 0.29f, 0.14f);
+
+                gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
+                gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
                 currentBarrelColour = blueBarrelColour;
+
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma (☐) " + installedGun + " Loaded";
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(blueBarrelColour.x, blueBarrelColour.y, blueBarrelColour.z);
                 startingMag = 2;
@@ -804,7 +841,14 @@ public class Turret : MonoBehaviour
 
             else if (Input.GetKeyDown("left"))
             {
+                gunSprite.GetComponent<Image>().sprite = blue;
+                gunSprite.GetComponent<Image>().color = new Color(0.8f, 0.29f, 0.14f);
+                gunSprite.GetComponent<Image>().color = new Color(0.07f, 0.4f, 0.9f);
+
+                gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
+                gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
                 currentBarrelColour = greenBarrelColour;
+
                 /*                    barrel.GetComponent<SpriteRenderer>().color = new Color(0.4009f, 1f, 0.4507f);*/
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL (○) " + installedGun + " Loaded";
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(greenBarrelColour.x, greenBarrelColour.y, greenBarrelColour.z);
@@ -815,6 +859,12 @@ public class Turret : MonoBehaviour
         }
             else if (Input.GetKeyDown("p"))
             {
+                gunSprite.GetComponent<Image>().sprite = exclamation;
+                gunSprite.GetComponent<Image>().color = new Color(1, 1, 1);
+
+                gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
+                gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
+            
                 currentBarrelColour = defaultBarrelColour;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Empty " + installedGun;
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile2 : MonoBehaviour
 {
     public AudioClip ricochetSound;
+    public AudioClip explode;
     AudioSource source;
     Rigidbody2D rb;
     public bool ricochet;

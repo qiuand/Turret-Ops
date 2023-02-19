@@ -4987,6 +4987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ricochetSound: {fileID: 8300000, guid: 908d494f84d2f8641a90020781eac92f, type: 3}
+  explode: {fileID: 8300000, guid: 10fd9983996b8f343a9d344885fc2426, type: 3}
   ricochet: 0
   tutShip: {fileID: 0}
 --- !u!61 &6021617060101416035

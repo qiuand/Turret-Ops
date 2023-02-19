@@ -277,31 +277,31 @@ public class EnemySpawn : MonoBehaviour
                     switch (waveCount)
                     {
                         case 1:
-                            createEnemies(6);
+                            createEnemies(0, 6);
                             break;
                         case 2:
-                            createEnemies(8);
+                            createEnemies(3, 8);
                             break;
                         case 3:
-                            createEnemies(11);
+                            createEnemies(4, 11);
                             break;
                         case 4:
-                            createEnemies(13);
+                            createEnemies(4, 13);
                             break;
                         case 5:
-                            createEnemies(15);
+                            createEnemies(4,15);
                             break;
                         case 6:
-                            createEnemies(18);
+                            createEnemies(4, 18);
                             break;
                         case 7:
-                            createEnemies(19);
+                            createEnemies(4, 19);
                             break;
                         case 8:
-                            createEnemies(21);
+                            createEnemies(4, 22);
                             break;
                         case 9:
-                            createEnemies(21);
+                            createEnemies(4, 22);
                             break;
                         /*                        case 8:
                                                     createEnemies(9);
@@ -324,7 +324,7 @@ public class EnemySpawn : MonoBehaviour
                         /*                        case 8:
                                                     break;*/
                         default:
-                            createEnemies(11);
+                            createEnemies(0, 11);
                             break;
                     }
                 }
@@ -347,9 +347,9 @@ public class EnemySpawn : MonoBehaviour
             spawnTimer -= Time.deltaTime;
         }
     }
-    private void createEnemies(int waveRestrict)
+    private void createEnemies(int waveRestrictMin, int waveRestrict)
     {
-        int type = Random.Range(0, waveRestrict-1);
+        int type = Random.Range(waveRestrictMin, waveRestrict);
         genspeed = Random.Range(minspeed, maxspeed);
         GameObject waveControl = Instantiate(positionArray[type], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
         if (positionArray[type]!=homingRed && positionArray[type] != homingGreen)

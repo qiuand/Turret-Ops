@@ -222,7 +222,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c426ef568b678a24bbc92f0d56b3ce4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explode: {fileID: 8300000, guid: 584aaee48ee7c9442ab97ea1d196ebfc, type: 3}
+  explode: {fileID: 8300000, guid: 10fd9983996b8f343a9d344885fc2426, type: 3}
   fire: {fileID: 4663122112525345116}
   player: {fileID: 0}
 --- !u!61 &-972169078686977123

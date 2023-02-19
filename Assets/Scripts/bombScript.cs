@@ -38,7 +38,7 @@ public class bombScript : MonoBehaviour
         print("yes");
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bounds" || (collision.gameObject.tag == "Projectile" && gameObject.tag == "Shot") || (collision.gameObject.tag == "Projectile2" && gameObject.tag == "Shot2") || collision.gameObject.tag == "Projectile3")
         {
-            if (collision.gameObject.tag != "Bounds" && collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2" && collision.gameObject.tag != "Projectile3")
+            if (collision.gameObject.tag != "Bounds" /*&& collision.gameObject.tag != "Projectile" && collision.gameObject.tag != "Projectile2" && collision.gameObject.tag != "Projectile3"*/)
             {
                 source.PlayOneShot(explode);
             }
