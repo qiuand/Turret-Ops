@@ -7,7 +7,7 @@ public class Chamelelon : MonoBehaviour
 {
     float chainDamage=0.25f;
     float railDamage=4f;
-    float laserDamage=3f;
+    float laserDamage=2f;
     float smasherDamage = 3f;
 
     public float value = 100f;
@@ -142,6 +142,10 @@ public class Chamelelon : MonoBehaviour
             else if (GameObject.FindGameObjectWithTag("Turret").GetComponent<Turret>().smasher)
             {
                 health -= smasherDamage;
+            }
+            else if (GameObject.FindGameObjectWithTag("Turret").GetComponent<Turret>().laserUpgrade)
+            {
+                health -= laserDamage;
             }
             else
             {
