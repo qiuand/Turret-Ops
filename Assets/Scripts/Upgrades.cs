@@ -256,6 +256,7 @@ public class Upgrades : MonoBehaviour
             spawner.GetComponent<EnemySpawn>().waveTime = spawner.GetComponent<EnemySpawn>().waveDuration;
         }
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
+        spawner.GetComponent<EnemySpawn>().healthUI.SetActive(true);
     }
     public void RollUpgrades()
     {
@@ -528,6 +529,7 @@ public class Upgrades : MonoBehaviour
         /*        tankAnimate.GetComponent<Animator>().Play("UpgradeReverse");*/
         installing = false;
         minimapHull.GetComponent<SpriteRenderer>().sprite = hullThing.GetComponent<SpriteRenderer>().sprite;
+        spawner.GetComponent<EnemySpawn>().healthUI.SetActive(true);
     }
     public void InstallUpgrades()
     {

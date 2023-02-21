@@ -87,6 +87,7 @@ public class EnemySpawn : MonoBehaviour
     public bool bossActive = false;
     public bool bossDestroyed = false;
     float difficultyMultiply;
+    public GameObject healthUI;
 
 /*    int[] waveCheckpointList = new int[3] { 3,6,9 };*/
     // Start is called before the first frame update
@@ -231,6 +232,7 @@ public class EnemySpawn : MonoBehaviour
         }*/
         if (beginNextWave == false && waveCompleted==true && /*Upgrades.upgradesRolled==true*/upgradeTrigger)
             {
+                healthUI.SetActive(false);
                 Upgrades.upgradesRolled = false;
                 if (Upgrades.upgradesRolled == false)
                 {
