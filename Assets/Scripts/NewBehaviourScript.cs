@@ -29,7 +29,7 @@ public class NewBehaviourScript : MonoBehaviour
             Turret.score = 0;
             SceneManager.LoadScene("Main");
         }
-        text.GetComponent<TMPro.TextMeshProUGUI>().text = "You can retry from checkpoint wave " + EnemySpawn.waveCount +"/"+EnemySpawn.maxWave+"!";
+        text.GetComponent<TMPro.TextMeshProUGUI>().text = "You can restart at checkpoint wave " + EnemySpawn.waveCount +"/"+EnemySpawn.maxWave+"!";
         text2.GetComponent<TMPro.TextMeshProUGUI>().text = text.GetComponent<TMPro.TextMeshProUGUI>().text;
         scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
         scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;

@@ -74,13 +74,13 @@ public class gun : MonoBehaviour
     }
     public void StartGame()
     {
-        menuAnim.GetComponent<Animator>().Play("Takeoff");
+        menuAnim.GetComponent<Animator>().SetBool("Takeoff", true);
         StartCoroutine(WaitFunc());
 
     }
     IEnumerator WaitFunc()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1.0f);
         SceneManager.LoadScene("Game");
     }
 }

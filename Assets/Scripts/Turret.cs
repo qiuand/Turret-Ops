@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public GameObject healthWarning;
+
+
     public GameObject mechHullStat, mechGunStat, mechLWingStat, mechRWingStat;
 
     public GameObject heatWarning;
@@ -297,6 +300,7 @@ public class Turret : MonoBehaviour
     void Start()
     {
         heatWarning.SetActive(false);
+        healthWarning.SetActive(false);
 
         powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = originalMessagePower;
         gunSprite.GetComponent<Image>().sprite = exclamation;
@@ -351,6 +355,14 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= maxHealth / 2)
+        {
+            healthWarning.SetActive(true);
+        }
+        else
+        {
+            healthWarning.SetActive(false);
+        }
         if (heat >= maxHeat * 0.5f)
         {
             heatWarning.SetActive(true);
