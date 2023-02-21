@@ -40,8 +40,8 @@ public class Turret : MonoBehaviour
     float repairTimer;
     float repairDuration=0.15f;
     float electricReduction = 1f;
-    int gunRepairHits = 12;
-    int gunRepairEnhancedReduction = 8;
+    int gunRepairHits = 6;
+    int gunRepairEnhancedReduction = 4;
     public GameObject parent;
     public GameObject turnSound;
     float deadZone2 = 0.25f;

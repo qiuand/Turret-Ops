@@ -303,49 +303,49 @@ public class Upgrades : MonoBehaviour
         {
             case "Piercing":
                 body.GetComponent<Image>().sprite = pierce;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Your bullets destroy any colour ship for " + activationTime+" seconds.</color><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>HEAT Rounds (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Your bullets destroy any colour ship for " + activationTime+" seconds.</color><color=red><br>-"+cooldownTime+" second cooldown<br>-Replaces "+ replacedThingBody +"</color>";
                 break;
             case "Repair":
                 body.GetComponent<Image>().sprite = repair;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair (Mechanic)<br><color=green>+Automatically repair a bit of health every five seconds<br><color=red>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Auto-repair (Mechanic)</b><br><color=green>+Automatically repair a bit of health every five seconds<br><color=red>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Orange Shield":
                 body.GetComponent<Image>().sprite = redPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Orange Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
                 break;
             case "Blue Shield":
                 body.GetComponent<Image>().sprite = greenPower;
                 body.GetComponent<Image>().sprite = greenPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Blue Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Electric Override":
                 body.GetComponent<Image>().sprite = tactialOverride;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Optimized Config (Mechanic)<br><color=green>++Greatly reduces heat buildup<br><color=red>--The Mechanic can see colour, but the Gunner cannot.<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Optimized Config (Mechanic)</b><br><color=green>++Greatly reduces heat buildup<br><color=red>--The Mechanic can see colour, but the Gunner cannot.<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Enhanced Materials":
                 body.GetComponent<Image>().sprite = enhanced;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Enhanced Materials (Mechanic)<br><color=green>+Less hits to repair ship<color=red>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Enhanced Materials (Mechanic)</b><br><color=green>+Less hits to repair ship<color=red>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Thermal Imaging":
                 body.GetComponent<Image>().sprite = Thermals;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: The Mechanic can see colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Camera Override (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color>: The Mechanic can see colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Heavy Armour":
                 body.GetComponent<Image>().sprite = heavy;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Heavy Armour (Mechanic)<br><color=green>++Massively increased health/*<br>+Less hits needed for repair*/<br><color=red>--Extremely slow turn speed<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Heavy Armour (Mechanic)</b><br><color=green>++Massively increased health/*<br>+Less hits needed for repair*/<br><color=red>--Extremely slow turn speed<br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Double Duty":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Duty Sniper Tank (Mechanic)<br><color=green>++Massively increased spotting distance<br>++Greatly increased health<br>+Increased rotation speed<br><color=red>----Enemies start coming at you from the rear<br>-replaces " + replacedThingBody + "</color>";
                 break;
             case "Small Frame":
                 body.GetComponent<Image>().sprite = small;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Small Frame (Mechanic)<br><color=green>+Smaller ship size<br><color=red>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Small Frame (Mechanic)</b><br><color=green>+Smaller ship size<br><color=red>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Tactical Airstrike":
                 body.GetComponent<Image>().sprite = airstrike;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Tactical Airstrike (Gunner)<br><color=green>++Mechanic activates with< br><color=red>● Select</color>:Destroy all onscreen enemies of selected colour for.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Tactical Airstrike (Gunner)</b><br><color=green>++Mechanic activates with< br><color=red>● Select</color>:Destroy all onscreen enemies of selected colour for.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
         }
@@ -359,31 +359,31 @@ public class Upgrades : MonoBehaviour
         {
             case "Laser":
                 gun.GetComponent<Image>().sprite = laserSprite;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Energy Condensor (Gunner) <br><color=green>+Concentrated Laser Fire</color><br><color=red>-Severe barrel heat<br>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Laser Cannon (Gunner)</b> <br><color=green>+Laser Fire</color><br><color=red>-Severe barrel heat<br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Shotgun":
                 gun.GetComponent<Image>().sprite = triple;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Energy Refractor (Gunner)<br><color=green>+Tri-laser shot<br><color=red>-Increased barrel heat<br>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Energy Refractor</b> (Gunner)<br><color=green>+Tri-laser shot<br><color=red>-Increased barrel heat<br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Chain Gun":
                 gun.GetComponent<Image>().sprite = chaingun;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Chain Gun (Gunner)<br><color=green>+Increased fire rate<br>+Decreased Barrel Heat<br><color=red>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Chain Gun (Gunner)</b><br><color=green>+Increased fire rate<br>+Decreased Barrel Heat<br><color=red>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Particle Smasher":
                 gun.GetComponent<Image>().sprite = particleSprite;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Particle Smasher (Gunner)<br><color=green>++Launches giant energy emitting spheres<br><color=red>--Extreme heat<br>-Slow projectile speed<br>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Particle Smasher (Gunner)</b><br><color=green>++Launches giant energy emitting spheres<br><color=red>--Extreme heat<br>-Slow projectile speed<br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Improved Bearings":
                 gun.GetComponent<Image>().sprite = fast;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Speed (Gunner)<br><color=green>+Faster turret turn speed<color=red><br>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Shorty Gun (Gunner)</b><br><color=green>+Faster turret turn speed<color=red><br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Railgun Overcharge":
                 gun.GetComponent<Image>().sprite = railgun;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Railgun Overcharge (Gunner)<br><color=green>++High power piercing bullet that rips through any colour ship<color=red><br>--Instantly overheats barrel<br>Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Railgun</b> (Gunner)<br><color=green>++High power piercing bullet that rips through any colour ship<color=red><br>--Every shot instantly overheats the gun<br>Replaces " + replacedThingGun + "</color>";
                 break;
             case "Ricochet Shot":
                 gun.GetComponent<Image>().sprite = ricochet;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Matter Destabilizer (Gunner)<br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>--Greatly increased heat<br>Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Ricochet Shot (Gunner)</b><br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>--Greatly increased heat<br>Replaces " + replacedThingGun + "</color>";
                 break;
             case "Reactive Armour":
                 gun.GetComponent<Image>().sprite = heavy;
@@ -391,7 +391,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Dual shot":
                 gun.GetComponent<Image>().sprite = dual;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Shot (Gunner)<br><color=green>+Dual shot split fire<br><color=red>-Slightly increased heat<br>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Double Shot (Gunner)</b><br><color=green>+Dual shot split fire<br><color=red>-Slightly increased heat<br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Overcharge":
                 gun.GetComponent<Image>().sprite = overgunSprite;
@@ -412,28 +412,28 @@ public class Upgrades : MonoBehaviour
             case "Piercing":
                 ship.GetComponent<Turret>().installedUpgrade = "HEAT Round Module";
                 hullThing.GetComponent<SpriteRenderer>().sprite = pierce;
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate omni-colour bullets!";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to activate universal bullets!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().pierceUpgrade = true;
                 break;
             case "Repair":
                 hullThing.GetComponent<SpriteRenderer>().sprite = repair;
                 ship.GetComponent<Turret>().installedUpgrade = "Auto-repair Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair ready";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair ready!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().autoRepair = true;
                 break;
             case "Orange Shield":
                 hullThing.GetComponent<SpriteRenderer>().sprite = redPower;
                 ship.GetComponent<Turret>().installedUpgrade = "Orange Shield Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to block <color=#CC4C26>orange (○) enemies!</color>";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to block <color=#CC4C26>orange (○) enemies!</color>";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().redShield = true;
                 break;
             case "Electric Override":
                 hullThing.GetComponent<SpriteRenderer>().sprite = tactialOverride;
                 ship.GetComponent<Turret>().installedUpgrade = "Optimized Config";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "The Mechanic sees colour, but the Mechanic cannot!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().electricOverride = true;
                 break;
@@ -441,27 +441,27 @@ public class Upgrades : MonoBehaviour
                 hullThing.GetComponent<SpriteRenderer>().sprite = greenPower;
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().installedUpgrade = "Blue Shield Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to block <color=#1266E6>blue (☐) enemies!</color>";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to block <color=#1266E6>blue (☐) enemies!</color>";
                 ship.GetComponent<Turret>().greenShield = true;
                 break;
             case "Enhanced Materials":
                 hullThing.GetComponent<SpriteRenderer>().sprite = enhanced;
-                ship.GetComponent<Turret>().installedUpgrade = "Enhanced Materials";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                ship.GetComponent<Turret>().installedUpgrade = "Enhanced Repair";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Reduces repair time!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().enhancedMaterials = true;
                 break;
             case "Thermal Imaging":
                 hullThing.GetComponent<SpriteRenderer>().sprite = Thermals;
                 ship.GetComponent<Turret>().installedUpgrade = "Thermal Imaging";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to see colours!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().thermalImaging = true;
                 break;
             case "Tactical Airstrike":
                 hullThing.GetComponent<SpriteRenderer>().sprite = airstrike;
                 ship.GetComponent<Turret>().installedUpgrade = "Tactical Airstrike";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to destroy all ships!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().tacticalStrike = true;
                 break;
@@ -470,7 +470,7 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().heavyArmourHealth;
                 hullThing.GetComponent<SpriteRenderer>().sprite = heavy;
                 ship.GetComponent<Turret>().installedUpgrade = "Heavy Armour";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Lots of health, but slow gun speed!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().heavyArmour = true;
                 break;
@@ -483,7 +483,7 @@ public class Upgrades : MonoBehaviour
             case "Small Frame":
                 hullThing.GetComponent<SpriteRenderer>().sprite = small;
                 ship.GetComponent<Turret>().installedUpgrade = "Small Frame";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "No Action Needed";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Smaller ship!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().small = true;
                 break;
@@ -543,7 +543,7 @@ public class Upgrades : MonoBehaviour
             case "Laser":
                 ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.22f, 0);
                 turretSprite.GetComponent<SpriteRenderer>().sprite = laserSprite;
-                ship.GetComponent<Turret>().installedGun = "Energy Condensor";
+                ship.GetComponent<Turret>().installedGun = "Laser";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().laserUpgrade = true;
 
@@ -551,7 +551,7 @@ public class Upgrades : MonoBehaviour
             case "Shotgun":
                 ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.62f, 0);
                 turretSprite.GetComponent<SpriteRenderer>().sprite = triple;
-                ship.GetComponent<Turret>().installedGun = "Energy Refractor";
+                ship.GetComponent<Turret>().installedGun = "Shotgun";
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().shotgun = true;
                 ship.GetComponent<Turret>().basicGun = true;
@@ -589,7 +589,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Ricochet Shot":
                 turretSprite.GetComponent<SpriteRenderer>().sprite = ricochet;
-                ship.GetComponent<Turret>().installedGun = "Matter Destabilizer";
+                ship.GetComponent<Turret>().installedGun = "Ricochet Shot";
                 ship.GetComponent<Turret>().barrelEnd.transform.localPosition = new Vector2(1.28f, 0);
                 setGunUpgradesFalse();
                 ship.GetComponent<Turret>().ricochet = true;
