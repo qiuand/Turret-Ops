@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public GameObject hullTransform;
+
+    public AudioClip emptyRepair;
+
+    public GameObject explosionEffect;
+    public GameObject sparks;
     public GameObject healthWarning;
 
     public AudioClip rechargedSound;
@@ -199,6 +205,8 @@ public class Turret : MonoBehaviour
     int originalMovespeed = 70;
     bool barrelInserted = true;
     bool released = false;
+
+    public GameObject ii;
     public GameObject turretSprite;
     bool detectedBarrel = false;
     bool needReload = false;
@@ -301,6 +309,7 @@ public class Turret : MonoBehaviour
     public GameObject requestLayer;
     public GameObject requestText;
     public GameObject spawner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -360,6 +369,7 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        mechGunStat.GetComponent<SpriteRenderer>().sprite = turretSprite.GetComponent<SpriteRenderer>().sprite;
         if (health <= maxHealth / 2)
         {
             mechHealthAlert.SetActive(true);
@@ -932,20 +942,24 @@ public class Turret : MonoBehaviour
         if (Input.GetKeyDown("z"))
         {
             swungAt = 0;
+            Instantiate(sparks, mechRWingStat.transform);
             HammerSwing();
         }
         else if (Input.GetKeyDown("x"))
         {
+            Instantiate(sparks, mechLWingStat.transform);
             swungAt = 1;
             HammerSwing();
         }
         else if (Input.GetKeyDown("c"))
         {
+            GameObject cockpitSparks= Instantiate(sparks, hullTransform.transform);
             swungAt = 2;
             HammerSwing();
         }
         else if (Input.GetKeyDown("v"))
         {
+            Instantiate(sparks, mechGunStat.transform);
             swungAt = 3;
             HammerSwing();
         }
@@ -1043,18 +1057,19 @@ public class Turret : MonoBehaviour
                 heat = maxHeat;
                 if (overheated == false)
                 {
+                    Instantiate(explosionEffect, mechGunStat.transform);
                     source.PlayOneShot(overheat);
                     overheated = true;
-                minimapLaserGreen.gameObject.SetActive(false);
-                laser.enableEmission = false;
-                if (enhancedMaterials)
-                {
-                    malfunctionArray[3] = gunRepairEnhancedReduction;
-                }
-                else
-                {
-                    malfunctionArray[3] = gunRepairHits;
-                }
+                    minimapLaserGreen.gameObject.SetActive(false);
+                    laser.enableEmission = false;
+                    if (enhancedMaterials)
+                    {
+                        malfunctionArray[3] = gunRepairEnhancedReduction;
+                    }
+                    else
+                    {
+                        malfunctionArray[3] = gunRepairHits;
+                    }
                 }
                 /*            barrelHeated = true;
                             if (malfunctionType != "None" && malfunctionType != "Barrel")
@@ -1408,6 +1423,23 @@ public class Turret : MonoBehaviour
         source.PlayOneShot(shipExplosion);
         source.PlayOneShot(malfunction);
         int random = Random.Range(0, malfunctionArray.Length-1);
+        GameObject thingLocation= mechRWingStat;
+        switch (random)
+        {
+            case 0:
+                thingLocation = mechRWingStat;
+                break;
+            case 1:
+                thingLocation = mechLWingStat;
+                break;
+            case 2:
+                thingLocation = mechHullStat;
+                break;
+            case 3:
+                thingLocation = mechGunStat;
+                break;
+        }
+        GameObject explodey= Instantiate(explosionEffect, hullTransform.transform);
         malfunctionArray[random] = hits;
     }
     private void processMalfunction()
@@ -1502,12 +1534,16 @@ public class Turret : MonoBehaviour
             {
                 if (malfunctionArray[swungAt] == 1)
                 {
-                    debuffTimer = 5.0f;
                     source.PlayOneShot(fix);
+                    debuffTimer = 5.0f;
                     health += manualRepairAmount;
                 }
                 source.PlayOneShot(repair);
                 malfunctionArray[swungAt] -= 1;
+            }
+            else
+            {
+                source.PlayOneShot(emptyRepair);
             }
             repairTime = repairDuration;
         }

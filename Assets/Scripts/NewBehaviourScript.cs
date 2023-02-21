@@ -19,7 +19,7 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         Cursor.visible = false;
-        if (Input.GetKeyDown("2"))
+        if (Input.GetKeyDown("1"))
         {
             Turret.score = 0;
             SceneManager.LoadScene("Game");
