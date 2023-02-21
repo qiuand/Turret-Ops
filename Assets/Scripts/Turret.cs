@@ -1654,7 +1654,7 @@ public class Turret : MonoBehaviour
                         gunnerView.SetActive(true);
                         break;
                     case "Repair Kit":
-                        for (int i = 0; i < malfunctionArray.Length - 1; i++)
+                        for (int i = 0; i < malfunctionArray.Length; i++)
                         {
                             malfunctionArray[i] = 0;
                         }

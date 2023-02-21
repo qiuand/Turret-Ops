@@ -7,7 +7,7 @@ public class Tut : MonoBehaviour
 {
     public AudioClip bang;
     public GameObject standardUI;
-    public VideoClip spin, load, swap, hammer, black, colour;
+    public VideoClip spin, load, swap, hammer, black, colour, activate;
     public GameObject mechVid, gunVid;
     public GameObject gunTutVid;
     public GameObject mechTutVid;
@@ -334,6 +334,10 @@ public class Tut : MonoBehaviour
 /*                gunVid.SetActive(false);*/
                 gunTutVid.SetActive(false);
                 mechTutVid.GetComponent<VideoPlayer>().clip = hammer;
+                break;
+            case 4:
+                /*                gunVid.SetActive(false);*/
+                mechTutVid.GetComponent<VideoPlayer>().clip = activate;
                 break;
             case 5:
                 gunVid.SetActive(true);

@@ -37,7 +37,7 @@ public class Upgrades : MonoBehaviour
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge", "Railgun Overcharge" };
+    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge"/*, "Railgun Overcharge"*/ };
     List<string> powerupList = new List<string> { "Small Frame", "Repair", "Orange Shield", "Piercing", "Blue Shield", "Thermal Imaging", "Enhanced Materials", "Heavy Armour", "Electric Override",  "Tactical Airstrike", };
     public GameObject upgrade1;
     public GameObject upgrade2;
@@ -311,12 +311,12 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Orange Shield":
                 body.GetComponent<Image>().sprite = redPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all incoming <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Orange Shield (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
                 break;
             case "Blue Shield":
                 body.GetComponent<Image>().sprite = greenPower;
                 body.GetComponent<Image>().sprite = greenPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all incoming <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Blue Shield (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Electric Override":
