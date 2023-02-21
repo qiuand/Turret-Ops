@@ -38,7 +38,7 @@ public class Turret : MonoBehaviour
     public int ddddc;
 
     float repairTimer;
-    float repairDuration=0.13f;
+    float repairDuration=0.15f;
     float electricReduction = 1f;
     int gunRepairHits = 12;
     int gunRepairEnhancedReduction = 8;
@@ -101,7 +101,7 @@ public class Turret : MonoBehaviour
     public string installedUpgrade = "No Upgrade";
     bool recharged = true;
     public float rechargeDuration = 15.0f;
-    float rechargeTime;
+    public float rechargeTime;
     public float pierceDurationCool=10.0f;
     float pierceCooldownTime;
     float abilityCooldown=0f;
@@ -540,17 +540,17 @@ public class Turret : MonoBehaviour
         powerupInfo.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade+" installed";
         /*        pierceActive = true;
                 pierceUpgrade = true;*/
-        rechargeTime -= Time.deltaTime;
+/*        rechargeTime -= Time.deltaTime;*/
         if (recharged == false)
         {
             upgradeActive = false;
-            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = System.Math.Round(rechargeTime, 2) + " seconds to recharge";
+            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text ="<color=red>Depleted! "+System.Math.Round(rechargeTime, 0) + " seconds to recharge";
             rechargeTime -= Time.deltaTime;
             if (rechargeTime <= 0)
             {
                 rechargeTime = rechargeDuration;
                 recharged = true;
-                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = originalMessagePower;
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=green>"+originalMessagePower;
             }
         }
         if (laserUpgrade == true)
@@ -1403,7 +1403,7 @@ public class Turret : MonoBehaviour
             rightMotionDamage = false;
             rWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             malfunctionArray[0] = 0;
-            rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "RWing Okay";
+            rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "";
             rWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1, 1);
             rWingFire.enableEmission = false;
             wing2.GetComponent<Animator>().SetBool("Destroyed", false);
@@ -1419,7 +1419,7 @@ public class Turret : MonoBehaviour
             leftMotionDamage = false;
             lWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             malfunctionArray[1] = 0;
-            lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "LWing Okay";
+            lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "";
             lWingFire.enableEmission = false;
             wing.GetComponent<Animator>().SetBool("Destroyed", false);
             mechLWingStat.GetComponent<Animator>().SetBool("Destroyed", false);
@@ -1436,7 +1436,7 @@ public class Turret : MonoBehaviour
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             body.GetComponent<SpriteRenderer>().enabled = true;
             /*            camText.GetComponent<TMPro.TextMeshProUGUI>().text="Cockpit okay";*/
-            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit okay";
+            hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "";
             cockpit.SetActive(false);
             mechDestroyedCockpit.SetActive(false);
             mechHullStat.SetActive(true);
@@ -1469,7 +1469,7 @@ public class Turret : MonoBehaviour
                 heat = 0;
             }
             smokeSystem.enableEmission = false;
-            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Gun okay";
+            barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "";
         }
         else
         {
@@ -1681,7 +1681,7 @@ public class Turret : MonoBehaviour
             }
             if (upgradeActive == true)
             {
-                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade + " Active: " + System.Math.Round(pierceCooldownTime, 2) + " seconds remaining";
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=green>"+installedUpgrade + " Active! " + System.Math.Round(pierceCooldownTime, 0) + " seconds remaining";
                 pierceCooldownTime -= Time.deltaTime;
                 if (pierceCooldownTime <= 0)
                 {

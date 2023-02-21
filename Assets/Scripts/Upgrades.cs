@@ -37,8 +37,8 @@ public class Upgrades : MonoBehaviour
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher", "Reactive Armour", "Overcharge"/*, "Railgun Overcharge"*/ };
-    List<string> powerupList = new List<string> { "Small Frame", "Repair", "Orange Shield", "Piercing", "Blue Shield", "Thermal Imaging", "Enhanced Materials", "Heavy Armour", "Electric Override",  "Tactical Airstrike", };
+    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher"/*, "Reactive Armour"*/, "Overcharge"/*, "Railgun Overcharge"*/ };
+    List<string> powerupList = new List<string> { /*"Small Frame",*/ "Repair", "Orange Shield", "Piercing", "Blue Shield", "Thermal Imaging", "Enhanced Materials", "Heavy Armour", "Electric Override",  "Tactical Airstrike", };
     public GameObject upgrade1;
     public GameObject upgrade2;
     int displayChoice;
@@ -303,7 +303,7 @@ public class Upgrades : MonoBehaviour
         {
             case "Piercing":
                 body.GetComponent<Image>().sprite = pierce;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Bullets will destroy any ship for " + activationTime+" seconds.</color><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "HEAT Rounds (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Your bullets destroy any colour ship for " + activationTime+" seconds.</color><color=red><br>-"+cooldownTime+" second cooldown<br>Replaces "+ replacedThingBody +"</color>";
                 break;
             case "Repair":
                 body.GetComponent<Image>().sprite = repair;
@@ -321,7 +321,7 @@ public class Upgrades : MonoBehaviour
 
             case "Electric Override":
                 body.GetComponent<Image>().sprite = tactialOverride;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Optimized Config (Mechanic)<br><color=green>++Greatly reduced barrel heat<br><color=red>--Exchanges Gunner and Mechanic viewports<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Optimized Config (Mechanic)<br><color=green>++Greatly reduces heat buildup<br><color=red>--The Mechanic can see colour, but the Gunner cannot.<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Enhanced Materials":
@@ -330,11 +330,11 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Thermal Imaging":
                 body.GetComponent<Image>().sprite = Thermals;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Briefly view the Gunner's viewport for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Camera Override (Mechanic)<br><color=green>+Mechanic activates with<br><color=red>● Select</color>: The Mechanic can see colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Heavy Armour":
                 body.GetComponent<Image>().sprite = heavy;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Heavy Armour (Mechanic)<br><color=green>++Massively increased health<br>+Less hits needed for repair<br><color=red>--Extremely slow turn speed<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Heavy Armour (Mechanic)<br><color=green>++Massively increased health/*<br>+Less hits needed for repair*/<br><color=red>--Extremely slow turn speed<br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Double Duty":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Duty Sniper Tank (Mechanic)<br><color=green>++Massively increased spotting distance<br>++Greatly increased health<br>+Increased rotation speed<br><color=red>----Enemies start coming at you from the rear<br>-replaces " + replacedThingBody + "</color>";
@@ -506,6 +506,7 @@ public class Upgrades : MonoBehaviour
         upgradeList.RemoveAt(displayChoice);
         levelSkip();
         minimapHull.GetComponent<SpriteRenderer>().sprite = hullThing.GetComponent<SpriteRenderer>().sprite;
+        turret.GetComponent<Turret>().rechargeTime = 0;
     }
     public void levelSkip()
     {
