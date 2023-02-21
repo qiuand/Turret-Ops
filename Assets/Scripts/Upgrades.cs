@@ -261,7 +261,7 @@ public class Upgrades : MonoBehaviour
     public void RollUpgrades()
     {
         abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an <color=green>upgrade!</color> Choose one:";
-        abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an <color=green>upgrade!</color> Consult with the Gunner! (Pick one)";
+        abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "You deserve an <color=green>upgrade!</color> Discuss with the Gunner and pick one!";
         if (upgradeList.Count>0 && powerupList.Count > 0)
         {
             mechanicScreenUppyLayer.SetActive(true);

@@ -369,6 +369,7 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        repairTime -= Time.deltaTime;
         mechGunStat.GetComponent<SpriteRenderer>().sprite = turretSprite.GetComponent<SpriteRenderer>().sprite;
         if (health <= maxHealth / 2)
         {
@@ -403,7 +404,6 @@ public class Turret : MonoBehaviour
         {
             electricReduction = 1f;
         }
-        repairTime -= Time.deltaTime;
         if(Input.GetKey("1")&& Input.GetKey("2") && Input.GetKey(KeyCode.Space))
         {
             SceneManager.LoadScene("Main");
