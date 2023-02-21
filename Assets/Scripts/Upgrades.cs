@@ -307,7 +307,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Repair":
                 body.GetComponent<Image>().sprite = repair;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Auto-repair (Mechanic)</b><br><color=green>+Automatically repair a bit of health every 5 seconds<br><color=red>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Auto-repair (Mechanic)</b><br><color=green>+Your ship auto-repairs a bit of health every 5 seconds<br><color=red>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Orange Shield":
                 body.GetComponent<Image>().sprite = redPower;
@@ -330,11 +330,11 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Thermal Imaging":
                 body.GetComponent<Image>().sprite = Thermals;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Camera Override (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color>: The Mechanic can see colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Thermal Imaging (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color>: The Mechanic can see colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Heavy Armour":
                 body.GetComponent<Image>().sprite = heavy;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Heavy Armour (Mechanic)</b><br><color=green>++Massively increased health/*<br>+Less hits needed for repair*/<br><color=red>--Extremely slow turn speed<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Heavy Armour (Mechanic)</b><br><color=green>++Greatly increased health<br><color=red>--Extremely slow turn speed<br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Double Duty":
                 textField.GetComponent<TMPro.TextMeshProUGUI>().text = "Double Duty Sniper Tank (Mechanic)<br><color=green>++Massively increased spotting distance<br>++Greatly increased health<br>+Increased rotation speed<br><color=red>----Enemies start coming at you from the rear<br>-replaces " + replacedThingBody + "</color>";
@@ -359,19 +359,19 @@ public class Upgrades : MonoBehaviour
         {
             case "Laser":
                 gun.GetComponent<Image>().sprite = laserSprite;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Laser Cannon (Gunner)</b> <br><color=green>+Laser Fire</color><br><color=red>-Severe barrel heat<br>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Laser Cannon (Gunner)</b> <br><color=green>+Laser Fire</color><br><color=red>-High heat<br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Shotgun":
                 gun.GetComponent<Image>().sprite = triple;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Energy Refractor</b> (Gunner)<br><color=green>+Tri-laser shot<br><color=red>-Increased barrel heat<br>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Energy Refractor</b> (Gunner)<br><color=green>+Triple shot<br><color=red>-High heat<br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Chain Gun":
                 gun.GetComponent<Image>().sprite = chaingun;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Chain Gun (Gunner)</b><br><color=green>+Increased fire rate<br>+Decreased Barrel Heat<br><color=red>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Chain Gun (Gunner)</b><br><color=green>+Faster firing<br>+Less heat<br><color=red>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Particle Smasher":
                 gun.GetComponent<Image>().sprite = particleSprite;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Particle Smasher (Gunner)</b><br><color=green>++Launches giant energy emitting spheres<br><color=red>--Extreme heat<br>-Slow projectile speed<br>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Particle Smasher (Gunner)</b><br><color=green>++Shoots giant energy balls<br><color=red>--Very high heat<br>-Slow projectile speed<br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Improved Bearings":
                 gun.GetComponent<Image>().sprite = fast;
@@ -379,11 +379,11 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Railgun Overcharge":
                 gun.GetComponent<Image>().sprite = railgun;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Railgun</b> (Gunner)<br><color=green>++High power piercing bullet that rips through any colour ship<color=red><br>--Every shot instantly overheats the gun<br>Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Railgun</b> (Gunner)<br><color=green>++Bullets penetrate and destroy every colour ship<color=red><br>--Every shot causes an instant overheat<br>Replaces " + replacedThingGun + "</color>";
                 break;
             case "Ricochet Shot":
                 gun.GetComponent<Image>().sprite = ricochet;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Ricochet Shot (Gunner)</b><br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>--Greatly increased heat<br>Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Ricochet Shot (Gunner)</b><br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>/*--Greatly increased heat<br>*/Replaces " + replacedThingGun + "</color>";
                 break;
             case "Reactive Armour":
                 gun.GetComponent<Image>().sprite = heavy;
@@ -391,7 +391,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Dual shot":
                 gun.GetComponent<Image>().sprite = dual;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Double Shot (Gunner)</b><br><color=green>+Dual shot split fire<br><color=red>-Slightly increased heat<br>-Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Double Shot (Gunner)</b><br><color=green>+Double shot fire<br><color=red>-Medium heat<br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Overcharge":
                 gun.GetComponent<Image>().sprite = overgunSprite;

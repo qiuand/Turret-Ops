@@ -1730,7 +1730,7 @@ public class Turret : MonoBehaviour
 
     public void UpdateScore()
     {
-        scoreCountText.GetComponent<TMPro.TextMeshProUGUI>().text = "Score: " + score;
+        scoreCountText.GetComponent<TMPro.TextMeshProUGUI>().text = "Score: " + System.Math.Round(score,0);
         scoreCountText2.GetComponent<TMPro.TextMeshProUGUI>().text = scoreCountText.GetComponent<TMPro.TextMeshProUGUI>().text;
     }
 }
