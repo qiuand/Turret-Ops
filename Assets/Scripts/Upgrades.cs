@@ -121,7 +121,7 @@ public class Upgrades : MonoBehaviour
                     pendingUpgrade = true;
 
                 }
-                if (Input.GetKeyDown("3"))
+                if (Input.GetKeyDown("3") && pendingUpgrade==false)
                 {
                     source.PlayOneShot(select);
                     upgradeNumSelected = 15;
@@ -276,8 +276,8 @@ public class Upgrades : MonoBehaviour
                 }
                 else
                 {
-                    displayChoice = Random.Range(0, upgradeList.Count-1);
-                    displayChoice2 = Random.Range(0, powerupList.Count-1);
+                    displayChoice = Random.Range(0, upgradeList.Count);
+                    displayChoice2 = Random.Range(0, powerupList.Count);
                 }
                 /*displayChoice = *//*Random.Range(0, *//*EnemySpawn.waveCount - 1*//*upgradeList.Count-1*//*);*//*;
                 displayChoice2 = *//*Random.Range(0, *//*EnemySpawn.waveCount - 1 *//*powerupList.Count-1*//*);*//*;*/
@@ -411,7 +411,7 @@ public class Upgrades : MonoBehaviour
             case "Piercing":
                 ship.GetComponent<Turret>().installedUpgrade = "HEAT Round Module";
                 hullThing.GetComponent<SpriteRenderer>().sprite = pierce;
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate omni-colour bullets!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().pierceUpgrade = true;
                 break;
@@ -425,7 +425,7 @@ public class Upgrades : MonoBehaviour
             case "Orange Shield":
                 hullThing.GetComponent<SpriteRenderer>().sprite = redPower;
                 ship.GetComponent<Turret>().installedUpgrade = "Orange Shield Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to block <color=#CC4C26>orange (○) enemies!</color>";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().redShield = true;
                 break;
@@ -440,7 +440,7 @@ public class Upgrades : MonoBehaviour
                 hullThing.GetComponent<SpriteRenderer>().sprite = greenPower;
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().installedUpgrade = "Blue Shield Module";
-                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to activate";
+                ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select○</color> to block <color=#1266E6>blue (☐) enemies!</color>";
                 ship.GetComponent<Turret>().greenShield = true;
                 break;
             case "Enhanced Materials":
@@ -487,6 +487,7 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().small = true;
                 break;
         }
+        ship.GetComponent<Turret>().originalMessagePower = ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text;
         /*        setScoreUpgradeReset();
                 cam.GetComponent<CamZoom>().zoomIn = false;
                 *//*        powerupList.Remove(powerupList[upgradeIndex]);*//*

@@ -24,6 +24,7 @@ public class WonScript : MonoBehaviour
         {
             Turret.score = 0;
             SceneManager.LoadScene("Main");
+            EnemySpawn.beginNextWave = true;
         }
         scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
         scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;

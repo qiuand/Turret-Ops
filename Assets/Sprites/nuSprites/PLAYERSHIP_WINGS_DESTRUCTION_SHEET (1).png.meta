@@ -1,0 +1,1044 @@
+fileFormatVersion: 2
+guid: 4319153e17c172441915a04e25fd2da3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5031642440186231264
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_0
+  - first:
+      213: -2403433799380584606
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_1
+  - first:
+      213: 7447710317151068433
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_2
+  - first:
+      213: 3593859290561757521
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_3
+  - first:
+      213: -3828760612766474080
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_4
+  - first:
+      213: -8961210881893862983
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_5
+  - first:
+      213: 6758955573509025415
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_6
+  - first:
+      213: -1848620145923362963
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_7
+  - first:
+      213: -3220445165918232705
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_8
+  - first:
+      213: 3010098378297810662
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_9
+  - first:
+      213: 3789470930012832902
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_10
+  - first:
+      213: 8592575855775810494
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_11
+  - first:
+      213: 7974955761348416253
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_12
+  - first:
+      213: -9155694524802761220
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_13
+  - first:
+      213: -3116308549665610147
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_14
+  - first:
+      213: -8690600721241881977
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_15
+  - first:
+      213: -8711046882359040502
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_16
+  - first:
+      213: -5911302570516158220
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_17
+  - first:
+      213: 5758097251903108488
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_18
+  - first:
+      213: -5524963161590557169
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_19
+  - first:
+      213: -225914768454619494
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_20
+  - first:
+      213: 4931970099200656541
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_21
+  - first:
+      213: 1833379211380839534
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_22
+  - first:
+      213: 1758783584767320306
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_23
+  - first:
+      213: -96281851264491256
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_24
+  - first:
+      213: 5831868017407828692
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_25
+  - first:
+      213: 6252692373619064846
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_26
+  - first:
+      213: -5653862967922588106
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_27
+  - first:
+      213: -5110343169604869278
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_28
+  - first:
+      213: -2400541068527928740
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_29
+  - first:
+      213: 4378910562449946099
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_30
+  - first:
+      213: -8218906339455765152
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_31
+  - first:
+      213: -7258567990710885315
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_32
+  - first:
+      213: 8668685301138964585
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_33
+  - first:
+      213: 697031779522770816
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_34
+  - first:
+      213: 1303177439315949548
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_35
+  - first:
+      213: -6497236115958278395
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_36
+  - first:
+      213: 7062443768173594678
+    second: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_37
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1120
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e9741cf32cf3d540800000000000000
+      internalID: 5031642440186231264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_1
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 1120
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 267b0c281b945aed0800000000000000
+      internalID: -2403433799380584606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_2
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1120
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1112dc3e2159b5760800000000000000
+      internalID: 7447710317151068433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_3
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 1120
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 151cba2dbf3ffd130800000000000000
+      internalID: 3593859290561757521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a02c0222828ddac0800000000000000
+      internalID: -3828760612766474080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_5
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 896
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b1f9537e2263a380800000000000000
+      internalID: -8961210881893862983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_6
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 896
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78ee6ab9842accd50800000000000000
+      internalID: 6758955573509025415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_7
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 896
+        width: 93
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6f6b9d85c16856e0800000000000000
+      internalID: -1848620145923362963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 672
+        width: 108
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7fd1da2f2eae43d0800000000000000
+      internalID: -3220445165918232705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_9
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 672
+        width: 97
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ee9b61e68406c920800000000000000
+      internalID: 3010098378297810662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_10
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 772
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 684851ebbb7e69430800000000000000
+      internalID: 3789470930012832902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_11
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 672
+        width: 92
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb38d152736fe3770800000000000000
+      internalID: 8592575855775810494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_12
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 672
+        width: 92
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df290a6030cbcae60800000000000000
+      internalID: 7974955761348416253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_13
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 764
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfd7421b65070f080800000000000000
+      internalID: -9155694524802761220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_14
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 759
+        width: 7
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d562bae82e5a0c4d0800000000000000
+      internalID: -3116308549665610147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_15
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 745
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 782cf9550b8c46780800000000000000
+      internalID: -8690600721241881977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_16
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 733
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a06273b73052c1780800000000000000
+      internalID: -8711046882359040502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_17
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 713
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f8e78ca1a5d6fda0800000000000000
+      internalID: -5911302570516158220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_18
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 718
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88576d161fed8ef40800000000000000
+      internalID: 5758097251903108488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_19
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 448
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f06964ce6436353b0800000000000000
+      internalID: -5524963161590557169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_20
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 448
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9e6fbc07b36ddcf0800000000000000
+      internalID: -225914768454619494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_21
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 448
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9404bdaca0e17440800000000000000
+      internalID: 4931970099200656541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_22
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 448
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e64d0f8dda8717910800000000000000
+      internalID: 1833379211380839534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_23
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 224
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f028d61a54786810800000000000000
+      internalID: 1758783584767320306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_24
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 224
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80120199a20f9aef0800000000000000
+      internalID: -96281851264491256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_25
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 224
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d22e823015fee050800000000000000
+      internalID: 5831868017407828692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_26
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 224
+        width: 93
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e00cb5be59606c650800000000000000
+      internalID: 6252692373619064846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_27
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 0
+        width: 108
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6360d3c06917981b0800000000000000
+      internalID: -5653862967922588106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_28
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 100
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 263ab5786f96419b0800000000000000
+      internalID: -5110343169604869278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_29
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 0
+        width: 97
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5af7a5ed909faed0800000000000000
+      internalID: -2400541068527928740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_30
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 0
+        width: 92
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f5f802c4f305cc30800000000000000
+      internalID: 4378910562449946099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_31
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 0
+        width: 92
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 065788ada3490fd80800000000000000
+      internalID: -8218906339455765152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_32
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 92
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3428a7bed2644b90800000000000000
+      internalID: -7258567990710885315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_33
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 87
+        width: 7
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 960c90c4a5b5d4870800000000000000
+      internalID: 8668685301138964585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_34
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 61
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 087fc9fd5ba5ca900800000000000000
+      internalID: 697031779522770816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_35
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 73
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce7fabdf9f0d51210800000000000000
+      internalID: 1303177439315949548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_36
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 46
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 507d7762d2e25d5a0800000000000000
+      internalID: -6497236115958278395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PLAYERSHIP_WINGS_DESTRUCTION_SHEET (1)_37
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 41
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63888205037d20260800000000000000
+      internalID: 7062443768173594678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

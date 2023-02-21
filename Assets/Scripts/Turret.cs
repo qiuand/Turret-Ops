@@ -7,6 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public GameObject mechHullStat, mechGunStat, mechLWingStat, mechRWingStat;
+
+    public GameObject heatWarning;
+
+    float autoRepairCool;
+    float autoRepairTime=5f;
+
+    float repairKitHealth = 40;
+    public GameObject body;
+
+    public string originalMessagePower= "Press <color=red>● Select</color> to fix all malfunctions!";
+
+    public GameObject mechDestroyedCockpit;
+    public GameObject wing;
+    public GameObject wing2;
+    public GameObject cockpit;
+
     public int uppieHits=10;
 
     public GameObject gunSprite;
@@ -262,7 +279,9 @@ public class Turret : MonoBehaviour
     bool pierceActive = false;
     public GameObject powerupInfo;
     public string powerupInstalled;
+
     public GameObject powerupCoolText;
+
     bool upgradeActive = false;
     bool redShieldActive = false;
     public GameObject redShieldObject;
@@ -277,6 +296,9 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        heatWarning.SetActive(false);
+
+        powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = originalMessagePower;
         gunSprite.GetComponent<Image>().sprite = exclamation;
         gunSprite.GetComponent<Image>().color = new Color(1, 1, 1);
 
@@ -323,12 +345,24 @@ public class Turret : MonoBehaviour
         movespeed = originalMovespeed;
         malfunctionArray = new int[4] { 0, 0, 0, 0};
         swungMax = malfunctionArray.Length - 1;
-        powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+/*        powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "";*/
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (heat >= maxHeat * 0.5f)
+        {
+            heatWarning.SetActive(true);
+        }
+        else
+        {
+            heatWarning.SetActive(false);
+        }
+        mechLWingStat.GetComponent<SpriteRenderer>().sprite = wing.GetComponent<SpriteRenderer>().sprite;
+        mechRWingStat.GetComponent<SpriteRenderer>().sprite = wing2.GetComponent<SpriteRenderer>().sprite;
+        mechHullStat.GetComponent<SpriteRenderer>().sprite = body.GetComponent<SpriteRenderer>().sprite;
+
         UpdateScore();
         if (electricOverride)
         {
@@ -479,7 +513,7 @@ public class Turret : MonoBehaviour
         {
             hits = maxHit;
         }
-        ActivatePowerups();
+        ActivatePowerups(false);
         if (electricOverride == true && thermalImaging==false)
         {
             gunnerView.SetActive(true);
@@ -504,7 +538,7 @@ public class Turret : MonoBehaviour
             {
                 rechargeTime = rechargeDuration;
                 recharged = true;
-                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press Select ";
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = originalMessagePower;
             }
         }
         if (laserUpgrade == true)
@@ -609,23 +643,24 @@ public class Turret : MonoBehaviour
             }
             inTut = gun.inTutorial;
             int scoreInt = Mathf.FloorToInt(score);
-/*            score -= Time.deltaTime * scoreMultiplier;*/
+        /*            score -= Time.deltaTime * scoreMultiplier;*/
+        autoRepairCool -= Time.deltaTime;
         if (autoRepair == true)
         {
             if (health >= 100)
             {
-                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair on standby:  " + score;
-                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair on standby: " + score;
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair on standby!";
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair on standby!";
             }
             else
             {
-                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown:  " + score;
-                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair Cooldown: " + score;
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Repairs in process:  " + autoRepairCool;
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Repairs in process: " + autoRepairCool;
             }
-            if (score <= 0)
+            if (0>= +autoRepairCool)
             {
                 health += repairAmount;
-                score = 10;
+                autoRepairCool = autoRepairTime;
             }
         }
             highLight();
@@ -967,7 +1002,7 @@ public class Turret : MonoBehaviour
             healthBar.fillAmount = health / maxHealth;
             overheatBar2.fillAmount = heat / maxHeat;
             healthBar2.fillAmount = health / maxHealth;
-            barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x + heat / 100, currentBarrelColour.y - heat / 400, currentBarrelColour.z);
+            barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x /*+ heat / 100*/, currentBarrelColour.y /*- heat / 800*/, currentBarrelColour.z);
             if (currentBarrelColour == defaultBarrelColour)
             {
                 barrel.GetComponent<SpriteRenderer>().color = new Color(currentBarrelColour.x, currentBarrelColour.y - heat / 100, currentBarrelColour.z - heat / 100);
@@ -1080,9 +1115,9 @@ public class Turret : MonoBehaviour
                             {
                                 heat += dualShotHeat * electricReduction;
                             }
-                            heat += dualShotHeat * electricReduction;
                             source.PlayOneShot(shootPlasma);
                         }
+                            heat += dualShotHeat * electricReduction;
                             GameObject shotgunBullet = Instantiate(projectile, shotgunPos1.transform.position, shotgunPos1.transform.rotation);
                             shotgunBullet.GetComponent<Rigidbody2D>().velocity = shotgunPos1.transform.right * projectilespeed;
                             GameObject shotgunBullet2 = Instantiate(projectile, shotgunPos2.transform.position, shotgunPos2.transform.rotation);
@@ -1342,7 +1377,7 @@ public class Turret : MonoBehaviour
     {
         health--;
     }
-    private void randomMalfunction()
+    public void randomMalfunction()
     {
         source.PlayOneShot(shipExplosion);
         source.PlayOneShot(malfunction);
@@ -1359,6 +1394,8 @@ public class Turret : MonoBehaviour
             rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "RWing Okay";
             rWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1, 1);
             rWingFire.enableEmission = false;
+            wing2.GetComponent<Animator>().SetBool("Destroyed", false);
+            mechRWingStat.GetComponent<Animator>().SetBool("Destroyed", false);
         }
         else
         {
@@ -1372,6 +1409,8 @@ public class Turret : MonoBehaviour
             malfunctionArray[1] = 0;
             lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "LWing Okay";
             lWingFire.enableEmission = false;
+            wing.GetComponent<Animator>().SetBool("Destroyed", false);
+            mechLWingStat.GetComponent<Animator>().SetBool("Destroyed", false);
         }
         else
         {
@@ -1383,8 +1422,12 @@ public class Turret : MonoBehaviour
             blackout.SetActive(false);
 
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
-/*            camText.GetComponent<TMPro.TextMeshProUGUI>().text="Cockpit okay";*/
+            body.GetComponent<SpriteRenderer>().enabled = true;
+            /*            camText.GetComponent<TMPro.TextMeshProUGUI>().text="Cockpit okay";*/
             hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Cockpit okay";
+            cockpit.SetActive(false);
+            mechDestroyedCockpit.SetActive(false);
+            mechHullStat.SetActive(true);
             camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,1f,1f);
             hullText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1f, 1f);
         }
@@ -1411,7 +1454,7 @@ public class Turret : MonoBehaviour
             {
                 heatFlag = true;
                 overheated = false;
-                heat = maxHeat - 1;
+                heat = 0;
             }
             smokeSystem.enableEmission = false;
             barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Gun okay";
@@ -1481,6 +1524,8 @@ public class Turret : MonoBehaviour
         rWingFire.enableEmission = true;
         rWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
         rightMotionDamage = true;
+        wing2.GetComponent<Animator>().SetBool("Destroyed", true);
+        mechRWingStat.GetComponent<Animator>().SetBool("Destroyed", true);
         rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret turns 50% slower to the right.<br>Hit "+malfunctionArray[0]+" times";
         rightMotionDamage = true;
     }
@@ -1490,6 +1535,8 @@ public class Turret : MonoBehaviour
         lWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,0,0);
         lWingFire.enableEmission = true;
         lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret turns 50% slower to the left.<br>Hit " + malfunctionArray[1] + " times";
+        wing.GetComponent<Animator>().SetBool("Destroyed", true);
+        mechLWingStat.GetComponent<Animator>().SetBool("Destroyed", true);
         leftMotionDamage = true;
     }
     private void hullMalfunction()
@@ -1502,6 +1549,10 @@ public class Turret : MonoBehaviour
         }
         else
         {
+            cockpit.SetActive(true);
+            mechDestroyedCockpit.SetActive(true);
+            mechHullStat.SetActive(false);
+            body.GetComponent<SpriteRenderer>().enabled = false;
             hullGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
             hullText.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner camera down!<br>Hit " + malfunctionArray[2] + " times";
         }
@@ -1519,7 +1570,7 @@ public class Turret : MonoBehaviour
     private void camMalfunction()
     {        
     }
-    private void barrelMalfunction()
+    public void barrelMalfunction()
     {
         if (upgrader.GetComponent<Upgrades>().installing)
         {
@@ -1551,79 +1602,90 @@ public class Turret : MonoBehaviour
         source.PlayOneShot(overcharge);
         yield return new WaitForSeconds(2.0f);
     }
-    private void ActivatePowerups()
+    public void ActivatePowerups(bool tutPowerFlag)
     {
-        if (upgrader.GetComponent<Upgrades>().pendingUpgrade==false && Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No Upgrade" && (string.Equals(installedUpgrade, "HEAT Round Module") || string.Equals(installedUpgrade, "Orange Shield Module") || string.Equals(installedUpgrade, "Blue Shield Module") || string.Equals(installedUpgrade, "Tactical Airstrike") || string.Equals(installedUpgrade, "Thermal Imaging")) && upgradeActive==false)
+        if (inTut == false || tutPowerFlag==true)
         {
-            StartCoroutine(PlayOvercharge());
-            switch (installedUpgrade)
+            if (upgrader.GetComponent<Upgrades>().pendingUpgrade == false && Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No Upgrade" && (string.Equals(installedUpgrade, "HEAT Round Module") || string.Equals(installedUpgrade, "Orange Shield Module") || string.Equals(installedUpgrade, "Blue Shield Module") || string.Equals(installedUpgrade, "Tactical Airstrike") || string.Equals(installedUpgrade, "Thermal Imaging") || string.Equals(installedUpgrade, "Repair Kit")) && upgradeActive == false)
             {
-                case "Tactical Airstrike":
-                    if (startingMag == 1)
-                    {
-                        tacStrikeRadius.gameObject.tag = "Projectile";
-                    }
-                    else if (startingMag == 2)
-                    {
-                        tacStrikeRadius.gameObject.tag = "Projectile2";
-                    }
-                    else
-                    {
-                        tacStrikeRadius.gameObject.tag ="Boss Health";
-                    }
-                    tacStrikeRadius.SetActive(true);
-                    pierceCooldownTime = 1.5f;
-                    rechargeTime = rechargeDuration;
-                    break;
-                case "HEAT Round Module":
-                    pierceActive = true;
-                    break;
-                case "Orange Shield Module":
-                    redShieldActive = true;
-                    break;
-                case "Blue Shield Module":
-                    greenShieldActive = true;
-                    greenShieldObj.gameObject.SetActive(true);
-                    break;
-                case "Thermal Imaging":
-                    gunnerView.SetActive(true);
-                    break;
+                StartCoroutine(PlayOvercharge());
+                switch (installedUpgrade)
+                {
+                    case "Tactical Airstrike":
+                        if (startingMag == 1)
+                        {
+                            tacStrikeRadius.gameObject.tag = "Projectile";
+                        }
+                        else if (startingMag == 2)
+                        {
+                            tacStrikeRadius.gameObject.tag = "Projectile2";
+                        }
+                        else
+                        {
+                            tacStrikeRadius.gameObject.tag = "Boss Health";
+                        }
+                        tacStrikeRadius.SetActive(true);
+                        pierceCooldownTime = 1.5f;
+                        rechargeTime = rechargeDuration;
+                        break;
+                    case "HEAT Round Module":
+                        pierceActive = true;
+                        break;
+                    case "Orange Shield Module":
+                        redShieldActive = true;
+                        break;
+                    case "Blue Shield Module":
+                        greenShieldActive = true;
+                        greenShieldObj.gameObject.SetActive(true);
+                        break;
+                    case "Thermal Imaging":
+                        gunnerView.SetActive(true);
+                        break;
+                    case "Repair Kit":
+                        for (int i = 0; i < malfunctionArray.Length - 1; i++)
+                        {
+                            malfunctionArray[i] = 0;
+                        }
+                        health += repairKitHealth;
+                        pierceCooldownTime = 0f;
+                        break;
+                }
+                /*source.PlayOneShot(overcharge);*/
+                upgradeActive = true;
             }
-            /*source.PlayOneShot(overcharge);*/
-            upgradeActive = true;
-        }
-        if (pierceActive)
-        {
-        }
-        if (pierceUpgrade)
-        {
-        }
-        if (redShieldActive == true)
-        {
-            redShieldObject.SetActive(true);
-        }
-        else
-        {
-            redShieldObject.SetActive(false);
-        }
-        if (upgradeActive == true)
-        {
-            powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade + " Active: " + System.Math.Round(pierceCooldownTime, 2) + " seconds remaining";
-            pierceCooldownTime -= Time.deltaTime;
-            if (pierceCooldownTime <= 0)
+            if (pierceActive)
             {
-                tacStrikeRadius.SetActive(false);
-                source.PlayOneShot(cooldownSound);
-                gunnerView.SetActive(false);
+            }
+            if (pierceUpgrade)
+            {
+            }
+            if (redShieldActive == true)
+            {
+                redShieldObject.SetActive(true);
+            }
+            else
+            {
                 redShieldObject.SetActive(false);
-                greenShieldObj.gameObject.SetActive(false);
-                redShieldActive = false;
-                greenShieldActive = false;
-                pierceActive = false;
-                recharged = false;
-                rechargeTime = rechargeDuration;
-                pierceCooldownTime = pierceDurationCool;
-                upgradeActive = false;
+            }
+            if (upgradeActive == true)
+            {
+                powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = installedUpgrade + " Active: " + System.Math.Round(pierceCooldownTime, 2) + " seconds remaining";
+                pierceCooldownTime -= Time.deltaTime;
+                if (pierceCooldownTime <= 0)
+                {
+                    tacStrikeRadius.SetActive(false);
+                    source.PlayOneShot(cooldownSound);
+                    gunnerView.SetActive(false);
+                    redShieldObject.SetActive(false);
+                    greenShieldObj.gameObject.SetActive(false);
+                    redShieldActive = false;
+                    greenShieldActive = false;
+                    pierceActive = false;
+                    recharged = false;
+                    rechargeTime = rechargeDuration;
+                    pierceCooldownTime = pierceDurationCool;
+                    upgradeActive = false;
+                }
             }
         }
     }

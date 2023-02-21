@@ -9,6 +9,7 @@ public class TutorialTrack: MonoBehaviour
 }
 public class gun : MonoBehaviour
 {
+    public GameObject menuAnim;
     public GameObject text;
     public static int index = 1;
     string difficulty;
@@ -30,13 +31,15 @@ public class gun : MonoBehaviour
         if (Input.GetKeyDown("space")){
             EnemySpawn.waveCount = 1;
             inTutorial = false;
-            SceneManager.LoadScene("Game");
+            StartGame();
+/*            SceneManager.LoadScene("Game");*/
         }
         if (Input.GetKeyDown("1"))
         {
             EnemySpawn.waveCount = 1;
             inTutorial = true;
-            SceneManager.LoadScene("Game");
+            StartGame();
+            /*            SceneManager.LoadScene("Game");*/
         }
         if (Input.GetKeyDown("2"))
         {
@@ -67,6 +70,18 @@ public class gun : MonoBehaviour
     public void switchText()
     {
         text.GetComponent<TMPro.TextMeshProUGUI>().text = "Change Difficulty<br><color=green>(" + difficulty + ")</color>";
+        StartGame();
+    }
+    public void StartGame()
+    {
+        menuAnim.GetComponent<Animator>().Play("Takeoff");
+        StartCoroutine(WaitFunc());
+
+    }
+    IEnumerator WaitFunc()
+    {
+        yield return new WaitForSeconds(0.25f);
+        SceneManager.LoadScene("Game");
     }
 }
 

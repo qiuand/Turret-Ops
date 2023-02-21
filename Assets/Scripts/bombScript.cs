@@ -12,6 +12,9 @@ public class bombScript : MonoBehaviour
     Rigidbody2D rb;
     public Transform player;
     private Vector2 target;
+    public GameObject icon;
+    public Sprite iconCircle, iconSquare;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,14 @@ public class bombScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameObject.tag == "Shot")
+        {
+            icon.GetComponent<SpriteRenderer>().sprite = iconSquare;
+        }
+        else
+        {
+            icon.GetComponent<SpriteRenderer>().sprite = iconCircle;
+        }
         Vector3 target = player.position;
         target.x = target.x - transform.position.x;
         target.y = target.y - transform.position.y;

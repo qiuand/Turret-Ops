@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 public class Tut : MonoBehaviour
 {
+    public AudioClip bang;
     public GameObject standardUI;
     public VideoClip spin, load, swap, hammer, black, colour;
     public GameObject mechVid, gunVid;
@@ -17,8 +18,8 @@ public class Tut : MonoBehaviour
     Vector3 originalPos = new Vector3(-0.51f, 2.27f,0);
     public GameObject mechText;
     public GameObject turretText;
-    string[] gunTut=new string[7];
-    string[] mechTut= new string[7];
+    string[] gunTut=new string[8];
+    string[] mechTut= new string[8];
     public GameObject turret;
     int selection = 0;
     public GameObject tutEnemyBlue;
@@ -28,7 +29,7 @@ public class Tut : MonoBehaviour
     bool malfSet=false;
     public AudioSource source;
     public AudioClip malfunction;
-    float waitTime = 1f;
+    float waitTime = 1.25f;
     bool gunnerAgree = false;
     bool mechanicAgree = false;
     int agreeNum = 0;
@@ -58,20 +59,23 @@ public class Tut : MonoBehaviour
         gunTut[3] = "<b>3/4<br><color=red>Malfunctions</color> are bad!</b> Ask the <color=#006CFF>Mechanic</color> to fix them!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
         /*        gunTut[5] = "<b>Shooting causes <color=red>overheating!</color></b> Let your <color=#006CFF>friend</color> fix that, too!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
         */
-        gunTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies!</color><br><color=#CC4C26>Orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!<br></color>But the <color=#006CFF>Mechanic</color> can't see colours; Help them out!<br><b>Now destroy that enemy!</b>";
+        gunTut[4] = "<b>Waiting for more repairs...</b>";
+        gunTut[5] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies!</color><br><color=#CC4C26>Orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!<br></color>But the <color=#006CFF>Mechanic</color> can't see colours; Help them out!<br><b>Now destroy that enemy!</b>";
         /*        gunTut[4] = "<color=#1266E6>blue (○) bullets</color> for <color=#1266E6>blue enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange enemies!</color>Of course, you wouldn't know who's who; ask the <color=yellow>Gunner</color> which to load!";*/
-        gunTut[5] = "Good Luck, Cosmic Gunner!<br><br><color=green><br>Press <color=red>Fire ●</color> to Continue";
-        gunTut[6] = "";
+        gunTut[6] = "Good Luck, Cosmic Gunner!<br><br><color=green><br>Press <color=red>Fire ●</color> to Continue";
+        gunTut[7] = "";
 
         mechTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!<br><br><color=green>Press <color=red>Select ●</color> to Continue";
         mechTut[1]= "<b>2/4<br>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press <color=red>Select ●</color> to Continue";
 /*        mechTut[2] = "You are in charge of maintaining the ship.<br><br><color=green>Press select to continue";
 */        mechTut[2] = "<b>3/4</b><br>Note that your view is in black and white.<br>Waiting for <color=yellow>Gunner...</color>";
         mechTut[3] = "<b><color=red>Getting hit is bad!</color></b> Repair damage and apply upgrades with your hammer!";
-/*        mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
-*/        mechTut[4] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!</color> Of course, you can't see colours!<br><b>ask the <color=yellow>Gunner</color> which to load!</b>";
-        mechTut[5]= "<b>Good luck, Cosmic Mechanic!<b><br><br><color=green>Press <color=red>Select ●</color> to Continue";
-        mechTut[6] = "";
+        mechTut[4] = "<b>Your ship comes with a Repair Kit!</b><br>Press <color=red>Select ●</color> to repair all malfunctions instantly. Use it wisely, though - it has a long cooldown!";
+        /*        mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
+        */
+        mechTut[5] = "<b>4/4<br></b><color=#1266E6>Blue (○) bullets</color> for <color=#1266E6>blue (○) enemies</color>, and <color=#CC4C26>orange (☐) bullets</color> for <color=#CC4C26>orange (☐) enemies!</color> Of course, you can't see colours!<br><b>ask the <color=yellow>Gunner</color> which to load!</b>";
+        mechTut[6]= "<b>Good luck, Cosmic Mechanic!<b><br><br><color=green>Press <color=red>Select ●</color> to Continue";
+        mechTut[7] = "";
     }
 
     // Update is called once per frame
@@ -168,7 +172,7 @@ public class Tut : MonoBehaviour
                     gunTutVid.GetComponent<VideoPlayer>().clip = hammer;
                     if (malfSet == false)
                     {
-                        turret.GetComponent<Turret>().malfunctionArray[0] = turret.GetComponent<Turret>().hits;
+                        turret.GetComponent<Turret>().malfunctionArray[0] = turret.GetComponent<Turret>().hits/*turret.GetComponent<Turret>().hits*/;
                         malfSet = true;
                         source.PlayOneShot(malfunction);
                     }
@@ -178,7 +182,28 @@ public class Tut : MonoBehaviour
                         source.PlayOneShot(ding);
                         StartCoroutine(Wait());
                     }
-
+                }
+                if (selection == 4)
+                {
+                    if (malfSet == false)
+                    {
+                        malfSet = true;
+                        for (int i = 0; i < turret.GetComponent<Turret>().malfunctionArray.Length; i++)
+                        {
+                            source.PlayOneShot(malfunction);
+                            source.PlayOneShot(bang);
+                            turret.GetComponent<Turret>().malfunctionArray[i] = 9999999;
+                            turret.GetComponent<Turret>().heat = turret.GetComponent<Turret>().maxHeat;
+/*                            turret.GetComponent<Turret>().barrelMalfunction();*/
+                        }
+                    }
+                    if (Input.GetKeyDown("g"))
+                    {
+                        turret.GetComponent<Turret>().heat = 0;
+                        turret.GetComponent<Turret>().ActivatePowerups(true);
+                        source.PlayOneShot(ding);
+                        StartCoroutine(Wait());
+                    }
                 }
                 if (selection == 15)
                 {
@@ -195,7 +220,7 @@ public class Tut : MonoBehaviour
                         StartCoroutine(Wait());
                     }
                 }
-                if (selection == 4)
+                if (selection == 5)
                 {
                     if (malfSet == false)
                     {
@@ -226,7 +251,7 @@ public class Tut : MonoBehaviour
                         StartCoroutine(Wait());
                     }
                 }
-                if (selection == 5)
+                if (selection == 6)
                 {
                     agreeText.SetActive(true);
                     agreeText2.SetActive(true);
@@ -268,7 +293,6 @@ public class Tut : MonoBehaviour
     }
     private void proceed()
     {
-        selection++;
         StartCoroutine(Wait());
     }
     IEnumerator Wait()
@@ -311,13 +335,13 @@ public class Tut : MonoBehaviour
                 gunTutVid.SetActive(false);
                 mechTutVid.GetComponent<VideoPlayer>().clip = hammer;
                 break;
-            case 4:
+            case 5:
                 gunVid.SetActive(true);
                 gunTutVid.SetActive(true);
                 gunTutVid.GetComponent<VideoPlayer>().clip = black;
                 mechTutVid.GetComponent<VideoPlayer>().clip = colour;
                 break;
-            case 5:
+            case 6:
                 gunVid.SetActive(false);
                 mechVid.SetActive(false);
                 break;

@@ -19,17 +19,17 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         Cursor.visible = false;
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("2"))
         {
             Turret.score = 0;
             SceneManager.LoadScene("Game");
         }
-        if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("2"))
         {
             Turret.score = 0;
             SceneManager.LoadScene("Main");
         }
-        text.GetComponent<TMPro.TextMeshProUGUI>().text = "Try again from checkpoint wave " + EnemySpawn.waveCount + "?";
+        text.GetComponent<TMPro.TextMeshProUGUI>().text = "You can retry from checkpoint wave " + EnemySpawn.waveCount +"/"+EnemySpawn.maxWave+"!";
         text2.GetComponent<TMPro.TextMeshProUGUI>().text = text.GetComponent<TMPro.TextMeshProUGUI>().text;
         scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
         scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;

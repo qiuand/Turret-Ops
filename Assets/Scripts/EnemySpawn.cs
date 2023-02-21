@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class EnemySpawn : MonoBehaviour
 {
     public static float scoreMultiply = 1;
-
+    float bossAppearThres = 50;
     public static float bossTime=35f;
     public GameObject standardUI;
     public static float savedMaxSpeed;
@@ -19,7 +19,7 @@ public class EnemySpawn : MonoBehaviour
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 6.5f;
-    public static int waveCount = 1;
+    public static int waveCount = 9;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -96,22 +96,22 @@ public class EnemySpawn : MonoBehaviour
         {
             case 0:
                 difficultyMultiply = 0.75f;
-                waveTiming = 7f;
+                waveTiming = 8f;
                 break;
             case 1:
                 difficultyMultiply = 1.0f;
                 scoreMultiply = scoreMultiply * 1.25f;
-                waveTiming = 5f;
+                waveTiming = 6.5f;
                 break;
             case 2:
                 difficultyMultiply = 1.35f;
                 scoreMultiply = scoreMultiply * 1.5f;
-                waveTiming = 4f;
+                waveTiming = 5f;
                 break;
             default:
                 difficultyMultiply = 1.0f;
                 scoreMultiply = scoreMultiply * 1.25f;
-                waveTiming = 4f;
+                waveTiming = 6.5f;
                 break;
 
         }
@@ -160,13 +160,13 @@ public class EnemySpawn : MonoBehaviour
             else if (waveCount == bossWave)
             {
                 standardUI.SetActive(true);
-                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Wave!";
-                waveText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Wave!";
+                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>Final Wave!</color><br><size=35> " + System.Math.Round(waveTime, 0) + " Seconds Left</size>";
+                waveText2.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>Final Wave!</color><br><size=35> " + System.Math.Round(waveTime, 0) + " Seconds Left</size>";
             }
             else
             {
                 standardUI.SetActive(true);
-                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>WAVE " + waveCount + "/"+maxWave+": " + System.Math.Round(waveTime, 0) + " Seconds Left"/* + waveTimer + " Break: " + breakCounter*/;
+                waveText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=red>WAVE " + waveCount + " of "+maxWave+"</color><br><size=35>" + System.Math.Round(waveTime, 0) + " Seconds Left</size>"/* + waveTimer + " Break: " + breakCounter*/;
                 waveText2.GetComponent<TMPro.TextMeshProUGUI>().text = waveText.GetComponent<TMPro.TextMeshProUGUI>().text;
             }
 
@@ -187,8 +187,9 @@ public class EnemySpawn : MonoBehaviour
             stopSpawn = true;
             if ((!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
             {
-                if (waveCount == bossWave)
+                if (waveCount == bossWave && waveTime<=bossAppearThres)
                 {
+                    beginNextWave = true;
                     SceneManager.LoadScene("Won");
                 }
                 cam.GetComponent<CamZoom>().zoomIn = true;
@@ -265,7 +266,7 @@ public class EnemySpawn : MonoBehaviour
         {
             if (waveTimer <= 0 && beginNextWave == true)
             {
-                if (waveCount == bossWave && bossActive==false)
+                if (waveCount == bossWave && bossActive==false && waveTime<=bossAppearThres)
                 {
                     boss.SetActive(true);
                     GameObject bossControl = Instantiate(positionArray[positionArray.Length-1], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
@@ -298,10 +299,10 @@ public class EnemySpawn : MonoBehaviour
                             createEnemies(4, 19);
                             break;
                         case 8:
-                            createEnemies(4, 22);
+                            createEnemies(4, 21);
                             break;
                         case 9:
-                            createEnemies(4, 22);
+                            createEnemies(4, 21);
                             break;
                         /*                        case 8:
                                                     createEnemies(9);
