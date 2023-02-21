@@ -9,6 +9,7 @@ public class TutorialTrack: MonoBehaviour
 }
 public class gun : MonoBehaviour
 {
+    AudioSource src;
     public GameObject menuAnim;
     public GameObject text;
     public static int index = 1;
@@ -18,6 +19,7 @@ public class gun : MonoBehaviour
     public static bool inTutorial = false;
     private void Start()
     {
+        src=GetComponent<AudioSource>();
         text.GetComponent<TMPro.TextMeshProUGUI>().text = "Change Difficulty<br><color=green>(Normal: Extra Score)</color>";
         if (Display.displays.Length > 1)
         {
@@ -29,6 +31,7 @@ public class gun : MonoBehaviour
     {
         Cursor.visible = false;
         if (Input.GetKeyDown("space")){
+            src.Play();
             EnemySpawn.waveCount = 1;
             inTutorial = false;
             StartGame();
@@ -36,6 +39,7 @@ public class gun : MonoBehaviour
         }
         if (Input.GetKeyDown("1"))
         {
+            src.Play();
             EnemySpawn.waveCount = 1;
             inTutorial = true;
             StartGame();
@@ -43,6 +47,7 @@ public class gun : MonoBehaviour
         }
         if (Input.GetKeyDown("2"))
         {
+            src.Play();
             if (index < 2)
             {
                 index++;
@@ -70,13 +75,11 @@ public class gun : MonoBehaviour
     public void switchText()
     {
         text.GetComponent<TMPro.TextMeshProUGUI>().text = "Change Difficulty<br><color=green>(" + difficulty + ")</color>";
-        StartGame();
     }
     public void StartGame()
     {
         menuAnim.GetComponent<Animator>().SetBool("Takeoff", true);
         StartCoroutine(WaitFunc());
-
     }
     IEnumerator WaitFunc()
     {

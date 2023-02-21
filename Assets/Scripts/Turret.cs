@@ -9,6 +9,11 @@ public class Turret : MonoBehaviour
 {
     public GameObject healthWarning;
 
+    public AudioClip rechargedSound;
+
+    public GameObject creaking;
+
+    public GameObject mechHealthAlert, mechHeatAlert;
 
     public GameObject mechHullStat, mechGunStat, mechLWingStat, mechRWingStat;
 
@@ -357,18 +362,22 @@ public class Turret : MonoBehaviour
     {
         if (health <= maxHealth / 2)
         {
+            mechHealthAlert.SetActive(true);
             healthWarning.SetActive(true);
         }
         else
         {
+            mechHealthAlert.SetActive(false);
             healthWarning.SetActive(false);
         }
-        if (heat >= maxHeat * 0.5f)
+        if (heat >= maxHeat * 0.3f)
         {
+            mechHeatAlert.SetActive(true);
             heatWarning.SetActive(true);
         }
         else
         {
+            mechHeatAlert.SetActive(false);
             heatWarning.SetActive(false);
         }
         mechLWingStat.GetComponent<SpriteRenderer>().sprite = wing.GetComponent<SpriteRenderer>().sprite;
@@ -548,6 +557,7 @@ public class Turret : MonoBehaviour
             rechargeTime -= Time.deltaTime;
             if (rechargeTime <= 0)
             {
+                source.PlayOneShot(rechargedSound);
                 rechargeTime = rechargeDuration;
                 recharged = true;
                 powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=green>"+originalMessagePower;
@@ -1322,19 +1332,23 @@ public class Turret : MonoBehaviour
         }
         if (rotation > 0 && leftMotionDamage)
         {
-                transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed * turnPenalty);
+            creaking.SetActive(true);
+            transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed * turnPenalty);
         }
         else if (rotation < 0 && rightMotionDamage)
         {
-                transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed * turnPenalty);
+             creaking.SetActive(true);
+             transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed * turnPenalty);
          }
         else if (Mathf.Abs(rotation)>=0.1f)
         {
+            creaking.SetActive(false);
             turnSound.SetActive(true);
             transform.Rotate(0, 0, rotation * Time.deltaTime * movespeed);
         }
         else
         {
+            creaking.SetActive(false);
             turnSound.SetActive(false);
         }
         if (transform.rotation.eulerAngles.z >= 177f)

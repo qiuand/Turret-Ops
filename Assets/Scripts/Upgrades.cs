@@ -307,11 +307,11 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Repair":
                 body.GetComponent<Image>().sprite = repair;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Auto-repair (Mechanic)</b><br><color=green>+Automatically repair a bit of health every five seconds<br><color=red>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Auto-repair (Mechanic)</b><br><color=green>+Automatically repair a bit of health every 5 seconds<br><color=red>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Orange Shield":
                 body.GetComponent<Image>().sprite = redPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Orange Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<br><color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Orange Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color>: Block all <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<color=red><br>-" + cooldownTime + " escond cooldown<br>-Replaces " + replacedThingBody +"</color>";
                 break;
             case "Blue Shield":
                 body.GetComponent<Image>().sprite = greenPower;
