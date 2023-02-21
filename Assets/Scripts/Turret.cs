@@ -25,7 +25,7 @@ public class Turret : MonoBehaviour
     float repairKitHealth = 40;
     public GameObject body;
 
-    public string originalMessagePower= "Press <color=red>● Select</color> to fix all malfunctions!";
+    public string originalMessagePower= "<color=green>Press <color=red>● Select</color><color=green> to fix all malfunctions!";
 
     public GameObject mechDestroyedCockpit;
     public GameObject wing;
