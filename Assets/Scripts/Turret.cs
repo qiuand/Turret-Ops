@@ -243,7 +243,7 @@ public class Turret : MonoBehaviour
     public GameObject hullSelect;
     bool leftMotionDamage=false;
     bool rightMotionDamage=false;
-    float turnPenalty = 0.40f;
+    float turnPenalty = 0.50f;
     public GameObject camText;
     public GameObject lWingText;
     public GameObject rWingText;
@@ -408,7 +408,7 @@ public class Turret : MonoBehaviour
         {
             SceneManager.LoadScene("Main");
         }
-        if(installedGun=="Dual Shot")
+        if(dualShot)
         {
             smokeSystem.enableEmission = false;
         }
@@ -1128,7 +1128,7 @@ public class Turret : MonoBehaviour
                     heatBuildUp = originalHeatBuildup;
                     shootCooldown = originalShootCooldown;
                 }
-                if(installedGun!="Dual Blaster")
+                if(!dualShot)
             {
                 muzzle.Play("Muzzle");
                 muzzle.SetBool("Firing", true);
@@ -1645,7 +1645,7 @@ public class Turret : MonoBehaviour
             barrelText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0, 0);
             barrelText.GetComponent<TMPro.TextMeshProUGUI>().text = "Unable to fire!<br>Hit " + malfunctionArray[3] + " times";
         }
-        if(installedGun!="Dual Blaster")
+        if(!dualShot)
         {
             smokeSystem.enableEmission = true;
             smoke.gameObject.transform.eulerAngles = new Vector3(0, 0, 90);
