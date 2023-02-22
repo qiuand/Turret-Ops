@@ -314,7 +314,7 @@ public class Upgrades : MonoBehaviour
             case "Heat Rounds":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = heatVid;
                 body.GetComponent<Image>().sprite = pierce;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>HEAT Rounds (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color><br>: Your bullets destroy any colour ship for " + activationTime+" seconds.</color><color=red><br>-"+cooldownTime+" second cooldown<br>-Replaces "+ replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>HEAT Rounds (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>Your bullets destroy any colour ship for " + activationTime+" seconds.</color><color=red><br>-"+cooldownTime+" second cooldown<br>-Replaces "+ replacedThingBody +"</color>";
                 break;
             case "Repair":
                 mechPlayer2.SetActive(false);
@@ -325,13 +325,13 @@ public class Upgrades : MonoBehaviour
             case "Orange Shield":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = orangeVid;
                 body.GetComponent<Image>().sprite = redPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Orange Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color><br>: Block all <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<color=red><br>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Orange Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>Block all <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<color=red><br>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody +"</color>";
                 break;
             case "Blue Shield":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = blueVid;
                 body.GetComponent<Image>().sprite = greenPower;
                 body.GetComponent<Image>().sprite = greenPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Blue Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color><br>: Block all <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Blue Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>Block all <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Electric Override":
@@ -349,7 +349,7 @@ public class Upgrades : MonoBehaviour
             case "Thermal Imaging":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = thermalVid;
                 body.GetComponent<Image>().sprite = Thermals;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Thermal Imaging (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select</color><br>: The Mechanic can see colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Thermal Imaging (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>The Mechanic can see colour for " + activationTime + " seconds.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Heavy Armour":
                 mechPlayer2.SetActive(false);
@@ -367,7 +367,7 @@ public class Upgrades : MonoBehaviour
             case "Tactical Airstrike":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = airVid;
                 body.GetComponent<Image>().sprite = airstrike;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Tactical Airstrike (Gunner)</b><br><color=green>++Mechanic activates with<br><color=red>● Select</color><br>: Destroy all onscreen enemies of selected colour for.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Tactical Airstrike (Gunner)</b><br><color=green>++Mechanic activates with<br><color=red>● Select:</color><br>Destroy all onscreen enemies of selected colour for.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
         }

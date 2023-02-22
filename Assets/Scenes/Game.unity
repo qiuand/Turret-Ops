@@ -25147,6 +25147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hullTransform: {fileID: 1171813877}
+  SparksSmall: {fileID: 3373169313921710452, guid: 1476774f0b163504790922344d8d8639, type: 3}
   cockpitGunTransform: {fileID: 515385722}
   emptyRepair: {fileID: 8300000, guid: 059cbb0499d48274b93e75bd31781567, type: 3}
   explosionEffect: {fileID: 1851361376112747327, guid: f1d5796e9644056498d244c0cb372811, type: 3}
