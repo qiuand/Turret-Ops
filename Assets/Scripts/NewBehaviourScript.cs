@@ -17,7 +17,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         if (Turret.highScoreFlag)
         {
-            highScoreMsg = "<b><size=35><color=green>New High Score!</b><br></size></color>";
+            highScoreMsg = "<b><color=green>New High Score!</b><br></color>";
         }
     }
 
