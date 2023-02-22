@@ -9,6 +9,7 @@ public class TutorialTrack: MonoBehaviour
 }
 public class gun : MonoBehaviour
 {
+    bool clickFlag = false;
     AudioSource src;
     public GameObject menuAnim;
     public GameObject text;
@@ -37,13 +38,17 @@ public class gun : MonoBehaviour
             StartGame();
 /*            SceneManager.LoadScene("Game");*/
         }
-        if (Input.GetKeyDown("1"))
+        if (clickFlag == false)
         {
-            src.Play();
-            EnemySpawn.waveCount = 1;
-            inTutorial = true;
-            StartGame();
-            /*            SceneManager.LoadScene("Game");*/
+            if (Input.GetKeyDown("1"))
+            {
+                clickFlag = true;
+                src.Play();
+                EnemySpawn.waveCount = 1;
+                inTutorial = true;
+                StartGame();
+                /*            SceneManager.LoadScene("Game");*/
+            }
         }
         if (Input.GetKeyDown("2"))
         {
