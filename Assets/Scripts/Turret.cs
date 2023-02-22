@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 public class Turret : MonoBehaviour
 {
     public GameObject hullTransform;
+    public GameObject SparksSmall;
+    Vector3 sparksScale = new Vector3(0.3f, 0.3f, 0.3f);
+    public GameObject cockpitGunTransform;
 
     public AudioClip emptyRepair;
 
@@ -943,22 +946,26 @@ public class Turret : MonoBehaviour
         {
             swungAt = 0;
             Instantiate(sparks, mechRWingStat.transform);
+            GameObject gunnerSparks = Instantiate(SparksSmall, wing2.transform);
             HammerSwing();
         }
         else if (Input.GetKeyDown("x"))
         {
             Instantiate(sparks, mechLWingStat.transform);
+            GameObject gunnerSparks = Instantiate(SparksSmall, wing.transform);
             swungAt = 1;
             HammerSwing();
         }
         else if (Input.GetKeyDown("c"))
         {
+            GameObject gunnerSparks = Instantiate(SparksSmall, cockpitGunTransform.transform);
             GameObject cockpitSparks= Instantiate(sparks, hullTransform.transform);
             swungAt = 2;
             HammerSwing();
         }
         else if (Input.GetKeyDown("v"))
         {
+            GameObject gunnerSparks = Instantiate(SparksSmall, turretSprite.transform);
             Instantiate(sparks, mechGunStat.transform);
             swungAt = 3;
             HammerSwing();
