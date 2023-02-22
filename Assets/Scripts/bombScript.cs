@@ -31,11 +31,11 @@ public class bombScript : MonoBehaviour
     {
         if (gameObject.tag == "Shot")
         {
-            icon.GetComponent<SpriteRenderer>().sprite = iconSquare;
+            icon.GetComponent<SpriteRenderer>().sprite = iconCircle;
         }
         else
         {
-            icon.GetComponent<SpriteRenderer>().sprite = iconCircle;
+            icon.GetComponent<SpriteRenderer>().sprite = iconSquare;
         }
         Vector3 target = player.position;
         target.x = target.x - transform.position.x;

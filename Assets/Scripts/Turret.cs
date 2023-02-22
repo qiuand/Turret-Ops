@@ -1057,7 +1057,7 @@ public class Turret : MonoBehaviour
                 heat = maxHeat;
                 if (overheated == false)
                 {
-                    Instantiate(explosionEffect, mechGunStat.transform);
+/*                    Instantiate(explosionEffect, mechGunStat.transform);*/
                     source.PlayOneShot(overheat);
                     overheated = true;
                     minimapLaserGreen.gameObject.SetActive(false);

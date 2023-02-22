@@ -188,10 +188,11 @@ public class Tut : MonoBehaviour
                     if (malfSet == false)
                     {
                         malfSet = true;
+                        source.PlayOneShot(bang);
+                        source.PlayOneShot(bang);
                         for (int i = 0; i < turret.GetComponent<Turret>().malfunctionArray.Length; i++)
                         {
                             source.PlayOneShot(malfunction);
-                            source.PlayOneShot(bang);
                             turret.GetComponent<Turret>().malfunctionArray[i] = 9999999;
                             turret.GetComponent<Turret>().heat = turret.GetComponent<Turret>().maxHeat;
 /*                            turret.GetComponent<Turret>().barrelMalfunction();*/
