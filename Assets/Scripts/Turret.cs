@@ -202,7 +202,7 @@ public class Turret : MonoBehaviour
     bool NewbarrelIn;
     int installedBarrel = 1;
     int startingBarrel;
-    int originalMovespeed = 70;
+    int originalMovespeed = 55;
     bool barrelInserted = true;
     bool released = false;
 
@@ -304,8 +304,8 @@ public class Turret : MonoBehaviour
     int enhancedHits=4;
     float smallSize = 0.6f;
     public float heavyArmourHealth = 200;
-    float slowspeed = 35;
-    float increasedspeed = 125;
+    float slowspeed = 30;
+    float increasedspeed = 110;
     public GameObject requestLayer;
     public GameObject requestText;
     public GameObject spawner;
