@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    public static float highScoreTrack;
+    public static bool highScoreFlag = false;
+    public static List<float> highScoreList = new List<float>() { 0, 0, 0, 0, 0 };
     public GameObject hullTransform;
     public GameObject SparksSmall;
     Vector3 sparksScale = new Vector3(0.3f, 0.3f, 0.3f);
@@ -606,10 +609,11 @@ public class Turret : MonoBehaviour
                 Upgrades.canUpgrade = false;
                 Upgrades.upgradesRolled = true;
 /*            print("Prev wave: " + EnemySpawn.waveCount);*/
-            Checkpoints();
+                Checkpoints();
 /*            print("Checkpoint: " + EnemySpawn.waveCount);*/
                 /*EnemySpawn.savedMaxSpeed=spawner.GetComponent<EnemySpawn>().maxspeed;*/
                 SceneManager.LoadScene("GameOver");
+                GetHighScore();
             }
             if (health <= 0)
             {
@@ -1775,5 +1779,18 @@ public class Turret : MonoBehaviour
     {
         scoreCountText.GetComponent<TMPro.TextMeshProUGUI>().text = "Score: " + System.Math.Round(score,0);
         scoreCountText2.GetComponent<TMPro.TextMeshProUGUI>().text = scoreCountText.GetComponent<TMPro.TextMeshProUGUI>().text;
+    }
+    public void GetHighScore()
+    {
+        for(int i=0; i< highScoreList.Count; i++)
+        {
+            if (score > highScoreList[i])
+            {
+                highScoreTrack = score;
+                highScoreFlag = true;
+                highScoreList[i] = score;
+                break;
+            }
+        }
     }
 }

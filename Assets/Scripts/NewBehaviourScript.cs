@@ -7,12 +7,18 @@ public class NewBehaviourScript : MonoBehaviour
 {
     public GameObject scoreText;
     public GameObject scoreText2;
-
+    public GameObject highScore;
+    public GameObject highScore2;
     public GameObject text;
     public GameObject text2;
+    string highScoreMsg = "";
     // Start is called before the first frame update
     void Start()
     {
+        if (Turret.highScoreFlag)
+        {
+            highScoreMsg = "<b><size=35><color=green>New High Score!</b><br></size></color>";
+        }
     }
 
     // Update is called once per frame
@@ -23,16 +29,20 @@ public class NewBehaviourScript : MonoBehaviour
         {
             Turret.score = 0;
             SceneManager.LoadScene("Game");
+            Turret.highScoreFlag = false;
         }
         if (Input.GetKeyDown("2"))
         {
             Turret.score = 0;
             SceneManager.LoadScene("Main");
+            Turret.highScoreFlag = false;
         }
-        text.GetComponent<TMPro.TextMeshProUGUI>().text = "You can restart at checkpoint wave " + EnemySpawn.waveCount +"/"+EnemySpawn.maxWave+"!";
-        text2.GetComponent<TMPro.TextMeshProUGUI>().text = text.GetComponent<TMPro.TextMeshProUGUI>().text;
-        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
-        scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
+        text.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Restart at checkpoint " + EnemySpawn.waveCount;
+        text2.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>You can restart at checkpoint " + EnemySpawn.waveCount + "!";/*text.GetComponent<TMPro.TextMeshProUGUI>().text;*/
+/*        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
+*//*        scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
+*/        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=green><b>Final Score: " + Turret.score + "</color></b><br><br>" + highScoreMsg + "<b>High Scores:</b><br><br>1st Place: " + Turret.highScoreList[0] + "<br>2nd Place: " + Turret.highScoreList[1] + "<br>3rd Place: " + Turret.highScoreList[2] + "<br>4th Place: " + Turret.highScoreList[3] + "<br>5th Place: " + Turret.highScoreList[4];
+        scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = highScore.GetComponent<TMPro.TextMeshProUGUI>().text;
     }
 }
 
