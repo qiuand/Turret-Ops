@@ -31,13 +31,7 @@ public class gun : MonoBehaviour
     void Update()
     {
         Cursor.visible = false;
-        if (Input.GetKeyDown("space")){
-            src.Play();
-            EnemySpawn.waveCount = 1;
-            inTutorial = false;
-            StartGame();
-/*            SceneManager.LoadScene("Game");*/
-        }
+
         if (clickFlag == false)
         {
             if (Input.GetKeyDown("1"))
@@ -46,6 +40,15 @@ public class gun : MonoBehaviour
                 src.Play();
                 EnemySpawn.waveCount = 1;
                 inTutorial = true;
+                StartGame();
+                /*            SceneManager.LoadScene("Game");*/
+            }
+            if (Input.GetKeyDown("space"))
+            {
+                clickFlag = true;
+                src.Play();
+                EnemySpawn.waveCount = 1;
+                inTutorial = false;
                 StartGame();
                 /*            SceneManager.LoadScene("Game");*/
             }
