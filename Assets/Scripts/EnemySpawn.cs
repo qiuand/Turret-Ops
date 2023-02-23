@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawn : MonoBehaviour
 {
+    int prevType;
     float originScoreMultiply=1;
     public static float scoreMultiply = 1;
     float bossAppearThres = 50;
@@ -103,12 +104,12 @@ public class EnemySpawn : MonoBehaviour
             case 1:
                 difficultyMultiply = 1.0f;
                 scoreMultiply = originScoreMultiply * 1.25f;
-                waveTiming = 6.25f;
+                waveTiming = 6.7f;
                 break;
             case 2:
                 difficultyMultiply = 1.35f;
                 scoreMultiply = originScoreMultiply * 1.5f;
-                waveTiming = 4f;
+                waveTiming = 5f;
                 break;
             default:
                 difficultyMultiply = 1.0f;
@@ -287,28 +288,28 @@ public class EnemySpawn : MonoBehaviour
                             createEnemies(0, 4);
                             break;
                         case 2:
-                            createEnemies(2, 7);
+                            createEnemies(0, 7);
                             break;
                         case 3:
-                            createEnemies(4, 9);
+                            createEnemies(0, 9);
                             break;
                         case 4:
-                            createEnemies(4, 11);
+                            createEnemies(0, 11);
                             break;
                         case 5:
-                            createEnemies(4,13);
+                            createEnemies(0,13);
                             break;
                         case 6:
-                            createEnemies(4, 15);
+                            createEnemies(0, 15);
                             break;
                         case 7:
-                            createEnemies(4, 17);
+                            createEnemies(0, 17);
                             break;
                         case 8:
-                            createEnemies(4, 21);
+                            createEnemies(0, 21);
                             break;
                         case 9:
-                            createEnemies(4, 21);
+                            createEnemies(0, 21);
                             break;
                         /*                        case 8:
                                                     createEnemies(9);
@@ -357,6 +358,11 @@ public class EnemySpawn : MonoBehaviour
     private void createEnemies(int waveRestrictMin, int waveRestrict)
     {
         int type = Random.Range(waveRestrictMin, waveRestrict);
+        while (type == prevType)
+        {
+            type= Random.Range(waveRestrictMin, waveRestrict);
+        }
+        prevType = type;
         genspeed = Random.Range(minspeed, maxspeed);
         GameObject waveControl = Instantiate(positionArray[type], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
         if (positionArray[type]!=homingRed && positionArray[type] != homingGreen)
