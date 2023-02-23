@@ -11,6 +11,8 @@ public class Turret : MonoBehaviour
 
     public GameObject powerupFlash;
 
+    public GameObject lDebuff, rDebuff;
+
     int highScoreMaxList = 5;
     float opacity = 0.6f;
     public GameObject powerupStatus;
@@ -1485,6 +1487,7 @@ public class Turret : MonoBehaviour
     {
         if (malfunctionArray[0]<= 0)
         {
+            rDebuff.SetActive(false);
             rightMotionDamage = false;
             rWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
             malfunctionArray[0] = 0;
@@ -1500,6 +1503,7 @@ public class Turret : MonoBehaviour
         }
         if (malfunctionArray[1] == 0)
         {
+            lDebuff.SetActive(false);
             lWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 1, 1);
             leftMotionDamage = false;
             lWingGUI.GetComponent<SpriteRenderer>().color = new Color(barrelColour.x, barrelColour.y, barrelColour.z);
@@ -1627,6 +1631,7 @@ public class Turret : MonoBehaviour
         rightMotionDamage = true;
         wing2.GetComponent<Animator>().SetBool("Destroyed", true);
         mechRWingStat.GetComponent<Animator>().SetBool("Destroyed", true);
+        rDebuff.SetActive(true);
         rWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret turns 50% slower to the right.<br>Hit "+malfunctionArray[0]+" times";
         rightMotionDamage = true;
     }
@@ -1635,6 +1640,7 @@ public class Turret : MonoBehaviour
         lWingGUI.GetComponent<SpriteRenderer>().color = new Color(damagedColour.x, damagedColour.y, damagedColour.z);
         lWingText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,0,0);
         lWingFire.enableEmission = true;
+        lDebuff.SetActive(true);
         lWingText.GetComponent<TMPro.TextMeshProUGUI>().text = "Turret turns 50% slower to the left.<br>Hit " + malfunctionArray[1] + " times";
         wing.GetComponent<Animator>().SetBool("Destroyed", true);
         mechLWingStat.GetComponent<Animator>().SetBool("Destroyed", true);

@@ -416,7 +416,7 @@ public class Upgrades : MonoBehaviour
             case "Ricochet Shot":
                 gunPlayer1.GetComponent<VideoPlayer>().clip = ricoVid;
                 gun.GetComponent<Image>().sprite = ricochet;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Ricochet Shot (Gunner)</b><br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>/*--Greatly increased heat<br>*/Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Ricochet Shot (Gunner)</b><br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>Replaces " + replacedThingGun + "</color>";
                 break;
             case "Reactive Armour":
                 gun.GetComponent<Image>().sprite = heavy;

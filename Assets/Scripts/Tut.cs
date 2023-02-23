@@ -70,7 +70,7 @@ public class Tut : MonoBehaviour
         mechTut[1]= "<b>2/4<br>You're the Mechanic!</b> Your partner is the <color=yellow>Gunner.</color><br><br><color=green>Press <color=red>Select ●</color> to Continue";
 /*        mechTut[2] = "You are in charge of maintaining the ship.<br><br><color=green>Press select to continue";
 */        mechTut[2] = "<b>3/4</b><br>Note that your view is in black and white.<br>Waiting for <color=yellow>Gunner...</color>";
-        mechTut[3] = "<b><color=red>Getting hit is bad!</color></b> Repair damage and apply upgrades with your hammer!";
+        mechTut[3] = "<b><color=red>Malfunctions are bad!</color></b> Repair damage and apply upgrades with your hammer!";
         mechTut[4] = "<b>Your ship comes with a Repair Kit!</b><br>Press <color=red>Select ●</color> to repair all malfunctions instantly, and restore a bit of health. Use it wisely, though - it has a long cooldown!";
         /*        mechTut[5] = "Reckless shooting can cause overheating. Repair that, too!";
         */
