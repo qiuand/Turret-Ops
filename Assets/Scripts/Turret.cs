@@ -9,9 +9,11 @@ public class Turret : MonoBehaviour
 {
     int highScoreMaxList = 5;
 
+    public GameObject powerupStatus;
+
     public static float highScoreTrack;
     public static bool highScoreFlag = false;
-    public static float[] highScoreList = new float[5] { 0, 0, 0, 0, 0 };
+    public static List<float> highScoreList = new List<float> { 0, 0, 0, 0, 0 };
     public GameObject hullTransform;
     public GameObject SparksSmall;
     Vector3 sparksScale = new Vector3(0.3f, 0.3f, 0.3f);
@@ -321,6 +323,8 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        powerupStatus.GetComponent<SpriteRenderer>().color = Color.green;
+
         heatWarning.SetActive(false);
         healthWarning.SetActive(false);
 
@@ -572,12 +576,14 @@ public class Turret : MonoBehaviour
         {
             upgradeActive = false;
             powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text ="<color=red>Depleted! "+System.Math.Round(rechargeTime, 0) + " seconds to recharge";
+            powerupStatus.GetComponent<SpriteRenderer>().color = Color.red;
             rechargeTime -= Time.deltaTime;
             if (rechargeTime <= 0)
             {
                 source.PlayOneShot(rechargedSound);
                 rechargeTime = rechargeDuration;
                 recharged = true;
+                powerupStatus.GetComponent<SpriteRenderer>().color = Color.green;
                 powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=green>"+originalMessagePower;
             }
         }
@@ -1784,28 +1790,26 @@ public class Turret : MonoBehaviour
     }
     public void GetHighScore()
     {
-        for(int l=0; l<highScoreList.Length; l++)
+        for(int l=0; l<highScoreList.Count; l++)
         {
             if (score > highScoreList[l])
             {
-                highScoreList[l] = score;
+                highScoreList.Add(score);
                 highScoreFlag = true;
                 break;
+                highScoreList.RemoveAt(highScoreList.Count - 1);
             }
         }
-        for(int i=0; i< highScoreList.Length; i++)
+        for(int i=0; i< highScoreList.Count; i++)
         {
-            for(int j=0; j<highScoreList.Length; j++)
+            for(int j=0; j<highScoreList.Count-1; j++)
             {
-                if (j < highScoreList.Length-1)
-                {
-                    if (highScoreList[j] < highScoreList[j + 1])
+                if (highScoreList[j] < highScoreList[j + 1])
                     {
                         float temp = highScoreList[j];
                         highScoreList[j] = highScoreList[j + 1];
                         highScoreList[j + 1] = temp;
                     }
-                }
             }
 /*            if (score > highScoreList[i])
             {

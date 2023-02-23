@@ -40,6 +40,7 @@ public class gun : MonoBehaviour
                 src.Play();
                 EnemySpawn.waveCount = 1;
                 inTutorial = true;
+                EnemySpawn.beginNextWave = true;
                 StartGame();
                 /*            SceneManager.LoadScene("Game");*/
             }

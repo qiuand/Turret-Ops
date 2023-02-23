@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawn : MonoBehaviour
 {
+    float originScoreMultiply=1;
     public static float scoreMultiply = 1;
     float bossAppearThres = 50;
-    public static float bossTime=35f;
+    public static float bossTime=75f;
     public GameObject standardUI;
     public static float savedMaxSpeed;
     public GameObject waveText2;
@@ -19,7 +20,7 @@ public class EnemySpawn : MonoBehaviour
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 6.5f;
-    public static int waveCount = 1;
+    public static int waveCount = 9;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -96,22 +97,22 @@ public class EnemySpawn : MonoBehaviour
         switch (gun.index)
         {
             case 0:
-                difficultyMultiply = 0.75f;
-                waveTiming = 8f;
+                difficultyMultiply = 0.50f;
+                waveTiming = 9f;
                 break;
             case 1:
                 difficultyMultiply = 1.0f;
-                scoreMultiply = scoreMultiply * 1.25f;
+                scoreMultiply = originScoreMultiply * 1.25f;
                 waveTiming = 6.5f;
                 break;
             case 2:
                 difficultyMultiply = 1.35f;
-                scoreMultiply = scoreMultiply * 1.5f;
+                scoreMultiply = originScoreMultiply * 1.5f;
                 waveTiming = 5f;
                 break;
             default:
                 difficultyMultiply = 1.0f;
-                scoreMultiply = scoreMultiply * 1.25f;
+                scoreMultiply = originScoreMultiply * 1.25f;
                 waveTiming = 6.5f;
                 break;
 
@@ -280,25 +281,25 @@ public class EnemySpawn : MonoBehaviour
                     switch (waveCount)
                     {
                         case 1:
-                            createEnemies(0, 6);
+                            createEnemies(0, 4);
                             break;
                         case 2:
-                            createEnemies(3, 8);
+                            createEnemies(3, 6);
                             break;
                         case 3:
-                            createEnemies(4, 11);
+                            createEnemies(4, 8);
                             break;
                         case 4:
-                            createEnemies(4, 13);
+                            createEnemies(4, 11);
                             break;
                         case 5:
-                            createEnemies(4,15);
+                            createEnemies(4,13);
                             break;
                         case 6:
-                            createEnemies(4, 18);
+                            createEnemies(4, 15);
                             break;
                         case 7:
-                            createEnemies(4, 19);
+                            createEnemies(4, 17);
                             break;
                         case 8:
                             createEnemies(4, 21);

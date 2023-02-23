@@ -24,8 +24,8 @@ public class Chamelelon : MonoBehaviour
     public AudioSource source;
     public ParticleSystem fire;
     float chameleonHealth;
-    float changeMin = 3.0f;
-    float changeMax = 5.0f;
+    float changeMin = 7.0f;
+    float changeMax = 9.0f;
     float changeCooldownTime=5.0f;
     float changeDuration=5.0f;
     float speed=2;

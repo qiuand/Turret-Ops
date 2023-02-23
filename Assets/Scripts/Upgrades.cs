@@ -45,7 +45,7 @@ public class Upgrades : MonoBehaviour
     AudioSource source;
     public AudioClip ding;
     public static bool canUpgrade=false;
-    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Dual shot", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher"/*, "Reactive Armour"*/, "Overcharge"/*, "Railgun Overcharge"*/ };
+    List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Dual shot", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher"/*, "Reactive Armour"*/, /*"Overcharge",*/ "Railgun Overcharge" };
     List<string> powerupList = new List<string> { /*"Small Frame",*/ "Repair", "Orange Shield", "Heat Rounds", "Blue Shield", "Thermal Imaging", "Enhanced Materials", "Heavy Armour", "Electric Override",  "Tactical Airstrike", };
     public GameObject upgrade1;
     public GameObject upgrade2;
@@ -452,6 +452,7 @@ public class Upgrades : MonoBehaviour
             case "Repair":
                 hullThing.GetComponent<SpriteRenderer>().sprite = repair;
                 ship.GetComponent<Turret>().installedUpgrade = "Auto-repair Module";
+                turret.GetComponent<Turret>().powerupStatus.GetComponent<SpriteRenderer>().color = Color.white;
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Auto-repair ready!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().autoRepair = true;
@@ -466,6 +467,7 @@ public class Upgrades : MonoBehaviour
             case "Electric Override":
                 hullThing.GetComponent<SpriteRenderer>().sprite = tactialOverride;
                 ship.GetComponent<Turret>().installedUpgrade = "Optimized Config";
+                turret.GetComponent<Turret>().powerupStatus.GetComponent<SpriteRenderer>().color = Color.white;
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "The Mechanic sees colour, but the Mechanic cannot!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().electricOverride = true;
@@ -479,6 +481,7 @@ public class Upgrades : MonoBehaviour
                 break;
             case "Enhanced Materials":
                 hullThing.GetComponent<SpriteRenderer>().sprite = enhanced;
+                turret.GetComponent<Turret>().powerupStatus.GetComponent<SpriteRenderer>().color = Color.white;
                 ship.GetComponent<Turret>().installedUpgrade = "Enhanced Repair";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Reduces repair time!";
                 setPowerupsFalse();
@@ -502,6 +505,7 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().maxHealth = ship.GetComponent<Turret>().heavyArmourHealth;
                 ship.GetComponent<Turret>().health = ship.GetComponent<Turret>().heavyArmourHealth;
                 hullThing.GetComponent<SpriteRenderer>().sprite = heavy;
+                turret.GetComponent<Turret>().powerupStatus.GetComponent<SpriteRenderer>().color = Color.white;
                 ship.GetComponent<Turret>().installedUpgrade = "Heavy Armour";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Lots of health, but slow gun speed!";
                 setPowerupsFalse();

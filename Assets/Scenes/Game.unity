@@ -973,7 +973,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 622ff10de52f65242abeed7195a68604, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ce962b381056e940ab81b4720af1001, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -25146,6 +25146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a10634517b6f254459756ff81e3463fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerupStatus: {fileID: 1094169368}
   hullTransform: {fileID: 1171813877}
   SparksSmall: {fileID: 3373169313921710452, guid: 1476774f0b163504790922344d8d8639, type: 3}
   cockpitGunTransform: {fileID: 515385722}
@@ -25204,7 +25205,7 @@ MonoBehaviour:
   heavyArmour: 0
   doubleDuty: 0
   small: 0
-  originalHealth: 105
+  originalHealth: 125
   mechanicView: {fileID: 370763888}
   gunnerView: {fileID: 1258108334}
   minimapLaserGreen: {fileID: 469114166}
@@ -25259,8 +25260,8 @@ MonoBehaviour:
   barrel: {fileID: 1353050718}
   originalShootCooldown: 0.2
   originalHeatBuildup: 20
-  health: 105
-  maxHealth: 105
+  health: 125
+  maxHealth: 125
   damageTaken: 0
   malfunctionList:
   - Cockpit
@@ -32343,6 +32344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1094169369}
   - component: {fileID: 1094169370}
+  - component: {fileID: 1094169371}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -32420,6 +32422,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1094169371
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094169368}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 70aba9888f92d384c8d90a49b9fa29bb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1108932684
 GameObject:
   m_ObjectHideFlags: 0
@@ -79663,7 +79684,7 @@ Transform:
   m_GameObject: {fileID: 1555892058853769940}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -41.42, y: 1.05, z: 0.36}
-  m_LocalScale: {x: 18.789598, y: 11.068981, z: 11.068981}
+  m_LocalScale: {x: 28.366463, y: 16.710728, z: 16.710728}
   m_Children: []
   m_Father: {fileID: 337068060}
   m_RootOrder: 0
@@ -80080,19 +80101,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4591793518907806155, guid: 473ad5c9c8628824d844d90cb497836b, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4591793518907806155, guid: 473ad5c9c8628824d844d90cb497836b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 31.001844
+      value: 26.888988
       objectReference: {fileID: 0}
     - target: {fileID: 4591793518907806155, guid: 473ad5c9c8628824d844d90cb497836b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 18.263235
+      value: 15.840344
       objectReference: {fileID: 0}
     - target: {fileID: 4591793518907806155, guid: 473ad5c9c8628824d844d90cb497836b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 18.263235
+      value: 15.840344
       objectReference: {fileID: 0}
     - target: {fileID: 4591793518907806155, guid: 473ad5c9c8628824d844d90cb497836b, type: 3}
       propertyPath: m_LocalPosition.x
