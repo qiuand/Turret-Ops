@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
+    int highScoreMaxList = 5;
+
     public static float highScoreTrack;
     public static bool highScoreFlag = false;
-    public static List<float> highScoreList = new List<float>() { 0, 0, 0, 0, 0 };
+    public static float[] highScoreList = new float[5] { 0, 0, 0, 0, 0 };
     public GameObject hullTransform;
     public GameObject SparksSmall;
     Vector3 sparksScale = new Vector3(0.3f, 0.3f, 0.3f);
@@ -1782,15 +1784,36 @@ public class Turret : MonoBehaviour
     }
     public void GetHighScore()
     {
-        for(int i=0; i< highScoreList.Count; i++)
+        for(int l=0; l<highScoreList.Length; l++)
         {
-            if (score > highScoreList[i])
+            if (score > highScoreList[l])
+            {
+                highScoreList[l] = score;
+                highScoreFlag = true;
+                break;
+            }
+        }
+        for(int i=0; i< highScoreList.Length; i++)
+        {
+            for(int j=0; j<highScoreList.Length; j++)
+            {
+                if (j < highScoreList.Length-1)
+                {
+                    if (highScoreList[j] < highScoreList[j + 1])
+                    {
+                        float temp = highScoreList[j];
+                        highScoreList[j] = highScoreList[j + 1];
+                        highScoreList[j + 1] = temp;
+                    }
+                }
+            }
+/*            if (score > highScoreList[i])
             {
                 highScoreTrack = score;
                 highScoreFlag = true;
                 highScoreList[i] = score;
                 break;
-            }
+            }*/
         }
     }
 }
