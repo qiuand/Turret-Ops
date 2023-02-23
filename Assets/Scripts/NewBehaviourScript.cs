@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class NewBehaviourScript : MonoBehaviour
 {
+    public static List<float> highScoreStore=Turret.highScoreList;
     public GameObject scoreText;
     public GameObject scoreText2;
     public GameObject highScore;
@@ -37,7 +38,7 @@ public class NewBehaviourScript : MonoBehaviour
             SceneManager.LoadScene("Main");
             Turret.highScoreFlag = false;
         }
-        text.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Restart at WAVE " + EnemySpawn.waveCount;
+        text.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Restart at<br>WAVE " + EnemySpawn.waveCount;
         text2.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>You can restart from WAVE " + EnemySpawn.waveCount + "!";/*text.GetComponent<TMPro.TextMeshProUGUI>().text;*/
 /*        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;
 *//*        scoreText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Score: " + Turret.score;

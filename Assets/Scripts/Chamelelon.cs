@@ -172,15 +172,20 @@ public class Chamelelon : MonoBehaviour
         square.SetActive(false);
         circle.SetActive(false);
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1,1,1);
-        GameObject.FindGameObjectWithTag("Scrippy").GetComponent<EnemySpawn>().bossDestroyed = true;
         source.PlayOneShot(explode);
         source.PlayOneShot(explode);
         source.PlayOneShot(explode);
         rb.velocity = new Vector2(0, 0);
         rb.isKinematic = false;
         fire.enableEmission = false;
-        enemyAnim.SetBool("Destroyed", true);
         Turret.score += value * EnemySpawn.scoreMultiply;
         Destroy(gameObject, 2f);
+        enemyAnim.SetBool("Destroyed", true);
+        StartCoroutine(Wait());
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1.2f);
+        GameObject.FindGameObjectWithTag("Scrippy").GetComponent<EnemySpawn>().bossDestroyed = true;
     }
 }

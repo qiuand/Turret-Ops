@@ -20,7 +20,8 @@ public class gun : MonoBehaviour
     public static bool inTutorial = false;
     private void Start()
     {
-        src=GetComponent<AudioSource>();
+        NewBehaviourScript.highScoreStore = Turret.highScoreList;
+        src = GetComponent<AudioSource>();
         text.GetComponent<TMPro.TextMeshProUGUI>().text = "Change Difficulty<br><color=green>(Normal: Extra Score)</color>";
         if (Display.displays.Length > 1)
         {

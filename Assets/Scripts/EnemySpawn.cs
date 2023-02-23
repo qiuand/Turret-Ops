@@ -103,12 +103,12 @@ public class EnemySpawn : MonoBehaviour
             case 1:
                 difficultyMultiply = 1.0f;
                 scoreMultiply = originScoreMultiply * 1.25f;
-                waveTiming = 6.5f;
+                waveTiming = 6.25f;
                 break;
             case 2:
                 difficultyMultiply = 1.35f;
                 scoreMultiply = originScoreMultiply * 1.5f;
-                waveTiming = 5f;
+                waveTiming = 4f;
                 break;
             default:
                 difficultyMultiply = 1.0f;
@@ -186,14 +186,17 @@ public class EnemySpawn : MonoBehaviour
         }
             if (waveTime < 0)
         {
-            stopSpawn = true;
+            if (waveCount != bossWave)
+            {
+                stopSpawn = true;
+            }
+            if (waveCount == bossWave && waveTime <= bossAppearThres && bossDestroyed)
+            {
+                beginNextWave = true;
+                SceneManager.LoadScene("Won");
+            }
             if ((!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
             {
-                if (waveCount == bossWave && waveTime<=bossAppearThres)
-                {
-                    beginNextWave = true;
-                    SceneManager.LoadScene("Won");
-                }
                 cam.GetComponent<CamZoom>().zoomIn = true;
 /*                tankAnimate.GetComponent<Animator>().Play("Upgrade");*/
 /*                tankAnimate.GetComponent<Animator>().SetBool("Upgrade", false);*/
@@ -284,7 +287,7 @@ public class EnemySpawn : MonoBehaviour
                             createEnemies(0, 4);
                             break;
                         case 2:
-                            createEnemies(3, 6);
+                            createEnemies(2, 6);
                             break;
                         case 3:
                             createEnemies(4, 8);

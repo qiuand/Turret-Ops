@@ -319,10 +319,14 @@ public class Turret : MonoBehaviour
     public GameObject requestLayer;
     public GameObject requestText;
     public GameObject spawner;
-
+    private void Awake()
+    {
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
+        Turret.highScoreList = NewBehaviourScript.highScoreStore;
         powerupStatus.GetComponent<SpriteRenderer>().color = Color.green;
 
         heatWarning.SetActive(false);

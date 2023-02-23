@@ -13,6 +13,7 @@ public class WonScript : MonoBehaviour
     {
         if (Turret.highScoreFlag)
         {
+            NewBehaviourScript.highScoreStore = Turret.highScoreList;
             highScoreMsg = "<b><color=green>New High Score!</b></color><br>";
         }
     }

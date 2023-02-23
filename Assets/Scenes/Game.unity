@@ -25205,7 +25205,7 @@ MonoBehaviour:
   heavyArmour: 0
   doubleDuty: 0
   small: 0
-  originalHealth: 125
+  originalHealth: 105
   mechanicView: {fileID: 370763888}
   gunnerView: {fileID: 1258108334}
   minimapLaserGreen: {fileID: 469114166}
@@ -25260,8 +25260,8 @@ MonoBehaviour:
   barrel: {fileID: 1353050718}
   originalShootCooldown: 0.2
   originalHeatBuildup: 20
-  health: 125
-  maxHealth: 125
+  health: 105
+  maxHealth: 105
   damageTaken: 0
   malfunctionList:
   - Cockpit
@@ -25565,7 +25565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -576, y: -78}
+  m_AnchoredPosition: {x: -654, y: -71}
   m_SizeDelta: {x: 211.31, y: 75.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &807699340
@@ -73419,7 +73419,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -391, y: -404}
+  m_AnchoredPosition: {x: -471, y: -404}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: -2.34, y: 4.73}
 --- !u!95 &2003398634
