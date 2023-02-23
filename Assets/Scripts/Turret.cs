@@ -7,8 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class Turret : MonoBehaviour
 {
-    int highScoreMaxList = 5;
+    public static List<float> highWaveList = new List<float> { 0, 0, 0, 0, 0 };
 
+    int highScoreMaxList = 5;
+    float opacity = 0.6f;
     public GameObject powerupStatus;
 
     public static float highScoreTrack;
@@ -327,14 +329,17 @@ public class Turret : MonoBehaviour
     void Start()
     {
         Turret.highScoreList = NewBehaviourScript.highScoreStore;
+        Turret.highWaveList = NewBehaviourScript.highWaveListScore;
 
-        PlayerPrefs.SetFloat("hs1", highScoreList[0]);
-        PlayerPrefs.SetFloat("hs2", highScoreList[1]);
-        PlayerPrefs.SetFloat("hs3", highScoreList[2]);
-        PlayerPrefs.SetFloat("hs4", highScoreList[3]);
-        PlayerPrefs.SetFloat("hs5", highScoreList[4]);
 
-        highScoreList= new List<float>{ PlayerPrefs.GetFloat("hs1"), PlayerPrefs.GetFloat("hs2"), PlayerPrefs.GetFloat("hs3"), PlayerPrefs.GetFloat("hs4"), PlayerPrefs.GetFloat("hs5") };
+        /*        PlayerPrefs.SetFloat("hs1", highScoreList[0]);
+                PlayerPrefs.SetFloat("hs2", highScoreList[1]);
+                PlayerPrefs.SetFloat("hs3", highScoreList[2]);
+                PlayerPrefs.SetFloat("hs4", highScoreList[3]);
+                PlayerPrefs.SetFloat("hs5", highScoreList[4]);
+        */
+        highScoreList = new List<float>{ PlayerPrefs.GetFloat("hs1"), PlayerPrefs.GetFloat("hs2"), PlayerPrefs.GetFloat("hs3"), PlayerPrefs.GetFloat("hs4"), PlayerPrefs.GetFloat("hs5") };
+        highWaveList = new List<float> { PlayerPrefs.GetFloat("hsw1"), PlayerPrefs.GetFloat("hsw2"), PlayerPrefs.GetFloat("hsw3"), PlayerPrefs.GetFloat("hsw4"), PlayerPrefs.GetFloat("hsw5") };
 
         powerupStatus.GetComponent<SpriteRenderer>().color = Color.green;
 
@@ -343,7 +348,7 @@ public class Turret : MonoBehaviour
 
         powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = originalMessagePower;
         gunSprite.GetComponent<Image>().sprite = exclamation;
-        gunSprite.GetComponent<Image>().color = new Color(1, 1, 1);
+        gunSprite.GetComponent<Image>().color = new Color(1, 1, 1, opacity);
 
         gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
         gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
@@ -479,7 +484,7 @@ public class Turret : MonoBehaviour
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = ".50 CAL (○) " + installedGun + " Loaded";
 
                 gunSprite.GetComponent<Image>().sprite = blue;
-                gunSprite.GetComponent<Image>().color = new Color(0.07f, 0.4f, 0.9f);
+                gunSprite.GetComponent<Image>().color = new Color(0.07f, 0.4f, 0.9f, opacity);
 
                 gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
                 gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
@@ -497,7 +502,7 @@ public class Turret : MonoBehaviour
                 actionStatus.GetComponent<TMPro.TextMeshProUGUI>().text = "Plasma (☐) " + installedGun + " Loaded";
                 
                 gunSprite.GetComponent<Image>().sprite = orange;
-                gunSprite.GetComponent<Image>().color = new Color(0.8f, 0.29f, 0.14f);
+                gunSprite.GetComponent<Image>().color = new Color(0.8f, 0.29f, 0.14f, opacity);
 
                 gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
                 gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
@@ -512,7 +517,7 @@ public class Turret : MonoBehaviour
             else if (Input.GetKey("l"))
             {
                 gunSprite.GetComponent<Image>().sprite = exclamation;
-                gunSprite.GetComponent<Image>().color = new Color(1,1,1);
+                gunSprite.GetComponent<Image>().color = new Color(1,1,1, opacity);
 
                 gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
                 gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
@@ -920,7 +925,7 @@ public class Turret : MonoBehaviour
             {
 
                 gunSprite.GetComponent<Image>().sprite = orange;
-                gunSprite.GetComponent<Image>().color = new Color(0.8f, 0.29f, 0.14f);
+                gunSprite.GetComponent<Image>().color = new Color(0.8f, 0.29f, 0.14f, opacity);
 
                 gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
                 gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
@@ -937,8 +942,8 @@ public class Turret : MonoBehaviour
             else if (Input.GetKeyDown("left"))
             {
                 gunSprite.GetComponent<Image>().sprite = blue;
-                gunSprite.GetComponent<Image>().color = new Color(0.8f, 0.29f, 0.14f);
-                gunSprite.GetComponent<Image>().color = new Color(0.07f, 0.4f, 0.9f);
+/*                gunSprite.GetComponent<Image>().color = new Color(0.8f, 0.29f, 0.14f);
+*/                gunSprite.GetComponent<Image>().color = new Color(0.07f, 0.4f, 0.9f, opacity);
 
                 gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
                 gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
@@ -955,7 +960,7 @@ public class Turret : MonoBehaviour
             else if (Input.GetKeyDown("p"))
             {
                 gunSprite.GetComponent<Image>().sprite = exclamation;
-                gunSprite.GetComponent<Image>().color = new Color(1, 1, 1);
+                gunSprite.GetComponent<Image>().color = new Color(1, 1, 1, opacity);
 
                 gunSprite2.GetComponent<SpriteRenderer>().sprite = gunSprite.GetComponent<Image>().sprite;
                 gunSprite2.GetComponent<SpriteRenderer>().color = gunSprite.GetComponent<Image>().color;
@@ -1524,7 +1529,7 @@ public class Turret : MonoBehaviour
         else{
             camText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.8f, 0f, 0f);
             hullMalfunction();
-            camText.GetComponent<TMPro.TextMeshProUGUI>().text = "Upgrade in progress..."/*"Status: Critical Cam System Damage!"*/;
+            camText.GetComponent<TMPro.TextMeshProUGUI>().text = ""/*"Status: Critical Cam System Damage!"*/;
         }
 /*        if (malfunctionArray[3] == 0)
         {
@@ -1809,8 +1814,8 @@ public class Turret : MonoBehaviour
             {
                 highScoreList.Add(score);
                 highScoreFlag = true;
+                highWaveList.Add(EnemySpawn.waveCount);
                 break;
-                highScoreList.RemoveAt(highScoreList.Count - 1);
             }
         }
         for(int i=0; i< highScoreList.Count; i++)
@@ -1822,7 +1827,11 @@ public class Turret : MonoBehaviour
                         float temp = highScoreList[j];
                         highScoreList[j] = highScoreList[j + 1];
                         highScoreList[j + 1] = temp;
-                    }
+
+                        float waveTemp = highWaveList[j];
+                        highWaveList[j] = highWaveList[j + 1];
+                        highScoreList[j + 1] = waveTemp;
+                }
             }
 /*            if (score > highScoreList[i])
             {
@@ -1832,5 +1841,7 @@ public class Turret : MonoBehaviour
                 break;
             }*/
         }
+        highScoreList.RemoveAt(highScoreList.Count - 1);
+        highWaveList.RemoveAt(highScoreList.Count - 1);
     }
 }

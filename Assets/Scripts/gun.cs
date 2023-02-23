@@ -31,6 +31,26 @@ public class gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            if (Input.GetKey(KeyCode.LeftAlt))
+            {
+                if (Input.GetKey(KeyCode.L))
+                {
+                    PlayerPrefs.SetFloat("hs1", 0);
+                    PlayerPrefs.SetFloat("hs2", 0);
+                    PlayerPrefs.SetFloat("hs3", 0);
+                    PlayerPrefs.SetFloat("hs4", 0);
+                    PlayerPrefs.SetFloat("hs5", 0);
+
+                    PlayerPrefs.SetFloat("hsw1", 0);
+                    PlayerPrefs.SetFloat("hsw2", 0);
+                    PlayerPrefs.SetFloat("hsw3", 0);
+                    PlayerPrefs.SetFloat("hsw4", 0);
+                    PlayerPrefs.SetFloat("hsw5", 0);
+                }
+            }
+        }
         Cursor.visible = false;
 
         if (clickFlag == false)
