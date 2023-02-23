@@ -240,11 +240,15 @@ public class Tut : MonoBehaviour
                         {
                             tutEnemyGreen.SetActive(false);
                             tutEnemyBlue.SetActive(true);
+                            tutEnemyBlue.GetComponent<CapsuleCollider2D>().enabled = true;
+                            tutEnemyBlue.GetComponent<EnemyTut>().destroyed = false;
                         }
                         else
                         {
                             tutEnemyBlue.SetActive(false);
                             tutEnemyGreen.SetActive(true);
+                            tutEnemyGreen.GetComponent<CapsuleCollider2D>().enabled = true;
+                            tutEnemyGreen.GetComponent<EnemyTut>().destroyed = false;
                         }
                     }
                     if (tutEnemyBlue.activeSelf == false && tutEnemyGreen.activeSelf == false && continued)
