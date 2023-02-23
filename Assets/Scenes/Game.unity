@@ -25322,7 +25322,7 @@ MonoBehaviour:
   laser2HB: {fileID: 134236082}
   laser2: {fileID: 1963279387}
   powerupInfo: {fileID: 34930054}
-  powerupInstalled: 
+  powerupInstalled: Tactical Airstrike
   powerupCoolText: {fileID: 375546380}
   redShieldObject: {fileID: 504835696}
   heavyArmourHealth: 175

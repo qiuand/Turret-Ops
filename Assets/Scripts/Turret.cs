@@ -1697,7 +1697,7 @@ public class Turret : MonoBehaviour
                 switch (installedUpgrade)
                 {
                     case "Tactical Airstrike":
-                        if (startingMag == 1)
+/*                        if (startingMag == 1)
                         {
                             tacStrikeRadius.gameObject.tag = "Projectile";
                         }
@@ -1706,9 +1706,9 @@ public class Turret : MonoBehaviour
                             tacStrikeRadius.gameObject.tag = "Projectile2";
                         }
                         else
-                        {
-                            tacStrikeRadius.gameObject.tag = "Boss Health";
-                        }
+                        {*/
+                            tacStrikeRadius.gameObject.tag = "Projectile3";
+/*                        }*/
                         tacStrikeRadius.SetActive(true);
                         pierceCooldownTime = 1.5f;
                         rechargeTime = rechargeDuration;
