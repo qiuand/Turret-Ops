@@ -7,6 +7,7 @@ public class Tut : MonoBehaviour
 {
     public AudioClip bang;
     public GameObject standardUI;
+    public GameObject healthUI;
     public VideoClip spin, load, swap, hammer, black, colour, activate;
     public GameObject mechVid, gunVid;
     public GameObject gunTutVid;
@@ -83,6 +84,7 @@ public class Tut : MonoBehaviour
     {
         if (gun.inTutorial != false)
         {
+            healthUI.SetActive(false);
             standardUI.SetActive(false);
         agreeText.GetComponent<TMPro.TextMeshProUGUI>().text= "Waiting for players: "+agreeNum+" / "+2;
         agreeText2.GetComponent<TMPro.TextMeshProUGUI>().text = agreeText.GetComponent<TMPro.TextMeshProUGUI>().text;
@@ -272,6 +274,8 @@ public class Tut : MonoBehaviour
                         StartCoroutine(Wait());
                         gun.inTutorial = false;
                         standardUI.SetActive(true); ;
+                        healthUI.SetActive(true);
+
                     }
                 }
                 SwitchText(turretText, gunTut);
