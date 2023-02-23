@@ -242,6 +242,7 @@ public class Upgrades : MonoBehaviour
     }
     public void Skip()
     {
+        turret.GetComponent<Turret>().rechargeTime = 0;
         powerupList.RemoveAt(displayChoice2);
         upgradeList.RemoveAt(displayChoice);
         cam.GetComponent<CamZoom>().zoomIn=false;
@@ -672,6 +673,7 @@ public class Upgrades : MonoBehaviour
         powerupList.RemoveAt(displayChoice2);
         levelSkip();
         installing = false;
+        turret.GetComponent<Turret>().rechargeTime = 0;
     }
     private void setGunUpgradesFalse()
     {

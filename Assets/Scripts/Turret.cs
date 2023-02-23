@@ -9,6 +9,8 @@ public class Turret : MonoBehaviour
 {
     public static List<float> highWaveList = new List<float> { 0, 0, 0, 0, 0 };
 
+    public GameObject powerupFlash;
+
     int highScoreMaxList = 5;
     float opacity = 0.6f;
     public GameObject powerupStatus;
@@ -1703,6 +1705,14 @@ public class Turret : MonoBehaviour
     }
     public void ActivatePowerups(bool tutPowerFlag)
     {
+        if (string.Equals(installedUpgrade, "HEAT Round Module") || string.Equals(installedUpgrade, "Orange Shield Module") || string.Equals(installedUpgrade, "Blue Shield Module") || string.Equals(installedUpgrade, "Tactical Airstrike") || string.Equals(installedUpgrade, "Thermal Imaging") || string.Equals(installedUpgrade, "Repair Kit"))
+        {
+            powerupFlash.GetComponent<Animator>().SetBool("Powerup", true);
+        }
+        else
+        {
+            powerupFlash.GetComponent<Animator>().SetBool("Powerup", false);
+        }
         if (inTut == false || tutPowerFlag==true)
         {
             if (upgrader.GetComponent<Upgrades>().pendingUpgrade == false && Input.GetKeyDown("g") && recharged == true && installedUpgrade != "No Upgrade" && (string.Equals(installedUpgrade, "HEAT Round Module") || string.Equals(installedUpgrade, "Orange Shield Module") || string.Equals(installedUpgrade, "Blue Shield Module") || string.Equals(installedUpgrade, "Tactical Airstrike") || string.Equals(installedUpgrade, "Thermal Imaging") || string.Equals(installedUpgrade, "Repair Kit")) && upgradeActive == false)
