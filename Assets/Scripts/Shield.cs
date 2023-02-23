@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
+    AudioSource src;
     // Start is called before the first frame update
     void Start()
     {
-        
+        src = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -17,9 +18,17 @@ public class Shield : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Projectile2")
+        if (collision.gameObject.tag == "Projectile2" || collision.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+            StartCoroutine(Wait());
+            src.Play();
         }
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
     }
 }

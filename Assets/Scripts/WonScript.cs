@@ -14,6 +14,11 @@ public class WonScript : MonoBehaviour
         if (Turret.highScoreFlag)
         {
             NewBehaviourScript.highScoreStore = Turret.highScoreList;
+            PlayerPrefs.SetFloat("hs1", Turret.highScoreList[0]);
+            PlayerPrefs.SetFloat("hs2", Turret.highScoreList[1]);
+            PlayerPrefs.SetFloat("hs3", Turret.highScoreList[2]);
+            PlayerPrefs.SetFloat("hs4", Turret.highScoreList[3]);
+            PlayerPrefs.SetFloat("hs5", Turret.highScoreList[4]);
             highScoreMsg = "<b><color=green>New High Score!</b></color><br>";
         }
     }

@@ -853,12 +853,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.6
+  m_fontSize: 19.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 23.6
+  m_fontSizeMin: 11.57
+  m_fontSizeMax: 19.3
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -1662,12 +1662,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 20.83
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 13.2
-  m_fontSizeMax: 24
+  m_fontSizeMin: 8.5
+  m_fontSizeMax: 20.83
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256

@@ -327,6 +327,15 @@ public class Turret : MonoBehaviour
     void Start()
     {
         Turret.highScoreList = NewBehaviourScript.highScoreStore;
+
+        PlayerPrefs.SetFloat("hs1", highScoreList[0]);
+        PlayerPrefs.SetFloat("hs2", highScoreList[1]);
+        PlayerPrefs.SetFloat("hs3", highScoreList[2]);
+        PlayerPrefs.SetFloat("hs4", highScoreList[3]);
+        PlayerPrefs.SetFloat("hs5", highScoreList[4]);
+
+        highScoreList= new List<float>{ PlayerPrefs.GetFloat("hs1"), PlayerPrefs.GetFloat("hs2"), PlayerPrefs.GetFloat("hs3"), PlayerPrefs.GetFloat("hs4"), PlayerPrefs.GetFloat("hs5") };
+
         powerupStatus.GetComponent<SpriteRenderer>().color = Color.green;
 
         heatWarning.SetActive(false);
@@ -1169,12 +1178,12 @@ public class Turret : MonoBehaviour
                     }
                         if (shotgun == true || dualShot)
                         {
+                        if (basicGun)
+                        {
+                            heat += dualShotHeat * electricReduction;
+                        }
                         if (dualShot)
                         {
-                            if (basicGun)
-                            {
-                                heat += dualShotHeat * electricReduction;
-                            }
                             source.PlayOneShot(shootPlasma);
                         }
                             heat += dualShotHeat * electricReduction;

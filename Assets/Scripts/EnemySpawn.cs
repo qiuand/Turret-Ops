@@ -287,10 +287,10 @@ public class EnemySpawn : MonoBehaviour
                             createEnemies(0, 4);
                             break;
                         case 2:
-                            createEnemies(2, 6);
+                            createEnemies(2, 7);
                             break;
                         case 3:
-                            createEnemies(4, 8);
+                            createEnemies(4, 9);
                             break;
                         case 4:
                             createEnemies(4, 11);

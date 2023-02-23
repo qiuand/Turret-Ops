@@ -19,6 +19,11 @@ public class NewBehaviourScript : MonoBehaviour
         if (Turret.highScoreFlag)
         {
             highScoreMsg = "<b><color=green>New High Score!</b><br></color>";
+            PlayerPrefs.SetFloat("hs1", Turret.highScoreList[0]);
+            PlayerPrefs.SetFloat("hs2", Turret.highScoreList[1]);
+            PlayerPrefs.SetFloat("hs3", Turret.highScoreList[2]);
+            PlayerPrefs.SetFloat("hs4", Turret.highScoreList[3]);
+            PlayerPrefs.SetFloat("hs5", Turret.highScoreList[4]);
         }
     }
 
