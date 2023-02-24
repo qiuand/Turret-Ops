@@ -109,7 +109,7 @@ public class Upgrades : MonoBehaviour
         {
             if (canUpgrade)
             {
-                if (Input.GetKeyDown("2"))
+                if (Input.GetKeyDown("2") && pendingUpgrade == false)
                 {
                     source.PlayOneShot(select);
                     upgradeNumSelected = 2;
@@ -120,7 +120,7 @@ public class Upgrades : MonoBehaviour
                     /*                canUpgrade = false;*/
                     pendingUpgrade = true;
                 }
-                if (Input.GetKeyDown("1"))
+                if (Input.GetKeyDown("1") && pendingUpgrade == false)
                 {
                     source.PlayOneShot(select);
                     upgradeNumSelected = 1;
@@ -131,6 +131,7 @@ public class Upgrades : MonoBehaviour
                 }
                 if (Input.GetKeyDown("3") && pendingUpgrade==false)
                 {
+                    print("yeya");
                     source.PlayOneShot(select);
                     upgradeNumSelected = 15;
 
@@ -144,15 +145,15 @@ public class Upgrades : MonoBehaviour
                         ticking.SetActive(true);
                         if (installing == false)
                         {
-                            abortTimer -= Time.deltaTime;
+/*                            abortTimer -= Time.deltaTime;*/
                         }
                         abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for Mechanic approval.<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                         if (upgradeNumSelected==1)
                         {
                             abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + upgradeList[displayChoice] + ".<br>Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                             abortTimer -= Time.deltaTime;
-                            abortTimer -= Time.deltaTime;
-                        }
+/*                            abortTimer -= Time.deltaTime;
+*/                        }
                         else if (upgradeNumSelected == 2)
                         {
                             abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + powerupList[displayChoice2] + ".<br>Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
@@ -160,6 +161,7 @@ public class Upgrades : MonoBehaviour
                         }
                         else
                         {
+                            print("yosh");
                             abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose nothing. Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
                             abortTimer -= Time.deltaTime;
                         }
@@ -210,12 +212,12 @@ public class Upgrades : MonoBehaviour
                         source.PlayOneShot(donk);
                     }
                 }
-                if (Input.GetKeyDown("3"))
+/*                if (Input.GetKeyDown("3"))
                 {
                     upgradeNumSelected = 3;
                     pendingUpgrade = true;
-                    /*                Skip();*/
-                }
+                    *//*                Skip();*//*
+                }*/
             }
         }
         if (installing == true)

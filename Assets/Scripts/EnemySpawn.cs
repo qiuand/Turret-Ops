@@ -21,7 +21,7 @@ public class EnemySpawn : MonoBehaviour
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 6.5f;
-    public static int waveCount = 1;
+    public static int waveCount = 9;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -124,7 +124,7 @@ public class EnemySpawn : MonoBehaviour
         source = GetComponent<AudioSource>();
         breakCounter = breakCount;
         waveTime = waveDuration;
-        positionArray = new GameObject[] { greenWave, blueWave, triangle, square, mixed, mixed2, shootWave, shootWave2, mixedShoot, homingOrangeSmall, homingBlueSmall, homingGreen, homingRed,  bomber, blueBombDuo, orangeBombBig, blueBombBig, radial, greenShield, shieldWave, rotate, chameleon};
+        positionArray = new GameObject[] { greenWave, blueWave, triangle, square, mixed, mixed2, shootWave, shootWave2, mixedShoot, homingOrangeSmall, homingBlueSmall, homingGreen, homingRed, rotate, bomber, blueBombDuo, orangeBombBig, blueBombBig, radial, greenShield, shieldWave, chameleon};
         rect = GetComponent<RectTransform>();
     }
     // Update is called once per frame
@@ -194,6 +194,7 @@ public class EnemySpawn : MonoBehaviour
             if (waveCount == bossWave && waveTime <= bossAppearThres && bossDestroyed)
             {
                 beginNextWave = true;
+                turret.GetComponent<Turret>().GetHighScore();
                 SceneManager.LoadScene("Won");
             }
             if ((!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
@@ -288,28 +289,28 @@ public class EnemySpawn : MonoBehaviour
                             createEnemies(0, 4);
                             break;
                         case 2:
-                            createEnemies(0, 7);
+                            createEnemies(1, 7);
                             break;
                         case 3:
-                            createEnemies(0, 9);
+                            createEnemies(2, 9);
                             break;
                         case 4:
-                            createEnemies(0, 11);
+                            createEnemies(3, 11);
                             break;
                         case 5:
-                            createEnemies(0,13);
+                            createEnemies(4,14);
                             break;
                         case 6:
-                            createEnemies(0, 15);
+                            createEnemies(4, 16);
                             break;
                         case 7:
-                            createEnemies(0, 17);
+                            createEnemies(4, 17);
                             break;
                         case 8:
-                            createEnemies(0, 21);
+                            createEnemies(4, 21);
                             break;
                         case 9:
-                            createEnemies(0, 21);
+                            createEnemies(4, 21);
                             break;
                         /*                        case 8:
                                                     createEnemies(9);
