@@ -93,7 +93,7 @@ public class Tut : MonoBehaviour
         {
             agreeNum=2;
         }
-        if (mechanicAgree || gunnerAgree)
+        else if (mechanicAgree || gunnerAgree)
         {
             agreeNum=1;
         }
@@ -120,8 +120,6 @@ public class Tut : MonoBehaviour
                 {
                     StartCoroutine(Wait());
                     /*                selection += 1;*/
-                    gunnerAgree = false;
-                    mechanicAgree = false;
                 }
 
                 if (selection == 2)
@@ -313,6 +311,8 @@ public class Tut : MonoBehaviour
             agreeText.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0, 1, 0);
             agreeText2.GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0, 1, 0);
             yield return new WaitForSeconds(waitTime);
+            gunnerAgree = false;
+            mechanicAgree = false;
             selection++;
             malfSet = false;
             continued = true;

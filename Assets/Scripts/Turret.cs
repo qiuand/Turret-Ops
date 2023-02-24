@@ -11,6 +11,8 @@ public class Turret : MonoBehaviour
 
     public GameObject powerupFlash;
 
+    public AudioClip dryFire;
+
     public GameObject lDebuff, rDebuff;
 
     int highScoreMaxList = 5;
@@ -1143,6 +1145,10 @@ public class Turret : MonoBehaviour
             ship.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
             barrels.gameObject.SetActive(true);
         }
+            if(Input.GetKey("space") && overheated && cooldown<=0){
+                source.PlayOneShot(dryFire);
+                cooldown = shootCooldown;
+            }
             if (Input.GetKey("space")/* && Input.GetKey("m")*/ && overheated == false && detectedMag == true && reactiveArmour!=true)
             {
             if (overChargeGun)
