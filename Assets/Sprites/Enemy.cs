@@ -44,7 +44,10 @@ public class Enemy : MonoBehaviour
             fire.enableEmission = false;
             GetComponent<CapsuleCollider2D>().enabled = false;
             enemyAnim.SetBool("Destroyed", true);
-            Turret.score += value * EnemySpawn.scoreMultiply;
+            if(collision.gameObject.tag=="Projectile" || collision.gameObject.tag == "Projectile2" || collision.gameObject.tag == "Projectile3")
+            {
+                Turret.score += value * EnemySpawn.scoreMultiply;
+            }
             Destroy(gameObject,0.65f);
         }
 /*        else if(collision.gameObject.tag=="Projecile" || collision.gameObject.tag == "Projectile2")

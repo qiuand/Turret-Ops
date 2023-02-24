@@ -21,7 +21,7 @@ public class EnemySpawn : MonoBehaviour
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 6.5f;
-    public static int waveCount = 9;
+    public static int waveCount = 1;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
