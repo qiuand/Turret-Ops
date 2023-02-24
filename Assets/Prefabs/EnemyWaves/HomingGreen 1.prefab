@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9012035003780409835}
   m_Layer: 15
   m_Name: HomingGreen 1
-  m_TagString: Untagged
+  m_TagString: WaveObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

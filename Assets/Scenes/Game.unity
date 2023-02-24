@@ -1423,7 +1423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122375838}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -906}
+  m_LocalPosition: {x: 39, y: 0, z: -906}
   m_LocalScale: {x: 172.1542, y: 172.1542, z: 172.1542}
   m_Children:
   - {fileID: 2006473369}
@@ -26012,8 +26012,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.01, y: 11.31}
-  m_SizeDelta: {x: 5.5, y: 1}
+  m_AnchoredPosition: {x: -0.01, y: 12.12}
+  m_SizeDelta: {x: 5.19, y: 1}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &817288746
 MonoBehaviour:
@@ -26056,8 +26056,8 @@ MonoBehaviour:
   homingGreen: {fileID: 3862365784554098547, guid: 341905604ac796049be93ed0f617e7c6, type: 3}
   homingRed: {fileID: 4505538418307862153, guid: 13ad8b6caa0a0c1409886a9738a9faed, type: 3}
   bomber: {fileID: 5780289857981672265, guid: 47b07eac2e32f1f4882b46023ecb16fc, type: 3}
-  radial: {fileID: 3088101107994103934, guid: c46ab7d66653b90439c4fc7a0e9c0d4b, type: 3}
-  greenShield: {fileID: 8490499445358314902, guid: bcf98a20d74a7b2419077eb3c7ac8e46, type: 3}
+  radial: {fileID: 8161055266534994631, guid: 8091383b8cf65d0469b2abb65073f19f, type: 3}
+  greenShield: {fileID: 7612114287072706915, guid: e1893b61411071a4ca1bf217672aef47, type: 3}
   rotate: {fileID: 1390122186598195878, guid: 0a672c3258c79bd428e26e3d9327556a, type: 3}
   blueBombDuo: {fileID: 3071004510186091357, guid: 38067d376a9426c4bbd133351f67f0c1, type: 3}
   mixed: {fileID: 1487169589565419389, guid: 0b08304624daa0347aa098d3c1fc1299, type: 3}

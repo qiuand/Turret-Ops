@@ -16,7 +16,7 @@ public class EnemySpawn : MonoBehaviour
     public static float empowerMultiplier = 1.1f;
     public GameObject boss;
     public Camera cam;
-    public static int maxWave = 9;
+    public static int maxWave = 10;
     AudioSource source;
     public AudioClip ding;
     bool endOfTut = false;
@@ -70,7 +70,7 @@ public class EnemySpawn : MonoBehaviour
     public GameObject blueBombBig;
     public GameObject orangeBombBig;
 
-    int bossWave = 9;
+    int bossWave = 10;
     public GameObject chameleon;
     bool waveCompleted = false;
     public GameObject waveText;
@@ -104,7 +104,7 @@ public class EnemySpawn : MonoBehaviour
             case 1:
                 difficultyMultiply = 1.0f;
                 scoreMultiply = originScoreMultiply * 1.25f;
-                waveTiming = 6.7f;
+                waveTiming = 6f;
                 break;
             case 2:
                 difficultyMultiply = 1.35f;
@@ -333,7 +333,7 @@ public class EnemySpawn : MonoBehaviour
                         /*                        case 8:
                                                     break;*/
                         default:
-                            createEnemies(0, 11);
+                            createEnemies(4, 21);
                             break;
                     }
                 }

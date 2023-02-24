@@ -1858,6 +1858,6 @@ public class Turret : MonoBehaviour
             }*/
         }
         highScoreList.RemoveAt(highScoreList.Count - 1);
-        highWaveList.RemoveAt(highScoreList.Count - 1);
+        highWaveList.RemoveAt(highWaveList.Count - 1);
     }
 }

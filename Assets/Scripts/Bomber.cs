@@ -7,7 +7,7 @@ public class Bomber : MonoBehaviour
     AudioSource src;
     public GameObject bomb;
     float bombTimer;
-    float bombDuration=6.0f;
+    float bombDuration=4.0f;
     // Start is called before the first frame update
     void Start()
     {

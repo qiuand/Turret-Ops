@@ -46,7 +46,7 @@ public class Upgrades : MonoBehaviour
     public AudioClip ding;
     public static bool canUpgrade=false;
     List<string> upgradeList = new List<string> { "Improved Bearings", "Dual shot", "Chain Gun", "Dual shot", "Shotgun", "Ricochet Shot", "Laser", "Particle Smasher"/*, "Reactive Armour"*/, /*"Overcharge",*/ "Railgun Overcharge" };
-    List<string> powerupList = new List<string> { /*"Small Frame",*/ "Repair", "Orange Shield", "Blue Shield", "Heat Rounds",  "Thermal Imaging", "Enhanced Materials", "Heavy Armour"/*, "Electric Override"*/,  "Tactical Airstrike", };
+    List<string> powerupList = new List<string> { /*"Small Frame",*/ "Repair", "Orange Shield", "Blue Shield", "Blue Shield", "Heat Rounds",  "Thermal Imaging", "Enhanced Materials", "Heavy Armour"/*, "Electric Override"*/,  "Tactical Airstrike", };
     public GameObject upgrade1;
     public GameObject upgrade2;
     int displayChoice;
