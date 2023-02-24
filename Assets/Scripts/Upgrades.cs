@@ -347,7 +347,7 @@ public class Upgrades : MonoBehaviour
                 mechPlayer2.SetActive(false);
                 uppy2Src.SetActive(false);
                 body.GetComponent<Image>().sprite = enhanced;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Enhanced Materials (Mechanic)</b><br><color=green>+Less hits to repair ship<color=red>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Enhanced Materials (Mechanic)</b><br><color=green>+Less hits to repair ship<color=red><br>-Replaces " + replacedThingBody + "</color>";
                 break;
             case "Thermal Imaging":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = thermalVid;
@@ -370,7 +370,7 @@ public class Upgrades : MonoBehaviour
             case "Tactical Airstrike":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = airVid;
                 body.GetComponent<Image>().sprite = airstrike;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Tactical Airstrike (Gunner)</b><br><color=green>++Mechanic activates with<br><color=red>● Select:</color><br>Destroy all onscreen enemies of selected colour for.<color=red>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Tactical Airstrike (Gunner)</b><br><color=green>++Mechanic activates with<br><color=red>● Select:</color><br>Destroy all visible enemies.<color=red><br>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
         }

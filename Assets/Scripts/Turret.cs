@@ -87,7 +87,7 @@ public class Turret : MonoBehaviour
     public GameObject steamObject;
     public AudioClip engine;
     public static Rigidbody2D playerShipPos;
-    float manualRepairAmount = 15;
+    float manualRepairAmount = 20;
     public static float scoreToUpgrade=0f;
     public int scoreToUpgradeRequired=40;
     public int scoreToUpgradeIncrement=40;
@@ -277,7 +277,7 @@ public class Turret : MonoBehaviour
     public GameObject scoreCountText2;
     public float scoreMultiplier = 10;
     float autoRepairMax=9;
-    int repairAmount = 8;
+    int repairAmount = 5;
     int decreaseHealthPart = 1;
     int decreaseHealthTime=1;
     int decreaseTimer=0;
@@ -1579,7 +1579,10 @@ public class Turret : MonoBehaviour
                 {
                     source.PlayOneShot(fix);
                     debuffTimer = 5.0f;
-                    health += manualRepairAmount;
+                    if (malfunctionArray[swungAt] != 3)
+                    {
+                        health += manualRepairAmount;
+                    }
                 }
                 source.PlayOneShot(repair);
                 malfunctionArray[swungAt] -= 1;
@@ -1831,6 +1834,7 @@ public class Turret : MonoBehaviour
                 highScoreList.Add(score);
                 highScoreFlag = true;
                 highWaveList.Add(EnemySpawn.waveCount);
+
                 break;
             }
         }
@@ -1846,7 +1850,7 @@ public class Turret : MonoBehaviour
 
                         float waveTemp = highWaveList[j];
                         highWaveList[j] = highWaveList[j + 1];
-                        highScoreList[j + 1] = waveTemp;
+                        highWaveList[j + 1] = waveTemp;
                 }
             }
 /*            if (score > highScoreList[i])
@@ -1857,7 +1861,9 @@ public class Turret : MonoBehaviour
                 break;
             }*/
         }
-        highScoreList.RemoveAt(highScoreList.Count - 1);
-        highWaveList.RemoveAt(highWaveList.Count - 1);
+        if (highScoreFlag)
+        {            highScoreList.RemoveAt(highScoreList.Count - 1);
+            highWaveList.RemoveAt(highWaveList.Count - 1);
+        }
     }
 }
