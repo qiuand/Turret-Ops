@@ -21,7 +21,7 @@ public class EnemySpawn : MonoBehaviour
     public AudioClip ding;
     bool endOfTut = false;
     public float waveDuration = 6.5f;
-    public static int waveCount = 1;
+    public static int waveCount = 10;
     public float waveTime;
     public float waveTimeIncrement=5f;
     public GameObject enemy2;
@@ -36,7 +36,7 @@ public class EnemySpawn : MonoBehaviour
     int random;
     bool isEnemy2 = false;
     public float waveTimer = 0f;
-    public float waveTiming = 3f;
+    public float waveTiming = 0f;
     public int enemyNum = 3;
     public float baseMaxSpeed = -1.45f;
     public float speedWaveMultiplier = 0.01f;
@@ -70,7 +70,9 @@ public class EnemySpawn : MonoBehaviour
     public GameObject blueBombBig;
     public GameObject orangeBombBig;
 
-    int bossWave = 10;
+    public GameObject waveAlert;
+
+    public int bossWave = 10;
     public GameObject chameleon;
     bool waveCompleted = false;
     public GameObject waveText;
@@ -364,7 +366,7 @@ public class EnemySpawn : MonoBehaviour
             type= Random.Range(waveRestrictMin, waveRestrict);
         }
         prevType = type;
-        genspeed = Random.Range(minspeed, maxspeed);
+        genspeed = maxspeed;
         GameObject waveControl = Instantiate(positionArray[type], new Vector3(Random.Range(rect.rect.xMin, rect.rect.xMax), Random.Range(rect.rect.yMin, rect.rect.yMax)) + rect.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(minRotate, maxRotate))));
         if (positionArray[type]!=homingRed && positionArray[type] != homingGreen)
         {

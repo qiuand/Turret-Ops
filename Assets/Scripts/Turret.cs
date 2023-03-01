@@ -94,6 +94,8 @@ public class Turret : MonoBehaviour
     public int scoreToUpgradeRequired=40;
     public int scoreToUpgradeIncrement=40;
     public GameObject barrels;
+
+    float ricochetHeat = 10f;
     float dualShotHeat = 20.0f;
     public AudioClip railgunSound;
     public GameObject railgunProj;
@@ -640,12 +642,14 @@ public class Turret : MonoBehaviour
                 basicGun = true;
                 Upgrades.canUpgrade = false;
                 Upgrades.upgradesRolled = true;
-/*            print("Prev wave: " + EnemySpawn.waveCount);*/
-                Checkpoints();
+            /*            print("Prev wave: " + EnemySpawn.waveCount);*/
+            EnemySpawn.waveCount -= 1;
+            GetHighScore();
+
+            Checkpoints();
 /*            print("Checkpoint: " + EnemySpawn.waveCount);*/
                 /*EnemySpawn.savedMaxSpeed=spawner.GetComponent<EnemySpawn>().maxspeed;*/
                 SceneManager.LoadScene("GameOver");
-                GetHighScore();
             }
             if (health <= 0)
             {
@@ -1182,6 +1186,10 @@ public class Turret : MonoBehaviour
             }
                 if (cooldown <= 0)
                 {
+                if (ricochet)
+                {
+                    heat += ricochetHeat;
+                }
                     if (startingMag == 1)
                     {
                     if (smasher == true)

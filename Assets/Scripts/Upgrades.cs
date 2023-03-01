@@ -5,10 +5,17 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 public class Upgrades : MonoBehaviour
 {
+
+    float longDuration, medDuration, shortDuration;
+    float longCooldown, medCooldown, shortCooldown;
+
     public GameObject uppy1Src, uppy2Src;
     public GameObject gunPlayer1, gunPlayer2, mechPlayer1, mechPlayer2;
     public VideoClip dualVid, triVid, laserVid, ricoVid, partiVid, railVid, chainVid;
     public VideoClip thermalVid, overVid, orangeVid, blueVid, heatVid, airVid;
+
+    public GameObject waveFlash;
+    public GameObject waveFlash2;
 
     public VideoClip black;
 
@@ -78,6 +85,14 @@ public class Upgrades : MonoBehaviour
 
     void Start()
     {
+        longDuration = 20f;
+        medDuration = 10f;
+        shortDuration = 5f;
+
+        longCooldown = 45f;
+        medCooldown = 30f;
+        shortCooldown = 15f;
+
         cooldownTime = turret.GetComponent<Turret>().rechargeDuration;
         activationTime = turret.GetComponent<Turret>().pierceDurationCool;
         upgradeTimeShow = upgradeTimeDuration;
@@ -92,6 +107,15 @@ public class Upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (EnemySpawn.waveCount == spawner.GetComponent<EnemySpawn>().bossWave)
+        {
+            waveFlash.GetComponent<TMPro.TextMeshProUGUI>().text = "Final Wave!";
+        }
+        else
+        {
+            waveFlash.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave " + EnemySpawn.waveCount + "!";
+        }
+        waveFlash2.GetComponent<TMPro.TextMeshProUGUI>().text = waveFlash.GetComponent<TMPro.TextMeshProUGUI>().text;
         print("Upgrade: "+displayChoice + " " + upgradeList.Count);
         print("Powerup:"+displayChoice2+" "+powerupList.Count);
 /*        upgradeTimeShow -= Time.deltaTime;
@@ -196,6 +220,7 @@ public class Upgrades : MonoBehaviour
                             else
                             {
                                 source.PlayOneShot(select);
+                                ticking.SetActive(false);
                                 Skip();
                                 pendingUpgrade = false;
                             }
@@ -268,6 +293,8 @@ public class Upgrades : MonoBehaviour
         }
         spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
         spawner.GetComponent<EnemySpawn>().healthUI.SetActive(true);
+        waveFlash.GetComponent<Animator>().Play("WaveFlash");
+        waveFlash2.GetComponent<Animator>().Play("WaveFlash");
     }
     public void RollUpgrades()
     {
@@ -317,7 +344,7 @@ public class Upgrades : MonoBehaviour
             case "Heat Rounds":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = heatVid;
                 body.GetComponent<Image>().sprite = pierce;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>HEAT Rounds (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>Your bullets destroy any colour ship for " + activationTime+" seconds.</color><color=red><br>-"+cooldownTime+" second cooldown<br>-Replaces "+ replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>HEAT Rounds (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>Your bullets destroy any colour ship for " + medDuration+" seconds.</color><color=red><br>-"+longCooldown+" second cooldown<br>-Replaces "+ replacedThingBody +"</color>";
                 break;
             case "Repair":
                 mechPlayer2.SetActive(false);
@@ -328,13 +355,13 @@ public class Upgrades : MonoBehaviour
             case "Orange Shield":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = orangeVid;
                 body.GetComponent<Image>().sprite = redPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Orange Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>Block all <color=#CC4C26>orange (○) fire</color> for " + activationTime + " seconds.<color=red><br>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody +"</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Orange Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>Block all <color=#CC4C26>orange (○) fire</color> for " + shortDuration + " seconds.<color=red><br>-" + shortCooldown + " second cooldown<br>-Replaces " + replacedThingBody +"</color>";
                 break;
             case "Blue Shield":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = blueVid;
                 body.GetComponent<Image>().sprite = greenPower;
                 body.GetComponent<Image>().sprite = greenPower;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Blue Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>Block all <color=#1266E6>blue (☐) fire</color> for " + activationTime + " seconds.<br><color=red>-"+cooldownTime+" second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Blue Shield (Mechanic)</b><br><color=green>+Mechanic activates with<br><color=red>● Select:</color><br>Block all <color=#1266E6>blue (☐) fire</color> for " + shortDuration + " seconds.<br><color=red>-"+ shortCooldown + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
             case "Electric Override":
@@ -370,7 +397,7 @@ public class Upgrades : MonoBehaviour
             case "Tactical Airstrike":
                 gunPlayer2.GetComponent<VideoPlayer>().clip = airVid;
                 body.GetComponent<Image>().sprite = airstrike;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Tactical Airstrike (Gunner)</b><br><color=green>++Mechanic activates with<br><color=red>● Select:</color><br>Destroy all visible enemies.<color=red><br>-" + cooldownTime + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Tactical Airstrike (Gunner)</b><br><color=green>++Mechanic activates with<br><color=red>● Select:</color><br>Destroy all visible enemies.<color=red><br>-" + longCooldown + " second cooldown<br>-Replaces " + replacedThingBody + "</color>";
                 break;
 
         }
@@ -418,7 +445,7 @@ public class Upgrades : MonoBehaviour
             case "Ricochet Shot":
                 gunPlayer1.GetComponent<VideoPlayer>().clip = ricoVid;
                 gun.GetComponent<Image>().sprite = ricochet;
-                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Ricochet Shot (Gunner)</b><br><color=green>+Burst fire<br>+Bullets ricochet<br><color=red>Replaces " + replacedThingGun + "</color>";
+                textField.GetComponent<TMPro.TextMeshProUGUI>().text = "<b>Ricochet Shot (Gunner)</b><br><color=green>+Bullets ricochet<br><color=red>-Medium heat<br>-Replaces " + replacedThingGun + "</color>";
                 break;
             case "Reactive Armour":
                 gun.GetComponent<Image>().sprite = heavy;
@@ -451,6 +478,10 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to activate universal bullets!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().pierceUpgrade = true;
+
+                ship.GetComponent<Turret>().pierceDurationCool = medDuration;
+                ship.GetComponent<Turret>().rechargeDuration = longCooldown;
+
                 break;
             case "Repair":
                 hullThing.GetComponent<SpriteRenderer>().sprite = repair;
@@ -466,6 +497,10 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to block <color=#CC4C26>orange (○) enemies!</color>";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().redShield = true;
+
+                ship.GetComponent<Turret>().pierceDurationCool = shortDuration;
+                ship.GetComponent<Turret>().rechargeDuration = shortCooldown;
+
                 break;
             case "Electric Override":
                 hullThing.GetComponent<SpriteRenderer>().sprite = tactialOverride;
@@ -481,6 +516,10 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().installedUpgrade = "Blue Shield Module";
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to block <color=#1266E6>blue (☐) enemies!</color>";
                 ship.GetComponent<Turret>().greenShield = true;
+
+                ship.GetComponent<Turret>().pierceDurationCool = shortDuration;
+                ship.GetComponent<Turret>().rechargeDuration = shortCooldown;
+
                 break;
             case "Enhanced Materials":
                 hullThing.GetComponent<SpriteRenderer>().sprite = enhanced;
@@ -496,6 +535,9 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to see colours!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().thermalImaging = true;
+
+                ship.GetComponent<Turret>().pierceDurationCool = longDuration;
+                ship.GetComponent<Turret>().rechargeDuration = medDuration;
                 break;
             case "Tactical Airstrike":
                 hullThing.GetComponent<SpriteRenderer>().sprite = airstrike;
@@ -503,6 +545,8 @@ public class Upgrades : MonoBehaviour
                 ship.GetComponent<Turret>().powerupCoolText.GetComponent<TMPro.TextMeshProUGUI>().text = "Press <color=red>Select ●</color> to destroy all ships!";
                 setPowerupsFalse();
                 ship.GetComponent<Turret>().tacticalStrike = true;
+
+                ship.GetComponent<Turret>().rechargeDuration = longCooldown;
                 break;
             case "Heavy Armour":
                 ship.GetComponent<Turret>().maxHealth = ship.GetComponent<Turret>().heavyArmourHealth;
@@ -571,6 +615,8 @@ public class Upgrades : MonoBehaviour
         installing = false;
         minimapHull.GetComponent<SpriteRenderer>().sprite = hullThing.GetComponent<SpriteRenderer>().sprite;
         spawner.GetComponent<EnemySpawn>().healthUI.SetActive(true);
+        waveFlash.GetComponent<Animator>().Play("WaveFlash");
+        waveFlash2.GetComponent<Animator>().Play("WaveFlash");
     }
     public void InstallUpgrades()
     {

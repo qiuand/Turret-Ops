@@ -284,6 +284,7 @@ public class Tut : MonoBehaviour
                 SwitchText(mechText, mechTut);
                 EnemySpawn.beginNextWave = true;
                 spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
+                turret.GetComponent<Turret>().rechargeDuration = 0;
             }
         }
     }
