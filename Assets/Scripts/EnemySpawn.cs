@@ -196,6 +196,7 @@ public class EnemySpawn : MonoBehaviour
             if (waveCount == bossWave && waveTime <= bossAppearThres && bossDestroyed)
             {
                 beginNextWave = true;
+                waveCount = 11;
                 turret.GetComponent<Turret>().GetHighScore();
                 SceneManager.LoadScene("Won");
             }

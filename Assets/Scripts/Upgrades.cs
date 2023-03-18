@@ -171,16 +171,16 @@ public class Upgrades : MonoBehaviour
                         {
 /*                            abortTimer -= Time.deltaTime;*/
                         }
-                        abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for Mechanic approval.<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                        abortText.GetComponent<TMPro.TextMeshProUGUI>().text = "Waiting for Mechanic approval.<br>auto-abort in " + System.Math.Round(abortTimer, 0) + " seconds";
                         if (upgradeNumSelected==1)
                         {
-                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + upgradeList[displayChoice] + ".<br>Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + upgradeList[displayChoice] + ".<br>Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 0) + " seconds";
                             abortTimer -= Time.deltaTime;
 /*                            abortTimer -= Time.deltaTime;
 */                        }
                         else if (upgradeNumSelected == 2)
                         {
-                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + powerupList[displayChoice2] + ".<br>Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 2) + " seconds";
+                            abortText2.GetComponent<TMPro.TextMeshProUGUI>().text = "Gunner chose " + powerupList[displayChoice2] + ".<br>Press <color=red>● Select</color> to approve<br>auto-abort in " + System.Math.Round(abortTimer, 0) + " seconds";
                             abortTimer -= Time.deltaTime;
                         }
                         else

@@ -643,8 +643,8 @@ public class Turret : MonoBehaviour
                 Upgrades.canUpgrade = false;
                 Upgrades.upgradesRolled = true;
             /*            print("Prev wave: " + EnemySpawn.waveCount);*/
-            EnemySpawn.waveCount -= 1;
-            GetHighScore();
+/*            EnemySpawn.waveCount -= 1;
+*/            GetHighScore();
 
             Checkpoints();
 /*            print("Checkpoint: " + EnemySpawn.waveCount);*/
