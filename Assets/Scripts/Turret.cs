@@ -134,7 +134,7 @@ public class Turret : MonoBehaviour
     public float rechargeDuration = 15.0f;
     public float rechargeTime;
     public float pierceDurationCool=10.0f;
-    float pierceCooldownTime;
+    public float pierceCooldownTime;
     float abilityCooldown=0f;
     public bool pierceUpgrade = false;
     public GameObject projectile3;
