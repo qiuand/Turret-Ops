@@ -277,14 +277,13 @@ public class Tut : MonoBehaviour
                         gun.inTutorial = false;
                         standardUI.SetActive(true); ;
                         healthUI.SetActive(true);
-
+                        turret.GetComponent<Turret>().rechargeTime = 0;
                     }
                 }
                 SwitchText(turretText, gunTut);
                 SwitchText(mechText, mechTut);
                 EnemySpawn.beginNextWave = true;
                 spawner.GetComponent<EnemySpawn>().waveTimer = spawner.GetComponent<EnemySpawn>().waveTiming;
-                turret.GetComponent<Turret>().rechargeDuration = 0;
             }
         }
     }
