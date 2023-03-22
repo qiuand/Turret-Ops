@@ -60,6 +60,7 @@ public class gun : MonoBehaviour
                 clickFlag = true;
                 src.Play();
                 EnemySpawn.waveCount = 1;
+                EnemySpawn.beginNextWave = true;
                 inTutorial = true;
                 StartGame();
                 /*            SceneManager.LoadScene("Game");*/
