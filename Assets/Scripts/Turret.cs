@@ -691,6 +691,7 @@ public class Turret : MonoBehaviour
         }
             if (Input.GetKeyDown("escape"))
             {
+                score = 0;
                 SceneManager.LoadScene("Main");
             }
             if (inTut == false)

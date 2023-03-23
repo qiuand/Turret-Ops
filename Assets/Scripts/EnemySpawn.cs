@@ -210,7 +210,8 @@ public class EnemySpawn : MonoBehaviour
                 {
                     turret.GetComponent<Turret>().malfunctionArray[i] = 0;
                 }
-                source.PlayOneShot(ding);                waveTime = 9999;
+                source.PlayOneShot(ding);                
+                waveTime = 9999;
                 waveCompleted = true;
                 beginNextWave = false;
                 upgradeTrigger = true;
