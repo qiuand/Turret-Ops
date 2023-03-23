@@ -133,7 +133,7 @@ public class Upgrades : MonoBehaviour
         {
             if (canUpgrade)
             {
-                if (Input.GetKeyDown("2") && pendingUpgrade == false)
+                if (Input.GetKeyDown("2") && pendingUpgrade == false && spawner.GetComponent<EnemySpawn>().catchTimer <= 0)
                 {
                     source.PlayOneShot(select);
                     upgradeNumSelected = 2;
@@ -144,7 +144,7 @@ public class Upgrades : MonoBehaviour
                     /*                canUpgrade = false;*/
                     pendingUpgrade = true;
                 }
-                if (Input.GetKeyDown("1") && pendingUpgrade == false)
+                if (Input.GetKeyDown("1") && pendingUpgrade == false && spawner.GetComponent<EnemySpawn>().catchTimer <= 0)
                 {
                     source.PlayOneShot(select);
                     upgradeNumSelected = 1;
@@ -153,7 +153,7 @@ public class Upgrades : MonoBehaviour
                     pendingUpgrade = true;
 
                 }
-                if (Input.GetKeyDown("3") && pendingUpgrade==false)
+                if (Input.GetKeyDown("3") && pendingUpgrade==false && spawner.GetComponent<EnemySpawn>().catchTimer <= 0)
                 {
                     print("yeya");
                     source.PlayOneShot(select);

@@ -7,6 +7,8 @@ public class EnemySpawn : MonoBehaviour
 {
     int prevType;
     float originScoreMultiply=1;
+    public float catchTimer;
+    float catchDuration = 3f;
     public static float scoreMultiply = 1;
     float bossAppearThres = 50;
     public static float bossTime=75f;
@@ -132,6 +134,7 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        catchTimer -= Time.deltaTime;
         maxspeed = baseMaxSpeed+baseMaxSpeed* (waveCount*speedWaveMultiplier*difficultyMultiply);
         /*        if (waveCompleted == true)
                 {
@@ -214,6 +217,7 @@ public class EnemySpawn : MonoBehaviour
                 waveTime = 9999;
                 waveCompleted = true;
                 beginNextWave = false;
+                catchTimer = catchDuration;
                 upgradeTrigger = true;
                 stopSpawn = false;
                 waveGrace = true;
