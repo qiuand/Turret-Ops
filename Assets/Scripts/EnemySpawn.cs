@@ -273,10 +273,12 @@ public class EnemySpawn : MonoBehaviour
         if (bossDestroyed == true && waveCount == bossWave && (!GameObject.FindGameObjectWithTag("Enemy") && (!GameObject.FindGameObjectWithTag("Enemy2"))))
         {
             boss.SetActive(false);
-            SceneManager.LoadScene("Won");
-            /*            bossActive = false;*/
+            waveCount = 11;
+            turret.GetComponent<Turret>().GetHighScore();
             waveCompleted = true;
             beginNextWave = false;
+            SceneManager.LoadScene("Won");
+            /*            bossActive = false;*/
         }
         if (turret.GetComponent<Turret>().inTut == false && stopSpawn==false)
         {

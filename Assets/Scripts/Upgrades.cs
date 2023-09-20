@@ -207,6 +207,8 @@ public class Upgrades : MonoBehaviour
                             }
                             else if (upgradeNumSelected == 2)
                             {
+                                canUpgrade = false;
+
                                 source.PlayOneShot(select);
                                 installing = true;
                                 ship.GetComponent<Turret>().malfunctionArray[2] = ship.GetComponent<Turret>().uppieHits;
@@ -219,6 +221,8 @@ public class Upgrades : MonoBehaviour
                             }
                             else
                             {
+                                canUpgrade = false;
+
                                 source.PlayOneShot(select);
                                 ticking.SetActive(false);
                                 Skip();

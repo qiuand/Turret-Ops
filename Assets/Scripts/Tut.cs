@@ -55,7 +55,7 @@ public class Tut : MonoBehaviour
         gunTut[0] = "<b>1/4<br>Welcome to COSMIC CREW!</b><br><br>Your mission is to destroy the advancing fleet!<br><br><color=green>Press <color=red>Fire ●</color> to Continue";/*<br><color=#006CFF>2: Maintain the ship</color><br><br><color=green>Press fire to continue";*/
         gunTut[1] = "<b>2/4<br>You're the Gunner!</b> Your partner is the <color=#006CFF>Mechanic.</color><br><br><color=green>Press <color=red>Fire ●</color> to Continue";
         /*gunTut[2] = "You are in charge of shooting down enemies.<br><br><color=green>Press fire to continue";*/
-        gunTut[2] = "Rotate and fire to destroy that enemy!</b>";
+        gunTut[2] = "<b>Rotate and fire to destroy that enemy!<br></b>Be careful; <color=red>shooting too quickly DESTROYS your gun!";
         /*gunTut[4] = "Malfunctions occur when the ship is hit! This can cause all sorts of problems for your turret. Your ship automatically repairs a bit of damage after some time, but critical malfunctions must be fixed by your friend!";*/
         gunTut[3] = "<b>3/4<br><color=red>Malfunctions</color> are bad!</b> Ask the <color=#006CFF>Mechanic</color> to fix them!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";
         /*        gunTut[5] = "<b>Shooting causes <color=red>overheating!</color></b> Let your <color=#006CFF>friend</color> fix that, too!<br><br>Waiting for <color=#006CFF>Mechanic...</color>";

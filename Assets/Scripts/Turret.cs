@@ -692,6 +692,8 @@ public class Turret : MonoBehaviour
             if (Input.GetKeyDown("escape"))
             {
                 score = 0;
+                Upgrades.canUpgrade = false;
+                EnemySpawn.waveCount = 1;
                 SceneManager.LoadScene("Main");
             }
             if (inTut == false)
